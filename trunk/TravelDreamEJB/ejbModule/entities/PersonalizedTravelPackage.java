@@ -10,19 +10,25 @@ import javax.persistence.*;
  */
 @Entity
 
-@IdClass(PersonalizedTravelPackagePK.class)
 public class PersonalizedTravelPackage implements Serializable {
 
 	   
 	@Id
-	private String name;   
-	@Id
+	private long id; @GeneratedValue(strategy=GenerationType.IDENTITY)
+	private String name;
 	private String owner;
 	private String description;
 	private static final long serialVersionUID = 1L;
 
 	public PersonalizedTravelPackage() {
 		super();
+	}   
+	public long getId() {
+		return this.id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
 	}   
 	public String getName() {
 		return this.name;
