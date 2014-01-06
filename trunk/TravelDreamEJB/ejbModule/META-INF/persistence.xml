@@ -3,5 +3,7 @@
 	<persistence-unit name="TravelDreamEJB">
 		<class>entities.Group</class>
 		<class>entities.User</class>
+		<class>entities.PredefinedTravelPackage</class>
+		<class>entities.PersonalizedTravelPackage</class>
 	</persistence-unit>
 </persistence>
