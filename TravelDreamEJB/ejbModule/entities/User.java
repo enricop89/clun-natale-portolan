@@ -7,6 +7,8 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import org.apache.commons.codec.digest.DigestUtils;
+
 /**
  * Entity implementation class for Entity: User
  *
@@ -18,15 +20,15 @@ public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	private String username;
+	private String userName;
 	
 	private String password;
 	
 	private String email;
 	
-	private String name;
+	private String firstName;
 	
-	private String surname;
+	private String lastName;
 
 	//bi-directional many-to-many association to Group
 	@ManyToMany
@@ -42,7 +44,16 @@ public class User implements Serializable {
 	private List<Group> groups;
 
 	public User() {
+		super();
 	}
+	
+	public User(UserDTO user){
+        this.userName	  = user.getUserName(); 
+        this.password     = DigestUtils.sha256Hex(user.getPassword() );
+        this.email        = user.getEmail();
+        this.firstName    = user.getFirstName();
+        this.lastName     = user.getLastName();        
+    }
 
 	public String getPassword() {
 		return this.password;
@@ -61,11 +72,11 @@ public class User implements Serializable {
 	}
 
 	public String getUserName() {
-		return username;
+		return userName;
 	}
 
-	public void setUserName(String username) {
-		this.username = username;
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 	
 	public String getEmail() {
@@ -76,19 +87,19 @@ public class User implements Serializable {
 		this.email = email;
 	}
 	
-	public String getName() {
-		return name;
+	public String getFirstName() {
+		return firstName;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
 	}
 	
-	public String getSurname() {
-		return surname;
+	public String getLastName() {
+		return lastName;
 	}
 
-	public void setSurname(String surname) {
-		this.surname = surname;
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 }
