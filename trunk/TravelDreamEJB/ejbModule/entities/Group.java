@@ -20,7 +20,7 @@ public class Group implements Serializable {
 	private String groupname;
 
 	//bi-directional many-to-many association to User
-	@ManyToMany(mappedBy="group")
+	@ManyToMany(mappedBy="groups")
 	private List<User> users;
 
 	public Group() {
