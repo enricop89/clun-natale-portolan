@@ -1,4 +1,4 @@
-package bean.utils;
+package beans.utils;
 
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
