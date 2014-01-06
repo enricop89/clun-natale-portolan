@@ -13,13 +13,21 @@ import javax.persistence.*;
 public class PredefinedTravelPackage implements Serializable {
 
 	   
-	@Id
+	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
+	private long id;
 	private String name;
-	private String descritpion;
+	private String description;
 	private static final long serialVersionUID = 1L;
 
 	public PredefinedTravelPackage() {
 		super();
+	}   
+	public long getId() {
+		return this.id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
 	}   
 	public String getName() {
 		return this.name;
@@ -28,12 +36,12 @@ public class PredefinedTravelPackage implements Serializable {
 	public void setName(String name) {
 		this.name = name;
 	}   
-	public String getDescritpion() {
-		return this.descritpion;
+	public String getDescription() {
+		return this.description;
 	}
 
-	public void setDescritpion(String descritpion) {
-		this.descritpion = descritpion;
+	public void setDescription(String description) {
+		this.description = description;
 	}
    
 }
