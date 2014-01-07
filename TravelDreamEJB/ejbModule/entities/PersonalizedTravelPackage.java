@@ -23,8 +23,6 @@ public class PersonalizedTravelPackage implements Serializable {
 	@Column(nullable = false)
 	private User owner;
 
-	private String description;
-
 	//Components (list of couple of references to TravelComponent and TravelElement; the reference to TravelElement may be null)
 	// COME LO IMPLEMENTIAMO?
 	
@@ -53,13 +51,5 @@ public class PersonalizedTravelPackage implements Serializable {
 	public void setOwner(User owner) {
 		this.owner = owner;
 	}   
-	
-	public String getDescription() {
-		return this.description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
    
 }
