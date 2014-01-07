@@ -12,7 +12,7 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
-	<classpathentry kind="lib" path="D:/Dropbox/Università/Magistrale Politecnico di Milano/Ingegneria del Software 2/Progetto/EclipseWorkspace/commons-codec-1.9.jar">
+	<classpathentry kind="lib" path="commons-codec-1.9.jar">
 		<attributes>
 			<attribute name="org.eclipse.jst.component.dependency" value="../lib"/>
 		</attributes>
