@@ -32,8 +32,7 @@ public class TravelComponent implements Serializable {
 	private String flightCode;
 	
 	private String hotelCity;
-	private Date hotelStartingDate;
-	private Date hotelEndingDate;
+	private Date hotelDate;
 	
 	private String excursionDescription;
 	private Timestamp excursionDateTime;
@@ -119,20 +118,12 @@ public class TravelComponent implements Serializable {
 	}   
 	
 	public Date getHotelStartingDate() {
-		return this.hotelStartingDate;
+		return this.hotelDate;
 	}
 
-	public void setHotelStartingDate(Date hotelStartingDate) {
-		this.hotelStartingDate = hotelStartingDate;
+	public void setHotelStartingDate(Date hotelDate) {
+		this.hotelDate = hotelDate;
 	}   
-	
-	public Date getHotelEndingDate() {
-		return this.hotelEndingDate;
-	}
-
-	public void setHotelEndingDate(Date hotelEndingDate) {
-		this.hotelEndingDate = hotelEndingDate;
-	}  
 	
 	public String getExcursionDescription() {
 		return this.excursionDescription;
