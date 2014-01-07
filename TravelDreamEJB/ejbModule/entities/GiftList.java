@@ -1,7 +1,6 @@
 package entities;
 
 import java.io.Serializable;
-import java.lang.String;
 import javax.persistence.*;
 
 /**
@@ -11,20 +10,22 @@ import javax.persistence.*;
 @Entity
 
 public class GiftList implements Serializable {
-
+	private static final long serialVersionUID = 1L;
 	   
 	@Id
-	private String owner;
-	private static final long serialVersionUID = 1L;
+	private User owner;
 
+	//GiftElements (list of couples of references to a PersonalizedTravelPackage and a TravelComponent; both cannot be null)
+	//STESSO PROBLEMA DI PERSONALIZED TRAVEL PACKAGE: COME LO IMPLEMENTIAMO?
+	
 	public GiftList() {
 		super();
 	}   
-	public String getOwner() {
+	public User getOwner() {
 		return this.owner;
 	}
 
-	public void setOwner(String owner) {
+	public void setOwner(User owner) {
 		this.owner = owner;
 	}
    
