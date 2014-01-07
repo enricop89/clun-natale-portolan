@@ -4,7 +4,7 @@ import entities.Group;
 
 import java.io.Serializable;
 import java.util.List;
-
+import java.lang.String;
 import javax.persistence.*;
 
 import org.apache.commons.codec.digest.DigestUtils;
@@ -14,7 +14,6 @@ import org.apache.commons.codec.digest.DigestUtils;
  *
  */
 @Entity
-@NamedQuery(name="User.findAll", query="SELECT u FROM User u")
 
 public class User implements Serializable {	
 	private static final long serialVersionUID = 1L;
@@ -30,7 +29,6 @@ public class User implements Serializable {
 	
 	private String lastName;
 
-	//bi-directional many-to-many association to Group
 	@ManyToMany
 	@JoinTable(
 		name="USER_GROUP"
@@ -47,7 +45,7 @@ public class User implements Serializable {
 		super();
 	}
 	
-	public User(UserDTO user){
+	public User(UserDTO user){ //NON COMPLETO: VEDI ESEMPIO REGISTRATION MIGLIERINA
         this.userName	  = user.getUserName(); 
         this.password     = DigestUtils.sha256Hex(user.getPassword() );
         this.email        = user.getEmail();

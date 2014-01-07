@@ -1,7 +1,9 @@
 package entities;
 
 import java.io.Serializable;
+import java.util.List;
 import java.lang.String;
+
 import javax.persistence.*;
 
 /**
@@ -11,15 +13,21 @@ import javax.persistence.*;
 @Entity
 
 public class PersonalizedTravelPackage implements Serializable {
-
-	   
-	@Id
-	private long id; @GeneratedValue(strategy=GenerationType.IDENTITY)
-	private String name;
-	private String owner;
-	private String description;
 	private static final long serialVersionUID = 1L;
+	   
+	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
+	private long id; 
+	
+	private String name;
+	
+	@Column(nullable = false)
+	private User owner;
 
+	private String description;
+
+	//Components (list of couple of references to TravelComponent and TravelElement; the reference to TravelElement may be null)
+	// COME LO IMPLEMENTIAMO?
+	
 	public PersonalizedTravelPackage() {
 		super();
 	}   
@@ -37,13 +45,15 @@ public class PersonalizedTravelPackage implements Serializable {
 	public void setName(String name) {
 		this.name = name;
 	}   
-	public String getOwner() {
+	
+	public User getOwner() {
 		return this.owner;
 	}
 
-	public void setOwner(String owner) {
+	public void setOwner(User owner) {
 		this.owner = owner;
 	}   
+	
 	public String getDescription() {
 		return this.description;
 	}

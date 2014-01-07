@@ -4,7 +4,7 @@ import entities.User;
 
 import java.io.Serializable;
 import java.util.List;
-
+import java.lang.String;
 import javax.persistence.*;
 
 /**
@@ -12,7 +12,6 @@ import javax.persistence.*;
  *
  */
 @Entity
-@NamedQuery(name="Group.findAll", query="SELECT g FROM Group g")
 
 public class Group implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -20,7 +19,6 @@ public class Group implements Serializable {
 	@Id
 	private String groupname;
 
-	//bi-directional many-to-many association to User
 	@ManyToMany(mappedBy="groups")
 	private List<User> users;
 

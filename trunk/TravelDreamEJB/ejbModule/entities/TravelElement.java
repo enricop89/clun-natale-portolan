@@ -1,8 +1,8 @@
 package entities;
 
 import java.io.Serializable;
-import java.lang.String;
-import java.sql.Date;
+import java.sql.Timestamp;
+
 import javax.persistence.*;
 
 /**
@@ -12,14 +12,17 @@ import javax.persistence.*;
 @Entity
 
 public class TravelElement implements Serializable {
-
-	   
-	@Id
-	private long id;
-	private long componentId;
-	private String owner;
-	private Date confirmationDateTime;
 	private static final long serialVersionUID = 1L;
+	   
+	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
+	private long id;
+
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="TRAVEL_COMPONENT_ID")
+	private TravelComponent travelComponent;
+	
+	private User owner;
+	private Timestamp confirmationDateTime;
 
 	public TravelElement() {
 		super();
@@ -31,25 +34,25 @@ public class TravelElement implements Serializable {
 	public void setId(long id) {
 		this.id = id;
 	}   
-	public long getComponentId() {
-		return this.componentId;
+	public TravelComponent getComponentId() {
+		return this.travelComponent;
 	}
 
-	public void setComponentId(long componentId) {
-		this.componentId = componentId;
+	public void setComponentId(TravelComponent travelComponent) {
+		this.travelComponent = travelComponent;
 	}   
-	public String getOwner() {
+	public User getOwner() {
 		return this.owner;
 	}
 
-	public void setOwner(String owner) {
+	public void setOwner(User owner) {
 		this.owner = owner;
 	}   
-	public Date getConfirmationDateTime() {
+	public Timestamp getConfirmationDateTime() {
 		return this.confirmationDateTime;
 	}
 
-	public void setConfirmationDateTime(Date confirmationDateTime) {
+	public void setConfirmationDateTime(Timestamp confirmationDateTime) {
 		this.confirmationDateTime = confirmationDateTime;
 	}
    
