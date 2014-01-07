@@ -23,8 +23,8 @@ public class PersonalizedTravelPackage implements Serializable {
 	@Column(nullable = false)
 	private User owner;
 
-	//Components (list of couple of references to TravelComponent and TravelElement; the reference to TravelElement may be null)
-	// COME LO IMPLEMENTIAMO?
+	@OneToMany(mappedBy="personalizedTravelPackage")
+	private List<Components_Helper> travelComponents;
 	
 	public PersonalizedTravelPackage() {
 		super();
@@ -51,5 +51,12 @@ public class PersonalizedTravelPackage implements Serializable {
 	public void setOwner(User owner) {
 		this.owner = owner;
 	}   
-   
+
+	public List<Components_Helper> getTravelComponents() {
+		return this.travelComponents;
+	}
+	
+	public void setTravelComponents(List<Components_Helper> travelComponents) {
+		this.travelComponents = travelComponents;
+	}
 }
