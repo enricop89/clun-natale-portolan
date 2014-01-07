@@ -20,7 +20,7 @@ public class PersonalizedTravelPackage implements Serializable {
 	
 	private String name;
 	
-	@Column(nullable = false)
+	@JoinColumn(nullable = false)
 	private User owner;
 
 	@OneToMany(mappedBy="personalizedTravelPackage")
