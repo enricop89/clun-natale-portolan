@@ -8,5 +8,7 @@
 		<class>entities.TravelComponent</class>
 		<class>entities.TravelElement</class>
 		<class>entities.User</class>
+		<class>entities.Components_Helper</class>
+		<class>entities.GiftElements_Helper</class>
 	</persistence-unit>
 </persistence>
