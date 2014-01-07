@@ -1,10 +1,12 @@
 package entities;
 
 import entities.Group;
+import beans.accountmanagement.UserDTO;
 
 import java.io.Serializable;
 import java.util.List;
 import java.lang.String;
+
 import javax.persistence.*;
 
 import org.apache.commons.codec.digest.DigestUtils;
@@ -14,6 +16,7 @@ import org.apache.commons.codec.digest.DigestUtils;
  *
  */
 @Entity
+@Table(name="USERS")
 
 public class User implements Serializable {	
 	private static final long serialVersionUID = 1L;
@@ -45,13 +48,13 @@ public class User implements Serializable {
 		super();
 	}
 	
-/*	public User(UserDTO user){ //NON COMPLETO: VEDI ESEMPIO REGISTRATION MIGLIERINA
+	public User(UserDTO user){
         this.userName	  = user.getUserName(); 
         this.password     = DigestUtils.sha256Hex(user.getPassword() );
         this.email        = user.getEmail();
         this.firstName    = user.getFirstName();
         this.lastName     = user.getLastName();        
-    }*/
+    }
 
 	public String getPassword() {
 		return this.password;
