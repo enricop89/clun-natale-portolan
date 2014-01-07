@@ -45,13 +45,13 @@ public class User implements Serializable {
 		super();
 	}
 	
-	public User(UserDTO user){ //NON COMPLETO: VEDI ESEMPIO REGISTRATION MIGLIERINA
+/*	public User(UserDTO user){ //NON COMPLETO: VEDI ESEMPIO REGISTRATION MIGLIERINA
         this.userName	  = user.getUserName(); 
         this.password     = DigestUtils.sha256Hex(user.getPassword() );
         this.email        = user.getEmail();
         this.firstName    = user.getFirstName();
         this.lastName     = user.getLastName();        
-    }
+    }*/
 
 	public String getPassword() {
 		return this.password;
