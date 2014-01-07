@@ -1,4 +1,4 @@
-package beans.accountmanagment;
+package beans.accountmanagement;
 
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;

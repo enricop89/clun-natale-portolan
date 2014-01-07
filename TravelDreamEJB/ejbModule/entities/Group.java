@@ -12,7 +12,7 @@ import javax.persistence.*;
  *
  */
 @Entity
-@Table(name="GROUPS") // this renaming is a workaround for JPA not creating this table
+@Table(name="GROUPS") // this table renaming is a workaround. Leaving it as it is cause JPA not creating this table
 
 public class Group implements Serializable {
 	private static final long serialVersionUID = 1L;
