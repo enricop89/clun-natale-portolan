@@ -2,6 +2,9 @@ package beans.utils;
 
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
+import entities.*;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 /**
  * Session Bean implementation class Search
@@ -9,12 +12,10 @@ import javax.ejb.Stateless;
 @Stateless
 @LocalBean
 public class Search {
-
-    /**
-     * Default constructor. 
-     */
-    public Search() {
-        // TODO Auto-generated constructor stub
+	@PersistenceContext
+    private EntityManager entityManager;
+	
+	public User findUserByEmail(String email) {
+    	return entityManager.find(User.class, email);
     }
-
 }
