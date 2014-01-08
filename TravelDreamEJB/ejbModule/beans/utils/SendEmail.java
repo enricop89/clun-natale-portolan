@@ -16,13 +16,7 @@ import javax.mail.internet.MimeMessage;
  */
 @Stateless
 @LocalBean
-public class SendEmail {
-
-    /**
-     * Default constructor. 
-     */
-    public SendEmail() {}
-    
+public class SendEmail {    
     public static boolean send(String receiver, String subject, String text)
     {    
     	final String username = "traveldreamcnp@gmail.com";

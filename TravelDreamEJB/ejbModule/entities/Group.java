@@ -18,12 +18,16 @@ public class Group implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-	private String groupname;
+	private String groupName;
 
 	@ManyToMany(mappedBy="groups")
 	private List<User> users;
 
 	public Group() {
+		super();
+	}
+	public Group(String groupName) {
+		this.groupName = groupName;
 	}
 
 	public List<User> getUsers() {
@@ -35,11 +39,11 @@ public class Group implements Serializable {
 	}
 	
 	public String getGroupName() {
-		return this.groupname;
+		return this.groupName;
 	}
 
-	public void setGroupName(String groupname) {
-		this.groupname = groupname;
+	public void setGroupName(String groupName) {
+		this.groupName = groupName;
 	}
 
 }
