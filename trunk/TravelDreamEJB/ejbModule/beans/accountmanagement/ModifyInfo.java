@@ -1,6 +1,5 @@
 package beans.accountmanagement;
 
-import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -11,11 +10,12 @@ import entities.*;
  * Session Bean implementation class ModifyInfo
  */
 @Stateless
-@LocalBean
-public class ModifyInfo {
+
+public class ModifyInfo implements ModifyInfoInterface{
 	@PersistenceContext
     private EntityManager entityManager;
 	
+	@Override
 	@RolesAllowed({"CUSTOMER"})
 	public void updateCustomer(UserDTO user) {
 		entityManager.merge(new User(user));
