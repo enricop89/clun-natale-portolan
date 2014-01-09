@@ -6,9 +6,6 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 public class UserDTO {
 	
-	@NotEmpty
-	private String userName;
-	
 	@Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?",
             message="invalid email")
 	private String email;
@@ -21,14 +18,6 @@ public class UserDTO {
 	
 	@NotEmpty
     private String password;
-
-    public String getUserName() {
-        return userName;
-    }
-     
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }	
 	
     public String getFirstName() {
         return firstName;
