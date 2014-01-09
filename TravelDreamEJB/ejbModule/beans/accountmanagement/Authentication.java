@@ -1,23 +1,15 @@
 package beans.accountmanagement;
 
-import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
-import javax.ejb.TransactionManagement;
-import javax.ejb.TransactionManagementType;
+import javax.faces.context.FacesContext;
 
 /**
  * Session Bean implementation class authentication
  */
 @Stateless
-@TransactionManagement(TransactionManagementType.BEAN)
-@LocalBean
-public class Authentication {
-
-    /**
-     * Default constructor. 
-     */
-    public Authentication() {
-        // TODO Auto-generated constructor stub
-    }
-
+public class Authentication implements AuthenticationInterface{
+	@Override
+	public void deauthenticate(){
+	    FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+	}
 }
