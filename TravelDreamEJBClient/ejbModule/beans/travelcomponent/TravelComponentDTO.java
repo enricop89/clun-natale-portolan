@@ -8,6 +8,7 @@ public class TravelComponentDTO {
 	
 @NotEmpty
 private ComponentType type;
+
 @NotEmpty
 private String supplyingCompany;
 
@@ -24,11 +25,11 @@ private String excursionDescription;
 private Timestamp excursionDateTime;
 private String excursionCity;
 
-public void setComponentType(ComponentType type) {
+public void setType(ComponentType type) {
     this.type = type;
 }
-public ComponentType getComponentType(ComponentType type) {
-    return type;
+public ComponentType getType() {
+    return this.type;
 }
 
 public String getSupplyingCompany() {
@@ -86,11 +87,11 @@ public void setHotelCity(String hotelCity) {
 	this.hotelCity = hotelCity;
 }   
 
-public Date getHotelStartingDate() {
+public Date getHotelDate() {
 	return this.hotelDate;
 }
 
-public void setHotelStartingDate(Date hotelDate) {
+public void setHotelDate(Date hotelDate) {
 	this.hotelDate = hotelDate;
 }   
 
