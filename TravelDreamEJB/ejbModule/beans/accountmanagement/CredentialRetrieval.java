@@ -31,6 +31,7 @@ public class CredentialRetrieval implements CredentialRetrievalInterface{
 			// generate new random password
 			String temp_password = RandomStringUtils.randomAlphanumeric(8);
 			// update user informations with the new password (in order to allow login)
+			user.setPassword(temp_password);
 			modifyInfo.updateCustomer(user);
 			return SendEmail.send(user.getEmail(), "Your TravelDream Credentials", 
 						"Here there are your credentials as requested.\n"
