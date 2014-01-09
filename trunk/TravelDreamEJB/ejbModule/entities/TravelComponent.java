@@ -6,6 +6,8 @@ import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.List;
 
+import beans.travelcomponent.*;
+
 import javax.persistence.*;
 
 /**
@@ -47,6 +49,7 @@ public class TravelComponent implements Serializable {
 	public TravelComponent() {
 		super();
 	}   
+	
 	public long getId() {
 		return this.id;
 	}
@@ -117,11 +120,11 @@ public class TravelComponent implements Serializable {
 		this.hotelCity = hotelCity;
 	}   
 	
-	public Date getHotelStartingDate() {
+	public Date getHotelDate() {
 		return this.hotelDate;
 	}
 
-	public void setHotelStartingDate(Date hotelDate) {
+	public void setHotelDate(Date hotelDate) {
 		this.hotelDate = hotelDate;
 	}   
 	

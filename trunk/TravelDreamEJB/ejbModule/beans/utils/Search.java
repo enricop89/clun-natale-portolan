@@ -17,8 +17,8 @@ public class Search {
 	
 	public UserDTO findUser(String email) {
     	return convertToDTO(entityManager.find(User.class, email));
-    }
-
+    } 
+	
 	// helper function
     private UserDTO convertToDTO(User user) {
 		UserDTO userDTO = new UserDTO();
