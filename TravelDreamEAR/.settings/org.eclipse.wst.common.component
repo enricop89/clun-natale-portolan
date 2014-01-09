@@ -18,5 +18,8 @@
         <dependent-module archiveName="mysql-connector-java-5.1.26-bin.jar" deploy-path="/lib" handle="module:/classpath/lib/TravelDreamEAR/lib/mysql-connector-java-5.1.26-bin.jar">
             <dependency-type>uses</dependency-type>
         </dependent-module>
+        <dependent-module archiveName="commons-lang3-3.2.1.jar" deploy-path="/lib" handle="module:/classpath/lib/TravelDreamEAR/lib/commons-lang3-3.2.1.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
     </wb-module>
 </project-modules>

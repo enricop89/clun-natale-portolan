@@ -11,8 +11,6 @@ import javax.persistence.*;
 
 import org.apache.commons.codec.digest.DigestUtils;
 
-import beans.utils.AESencrp;
-
 /**
  * Entity implementation class for Entity: User
  *
@@ -34,8 +32,6 @@ public class User implements Serializable {
 	
 	private String lastName;
 	
-	private String loginfo;
-
 	@ManyToMany
 	@JoinTable(
 		name="USER_GROUP"
@@ -57,12 +53,7 @@ public class User implements Serializable {
         this.password     = DigestUtils.sha256Hex(user.getPassword() );
         this.email        = user.getEmail();
         this.firstName    = user.getFirstName();
-        this.lastName     = user.getLastName();     
-        try {
-			this.loginfo  = AESencrp.encrypt(user.getPassword());
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+        this.lastName     = user.getLastName();
     }
 
 	public String getPassword() {
@@ -111,13 +102,5 @@ public class User implements Serializable {
 
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
-	}
-	
-	public String getLoginfo() {
-		return loginfo;
-	}
-	
-	public void setLoginfo(String loginfo) {
-		this.loginfo = loginfo;
 	}
 }
