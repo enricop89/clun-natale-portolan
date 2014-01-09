@@ -24,8 +24,6 @@ public class User implements Serializable {
 	@Id
 	private String email;
 	
-	private String userName;
-	
 	private String password;
 	
 	private String firstName;
@@ -49,7 +47,6 @@ public class User implements Serializable {
 	}
 	
 	public User(UserDTO user){
-        this.userName	  = user.getUserName(); 
         this.password     = DigestUtils.sha256Hex(user.getPassword() );
         this.email        = user.getEmail();
         this.firstName    = user.getFirstName();
@@ -72,14 +69,6 @@ public class User implements Serializable {
 		this.groups = groups;
 	}
 
-	public String getUserName() {
-		return userName;
-	}
-
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
-	
 	public String getEmail() {
 		return email;
 	}
