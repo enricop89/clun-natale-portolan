@@ -26,7 +26,8 @@ public class TravelElement implements Serializable {
 
 	public TravelElement() {
 		super();
-	}   
+	}  
+	
 	public long getId() {
 		return this.id;
 	}
@@ -34,11 +35,11 @@ public class TravelElement implements Serializable {
 	public void setId(long id) {
 		this.id = id;
 	}   
-	public TravelComponent getComponentId() {
+	public TravelComponent getTravelComponent() {
 		return this.travelComponent;
 	}
 
-	public void setComponentId(TravelComponent travelComponent) {
+	public void setTravelComponent(TravelComponent travelComponent) {
 		this.travelComponent = travelComponent;
 	}   
 	public User getOwner() {
