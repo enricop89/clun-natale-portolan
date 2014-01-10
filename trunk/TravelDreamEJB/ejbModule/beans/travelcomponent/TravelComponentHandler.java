@@ -30,17 +30,17 @@ public class TravelComponentHandler{
 	}
 	
 	@RolesAllowed({"CUSTOMER"})
-	public TravelElement confirmTravelElement(TravelComponent travelComponent, User owner){
+	public TravelElement confirmTravelComponent(TravelComponent travelComponent, User owner){
 		if(travelComponent.getTravelElements().isEmpty())
 			return null;
-		TravelElement element = travelComponent.getTravelElements().get(0);
-		element.setOwner(owner);
-		element.setConfirmationDateTime(new Timestamp(new Date().getTime()));
-		element.setTravelComponent(null);
-		travelComponent.getTravelElements().remove(element);
+		TravelElement travelElement = travelComponent.getTravelElements().get(0);
+		travelElement.setOwner(owner);
+		travelElement.setConfirmationDateTime(new Timestamp(new Date().getTime()));
+		travelElement.setTravelComponent(null);
+		travelComponent.getTravelElements().remove(travelElement);
 		entityManager.merge(travelComponent);
-		entityManager.merge(element);
-		return element;
+		entityManager.merge(travelElement);
+		return travelElement;
 	}
 	
 	@RolesAllowed({"EMPLOYEE"})
@@ -48,16 +48,16 @@ public class TravelComponentHandler{
 		if(availability <= 0)
 			return false;
 		//generates automatically the associated TravelElements
-		List<TravelElement> travelElements = new ArrayList<TravelElement>();
+		List<TravelElement> travelElementsList = new ArrayList<TravelElement>();
 		for(int i = 0; i < availability; i++){
-			TravelElement te = new TravelElement();
-			te.setConfirmationDateTime(null);
-			te.setOwner(null);
-			te.setTravelComponent(travelComponent);
-			travelElements.add(te);
-			addNewTravelElement(te);
+			TravelElement travelElement = new TravelElement();
+			travelElement.setConfirmationDateTime(null);
+			travelElement.setOwner(null);
+			travelElement.setTravelComponent(travelComponent);
+			travelElementsList.add(travelElement);
+			addNewTravelElement(travelElement);
 		}
-		travelComponent.setTravelElements(travelElements);
+		travelComponent.setTravelElements(travelElementsList);
 		entityManager.persist(travelComponent);
 		return true;
 	}
