@@ -31,7 +31,7 @@ public class Components_Helper implements Serializable {
 
 	private TravelElement travelElement;
 
-	// those fields handle persistence of confirmed TravelComponents, even if their reference is deleted or modified
+	// those fields handle persistence of payed TravelComponents, even if their reference is deleted or modified
 	// if the associated TravelComponent is confirmed, than those information will be used to refer to the TravelComponent instead
 	@Enumerated(EnumType.STRING)	
 	private ComponentType type;
