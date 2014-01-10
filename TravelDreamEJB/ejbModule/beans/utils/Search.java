@@ -55,6 +55,9 @@ public class Search {
 	public UserDTO findUser(String email) {
     	return convertToDTO(entityManager.find(User.class, email));
     } 
+	public User findUser(UserDTO user) {
+		return entityManager.find(User.class, user.getEmail());
+	}
 	public List<UserDTO> findUser(String firstName, String lastName){
 		//considerare anche i casi in cui uno dei valori sia nullo
 		// eg. solo nome o solo cognome
