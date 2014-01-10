@@ -56,6 +56,7 @@ public class Search {
 	public List<UserDTO> findAllUser(){
 		
 	}
+	
 	// helper function
     private UserDTO convertToDTO(User user) {
 		UserDTO userDTO = new UserDTO();
