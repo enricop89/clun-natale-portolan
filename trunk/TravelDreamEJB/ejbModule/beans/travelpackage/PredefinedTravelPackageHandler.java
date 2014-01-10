@@ -94,24 +94,22 @@ public class PredefinedTravelPackageHandler {
 				return false;
 		
 		for (int i=0;i<Hotel.size();i++){
-		if(Hotel.get(i).getHotelDate().compareTo(Arr_flight.get(0).getFlightArrivalDateTime())<0)
-			return false; 	//Data hotel before Data arrival_flight
-		if(Hotel.get(i).getHotelDate().compareTo(Dep_flight.get(0).getFlightDepartureDateTime())>0)
-			return false; 	//Data hotel after Data departure_flight
-		if(Hotel.get(i).getHotelCity()!=Dep_flight.get(0).getFlightArrivalCity() )
-			return false;
+			if(Hotel.get(i).getHotelDate().compareTo(Arr_flight.get(0).getFlightArrivalDateTime())<0)
+				return false; 	//Data hotel before Data arrival_flight
+			if(Hotel.get(i).getHotelDate().compareTo(Dep_flight.get(0).getFlightDepartureDateTime())>0)
+				return false; 	//Data hotel after Data departure_flight
+			if(Hotel.get(i).getHotelCity()!=Dep_flight.get(0).getFlightArrivalCity() )
+				return false;
 		}
 		for (int i=0;i<Excursion.size();i++){
-		if(Excursion.get(i).getExcursionDateTime().compareTo(Arr_flight.get(0).getFlightArrivalDateTime())<0)
-			return false; 	//Data excursion before Data arrival_flight
-		if(Excursion.get(i).getExcursionDateTime().compareTo(Dep_flight.get(0).getFlightDepartureDateTime())>0)
-			return false; 	//Data excursion after Data departure_flight
-		if(Excursion.get(i).getExcursionCity()!=Dep_flight.get(0).getFlightArrivalCity())
-			return false;
+			if(Excursion.get(i).getExcursionDateTime().compareTo(Arr_flight.get(0).getFlightArrivalDateTime())<0)
+				return false; 	//Data excursion before Data arrival_flight
+			if(Excursion.get(i).getExcursionDateTime().compareTo(Dep_flight.get(0).getFlightDepartureDateTime())>0)
+				return false; 	//Data excursion after Data departure_flight
+			if(Excursion.get(i).getExcursionCity()!=Dep_flight.get(0).getFlightArrivalCity())
+				return false;
 		}
-		
-		
-		
+				
 		return true;// all the controls is ok	
 	}
 	
