@@ -5,9 +5,7 @@ import java.lang.String;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.List;
-
-import beans.travelcomponent.*;
-
+import beans.travelcomponent.ComponentType;
 import javax.persistence.*;
 
 /**

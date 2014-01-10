@@ -2,9 +2,7 @@ package entities;
 
 import entities.TravelComponent;
 import entities.TravelElement;
-
 import java.io.Serializable;
-
 import javax.persistence.*;
 
 /**

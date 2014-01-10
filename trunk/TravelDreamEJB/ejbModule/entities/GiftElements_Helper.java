@@ -3,9 +3,7 @@ package entities;
 import entities.GiftList;
 import entities.PersonalizedTravelPackage;
 import entities.TravelComponent;
-
 import java.io.Serializable;
-
 import javax.persistence.*;
 
 /**
