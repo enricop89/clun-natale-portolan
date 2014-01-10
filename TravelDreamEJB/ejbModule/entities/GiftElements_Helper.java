@@ -2,10 +2,7 @@ package entities;
 
 import entities.GiftList;
 import entities.PersonalizedTravelPackage;
-import entities.TravelComponent;
-
 import java.io.Serializable;
-
 import javax.persistence.*;
 
 /**
@@ -25,7 +22,7 @@ public class GiftElements_Helper implements Serializable {
 	private GiftList giftList;	
 	
 	private PersonalizedTravelPackage personalizedTravelPackage;
-	private TravelComponent travelComponent;  
+	private Components_Helper travelComponent; 
 
 	public GiftElements_Helper() {
 		super();
@@ -37,11 +34,11 @@ public class GiftElements_Helper implements Serializable {
 	public void setPersonalizedTravelPackage(PersonalizedTravelPackage personalizedTravelPackage) {
 		this.personalizedTravelPackage = personalizedTravelPackage;
 	}   
-	public TravelComponent getTravelComponent() {
+	public Components_Helper getTravelComponent() {
 		return this.travelComponent;
 	}
 
-	public void setTravelComponent(TravelComponent travelComponent) {
+	public void setTravelComponent(Components_Helper travelComponent) {
 		this.travelComponent = travelComponent;
 	}   
 	public long getId() {

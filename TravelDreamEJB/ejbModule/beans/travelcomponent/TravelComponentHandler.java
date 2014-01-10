@@ -30,7 +30,7 @@ public class TravelComponentHandler{
 	}
 	
 	@RolesAllowed({"CUSTOMER"})
-	public TravelElement confirmTravelComponent(TravelComponent travelComponent, User owner){
+	public TravelElement payTravelComponent(TravelComponent travelComponent, User owner){
 		if(travelComponent.getTravelElements().isEmpty())
 			return null;
 		TravelElement travelElement = travelComponent.getTravelElements().get(0);
@@ -88,6 +88,8 @@ public class TravelComponentHandler{
 		travelComponent.setTravelElements(travelElements);
 		entityManager.merge(travelComponent);
 		return true;
+		
+		//NOTIFICARE AGLI UTENTI(VEDI RASD) LA CANCELLAZIONE!
 	}
 	
 	@RolesAllowed({"EMPLOYEE"})
@@ -95,6 +97,9 @@ public class TravelComponentHandler{
 		for(int i = 0; i < travelComponent.getTravelElements().size(); i++)
 			deleteTravelElement(travelComponent.getTravelElements().get(i));
 		entityManager.remove(travelComponent);
+		
+		
+		//NOTIFICARE AGLI UTENTI(VEDI RASD) LA CANCELLAZIONE!
 	}
 
 }
