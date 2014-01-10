@@ -24,7 +24,6 @@ import javax.persistence.EntityManager;
 public class PredefinedTravelPackageHandler {
 	@PersistenceContext
     private EntityManager entityManager;
-	
 
 	@RolesAllowed("EMPLOYEE")
 	public boolean savenewPredefinedTravelPackage(PredefinedTravelPackage predTP){
@@ -62,27 +61,24 @@ public class PredefinedTravelPackageHandler {
 			ptphandler.addNewPersonalizedTravelPackage(persTP);
 	}
 
-
-
-//-------------------------------------------------------
-
-public boolean Controlconsistency(PredefinedTravelPackage predTP){
-	List<TravelComponent> Arr_flight=new ArrayList<>();
-	List<TravelComponent> Dep_flight=new ArrayList<>();
-	List<TravelComponent> Hotel= new ArrayList<>();
-	List<TravelComponent> Excursion= new ArrayList<>();
-	int compareTime;
-	for (int i=0;i<predTP.getTravelComponents().size();i++){ //divido component nei vari type
-		ComponentType aux=predTP.getTravelComponents().get(i).getType();
-		if(aux==ComponentType.ARRIVAL_FLIGHT)
-			Arr_flight.add(predTP.getTravelComponents().get(i));
-		if(aux==ComponentType.DEPARTURE_FLIGHT)
-			Dep_flight.add(predTP.getTravelComponents().get(i));
-		if(aux==ComponentType.HOTEL)
-			Hotel.add(predTP.getTravelComponents().get(i));
-		if(aux==ComponentType.EXCURSION)
-			Excursion.add(predTP.getTravelComponents().get(i));}
-	//caso more than a departure or arrival flyght
+	public boolean Controlconsistency(PredefinedTravelPackage predTP){
+		List<TravelComponent> Arr_flight=new ArrayList<TravelComponent>();
+		List<TravelComponent> Dep_flight=new ArrayList<TravelComponent>();
+		List<TravelComponent> Hotel= new ArrayList<TravelComponent>();
+		List<TravelComponent> Excursion= new ArrayList<TravelComponent>();
+		int compareTime;
+		for (int i=0;i<predTP.getTravelComponents().size();i++){ //divido component nei vari type
+			ComponentType aux=predTP.getTravelComponents().get(i).getType();
+			if(aux==ComponentType.ARRIVAL_FLIGHT)
+				Arr_flight.add(predTP.getTravelComponents().get(i));
+			if(aux==ComponentType.DEPARTURE_FLIGHT)
+				Dep_flight.add(predTP.getTravelComponents().get(i));
+			if(aux==ComponentType.HOTEL)
+				Hotel.add(predTP.getTravelComponents().get(i));
+			if(aux==ComponentType.EXCURSION)
+				Excursion.add(predTP.getTravelComponents().get(i));
+		}
+		//caso more than a departure or arrival flyght
 		if(Arr_flight.size()>1 || Dep_flight.size()>1) 
 			return false;
 		compareTime=Arr_flight.get(0).getFlightArrivalDateTime().compareTo(Dep_flight.get(0).getFlightDepartureDateTime());
@@ -108,10 +104,7 @@ public boolean Controlconsistency(PredefinedTravelPackage predTP){
 			return false;
 		}
 		
-		return true;// TUTTO ANDATO BENE
-		
-		
-	
+		return true;// TUTTO ANDATO BENE		
 	}
 	
 }
