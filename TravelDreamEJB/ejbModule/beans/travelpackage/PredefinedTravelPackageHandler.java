@@ -89,6 +89,9 @@ public class PredefinedTravelPackageHandler {
 		if(Arr_flight.get(0).getFlightArrivalDateTime().compareTo(Dep_flight.get(0).getFlightDepartureDateTime())>0 ) 
 			//compareTo return 1 if data1>data2, 0 if equal, -1 if data1<data2
 			return false; 	//departure flight after arrival flight
+		if(Arr_flight.get(0)!=null && Dep_flight.get(0)!=null)
+			if(Dep_flight.get(0).getFlightArrivalCity()==Arr_flight.get(0).getFlightDepartureCity())//control if arrival_city is equal to departure_city
+				return false;
 		
 		for (int i=0;i<Hotel.size();i++){
 		if(Hotel.get(i).getHotelDate().compareTo(Arr_flight.get(0).getFlightArrivalDateTime())<0)
@@ -106,10 +109,6 @@ public class PredefinedTravelPackageHandler {
 		if(Excursion.get(i).getExcursionCity()!=Dep_flight.get(0).getFlightArrivalCity())
 			return false;
 		}
-		
-		if(Arr_flight.get(0)!=null && Dep_flight.get(0)!=null)
-			if(Dep_flight.get(0).getFlightArrivalCity()==Arr_flight.get(0).getFlightDepartureCity())//control if arrival_city is equal to departure_city
-				return false;
 		
 		
 		
