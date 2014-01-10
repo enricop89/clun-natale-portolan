@@ -3,7 +3,6 @@ package entities;
 import java.io.Serializable;
 import java.util.List;
 import java.lang.String;
-
 import javax.persistence.*;
 
 /**

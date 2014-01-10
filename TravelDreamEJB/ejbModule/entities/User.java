@@ -2,13 +2,10 @@ package entities;
 
 import entities.Group;
 import beans.accountmanagement.UserDTO;
-
 import java.io.Serializable;
 import java.util.List;
 import java.lang.String;
-
 import javax.persistence.*;
-
 import org.apache.commons.codec.digest.DigestUtils;
 
 /**
