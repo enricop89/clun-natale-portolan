@@ -27,16 +27,21 @@ public class PredefinedTravelPackageHandler {
 
 	@RolesAllowed("EMPLOYEE")
 	public boolean savenewPredefinedTravelPackage(PredefinedTravelPackage predTP){
-	//FUNZIONE CONTROLLO PERSISTENZA
-	entityManager.persist(predTP);
-	return true;
+	
+		boolean result=Controlconsistency(predTP);
+		if(result)
+			entityManager.persist(predTP);
+		
+	return result;
 
 	}
 	@RolesAllowed("EMPLOYEE")
 	public boolean updatePredefinedTravelPackage(PredefinedTravelPackage predTP){
-	//FUNZIONE CONTROLLO PERSISTENZA
-	entityManager.merge(predTP);	
-		return true;
+	
+		boolean result=Controlconsistency(predTP);
+		if(result)
+			entityManager.merge(predTP);	
+		return result;
 	}
 	@RolesAllowed("EMPLOYEE")
 	public void deletePredefinedTravelPackage (PredefinedTravelPackage predTP){
@@ -66,8 +71,7 @@ public class PredefinedTravelPackageHandler {
 		List<TravelComponent> Dep_flight=new ArrayList<TravelComponent>();
 		List<TravelComponent> Hotel= new ArrayList<TravelComponent>();
 		List<TravelComponent> Excursion= new ArrayList<TravelComponent>();
-		int compareTime;
-		for (int i=0;i<predTP.getTravelComponents().size();i++){ //divido component nei vari type
+		for (int i=0;i<predTP.getTravelComponents().size();i++){ //divide component in the four Component_type
 			ComponentType aux=predTP.getTravelComponents().get(i).getType();
 			if(aux==ComponentType.ARRIVAL_FLIGHT)
 				Arr_flight.add(predTP.getTravelComponents().get(i));
@@ -81,30 +85,32 @@ public class PredefinedTravelPackageHandler {
 		//caso more than a departure or arrival flyght
 		if(Arr_flight.size()>1 || Dep_flight.size()>1) 
 			return false;
-		compareTime=Arr_flight.get(0).getFlightArrivalDateTime().compareTo(Dep_flight.get(0).getFlightDepartureDateTime());
-		if(compareTime==1 ) //compareTo return 1 if data1>data2, 0 se uguali, -1 se data1<data2
-			return false; 	//caso aereo andata dopo aereo ritorno
 		
-		for (int i=0;i<predTP.getTravelComponents().size();i++){//PENSARE A CICLO FOR
-	
+		if(Arr_flight.get(0).getFlightArrivalDateTime().compareTo(Dep_flight.get(0).getFlightDepartureDateTime())>0 ) 
+			//compareTo return 1 if data1>data2, 0 if equal, -1 if data1<data2
+			return false; 	//departure flight after arrival flight
+		
+		for (int i=0;i<Hotel.size();i++){
 		if(Hotel.get(i).getHotelDate().compareTo(Arr_flight.get(0).getFlightArrivalDateTime())<0)
-			return false; 	//Data hotel prima Data volo arrivo
+			return false; 	//Data hotel before Data arrival_flight
 		if(Hotel.get(i).getHotelDate().compareTo(Dep_flight.get(0).getFlightDepartureDateTime())>0)
-			return false; 	//Data hotel dopo Data volo partenza
+			return false; 	//Data hotel after Data departure_flight
+		}
+		for (int i=0;i<Excursion.size();i++){
 		if(Excursion.get(i).getExcursionDateTime().compareTo(Arr_flight.get(0).getFlightArrivalDateTime())<0)
-			return false; 	//Data excursion prima Data volo arrivo
+			return false; 	//Data excursion before Data arrival_flight
 		if(Excursion.get(i).getExcursionDateTime().compareTo(Dep_flight.get(0).getFlightDepartureDateTime())>0)
-			return false; 	//Data excursion dopo Data volo partenza
+			return false; 	//Data excursion after Data departure_flight
 		
-		if(Arr_flight.get(0)!=null && Dep_flight.get(0)!=null)//controllo se città arrivo e città partenza sono uguali
-			if(Dep_flight.get(0).getFlightArrivalCity()==Arr_flight.get(0).getFlightDepartureCity())
+		if(Arr_flight.get(0)!=null && Dep_flight.get(0)!=null)
+			if(Dep_flight.get(0).getFlightArrivalCity()==Arr_flight.get(0).getFlightDepartureCity())//control if arrival_city is equal to departure_city
 				return false;
 		if(Hotel.get(i).getHotelCity()!=Dep_flight.get(0).getFlightArrivalCity() && 
 				Excursion.get(i).getExcursionCity()!=Dep_flight.get(0).getFlightArrivalCity())
 			return false;
 		}
 		
-		return true;// TUTTO ANDATO BENE		
+		return true;// all the controls is ok	
 	}
 	
 }
