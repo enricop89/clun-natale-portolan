@@ -3,7 +3,9 @@ package entities;
 import entities.GiftList;
 import entities.PersonalizedTravelPackage;
 import entities.TravelComponent;
+
 import java.io.Serializable;
+
 import javax.persistence.*;
 
 /**
@@ -15,7 +17,7 @@ import javax.persistence.*;
 public class GiftElements_Helper implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@Id
+	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long id;	
 
 	@ManyToOne(fetch=FetchType.LAZY)
