@@ -30,6 +30,10 @@ public class Search {
 		
 	}
 	
+	public List<PersonalizedTravelPackage> findAllPersonalizedTravelPackages(){
+		
+	}
+	
 	public List<PredefinedTravelPackage> findPredefinedTravelPackage(String name){
 		// nota che name può anche essere solo PARTE del nome del package
 		// IMPORTANTE: DISCUTERE ALTRI CRITERI DI RICERCA basati sui componenti dei travel package
