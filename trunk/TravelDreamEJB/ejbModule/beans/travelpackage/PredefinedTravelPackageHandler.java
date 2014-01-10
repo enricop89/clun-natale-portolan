@@ -95,20 +95,23 @@ public class PredefinedTravelPackageHandler {
 			return false; 	//Data hotel before Data arrival_flight
 		if(Hotel.get(i).getHotelDate().compareTo(Dep_flight.get(0).getFlightDepartureDateTime())>0)
 			return false; 	//Data hotel after Data departure_flight
+		if(Hotel.get(i).getHotelCity()!=Dep_flight.get(0).getFlightArrivalCity() )
+			return false;
 		}
 		for (int i=0;i<Excursion.size();i++){
 		if(Excursion.get(i).getExcursionDateTime().compareTo(Arr_flight.get(0).getFlightArrivalDateTime())<0)
 			return false; 	//Data excursion before Data arrival_flight
 		if(Excursion.get(i).getExcursionDateTime().compareTo(Dep_flight.get(0).getFlightDepartureDateTime())>0)
 			return false; 	//Data excursion after Data departure_flight
+		if(Excursion.get(i).getExcursionCity()!=Dep_flight.get(0).getFlightArrivalCity())
+			return false;
+		}
 		
 		if(Arr_flight.get(0)!=null && Dep_flight.get(0)!=null)
 			if(Dep_flight.get(0).getFlightArrivalCity()==Arr_flight.get(0).getFlightDepartureCity())//control if arrival_city is equal to departure_city
 				return false;
-		if(Hotel.get(i).getHotelCity()!=Dep_flight.get(0).getFlightArrivalCity() && 
-				Excursion.get(i).getExcursionCity()!=Dep_flight.get(0).getFlightArrivalCity())
-			return false;
-		}
+		
+		
 		
 		return true;// all the controls is ok	
 	}
