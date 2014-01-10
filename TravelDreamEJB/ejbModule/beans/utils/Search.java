@@ -32,13 +32,19 @@ public class Search {
 	
 	public List<PredefinedTravelPackage> findPredefinedTravelPackage(String name){
 		// nota che name può anche essere solo PARTE del nome del package
+		// IMPORTANTE: DISCUTERE ALTRI CRITERI DI RICERCA basati sui componenti dei travel package
 	}
 	
 	public List<PredefinedTravelPackage> findAllPredefinedTravelPackages(){
 		
 	}
 	
-	public List<TravelComponent> findTravelComponent(ComponentType type, String supplyingCompany){
+	public List<TravelComponent> findTravelComponent(TravelComponent searchCriteria){
+	// a fictitious TravelComponent is used to specify the search criteria
+	// the unused field must be set to null, even though it will consider only the field associated
+	// to the specific ComponentType
+		
+		
 		// nota che uno dei due campi può essere nullo
 	}
 	
