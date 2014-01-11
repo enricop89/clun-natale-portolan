@@ -20,7 +20,7 @@ public class CustomerRegistration implements CustomerRegistrationInterface{
     private EntityManager entityManager;
 	
 	@Override
-	public void addNewCustomer(UserDTO user){
+	public boolean addNewCustomer(UserDTO user){
 		User newUser = new User(user);
 		List<Group> groups = new ArrayList<Group>();
 		groups.add(new Group("CUSTOMER"));
@@ -31,5 +31,6 @@ public class CustomerRegistration implements CustomerRegistrationInterface{
 			+	"Please keep note of your credentials, you will use them to login on the website.\n"
 			+ 	"\nPassword: " + user.getPassword()
 			+	"\nEnjoy your TravelDream experience!");
+		return true;
 	}
 }
