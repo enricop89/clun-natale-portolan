@@ -23,25 +23,32 @@ public class PersonalizedTravelPackageHandler {
     private EntityManager entityManager;
 	
 	public boolean addNewPersonalizedTravelPackage(PersonalizedTravelPackage personalizedTravelPackage){
-		boolean result = consistencyCheck(personalizedTravelPackage);
-		if(result)
-			entityManager.persist(personalizedTravelPackage);
-		return result;
+		if(personalizedTravelPackage.getTravelComponents().isEmpty())
+			return false;
+		else{
+			boolean result = consistencyCheck(personalizedTravelPackage);
+			if(result)
+				entityManager.persist(personalizedTravelPackage);
+			return result;	
+		}
 	}
 	
 	@RolesAllowed({"CUSTOMER"})
 	public boolean updatePersonalizedTravelPackage(PersonalizedTravelPackage personalizedTravelPackage){
-		boolean result = false;
-		for(int i = 0; i < personalizedTravelPackage.getTravelComponents().size(); i++)
-			if(personalizedTravelPackage.getTravelComponents().get(i).getTravelElement() != null)
-				result = true;
-		if(result){	// if it is a confirmed package it does not procede!	
-			result = consistencyCheck(personalizedTravelPackage);
-			if(result)
-				entityManager.merge(personalizedTravelPackage);
-		}
-		return result;
-		
+		if(personalizedTravelPackage.getTravelComponents().isEmpty())
+			return false;
+		else{
+			boolean result = false;
+			for(int i = 0; i < personalizedTravelPackage.getTravelComponents().size(); i++)
+				if(personalizedTravelPackage.getTravelComponents().get(i).getTravelElement() != null)
+					result = true;
+			if(result){	// if it is a confirmed package it does not procede!	
+				result = consistencyCheck(personalizedTravelPackage);
+				if(result)
+					entityManager.merge(personalizedTravelPackage);
+			}
+			return result;
+		}		
 	}
 	
 	@RolesAllowed({"CUSTOMER"})

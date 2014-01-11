@@ -26,19 +26,28 @@ public class PredefinedTravelPackageHandler {
     private EntityManager entityManager;
 
 	@RolesAllowed("EMPLOYEE")
-	public boolean savenewPredefinedTravelPackage(PredefinedTravelPackage prefedefinedTravelPackage){	
-		boolean result = consistencyCheck(prefedefinedTravelPackage);
-		if(result)
-			entityManager.persist(prefedefinedTravelPackage);		
-		return result;
+	public boolean addNewPredefinedTravelPackage(PredefinedTravelPackage predefinedTravelPackage){			
+		if(predefinedTravelPackage.getTravelComponents().isEmpty())
+			return false;
+		else{
+			boolean result = consistencyCheck(predefinedTravelPackage);
+			if(result)
+				entityManager.persist(predefinedTravelPackage);		
+			return result;
+		}
+
 	}
 	
 	@RolesAllowed("EMPLOYEE")
-	public boolean updatePredefinedTravelPackage(PredefinedTravelPackage prefedefinedTravelPackage){	
-		boolean result = consistencyCheck(prefedefinedTravelPackage);
-		if(result)
-			entityManager.merge(prefedefinedTravelPackage);	
-		return result;
+	public boolean updatePredefinedTravelPackage(PredefinedTravelPackage predefinedTravelPackage){	
+		if(predefinedTravelPackage.getTravelComponents().isEmpty())
+			return false;
+		else{
+			boolean result = consistencyCheck(predefinedTravelPackage);
+			if(result)
+				entityManager.merge(predefinedTravelPackage);	
+			return result;
+		}
 	}
 	
 	@RolesAllowed("EMPLOYEE")
