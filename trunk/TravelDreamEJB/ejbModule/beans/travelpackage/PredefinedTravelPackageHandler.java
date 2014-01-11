@@ -57,16 +57,16 @@ public class PredefinedTravelPackageHandler {
 		entityManager.remove(prefedefinedTravelPackage);	
 	}
 	
-	public void copyPredefinedTravelPackage(PredefinedTravelPackage prefedefinedTravelPackage, User owner){		
+	public void copyPredefinedTravelPackage(PredefinedTravelPackage predefinedTravelPackage, User owner){		
 		PersonalizedTravelPackage persTP = new PersonalizedTravelPackage();
-		persTP.setName(prefedefinedTravelPackage.getName());
+		persTP.setName(predefinedTravelPackage.getName());
 		persTP.setOwner(owner);
 		List<Components_Helper> constructor = new ArrayList<Components_Helper>();
-		for(int i=0;i<prefedefinedTravelPackage.getTravelComponents().size();i++){
+		for(int i=0;i<predefinedTravelPackage.getTravelComponents().size();i++){
 			Components_Helper component = new Components_Helper();
 			component.setTravelElement(null);
 			component.setPersonalizedTravelPackage(persTP);   
-			component.setTravelComponent(prefedefinedTravelPackage.getTravelComponents().get(i));
+			component.setTravelComponent(predefinedTravelPackage.getTravelComponents().get(i));
 			constructor.add(component);	
 		}
 		persTP.setTravelComponents(constructor);
