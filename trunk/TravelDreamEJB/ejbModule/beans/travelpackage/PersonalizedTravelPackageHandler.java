@@ -23,7 +23,7 @@ public class PersonalizedTravelPackageHandler {
     private EntityManager entityManager;
 	
 	public boolean addNewPersonalizedTravelPackage(PersonalizedTravelPackage personalizedTravelPackage){
-		boolean result = Controlconsistency(personalizedTravelPackage);
+		boolean result = consistencyCheck(personalizedTravelPackage);
 		if(result)
 			entityManager.persist(personalizedTravelPackage);
 		return result;
@@ -36,7 +36,7 @@ public class PersonalizedTravelPackageHandler {
 			if(personalizedTravelPackage.getTravelComponents().get(i).getTravelElement() != null)
 				result = true;
 		if(result){	// if it is a confirmed package it does not procede!	
-			result = Controlconsistency(personalizedTravelPackage);
+			result = consistencyCheck(personalizedTravelPackage);
 			if(result)
 				entityManager.merge(personalizedTravelPackage);
 		}
@@ -66,7 +66,7 @@ public class PersonalizedTravelPackageHandler {
 				TravelComponentHandler handler = new TravelComponentHandler();
 				personalizedTravelPackage.getTravelComponents().get(i).setTravelElement(handler.payTravelComponent(personalizedTravelPackage.getTravelComponents().get(i).getTravelComponent(), personalizedTravelPackage.getOwner()));
 				personalizedTravelPackage.getTravelComponents().get(i).setPersistence(personalizedTravelPackage.getTravelComponents().get(i).getTravelComponent());
-				result = true; //the package is not confirmed yet, at least one component is not payed
+				result = true; //the package is not confirmed yet, at least one component was not yet payed
 			}
 		return result;
 	}
@@ -83,7 +83,7 @@ public class PersonalizedTravelPackageHandler {
 				Components_Helper component = new Components_Helper();
 				component.setPersonalizedTravelPackage(newPersonalizedTravelPackage);
 				component.setTravelElement(null);
-				component.setTravelComponent( personalizedTravelPackage.getTravelComponents().get(i).getTravelComponent());
+				component.setTravelComponent(personalizedTravelPackage.getTravelComponents().get(i).getTravelComponent());
 				components.add(component);
 			}
 			else
@@ -95,34 +95,34 @@ public class PersonalizedTravelPackageHandler {
 		return true;	
 	}
 	
-	public boolean Controlconsistency(PersonalizedTravelPackage persTP){
+	private boolean consistencyCheck(PersonalizedTravelPackage personalizedTravepPackage){
 		List<Components_Helper> Arr_flight = new ArrayList<Components_Helper>();
 		List<Components_Helper> Dep_flight = new ArrayList<Components_Helper>();
 		List<Components_Helper> Hotel = new ArrayList<Components_Helper>();
 		List<Components_Helper> Excursion = new ArrayList<Components_Helper>();
-		for (int i=0; i < persTP.getTravelComponents().size();i++){
-			if(persTP.getTravelComponents().get(i).getTravelElement() != null){
-				if(persTP.getTravelComponents().get(i).getPersistence().getType() == ComponentType.ARRIVAL_FLIGHT)
-					Arr_flight.add(persTP.getTravelComponents().get(i));
-				if(persTP.getTravelComponents().get(i).getPersistence().getType() == ComponentType.DEPARTURE_FLIGHT)
-					Dep_flight.add(persTP.getTravelComponents().get(i));
-				if(persTP.getTravelComponents().get(i).getPersistence().getType() == ComponentType.HOTEL)
-					Hotel.add(persTP.getTravelComponents().get(i));
-				if(persTP.getTravelComponents().get(i).getPersistence().getType() == ComponentType.EXCURSION)
-					Excursion.add(persTP.getTravelComponents().get(i));
+		for (int i=0; i < personalizedTravepPackage.getTravelComponents().size();i++){
+			if(personalizedTravepPackage.getTravelComponents().get(i).getTravelElement() != null){
+				if(personalizedTravepPackage.getTravelComponents().get(i).getPersistence().getType() == ComponentType.ARRIVAL_FLIGHT)
+					Arr_flight.add(personalizedTravepPackage.getTravelComponents().get(i));
+				if(personalizedTravepPackage.getTravelComponents().get(i).getPersistence().getType() == ComponentType.DEPARTURE_FLIGHT)
+					Dep_flight.add(personalizedTravepPackage.getTravelComponents().get(i));
+				if(personalizedTravepPackage.getTravelComponents().get(i).getPersistence().getType() == ComponentType.HOTEL)
+					Hotel.add(personalizedTravepPackage.getTravelComponents().get(i));
+				if(personalizedTravepPackage.getTravelComponents().get(i).getPersistence().getType() == ComponentType.EXCURSION)
+					Excursion.add(personalizedTravepPackage.getTravelComponents().get(i));
 			}
 			else{
-				if(persTP.getTravelComponents().get(i).getTravelComponent().getType() == ComponentType.ARRIVAL_FLIGHT)
-					Arr_flight.add(persTP.getTravelComponents().get(i));
-				if(persTP.getTravelComponents().get(i).getTravelComponent().getType() == ComponentType.DEPARTURE_FLIGHT)
-					Dep_flight.add(persTP.getTravelComponents().get(i));
-				if(persTP.getTravelComponents().get(i).getTravelComponent().getType() == ComponentType.HOTEL)
-					Hotel.add(persTP.getTravelComponents().get(i));
-				if(persTP.getTravelComponents().get(i).getTravelComponent().getType() == ComponentType.EXCURSION)
-					Excursion.add(persTP.getTravelComponents().get(i));
+				if(personalizedTravepPackage.getTravelComponents().get(i).getTravelComponent().getType() == ComponentType.ARRIVAL_FLIGHT)
+					Arr_flight.add(personalizedTravepPackage.getTravelComponents().get(i));
+				if(personalizedTravepPackage.getTravelComponents().get(i).getTravelComponent().getType() == ComponentType.DEPARTURE_FLIGHT)
+					Dep_flight.add(personalizedTravepPackage.getTravelComponents().get(i));
+				if(personalizedTravepPackage.getTravelComponents().get(i).getTravelComponent().getType() == ComponentType.HOTEL)
+					Hotel.add(personalizedTravepPackage.getTravelComponents().get(i));
+				if(personalizedTravepPackage.getTravelComponents().get(i).getTravelComponent().getType() == ComponentType.EXCURSION)
+					Excursion.add(personalizedTravepPackage.getTravelComponents().get(i));
 			}
 		}
-		//more than a departure or arrival flyght
+		//more than a departure or arrival flight
 		if(Arr_flight.size()>1 || Dep_flight.size()>1) 
 			return false;
 		
@@ -249,6 +249,6 @@ public class PersonalizedTravelPackageHandler {
 			}
 		}	
 		
-		return true; // all the controls are ok	
+		return true; // all the controls are OK	
 	}
 }
