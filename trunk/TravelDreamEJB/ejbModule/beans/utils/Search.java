@@ -76,6 +76,7 @@ public class Search {
 		userDTO.setEmail(user.getEmail());
 		userDTO.setFirstName(user.getFirstName());
 		userDTO.setLastName(user.getLastName());
+		userDTO.setPassword(null);
 		return userDTO;
 	}
 }
