@@ -10,6 +10,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import beans.travelcomponent.ComponentType;
+import beans.travelcomponent.FlightType;
 import beans.travelcomponent.TravelComponentHandler;
 import entities.*;
 
@@ -108,21 +109,25 @@ public class PersonalizedTravelPackageHandler {
 		List<Components_Helper> Hotel = new ArrayList<Components_Helper>();
 		List<Components_Helper> Excursion = new ArrayList<Components_Helper>();
 		for (int i=0; i < personalizedTravepPackage.getTravelComponents().size();i++){
-			if(personalizedTravepPackage.getTravelComponents().get(i).getTravelElement() != null){
-				if(personalizedTravepPackage.getTravelComponents().get(i).getPersistence().getType() == ComponentType.ARRIVAL_FLIGHT)
-					Arr_flight.add(personalizedTravepPackage.getTravelComponents().get(i));
-				if(personalizedTravepPackage.getTravelComponents().get(i).getPersistence().getType() == ComponentType.DEPARTURE_FLIGHT)
-					Dep_flight.add(personalizedTravepPackage.getTravelComponents().get(i));
+			if(personalizedTravepPackage.getTravelComponents().get(i).getTravelElement() != null){				
+				if(personalizedTravepPackage.getTravelComponents().get(i).getPersistence().getType() == ComponentType.FLIGHT){
+					if(personalizedTravepPackage.getTravelComponents().get(i).getPersistence().getFlightType() == FlightType.ARRIVAL_FLIGHT)
+						Arr_flight.add(personalizedTravepPackage.getTravelComponents().get(i));
+					if(personalizedTravepPackage.getTravelComponents().get(i).getPersistence().getFlightType() == FlightType.DEPARTURE_FLIGHT)
+						Dep_flight.add(personalizedTravepPackage.getTravelComponents().get(i));
+				}
 				if(personalizedTravepPackage.getTravelComponents().get(i).getPersistence().getType() == ComponentType.HOTEL)
 					Hotel.add(personalizedTravepPackage.getTravelComponents().get(i));
 				if(personalizedTravepPackage.getTravelComponents().get(i).getPersistence().getType() == ComponentType.EXCURSION)
 					Excursion.add(personalizedTravepPackage.getTravelComponents().get(i));
 			}
 			else{
-				if(personalizedTravepPackage.getTravelComponents().get(i).getTravelComponent().getType() == ComponentType.ARRIVAL_FLIGHT)
-					Arr_flight.add(personalizedTravepPackage.getTravelComponents().get(i));
-				if(personalizedTravepPackage.getTravelComponents().get(i).getTravelComponent().getType() == ComponentType.DEPARTURE_FLIGHT)
-					Dep_flight.add(personalizedTravepPackage.getTravelComponents().get(i));
+				if(personalizedTravepPackage.getTravelComponents().get(i).getTravelComponent().getType() == ComponentType.FLIGHT){
+					if(personalizedTravepPackage.getTravelComponents().get(i).getTravelComponent().getFlightType() == FlightType.ARRIVAL_FLIGHT)
+						Arr_flight.add(personalizedTravepPackage.getTravelComponents().get(i));
+					if(personalizedTravepPackage.getTravelComponents().get(i).getTravelComponent().getFlightType() == FlightType.DEPARTURE_FLIGHT)
+						Dep_flight.add(personalizedTravepPackage.getTravelComponents().get(i));
+				}
 				if(personalizedTravepPackage.getTravelComponents().get(i).getTravelComponent().getType() == ComponentType.HOTEL)
 					Hotel.add(personalizedTravepPackage.getTravelComponents().get(i));
 				if(personalizedTravepPackage.getTravelComponents().get(i).getTravelComponent().getType() == ComponentType.EXCURSION)

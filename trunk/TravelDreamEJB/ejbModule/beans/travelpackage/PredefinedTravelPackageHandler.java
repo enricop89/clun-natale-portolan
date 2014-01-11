@@ -4,9 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+
 import javax.persistence.PersistenceContext;
 
 import beans.travelcomponent.ComponentType;
+import beans.travelcomponent.FlightType;
 
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
@@ -79,10 +81,12 @@ public class PredefinedTravelPackageHandler {
 		List<TravelComponent> Excursion = new ArrayList<TravelComponent>();
 		for (int i=0;i<predefinedTravelPackage.getTravelComponents().size();i++){ //divide components in the four Component_type
 			ComponentType aux=predefinedTravelPackage.getTravelComponents().get(i).getType();
-			if(aux==ComponentType.ARRIVAL_FLIGHT)
-				Arr_flight.add(predefinedTravelPackage.getTravelComponents().get(i));
-			if(aux==ComponentType.DEPARTURE_FLIGHT)
-				Dep_flight.add(predefinedTravelPackage.getTravelComponents().get(i));
+			if(aux==ComponentType.FLIGHT){
+				if(predefinedTravelPackage.getTravelComponents().get(i).getFlightType() == FlightType.ARRIVAL_FLIGHT)
+					Arr_flight.add(predefinedTravelPackage.getTravelComponents().get(i));
+				if(predefinedTravelPackage.getTravelComponents().get(i).getFlightType() == FlightType.DEPARTURE_FLIGHT)
+					Dep_flight.add(predefinedTravelPackage.getTravelComponents().get(i));
+			}
 			if(aux==ComponentType.HOTEL)
 				Hotel.add(predefinedTravelPackage.getTravelComponents().get(i));
 			if(aux==ComponentType.EXCURSION)
