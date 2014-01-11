@@ -5,5 +5,5 @@ import beans.accountmanagement.UserDTO;
 
 @Local
 public interface CustomerRegistrationInterface {
-	public void addNewCustomer(UserDTO user);
+	public boolean addNewCustomer(UserDTO user);
 }
