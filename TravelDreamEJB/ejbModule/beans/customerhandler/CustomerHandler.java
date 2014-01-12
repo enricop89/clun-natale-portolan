@@ -26,7 +26,7 @@ public class CustomerHandler implements CustomerHandlerInterface{
 	private Search search;
 
 	@RolesAllowed({"CUSTOMER"})
-	public boolean addNewTravelComponentToPersonalizedTravelPackage(PersonalizedTravelPackageDTO personalizedTravelPackage, TravelComponentDTO travelComponent){
+	public boolean addTravelComponentToPersonalizedTravelPackage(PersonalizedTravelPackageDTO personalizedTravelPackage, TravelComponentDTO travelComponent){
 		//control first if it is in the personalizedTravelPackage already
 		for(int i = 0; i < personalizedTravelPackage.getTravelComponents().size(); i++)
 			if(personalizedTravelPackage.getTravelComponents().get(i).getTravelComponent() == travelComponent)
@@ -75,7 +75,7 @@ public class CustomerHandler implements CustomerHandlerInterface{
 	
 	@RolesAllowed({"CUSTOMER"})
 	public void addNewPersonalizedTravelPackage(UserDTO user, PredefinedTravelPackageDTO predefinedTravelPackage){
-		predefined_handler.copyPredefinedTravelPackage(new PredefinedTravelPackage(predefinedTravelPackage), search.findUser(user));
+		predefined_handler.copyPredefinedTravelPackage(search.findPredefinedTravelPackage(predefinedTravelPackage), search.findUser(user));
 	}
 	
 	@RolesAllowed({"CUSTOMER"})
