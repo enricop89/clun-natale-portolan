@@ -43,12 +43,19 @@ public class Search {
 	}
 	
 	public List<PredefinedTravelPackage> findPredefinedTravelPackage(String name){
-		// nota che name può anche essere solo PARTE del nome del package
-		// IMPORTANTE: DISCUTERE ALTRI CRITERI DI RICERCA basati sui componenti dei travel package
+		// name can also be only a part of the real package name
+		if(name.length() < 3)
+			return null;
+		 List<PredefinedTravelPackage> list = findAllPredefinedTravelPackages();
+		 for(int i = 0; i < list.size(); i++)
+			 if(!list.get(i).getName().contains(name))
+				 list.remove(i);
+		 return list;
+		
 	}
 	
 	public List<PredefinedTravelPackage> findAllPredefinedTravelPackages(){
-		
+		return entityManager.createNamedQuery(PredefinedTravelPackage.FIND_ALL, PredefinedTravelPackage.class).getResultList();
 	}
 	
 	public List<TravelComponent> findTravelComponent(TravelComponent searchCriteria){
@@ -61,7 +68,7 @@ public class Search {
 	}
 	
 	public List<TravelComponent> findAllTravelComponents(){
-		
+		return entityManager.createNamedQuery(TravelComponent.FIND_ALL, TravelComponent.class).getResultList();
 	}
 	
 	public User findUser(String email) {
@@ -71,11 +78,33 @@ public class Search {
 		return entityManager.find(User.class, user.getEmail());
 	}
 	public List<User> findUser(String firstName, String lastName){
-		//considerare anche i casi in cui uno dei valori sia nullo
-		// eg. solo nome o solo cognome
+		//it considers both the case where all the fields are filled or only one of them
+		List<User> listUser = findAllUser();
+		if(firstName == ""){
+			if(lastName == "")
+				return null;
+			else{ //only lastName
+				for(int i = 0; i < listUser.size(); i++)
+					if(listUser.get(i).getLastName() != lastName)
+						listUser.remove(i);
+			}
+		}
+		else{
+			if(lastName == ""){ //only firstName
+				for(int i = 0; i < listUser.size(); i++)
+					if(listUser.get(i).getFirstName() != firstName)
+						listUser.remove(i);
+			}
+			else{ //both
+				for(int i = 0; i < listUser.size(); i++)
+					if(listUser.get(i).getFirstName() != firstName && listUser.get(i).getLastName() != lastName)
+						listUser.remove(i);
+			}				
+		}
+		return listUser;
 	}
 	public List<User> findAllUser(){
-		
+		return entityManager.createNamedQuery(User.FIND_ALL, User.class).getResultList();
 	}
 	
 	//DTOs
