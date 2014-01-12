@@ -3,7 +3,11 @@ package entities;
 import java.io.Serializable;
 import java.util.List;
 import java.lang.String;
+
 import javax.persistence.*;
+
+import beans.travelpackage.PersonalizedTravelPackageDTO;
+import beans.utils.Search;
 
 /**
  * Entity implementation class for Entity: PersonalizedTravelPackage
@@ -28,6 +32,14 @@ public class PersonalizedTravelPackage implements Serializable {
 	public PersonalizedTravelPackage() {
 		super();
 	}   
+	public PersonalizedTravelPackage(PersonalizedTravelPackageDTO personalizedTravelPackage) {
+		Search search = new Search();
+//		this.id = personalizedTravelPackage.getId();
+		this.name = personalizedTravelPackage.getName();
+		this.owner = search.findUser(personalizedTravelPackage.getOwner());
+		for(int i = 0; i < personalizedTravelPackage.getTravelComponents().size(); i++)
+			travelComponents.add(search.findComponents_Helper(personalizedTravelPackage.getTravelComponents().get(i)));
+	}
 	public long getId() {
 		return this.id;
 	}

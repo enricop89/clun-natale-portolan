@@ -19,7 +19,7 @@ public class CredentialRetrieval implements CredentialRetrievalInterface{
 	@PersistenceContext
     private EntityManager entityManager;
 	
-	private Search search;
+	private SearchDTO search;
 	private ModifyInfo modifyInfo;
 	
 	@RolesAllowed({"CUSTOMER"})
