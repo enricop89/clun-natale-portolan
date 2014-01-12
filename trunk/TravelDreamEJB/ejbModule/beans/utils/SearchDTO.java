@@ -3,6 +3,8 @@ package beans.utils;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.ejb.Stateless;
+
 import beans.accountmanagement.UserDTO;
 import beans.customerhandler.GiftElements_HelperDTO;
 import beans.customerhandler.GiftListDTO;
@@ -13,6 +15,10 @@ import beans.travelpackage.PersonalizedTravelPackageDTO;
 import beans.travelpackage.PredefinedTravelPackageDTO;
 import entities.*;
 
+/**
+ * Session Bean implementation class SearchDTO
+ */
+@Stateless
 public class SearchDTO implements SearchDTOInterface {
 	private Search search;
 	
