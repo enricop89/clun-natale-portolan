@@ -2,12 +2,15 @@ package beans.utils;
 
 import java.util.List;
 
+import javax.ejb.Local;
+
 import beans.accountmanagement.UserDTO;
 import beans.customerhandler.GiftListDTO;
 import beans.travelcomponent.TravelComponentDTO;
 import beans.travelpackage.PersonalizedTravelPackageDTO;
 import beans.travelpackage.PredefinedTravelPackageDTO;
 
+@Local
 public interface SearchDTOInterface {
 	public GiftListDTO findGiftList(UserDTO owner);
 	
