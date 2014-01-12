@@ -42,8 +42,12 @@ public class TravelComponentHandler{
 		travelElement.setConfirmationDateTime(new Timestamp(new Date().getTime()));
 		travelElement.setTravelComponent(null);
 		travelComponent.getTravelElements().remove(travelElement);
-		entityManager.merge(travelComponent);
 		entityManager.merge(travelElement);
+		//checks if the travelComponent becomes empty, if so, it removes it from all references and deletes it from the system
+		if(travelComponent.getTravelElements().isEmpty())
+			deleteTravelComponent(travelComponent);
+		else
+			entityManager.merge(travelComponent);
 		return travelElement;
 	}
 	
@@ -153,7 +157,6 @@ public class TravelComponentHandler{
 		return true;
 	}
 	
-	@RolesAllowed({"EMPLOYEE"})
 	public void deleteTravelComponent(TravelComponent travelComponent){
 		for(int i = 0; i < travelComponent.getTravelElements().size(); i++)
 			deleteTravelElement(travelComponent.getTravelElements().get(i));
