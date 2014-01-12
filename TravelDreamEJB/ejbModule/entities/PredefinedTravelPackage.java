@@ -14,10 +14,15 @@ import beans.utils.Search;
  *
  */
 @Entity
-
+@NamedQueries({
+	@NamedQuery(name=PredefinedTravelPackage.FIND_ALL,
+				query="SELECT p FROM PredefinedTravelPackage p")
+})
 public class PredefinedTravelPackage implements Serializable {
 	private static final long serialVersionUID = 1L;
 	   
+	public static final String FIND_ALL = "PredefinedTravelPackage.findAll";
+	
 	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long id;
 	
