@@ -3,7 +3,11 @@ package entities;
 import java.io.Serializable;
 import java.util.List;
 import java.lang.String;
+
 import javax.persistence.*;
+
+import beans.travelpackage.PredefinedTravelPackageDTO;
+import beans.utils.Search;
 
 /**
  * Entity implementation class for Entity: PredefinedTravelPackage
@@ -35,6 +39,14 @@ public class PredefinedTravelPackage implements Serializable {
 	public PredefinedTravelPackage() {
 		super();
 	}   
+	public PredefinedTravelPackage(PredefinedTravelPackageDTO p){
+		Search search = new Search();
+//		this.id = p.getId();
+		this.name = p.getName();
+		this.description = p.getDescription();
+		for(int i = 0; i < p.getTravelComponents().size(); i++)	
+			travelComponents.add(search.findTravelComponent(p.getTravelComponents().get(i)));
+	}
 	public long getId() {
 		return this.id;
 	}

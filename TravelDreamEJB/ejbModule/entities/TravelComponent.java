@@ -4,9 +4,13 @@ import java.io.Serializable;
 import java.lang.String;
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
+
 import beans.travelcomponent.ComponentType;
 import beans.travelcomponent.FlightType;
+import beans.travelcomponent.TravelComponentDTO;
+
 import javax.persistence.*;
 
 /**
@@ -49,7 +53,60 @@ public class TravelComponent implements Serializable {
 	public TravelComponent() {
 		super();
 	}   
-	
+	public TravelComponent(TravelComponentDTO t){
+//		this.id = travelComponent.getId();
+		this.type = t.getType();
+		this.supplyingCompany = t.getSupplyingCompany();
+		switch(t.getType()){
+		case FLIGHT:
+			flightType = t.getFlightType();
+			flightDepartureDateTime = t.getFlightDepartureDateTime();
+			flightArrivalDateTime = t.getFlightArrivalDateTime();
+			flightDepartureCity = t.getFlightDepartureCity();
+			flightArrivalCity = t.getFlightArrivalCity();
+			flightCode = t.getFlightCode();
+			
+			hotelCity = null;
+			hotelDate = null;
+			
+			excursionDescription = null;
+			excursionDateTime = null;
+			excursionCity = null;
+			break;
+		case HOTEL:
+			flightType = null;
+			flightDepartureDateTime = null;
+			flightArrivalDateTime = null;
+			flightDepartureCity = null;
+			flightArrivalCity = null;
+			flightCode = null;
+			
+			hotelCity = t.getHotelCity();
+			hotelDate = t.getHotelDate();
+			
+			excursionDescription = null;
+			excursionDateTime = null;
+			excursionCity = null;
+			break;
+		case EXCURSION:
+			flightType = null;
+			flightDepartureDateTime = null;
+			flightArrivalDateTime = null;
+			flightDepartureCity = null;
+			flightArrivalCity = null;
+			flightCode = null;
+			
+			hotelCity = null;
+			hotelDate = null;
+			
+			excursionDescription = t.getExcursionDescription();
+			excursionDateTime = t.getExcursionDateTime();
+			excursionCity = t.getExcursionCity();
+			break;
+		}
+		this.predefinedTravelPackages = new ArrayList<PredefinedTravelPackage>(); //is empty when created
+		this.travelElements = null; //will be created afterwards
+	}
 	public long getId() {
 		return this.id;
 	}
