@@ -22,14 +22,17 @@ import entities.*;
 public class SearchDTO implements SearchDTOInterface {
 	private Search search;
 	
+	@Override
 	public GiftListDTO findGiftList(UserDTO owner){
 		return convertToDTO(search.findGiftList(search.findUser(owner)));
 	}
 	
+	@Override
 	public PersonalizedTravelPackageDTO findPersonalizedTravelPackage(long id){
 		return convertToDTO(search.findPersonalizedTravelPackage(id));
 	}
 	
+	@Override
 	public List<PersonalizedTravelPackageDTO> findAllPersonalizedTravelPackages(UserDTO owner){
 		List<PersonalizedTravelPackage> packages = search.findAllPersonalizedTravelPackages(search.findUser(owner));
 		List<PersonalizedTravelPackageDTO> result = new ArrayList<PersonalizedTravelPackageDTO>();
@@ -38,6 +41,7 @@ public class SearchDTO implements SearchDTOInterface {
 		return result;
 	}
 	
+	@Override
 	public List<PersonalizedTravelPackageDTO> findAllPersonalizedTravelPackages(){
 		List<PersonalizedTravelPackage> packages = search.findAllPersonalizedTravelPackages();
 		List<PersonalizedTravelPackageDTO> result = new ArrayList<PersonalizedTravelPackageDTO>();
@@ -46,6 +50,7 @@ public class SearchDTO implements SearchDTOInterface {
 		return result;
 	}
 	
+	@Override
 	public List<PredefinedTravelPackageDTO> findPredefinedTravelPackage(String name){
 		List<PredefinedTravelPackage> packages = search.findPredefinedTravelPackage(name);
 		List<PredefinedTravelPackageDTO> result = new ArrayList<PredefinedTravelPackageDTO>();
@@ -54,6 +59,7 @@ public class SearchDTO implements SearchDTOInterface {
 		return result;
 	}
 	
+	@Override
 	public List<PredefinedTravelPackageDTO> findAllPredefinedTravelPackages(){
 		List<PredefinedTravelPackage> packages = search.findAllPredefinedTravelPackages();
 		List<PredefinedTravelPackageDTO> result = new ArrayList<PredefinedTravelPackageDTO>();
@@ -62,6 +68,7 @@ public class SearchDTO implements SearchDTOInterface {
 		return result;
 	}
 	
+	@Override
 	public List<TravelComponentDTO> findTravelComponent(TravelComponentDTO searchCriteria){
 		List<TravelComponent> components = search.findTravelComponent(new TravelComponent(searchCriteria));
 		List<TravelComponentDTO> result = new ArrayList<TravelComponentDTO>();
@@ -70,6 +77,7 @@ public class SearchDTO implements SearchDTOInterface {
 		return result;
 	}
 	
+	@Override
 	public List<TravelComponentDTO> findAllTravelComponents(){
 		List<TravelComponent> components = search.findAllTravelComponents();
 		List<TravelComponentDTO> result = new ArrayList<TravelComponentDTO>();
@@ -78,10 +86,12 @@ public class SearchDTO implements SearchDTOInterface {
 		return result;
 	}
 	
+	@Override
 	public UserDTO findUser(String email) {
 		return convertToDTO(search.findUser(email));
     } 
 	
+	@Override
 	public List<UserDTO> findUser(String firstName, String lastName){
 		List<User> users = search.findUser(firstName, lastName);
 		List<UserDTO> result = new ArrayList<UserDTO>();
@@ -89,6 +99,8 @@ public class SearchDTO implements SearchDTOInterface {
 			result.add(convertToDTO(users.get(i)));
 		return result;
 	}
+	
+	@Override
 	public List<UserDTO> findAllUser(){
 		List<User> users = search.findAllUser();
 		List<UserDTO> result = new ArrayList<UserDTO>();

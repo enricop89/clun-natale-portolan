@@ -39,13 +39,13 @@ public class PredefinedTravelPackage implements Serializable {
 	public PredefinedTravelPackage() {
 		super();
 	}   
-	public PredefinedTravelPackage(PredefinedTravelPackageDTO p){
+	public PredefinedTravelPackage(PredefinedTravelPackageDTO predefinedTravelPackage){
 		Search search = new Search();
 //		this.id = p.getId();
-		this.name = p.getName();
-		this.description = p.getDescription();
-		for(int i = 0; i < p.getTravelComponents().size(); i++)	
-			travelComponents.add(search.findTravelComponent(p.getTravelComponents().get(i)));
+		this.name = predefinedTravelPackage.getName();
+		this.description = predefinedTravelPackage.getDescription();
+		for(int i = 0; i < predefinedTravelPackage.getTravelComponents().size(); i++)	
+			travelComponents.add(search.findTravelComponent(predefinedTravelPackage.getTravelComponents().get(i)));
 	}
 	public long getId() {
 		return this.id;
