@@ -27,6 +27,8 @@ public class TravelComponentDTO {
 	private String excursionCity;
 	private List<PredefinedTravelPackageDTO> predefinedTravelPackages;
 	private List<TravelElementDTO> travelElements;
+	@NotEmpty
+	int availability;
 	
 	public TravelComponentDTO() {
 		super();
@@ -156,5 +158,13 @@ public class TravelComponentDTO {
 	
 	public void setTravelElements(List<TravelElementDTO> travelElements) {
 		this.travelElements = travelElements;
+	}
+	
+	public int getAvailability(){
+		return availability;
+	}
+	
+	public void setAvailability(int availability){
+		this.availability = availability;
 	}
 }
