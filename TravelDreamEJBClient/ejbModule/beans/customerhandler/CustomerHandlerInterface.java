@@ -9,7 +9,7 @@ import beans.travelpackage.PredefinedTravelPackageDTO;
 
 @Local
 public interface CustomerHandlerInterface {
-	public boolean addNewTravelComponentToPersonalizedTravelPackage(PersonalizedTravelPackageDTO personalizedTravelPackage, TravelComponentDTO travelComponent);
+	public boolean addTravelComponentToPersonalizedTravelPackage(PersonalizedTravelPackageDTO personalizedTravelPackage, TravelComponentDTO travelComponent);
 
 	public void removeTravelComponentFromPersonalizedTravelPackage(PersonalizedTravelPackageDTO personalizedTravelPackage, Components_HelperDTO travelComponent);
 
