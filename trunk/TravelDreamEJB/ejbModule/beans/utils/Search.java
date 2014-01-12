@@ -11,7 +11,6 @@ import entities.*;
 import beans.accountmanagement.UserDTO;
 import beans.customerhandler.GiftElements_HelperDTO;
 import beans.customerhandler.GiftListDTO;
-import beans.travelcomponent.ComponentType;
 import beans.travelcomponent.TravelComponentDTO;
 import beans.travelpackage.Components_HelperDTO;
 import beans.travelpackage.PersonalizedTravelPackageDTO;
@@ -64,13 +63,66 @@ public class Search {
 		return entityManager.createNamedQuery(PredefinedTravelPackage.FIND_ALL, PredefinedTravelPackage.class).getResultList();
 	}
 	
-	public List<TravelComponent> findTravelComponent(TravelComponent searchCriteria){
+	public List<TravelComponent> findTravelComponent(TravelComponent s){
 	// a fictitious TravelComponent is used to specify the search criteria
 	// the unused field must be set to null, even though it will consider only the field associated
 	// to the specific ComponentType
-		
-		
-		// nota che uno dei due campi può essere nullo
+		String query= new String();
+		switch(s.getType()){
+		case FLIGHT:
+				if(s.getFlightType()!=null)
+					query= query + "flightType=" + s.getFlightType() ;
+				if(s.getFlightDepartureDateTime()!=null){
+					if(query.isEmpty())
+						query=query + "flightDepartureDateTime=" + s.getFlightDepartureDateTime() ;
+					else	query=query + "AND flightDepartureDateTime=" + s.getFlightDepartureDateTime() ;
+								}
+				if(s.getFlightDepartureDateTime()!=null){
+					if(query.isEmpty())
+						query=query + "flightArrivalDateTime=" + s.getFlightArrivalDateTime() ;
+					else	query=query + "AND flightArrivalDateTime=" + s.getFlightArrivalDateTime() ;
+								}
+				if(s.getFlightDepartureDateTime()!=null){
+					if(query.isEmpty())
+						query=query + "flightDepartureCity=" + s.getFlightDepartureCity() ;
+					else	query=query + "AND flightDepartureCity=" + s.getFlightDepartureCity() ;
+								}
+				if(s.getFlightDepartureDateTime()!=null){
+					if(query.isEmpty())
+						query=query + "flightArrivalCity=" + s.getFlightArrivalCity() ;
+					else	query=query + "AND flightArrivalCity=" + s.getFlightArrivalCity() ;
+								}
+				if(s.getFlightDepartureDateTime()!=null){
+					if(query.isEmpty())
+						query=query + "flightCode=" + s.getFlightCode() ;
+					else	query=query + "AND flightCode=" + s.getFlightCode() ;
+								}
+				break;
+		case HOTEL:
+			if(s.getHotelCity()!=null)
+				query= query + "hotelCity=" + s.getHotelCity() ;
+			if(s.getHotelDate()!=null){
+				if(query.isEmpty())
+					query=query + "hotelDate=" + s.getHotelDate() ;
+				else	query=query + "AND hotelDate=" + s.getHotelDate() ;
+							}
+			break;
+		case EXCURSION:
+			if(s.getExcursionDescription()!=null)
+				query= query + "excursionDescription=" + s.getExcursionDescription() ;
+			if(s.getExcursionDateTime()!=null){
+				if(query.isEmpty())
+					query=query + "excursionDateTime=" + s.getExcursionDateTime() ;
+				else	query=query + "AND excursionDateTime=" + s.getExcursionDateTime() ;
+							}
+			if(s.getFlightDepartureDateTime()!=null){
+				if(query.isEmpty())
+					query=query + "excursionCity=" + s.getExcursionCity() ;
+				else	query=query + "AND excursionCity=" + s.getExcursionCity() ;
+							}
+			break;
+			}
+		return entityManager.createQuery("SELECT u FROM TravelComponent WHERE " + query, TravelComponent.class).getResultList();
 	}
 	
 	public List<TravelComponent> findAllTravelComponents(){
@@ -86,8 +138,8 @@ public class Search {
 	public List<User> findUser(String firstName, String lastName){
 		//it considers both the case where all the fields are filled or only one of them
 		List<User> listUser = findAllUser();
-		if(firstName == ""){
-			if(lastName == "")
+		if(firstName == null){
+			if(lastName == null)
 				return null;
 			else{ //only lastName
 				for(int i = 0; i < listUser.size(); i++)
@@ -96,7 +148,7 @@ public class Search {
 			}
 		}
 		else{
-			if(lastName == ""){ //only firstName
+			if(lastName == null){ //only firstName
 				for(int i = 0; i < listUser.size(); i++)
 					if(listUser.get(i).getFirstName() != firstName)
 						listUser.remove(i);
@@ -115,24 +167,24 @@ public class Search {
 	
 	//DTOs
 	public GiftElements_Helper findGiftElements_Helper(GiftElements_HelperDTO giftElement){
-		
+		return entityManager.find(GiftElements_Helper.class, giftElement.getId());
 	}
 	public Components_Helper findComponents_Helper(Components_HelperDTO component){
-		
+		return entityManager.find(Components_Helper.class, component.getId());
 	}
 	public TravelComponent findTravelComponent(TravelComponentDTO travelComponent){
-		
+		return entityManager.find(TravelComponent.class, travelComponent.getId());
 	}
 	public PersonalizedTravelPackage findPersonalizedTravelPackage(PersonalizedTravelPackageDTO personalizedTravelPackage){
-		
+		return entityManager.find(PersonalizedTravelPackage.class, personalizedTravelPackage.getId());
 	}
 	public PredefinedTravelPackage findPredefinedTravelPackage(PredefinedTravelPackageDTO predefinedTravelPackage){
-		
+		return entityManager.find(PredefinedTravelPackage.class, predefinedTravelPackage.getId());
 	}
 	public GiftList findGiftList(GiftListDTO giftList){
-		
+		return entityManager.find(GiftList.class, giftList.getOwner());
 	}
 	public User findUser(UserDTO user) {
-		
+		return entityManager.find(User.class, user.getEmail());
 	}
 }
