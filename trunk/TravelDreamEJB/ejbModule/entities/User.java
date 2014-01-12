@@ -14,10 +14,15 @@ import org.apache.commons.codec.digest.DigestUtils;
  */
 @Entity
 @Table(name="USERS")
-
+@NamedQueries({
+	@NamedQuery(name=User.FIND_ALL,
+				query="SELECT u FROM User u")
+})
 public class User implements Serializable {	
 	private static final long serialVersionUID = 1L;
 
+	public static final String FIND_ALL = "User.findAll";
+	
 	@Id
 	private String email;
 	

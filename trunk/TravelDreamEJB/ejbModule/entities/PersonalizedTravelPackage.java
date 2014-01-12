@@ -14,10 +14,14 @@ import beans.utils.Search;
  *
  */
 @Entity
-
+@NamedQueries({
+	@NamedQuery(name=PersonalizedTravelPackage.FIND_ALL,
+				query="SELECT p FROM PersonalizedTravelPackage p")
+})
 public class PersonalizedTravelPackage implements Serializable {
 	private static final long serialVersionUID = 1L;
-	   
+	public static final String FIND_ALL = "PersonalizedTravelPackage.findAll";
+	
 	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long id; 
 	

@@ -18,10 +18,15 @@ import javax.persistence.*;
  *
  */
 @Entity
-
+@NamedQueries({
+	@NamedQuery(name=TravelComponent.FIND_ALL,
+				query="SELECT t FROM TravelComponent t")
+})
 public class TravelComponent implements Serializable {
 	private static final long serialVersionUID = 1L;
-	   
+	 
+	public static final String FIND_ALL = "TravelComponent.findAll";
+	
 	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long id;
 	

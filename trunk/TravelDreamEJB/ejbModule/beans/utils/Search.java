@@ -27,18 +27,24 @@ public class Search {
     private EntityManager entityManager;
 	
 	public GiftList findGiftList(User owner){
+		return entityManager.find(GiftList.class,owner);
 		
 	}
 	
 	public PersonalizedTravelPackage findPersonalizedTravelPackage(long id){
-		
+		return entityManager.find(PersonalizedTravelPackage.class,id);
 	}
 	
 	public List<PersonalizedTravelPackage> findAllPersonalizedTravelPackages(User owner){
-		
+	List<PersonalizedTravelPackage> list = findAllPersonalizedTravelPackages();
+	for(int i = 0; i < list.size(); i++)
+		 if(list.get(i).getOwner()!=owner)
+			 list.remove(i);
+	 return list;
 	}
 	
 	public List<PersonalizedTravelPackage> findAllPersonalizedTravelPackages(){
+		return entityManager.createNamedQuery(PersonalizedTravelPackage.FIND_ALL, PersonalizedTravelPackage.class).getResultList();
 		
 	}
 	
