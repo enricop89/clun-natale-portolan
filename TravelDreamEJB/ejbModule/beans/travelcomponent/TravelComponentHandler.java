@@ -177,7 +177,7 @@ public class TravelComponentHandler{
 		// check if the deletion affects some personalized travel package
 		List<PersonalizedTravelPackage> persTPs = search.findAllPersonalizedTravelPackages();
 		for(int i = 0; i < persTPs.size(); i++){
-			for(int j = 0; j < predTPs.get(i).getTravelComponents().size(); j++){
+			for(int j = 0; j < persTPs.get(i).getTravelComponents().size(); j++){
 				if(persTPs.get(i).getTravelComponents().get(j).getTravelComponent().getId() == travelComponent.getId()){
 					PersonalizedTravelPackageHandler handler = new PersonalizedTravelPackageHandler();
 					if(persTPs.get(i).getTravelComponents().get(j).getTravelElement() != null){
