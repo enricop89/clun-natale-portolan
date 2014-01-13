@@ -26,8 +26,7 @@ public class Search {
     private EntityManager entityManager;
 	
 	public GiftList findGiftList(User owner){
-		return entityManager.find(GiftList.class,owner);
-		
+		return entityManager.find(GiftList.class,owner);		
 	}
 	
 	public PersonalizedTravelPackage findPersonalizedTravelPackage(long id){
@@ -35,16 +34,15 @@ public class Search {
 	}
 	
 	public List<PersonalizedTravelPackage> findAllPersonalizedTravelPackages(User owner){
-	List<PersonalizedTravelPackage> list = findAllPersonalizedTravelPackages();
-	for(int i = 0; i < list.size(); i++)
-		 if(list.get(i).getOwner()!=owner)
-			 list.remove(i);
-	 return list;
+		List<PersonalizedTravelPackage> list = findAllPersonalizedTravelPackages();
+		for(int i = 0; i < list.size(); i++)
+			 if(list.get(i).getOwner()!=owner)
+				 list.remove(i);
+		 return list;
 	}
 	
 	public List<PersonalizedTravelPackage> findAllPersonalizedTravelPackages(){
-		return entityManager.createNamedQuery(PersonalizedTravelPackage.FIND_ALL, PersonalizedTravelPackage.class).getResultList();
-		
+		return entityManager.createNamedQuery(PersonalizedTravelPackage.FIND_ALL, PersonalizedTravelPackage.class).getResultList();		
 	}
 	
 	public List<PredefinedTravelPackage> findPredefinedTravelPackage(String name){
@@ -55,8 +53,7 @@ public class Search {
 		 for(int i = 0; i < list.size(); i++)
 			 if(!list.get(i).getName().contains(name))
 				 list.remove(i);
-		 return list;
-		
+		 return list;	
 	}
 	
 	public List<PredefinedTravelPackage> findAllPredefinedTravelPackages(){
@@ -70,59 +67,59 @@ public class Search {
 		String query= new String();
 		switch(s.getType()){
 		case FLIGHT:
-				if(s.getFlightType()!=null)
-					query= query + "flightType=" + s.getFlightType() ;
-				if(s.getFlightDepartureDateTime()!=null){
-					if(query.isEmpty())
-						query=query + "flightDepartureDateTime=" + s.getFlightDepartureDateTime() ;
-					else	query=query + "AND flightDepartureDateTime=" + s.getFlightDepartureDateTime() ;
-								}
-				if(s.getFlightDepartureDateTime()!=null){
-					if(query.isEmpty())
-						query=query + "flightArrivalDateTime=" + s.getFlightArrivalDateTime() ;
-					else	query=query + "AND flightArrivalDateTime=" + s.getFlightArrivalDateTime() ;
-								}
-				if(s.getFlightDepartureDateTime()!=null){
-					if(query.isEmpty())
-						query=query + "flightDepartureCity=" + s.getFlightDepartureCity() ;
-					else	query=query + "AND flightDepartureCity=" + s.getFlightDepartureCity() ;
-								}
-				if(s.getFlightDepartureDateTime()!=null){
-					if(query.isEmpty())
-						query=query + "flightArrivalCity=" + s.getFlightArrivalCity() ;
-					else	query=query + "AND flightArrivalCity=" + s.getFlightArrivalCity() ;
-								}
-				if(s.getFlightDepartureDateTime()!=null){
-					if(query.isEmpty())
-						query=query + "flightCode=" + s.getFlightCode() ;
-					else	query=query + "AND flightCode=" + s.getFlightCode() ;
-								}
-				break;
+			if(s.getFlightType()!=null)
+				query= query + "c.flightType = " + s.getFlightType() ;
+			if(s.getFlightDepartureDateTime()!=null){
+				if(query.isEmpty())
+					query=query + "c.flightDepartureDateTime = " + s.getFlightDepartureDateTime() ;
+				else	query=query + "AND c.flightDepartureDateTime = " + s.getFlightDepartureDateTime() ;
+			}
+			if(s.getFlightDepartureDateTime()!=null){
+				if(query.isEmpty())
+					query=query + "c.flightArrivalDateTime = " + s.getFlightArrivalDateTime() ;
+				else	query=query + "AND c.flightArrivalDateTime = " + s.getFlightArrivalDateTime() ;
+			}
+			if(s.getFlightDepartureDateTime()!=null){
+				if(query.isEmpty())
+					query=query + "c.flightDepartureCity = " + s.getFlightDepartureCity() ;
+				else	query=query + "AND c.flightDepartureCity = " + s.getFlightDepartureCity() ;
+			}
+			if(s.getFlightDepartureDateTime()!=null){
+				if(query.isEmpty())
+					query=query + "c.flightArrivalCity = " + s.getFlightArrivalCity() ;
+				else	query=query + "AND c.flightArrivalCity = " + s.getFlightArrivalCity() ;
+			}
+			if(s.getFlightDepartureDateTime()!=null){
+				if(query.isEmpty())
+					query=query + "c.flightCode = " + s.getFlightCode() ;
+				else	query=query + "AND flightCode = :" + s.getFlightCode() ;
+			}
+			break;
 		case HOTEL:
 			if(s.getHotelCity()!=null)
-				query= query + "hotelCity=" + s.getHotelCity() ;
+				query= query + "c.hotelCity = " + s.getHotelCity() ;
 			if(s.getHotelDate()!=null){
 				if(query.isEmpty())
-					query=query + "hotelDate=" + s.getHotelDate() ;
-				else	query=query + "AND hotelDate=" + s.getHotelDate() ;
-							}
+					query=query + "c.hotelDate = " + s.getHotelDate() ;
+				else	query=query + "AND c.hotelDate = " + s.getHotelDate() ;
+			}
 			break;
 		case EXCURSION:
 			if(s.getExcursionDescription()!=null)
-				query= query + "excursionDescription=" + s.getExcursionDescription() ;
+				query= query + "c.excursionDescription = " + s.getExcursionDescription() ;
 			if(s.getExcursionDateTime()!=null){
 				if(query.isEmpty())
-					query=query + "excursionDateTime=" + s.getExcursionDateTime() ;
-				else	query=query + "AND excursionDateTime=" + s.getExcursionDateTime() ;
-							}
+					query=query + "c.excursionDateTime = " + s.getExcursionDateTime() ;
+				else	query=query + "AND c.excursionDateTime = " + s.getExcursionDateTime() ;
+			}
 			if(s.getFlightDepartureDateTime()!=null){
 				if(query.isEmpty())
-					query=query + "excursionCity=" + s.getExcursionCity() ;
-				else	query=query + "AND excursionCity=" + s.getExcursionCity() ;
-							}
-			break;
+					query=query + "c.excursionCity = " + s.getExcursionCity() ;
+				else	query=query + "AND c.excursionCity = " + s.getExcursionCity() ;
 			}
-		return entityManager.createQuery("SELECT u FROM TravelComponent WHERE " + query, TravelComponent.class).getResultList();
+			break;
+		}
+		return entityManager.createQuery("SELECT c FROM TravelComponent c WHERE " + query, TravelComponent.class).getResultList();
 	}
 	
 	public List<TravelComponent> findAllTravelComponents(){
