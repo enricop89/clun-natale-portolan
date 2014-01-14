@@ -55,6 +55,9 @@ public class TravelComponentHandler{
 	public boolean addNewTravelComponent(TravelComponent travelComponent, int availability){
 		if(availability <= 0)
 			return false;
+		if(travelComponent.getType() == ComponentType.FLIGHT)
+			if(travelComponent.getFlightDepartureDateTime().compareTo(travelComponent.getFlightDepartureDateTime()) > 0)
+				return false; //inconsistent travelComponent!
 		//generates automatically the associated TravelElements
 		List<TravelElement> travelElementsList = new ArrayList<TravelElement>();
 		for(int i = 0; i < availability; i++){
