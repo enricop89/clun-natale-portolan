@@ -4,7 +4,6 @@ import java.sql.Date;
 import java.sql.Timestamp;
 
 import beans.travelcomponent.ComponentType;
-import beans.travelcomponent.FlightType;
 import beans.travelcomponent.TravelComponentDTO;
 import beans.travelcomponent.TravelElementDTO;
 
@@ -13,12 +12,11 @@ public class Components_HelperDTO {
 	private PersonalizedTravelPackageDTO personalizedTravelPackage;	
 	private TravelComponentDTO travelComponent;   
 	private TravelElementDTO travelElement;
-
+	
 	// those fields handle persistence of payed TravelComponents, even if their reference is deleted or modified
 	// if the associated TravelComponent is confirmed, than those information will be used to refer to the TravelComponent instead
 	private ComponentType type;
 	private String supplyingCompany;	
-	private FlightType flightType;
 	private Timestamp flightDepartureDateTime;
 	private Timestamp flightArrivalDateTime;
 	private String flightDepartureCity;
@@ -81,7 +79,6 @@ public class Components_HelperDTO {
 	public void setPersistence(TravelComponentDTO travelComponent){
 		this.type = travelComponent.getType();
 		this.supplyingCompany = travelComponent.getSupplyingCompany();
-		this.flightType = travelComponent.getFlightType();
 		this.flightDepartureDateTime = travelComponent.getFlightDepartureDateTime();
 		this.flightArrivalDateTime = travelComponent.getFlightArrivalDateTime();
 		this.flightDepartureCity = travelComponent.getFlightDepartureCity();
@@ -98,7 +95,6 @@ public class Components_HelperDTO {
 		TravelComponentDTO travelComponent = new TravelComponentDTO();
 		travelComponent.setType(this.type);
 		travelComponent.setSupplyingCompany(this.supplyingCompany);
-		travelComponent.setFlightType(this.flightType);
 		travelComponent.setFlightDepartureDateTime(this.flightDepartureDateTime);
 		travelComponent.setFlightArrivalDateTime(this.flightArrivalDateTime);
 		travelComponent.setFlightDepartureCity(this.flightDepartureCity);

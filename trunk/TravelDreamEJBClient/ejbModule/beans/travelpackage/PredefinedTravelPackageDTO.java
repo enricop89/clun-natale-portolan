@@ -1,5 +1,6 @@
 package beans.travelpackage;
 
+import java.sql.Date;
 import java.util.List;
 
 import org.hibernate.validator.constraints.NotEmpty;
@@ -12,6 +13,10 @@ public class PredefinedTravelPackageDTO {
 	private String name;
 	@NotEmpty
 	private String description;
+	@NotEmpty
+	private Date departureDate;
+	@NotEmpty
+	private Date returnDate;
 	private List<TravelComponentDTO> travelComponents;
 
 	public PredefinedTravelPackageDTO() {
@@ -46,5 +51,20 @@ public class PredefinedTravelPackageDTO {
 	
 	public void setTravelComponents(List<TravelComponentDTO> travelComponents) {
 		this.travelComponents = travelComponents;
+	}
+
+	public Date getReturnDate() {
+		return returnDate;
+	}
+	public void setReturnDate(Date returnDate) {
+		this.returnDate = returnDate;
+	}
+
+	public Date getDepartureDate() {
+		return departureDate;
+	}
+
+	public void setDepartureDate(Date departureDate) {
+		this.departureDate = departureDate;
 	}
 }

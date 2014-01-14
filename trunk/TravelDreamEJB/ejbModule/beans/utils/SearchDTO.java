@@ -123,7 +123,6 @@ public class SearchDTO implements SearchDTOInterface {
     	travelComponentDTO.setId(travelComponent.getId());
     	travelComponentDTO.setType(travelComponent.getType());
     	travelComponentDTO.setSupplyingCompany(travelComponent.getSupplyingCompany());
-    	travelComponentDTO.setFlightType(travelComponent.getFlightType());
     	travelComponentDTO.setFlightDepartureDateTime(travelComponent.getFlightDepartureDateTime());
     	travelComponentDTO.setFlightArrivalDateTime(travelComponent.getFlightArrivalDateTime());
     	travelComponentDTO.setFlightDepartureCity(travelComponent.getFlightDepartureCity());
@@ -157,6 +156,8 @@ public class SearchDTO implements SearchDTOInterface {
     	predefinedTravelPackageDTO.setId(predefinedTravelPackage.getId());
     	predefinedTravelPackageDTO.setName(predefinedTravelPackage.getName());
     	predefinedTravelPackageDTO.setDescription(predefinedTravelPackage.getDescription());
+    	predefinedTravelPackageDTO.setReturnDate(predefinedTravelPackage.getReturnDate());
+    	predefinedTravelPackageDTO.setDepartureDate(predefinedTravelPackage.getDepartureDate());
     	List<TravelComponentDTO> travelComponents = new ArrayList<TravelComponentDTO>();
     	for(int i = 0; i < predefinedTravelPackage.getTravelComponents().size(); i++)
     		travelComponents.add(convertToDTO(predefinedTravelPackage.getTravelComponents().get(i)));
@@ -168,6 +169,8 @@ public class SearchDTO implements SearchDTOInterface {
     	personalizedTravelPackageDTO.setId(personalizedTravelPackage.getId());
     	personalizedTravelPackageDTO.setName(personalizedTravelPackage.getName());
     	personalizedTravelPackageDTO.setOwner(convertToDTO(personalizedTravelPackage.getOwner()));
+    	personalizedTravelPackageDTO.setDepartureDate(personalizedTravelPackage.getDepartureDate());
+    	personalizedTravelPackageDTO.setReturnDate(personalizedTravelPackage.getReturnDate());
     	List<Components_HelperDTO> travelComponents = new ArrayList<Components_HelperDTO>();
     	for(int i = 0; i < personalizedTravelPackage.getTravelComponents().size(); i++)
     		travelComponents.add(convertToDTO(personalizedTravelPackage.getTravelComponents().get(i)));

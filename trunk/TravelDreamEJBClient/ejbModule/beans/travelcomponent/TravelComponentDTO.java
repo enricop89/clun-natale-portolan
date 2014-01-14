@@ -14,7 +14,6 @@ public class TravelComponentDTO {
 	private ComponentType type;	
 	@NotEmpty
 	private String supplyingCompany;	
-	private FlightType flightType;
 	private Timestamp flightDepartureDateTime;
 	private Timestamp flightArrivalDateTime;
 	private String flightDepartureCity;
@@ -55,15 +54,7 @@ public class TravelComponentDTO {
 
 	public void setSupplyingCompany(String supplyingCompany) {
 		this.supplyingCompany = supplyingCompany;
-	}  
-	
-	public FlightType getFlightType() {
-		return this.flightType;
-	}
-
-	public void setFlightType(FlightType flightType) {
-		this.flightType = flightType;
-	}   
+	}    
 	
 	public Timestamp getFlightDepartureDateTime() {
 		return this.flightDepartureDateTime;

@@ -1,5 +1,6 @@
 package beans.travelpackage;
 
+import java.sql.Date;
 import java.util.List;
 
 import org.hibernate.validator.constraints.NotEmpty;
@@ -12,6 +13,12 @@ public class PersonalizedTravelPackageDTO {
 	private String name;
 	
 	private UserDTO owner;
+
+	@NotEmpty
+	private Date departureDate;
+	@NotEmpty
+	private Date returnDate;
+	
 	private List<Components_HelperDTO> travelComponents;
 	
 	public PersonalizedTravelPackageDTO() {
@@ -46,5 +53,17 @@ public class PersonalizedTravelPackageDTO {
 	
 	public void setTravelComponents(List<Components_HelperDTO> travelComponents) {
 		this.travelComponents = travelComponents;
+	}
+	public Date getReturnDate() {
+		return returnDate;
+	}
+	public void setReturnDate(Date returnDate) {
+		this.returnDate = returnDate;
+	}
+	public Date getDepartureDate() {
+		return departureDate;
+	}
+	public void setDepartureDate(Date departureDate) {
+		this.departureDate = departureDate;
 	}
 }

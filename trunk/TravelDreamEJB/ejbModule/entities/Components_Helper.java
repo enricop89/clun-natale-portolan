@@ -10,7 +10,6 @@ import java.sql.Timestamp;
 import javax.persistence.*;
 
 import beans.travelcomponent.ComponentType;
-import beans.travelcomponent.FlightType;
 
 /**
  * Entity implementation class for Entity: Components_Helper
@@ -31,13 +30,12 @@ public class Components_Helper implements Serializable {
 	private TravelComponent travelComponent;   
 
 	private TravelElement travelElement;
-
+	
 	// those fields handle persistence of payed TravelComponents, even if their reference is deleted or modified
 	// if the associated TravelComponent is confirmed, than those information will be used to refer to the TravelComponent instead
 	@Enumerated(EnumType.STRING)	
 	private ComponentType type;
 	private String supplyingCompany;	
-	private FlightType flightType;
 	private Timestamp flightDepartureDateTime;
 	private Timestamp flightArrivalDateTime;
 	private String flightDepartureCity;
@@ -101,7 +99,6 @@ public class Components_Helper implements Serializable {
 	public void setPersistence(TravelComponent travelComponent){
 		this.type = travelComponent.getType();
 		this.supplyingCompany = travelComponent.getSupplyingCompany();
-		this.flightType = travelComponent.getFlightType();
 		this.flightDepartureDateTime = travelComponent.getFlightDepartureDateTime();
 		this.flightArrivalDateTime = travelComponent.getFlightArrivalDateTime();
 		this.flightDepartureCity = travelComponent.getFlightDepartureCity();
@@ -118,7 +115,6 @@ public class Components_Helper implements Serializable {
 		TravelComponent travelComponent = new TravelComponent();
 		travelComponent.setType(this.type);
 		travelComponent.setSupplyingCompany(this.supplyingCompany);
-		travelComponent.setFlightType(this.flightType);
 		travelComponent.setFlightDepartureDateTime(this.flightDepartureDateTime);
 		travelComponent.setFlightArrivalDateTime(this.flightArrivalDateTime);
 		travelComponent.setFlightDepartureCity(this.flightDepartureCity);
