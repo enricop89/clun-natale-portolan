@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import beans.travelcomponent.ComponentType;
-import beans.travelcomponent.FlightType;
+//import beans.travelcomponent.FlightType;
 import beans.travelcomponent.TravelComponentDTO;
 
 import javax.persistence.*;
@@ -35,7 +35,6 @@ public class TravelComponent implements Serializable {
 	
 	private String supplyingCompany;
 	
-	private FlightType flightType;
 	private Timestamp flightDepartureDateTime;
 	private Timestamp flightArrivalDateTime;
 	private String flightDepartureCity;
@@ -64,7 +63,6 @@ public class TravelComponent implements Serializable {
 		this.supplyingCompany = t.getSupplyingCompany();
 		switch(t.getType()){
 		case FLIGHT:
-			flightType = t.getFlightType();
 			flightDepartureDateTime = t.getFlightDepartureDateTime();
 			flightArrivalDateTime = t.getFlightArrivalDateTime();
 			flightDepartureCity = t.getFlightDepartureCity();
@@ -79,7 +77,6 @@ public class TravelComponent implements Serializable {
 			excursionCity = null;
 			break;
 		case HOTEL:
-			flightType = null;
 			flightDepartureDateTime = null;
 			flightArrivalDateTime = null;
 			flightDepartureCity = null;
@@ -94,7 +91,6 @@ public class TravelComponent implements Serializable {
 			excursionCity = null;
 			break;
 		case EXCURSION:
-			flightType = null;
 			flightDepartureDateTime = null;
 			flightArrivalDateTime = null;
 			flightDepartureCity = null;
@@ -133,14 +129,6 @@ public class TravelComponent implements Serializable {
 
 	public void setSupplyingCompany(String supplyingCompany) {
 		this.supplyingCompany = supplyingCompany;
-	}  
-	
-	public FlightType getFlightType() {
-		return this.flightType;
-	}
-
-	public void setFlightType(FlightType flightType) {
-		this.flightType = flightType;
 	}   
 	
 	public Timestamp getFlightDepartureDateTime() {

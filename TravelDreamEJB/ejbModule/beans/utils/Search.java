@@ -67,12 +67,8 @@ public class Search {
 		String query= new String();
 		switch(s.getType()){
 		case FLIGHT:
-			if(s.getFlightType()!=null)
-				query= query + "c.flightType = " + s.getFlightType() ;
 			if(s.getFlightDepartureDateTime()!=null){
-				if(query.isEmpty())
-					query=query + "c.flightDepartureDateTime = " + s.getFlightDepartureDateTime() ;
-				else	query=query + "AND c.flightDepartureDateTime = " + s.getFlightDepartureDateTime() ;
+				query=query + "c.flightDepartureDateTime = " + s.getFlightDepartureDateTime() ;
 			}
 			if(s.getFlightDepartureDateTime()!=null){
 				if(query.isEmpty())

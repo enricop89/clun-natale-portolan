@@ -1,6 +1,7 @@
 package entities;
 
 import java.io.Serializable;
+import java.sql.Date;
 import java.util.List;
 import java.lang.String;
 
@@ -26,6 +27,8 @@ public class PersonalizedTravelPackage implements Serializable {
 	private long id; 
 	
 	private String name;
+	private Date departureDate;
+	private Date returnDate;
 	
 	@JoinColumn(nullable = false)
 	private User owner;
@@ -41,6 +44,8 @@ public class PersonalizedTravelPackage implements Serializable {
 //		this.id = personalizedTravelPackage.getId();
 		this.name = personalizedTravelPackage.getName();
 		this.owner = search.findUser(personalizedTravelPackage.getOwner());
+		this.returnDate = personalizedTravelPackage.getReturnDate();
+		this.departureDate = personalizedTravelPackage.getDepartureDate();
 		for(int i = 0; i < personalizedTravelPackage.getTravelComponents().size(); i++)
 			travelComponents.add(search.findComponents_Helper(personalizedTravelPackage.getTravelComponents().get(i)));
 	}
@@ -73,5 +78,17 @@ public class PersonalizedTravelPackage implements Serializable {
 	
 	public void setTravelComponents(List<Components_Helper> travelComponents) {
 		this.travelComponents = travelComponents;
+	}
+	public Date getDepartureDate() {
+		return departureDate;
+	}
+	public void setDepartureDate(Date departureDate) {
+		this.departureDate = departureDate;
+	}
+	public Date getReturnDate() {
+		return returnDate;
+	}
+	public void setReturnDate(Date returnDate) {
+		this.returnDate = returnDate;
 	}
 }

@@ -1,7 +1,7 @@
 package beans.employeehandler;
 
 import javax.annotation.security.RolesAllowed;
-import javax.ejb.Stateful;
+import javax.ejb.Stateless;
 
 import entities.*;
 import beans.travelcomponent.TravelComponentDTO;
@@ -13,7 +13,7 @@ import beans.utils.Search;
 /**
  * Session Bean implementation class EmployeeHandler
  */
-@Stateful
+@Stateless
 public class EmployeeHandler implements EmployeeHandlerInterface{
 	private PredefinedTravelPackageHandler handler;
 	private TravelComponentHandler component_handler;
