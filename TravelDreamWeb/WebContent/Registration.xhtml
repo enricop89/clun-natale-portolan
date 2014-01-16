@@ -16,19 +16,19 @@
         <p:messages />  
 			<h:panelGrid columns="3" id="regGrid" style="width: 598px; ">
 				<h:outputLabel for="email">Email:</h:outputLabel>
-				<p:inputText id="email" value="CustomerRegistrationWeb.userDTO.email" />
+				<p:inputText id="email" value="#{CustomerRegistrationWeb.user.email}" />
 				<p:message for="email" />
 
 				<h:outputLabel for="firstName">First name:</h:outputLabel>
-				<p:inputText id="firstName" value="CustomerRegistrationWeb.userDTO.firstName" />
+				<p:inputText id="firstName" value="#{CustomerRegistrationWeb.user.firstName}" />
 				<p:message for="firstName" />
 
 				<h:outputLabel for="lastName">Last name:</h:outputLabel>
-				<p:inputText id="lastName" value="CustomerRegistrationWeb.userDTO.lastName" />
+				<p:inputText id="lastName" value="#{CustomerRegistrationWeb.user.lastName}" />
 				<p:message for="lastName" />
 
 				<h:outputLabel for="password">Password:</h:outputLabel>
-				<p:password id="password" value="CustomerRegistrationWeb.userDTO.password"
+				<p:password id="password" value="#{CustomerRegistrationWeb.user.password}"
 					feedback="true" match="pwd2" label="Password"/>
 				<p:message for="password" />
 				</h:panelGrid>
