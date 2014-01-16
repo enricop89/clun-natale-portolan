@@ -1,0 +1,40 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+	<title>Registration form</title>
+</h:head>
+<h:body>
+		<h:form>
+		<p:panel header="Registration Form">
+			<h:panelGrid columns="3" id="regGrid">
+				<h:outputLabel for="email">Email:</h:outputLabel>
+				<p:inputText id="email" value="CustomerRegistrationWeb.userDTO.email" />
+				<p:message for="email" />
+
+				<h:outputLabel for="firstName">First name:</h:outputLabel>
+				<p:inputText id="firstName" value="CustomerRegistrationWeb.userDTO.firstName" />
+				<p:message for="firstName" />
+
+				<h:outputLabel for="lastName">Last name:</h:outputLabel>
+				<p:inputText id="lastName" value="CustomerRegistrationWeb.userDTO.lastName" />
+				<p:message for="lastName" />
+
+				<h:outputLabel for="password">Password:</h:outputLabel>
+				<p:password id="password" value="CustomerRegistrationWeb.userDTO.password"
+					feedback="true" match="pwd2" label="Password"/>
+				<p:message for="password" />
+
+			</h:panelGrid>
+			<p:commandButton value="Register" update="regGrid"
+				action="#{CustomerRegistrationWeb.register()}" />
+
+		</p:panel>
+	</h:form>
+                    
+</h:body>
+</html>
