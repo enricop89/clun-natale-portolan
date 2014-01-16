@@ -6,15 +6,14 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 
 <h:head>
-	<title>Registration to TravelDream</title>
+	<title>Register to TravelDream</title>
 </h:head>
 <h:body>
 		<h:form>
 		<p:panel id="panel" header="Registration Form">
-		<p:focus context="panel"/>  
-          
+		<p:focus context="panel"/>            
         <p:messages />  
-			<h:panelGrid columns="3" id="regGrid" style="width: 598px; ">
+			<h:panelGrid columns="3" id="regGrid">
 				<h:outputLabel for="email">Email:</h:outputLabel>
 				<p:inputText id="email" value="#{CustomerRegistrationWeb.user.email}" />
 				<p:message for="email" />
@@ -31,7 +30,7 @@
 				<p:password id="password" value="#{CustomerRegistrationWeb.user.password}"
 					feedback="true" match="pwd2" label="Password"/>
 				<p:message for="password" />
-				</h:panelGrid>
+			</h:panelGrid>
 			<p:commandButton value="Register" update="regGrid"
 				action="#{CustomerRegistrationWeb.register()}" />
 
