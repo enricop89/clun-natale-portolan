@@ -3,7 +3,6 @@ package beans.accountmanagement;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.annotation.security.RolesAllowed;
 
 import beans.accountmanagement.UserDTO;
 import beans.accountmanagement.ModifyInfo;
@@ -22,9 +21,10 @@ public class CredentialRetrieval implements CredentialRetrievalInterface{
 	private SearchDTO search;
 	private ModifyInfo modifyInfo;
 	
-	@RolesAllowed({"CUSTOMER"})
 	@Override
 	public boolean retrieveCredentials(String email){
+		search = new SearchDTO();
+		modifyInfo = new ModifyInfo();
 		UserDTO user = search.findUser(email);
 		if(user != null)
 		{
