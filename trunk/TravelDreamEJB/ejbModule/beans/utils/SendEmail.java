@@ -20,7 +20,7 @@ public class SendEmail {
     public static boolean send(String receiver, String subject, String text)
     {    
     	final String username = "traveldreamcnp@gmail.com";
-		final String password = "traveldream.";
+		final String password = "traveldream";
  
 		Properties props = new Properties();
 		props.put("mail.smtp.auth", "true");
