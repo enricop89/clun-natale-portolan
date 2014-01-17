@@ -35,7 +35,7 @@
 		<auth-method>FORM</auth-method>
 		<form-login-config>
 			<form-login-page>/index.xhtml</form-login-page>
-			<form-error-page>/loginError.xhtml</form-error-page>
+			<form-error-page>/login_error.xhtml</form-error-page>
 		</form-login-config>
 	</login-config>
 	<security-constraint>
