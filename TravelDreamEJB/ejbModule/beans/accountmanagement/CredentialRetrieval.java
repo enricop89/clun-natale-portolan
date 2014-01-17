@@ -29,9 +29,10 @@ public class CredentialRetrieval implements CredentialRetrievalInterface{
 			user.setPassword(temp_password);
 			modifyInfo.updateCustomer(user);
 			return SendEmail.send(user.getEmail(), "Your TravelDream Credentials", 
-						"Here there are your credentials as requested.\n"
+						"Dear " + user.getFirstName() + " " + user.getLastName()
+					+	",\nHere there are your credentials as requested.\n"
 					+ 	"\nPassword: " + temp_password
-					+	"\nNOTE: the password is a random temporary string.\nPlease update it as you login again.");
+					+	"\n\nNOTE: the password is a random temporary string.\nPlease update it as you login again.");
 		}
 		return false;				
 	}		
