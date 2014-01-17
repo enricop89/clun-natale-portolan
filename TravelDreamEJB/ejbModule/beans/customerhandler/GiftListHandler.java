@@ -1,5 +1,6 @@
 package beans.customerhandler;
 
+import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -14,6 +15,7 @@ import entities.*;
 public class GiftListHandler {
 	@PersistenceContext
     private EntityManager entityManager;
+	@EJB
 	private TravelComponentHandler handler;
 	
 	@RolesAllowed("CUSTOMER")

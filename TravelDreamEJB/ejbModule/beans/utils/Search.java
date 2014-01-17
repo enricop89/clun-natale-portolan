@@ -22,6 +22,7 @@ import beans.travelpackage.PredefinedTravelPackageDTO;
 @Stateless
 @LocalBean
 public class Search {
+	
 	@PersistenceContext
     private EntityManager entityManager;
 	

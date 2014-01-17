@@ -1,6 +1,7 @@
 package beans.employeehandler;
 
 import javax.annotation.security.RolesAllowed;
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
 import entities.*;
@@ -15,8 +16,11 @@ import beans.utils.Search;
  */
 @Stateless
 public class EmployeeHandler implements EmployeeHandlerInterface{
+	@EJB
 	private TravelComponentHandler component_handler;
+	@EJB
 	private PredefinedTravelPackageHandler handler;
+	@EJB
 	private Search search;
 	
 	@Override

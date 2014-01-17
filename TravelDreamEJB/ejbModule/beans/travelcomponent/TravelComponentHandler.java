@@ -1,6 +1,7 @@
 package beans.travelcomponent;
 
 import javax.annotation.security.RolesAllowed;
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
 import javax.persistence.EntityManager;
@@ -25,6 +26,12 @@ import java.sql.Timestamp;
 public class TravelComponentHandler{
 	@PersistenceContext
     private EntityManager entityManager;
+	@EJB
+	private Search search;
+	@EJB
+	private PredefinedTravelPackageHandler predefined_handler;
+	@EJB
+	private PersonalizedTravelPackageHandler personalized_handler;
 	
 	private void addNewTravelElement(TravelElement travelElement){
 		entityManager.persist(travelElement);
@@ -97,22 +104,20 @@ public class TravelComponentHandler{
 				addNewTravelElement(te);
 			}
 		travelComponent.setTravelElements(travelElements);
-		Search search = new Search();
 		// check if the update affects some predefined travel package
 		List<PredefinedTravelPackage> predTPs = search.findAllPredefinedTravelPackages();
 		for(int i = 0; i < predTPs.size(); i++){
 			for(int j = 0; j < predTPs.get(i).getTravelComponents().size(); j++){
 				if(predTPs.get(i).getTravelComponents().get(j).getId() == travelComponent.getId()){
-					PredefinedTravelPackageHandler handler = new PredefinedTravelPackageHandler();
 					predTPs.get(i).getTravelComponents().remove(j);
 					predTPs.get(i).getTravelComponents().add(j, travelComponent);
-					if(!handler.updatePredefinedTravelPackage(predTPs.get(i))){
+					if(!predefined_handler.updatePredefinedTravelPackage(predTPs.get(i))){
 						predTPs.get(i).getTravelComponents().remove(travelComponent); // the TravelComponent update violates consistency, so is deleted from the TravelPackage
 						if(predTPs.get(i).getTravelComponents().isEmpty()){ // the deletion causes the package to be empty
-							handler.deletePredefinedTravelPackage(predTPs.get(i)); // the package is then deleted
+							predefined_handler.deletePredefinedTravelPackage(predTPs.get(i)); // the package is then deleted
 						}
 						else
-							handler.updatePredefinedTravelPackage(predTPs.get(i));
+							predefined_handler.updatePredefinedTravelPackage(predTPs.get(i));
 					}
 				}					
 			}
@@ -122,27 +127,26 @@ public class TravelComponentHandler{
 		for(int i = 0; i < persTPs.size(); i++){
 			for(int j = 0; j < persTPs.get(i).getTravelComponents().size(); j++){
 				if(persTPs.get(i).getTravelComponents().get(j).getTravelComponent().getId() == travelComponent.getId()){
-					PersonalizedTravelPackageHandler handler = new PersonalizedTravelPackageHandler();
 					if(persTPs.get(i).getTravelComponents().get(j).getTravelElement() != null){
 						persTPs.get(i).getTravelComponents().get(j).setTravelComponent(null);
-						handler.updatePersonalizedTravelPackage(persTPs.get(i));
+						personalized_handler.updatePersonalizedTravelPackage(persTPs.get(i));
 					}
 					else{
 						String message = new String();						
 						persTPs.get(i).getTravelComponents().get(j).setTravelComponent(travelComponent);
-						if(!handler.updatePersonalizedTravelPackage(persTPs.get(i))){
+						if(!personalized_handler.updatePersonalizedTravelPackage(persTPs.get(i))){
 							persTPs.get(i).getTravelComponents().remove(j); // the TravelComponent update violates consistency, so is deleted from the TravelPackage
 							if(persTPs.get(i).getTravelComponents().isEmpty()){ // the deletion causes the package to be empty
 								message = "We are sorry to inform you that our staff has been forced to update a Travel Component, and this affect one of your Travel Package: "
 										+ persTPs.get(i).getName() + ".\n"
 										+ "Since the Travel Package had only this Travel Component, it has been removed, sorry for the inconvenience.";
-								handler.deletePersonalizedTravelPackage(persTPs.get(i)); // the package is then deleted
+								personalized_handler.deletePersonalizedTravelPackage(persTPs.get(i)); // the package is then deleted
 							}
 							else{
 								message = "We are sorry to inform you that our staff has been forced to update a Travel Component, and this affect one of your Travel Package: "
 										+ persTPs.get(i).getName() + ".\n"
 										+ "The Travel Component has been removed, please login and select another one to eventually substitute it!";
-								handler.updatePersonalizedTravelPackage(persTPs.get(i)); // the package is updated with the deletion
+								personalized_handler.updatePersonalizedTravelPackage(persTPs.get(i)); // the package is updated with the deletion
 							}
 						}
 						else{
@@ -163,18 +167,16 @@ public class TravelComponentHandler{
 	public void deleteTravelComponent(TravelComponent travelComponent){
 		for(int i = 0; i < travelComponent.getTravelElements().size(); i++)
 			deleteTravelElement(travelComponent.getTravelElements().get(i));
-		Search search = new Search();
 		// check if the deletion affects some predefined travel package
 		List<PredefinedTravelPackage> predTPs = search.findAllPredefinedTravelPackages();
 		for(int i = 0; i < predTPs.size(); i++){
 			if(predTPs.get(i).getTravelComponents().contains(travelComponent)){
 				predTPs.get(i).getTravelComponents().remove(travelComponent);
-				PredefinedTravelPackageHandler handler = new PredefinedTravelPackageHandler();
 				if(predTPs.get(i).getTravelComponents().isEmpty()){ // the deletion causes the package to be empty
-					handler.deletePredefinedTravelPackage(predTPs.get(i)); // the package is then deleted
+					predefined_handler.deletePredefinedTravelPackage(predTPs.get(i)); // the package is then deleted
 				}
 				else
-					handler.updatePredefinedTravelPackage(predTPs.get(i));
+					predefined_handler.updatePredefinedTravelPackage(predTPs.get(i));
 			}
 		}
 		// check if the deletion affects some personalized travel package
@@ -182,22 +184,21 @@ public class TravelComponentHandler{
 		for(int i = 0; i < persTPs.size(); i++){
 			for(int j = 0; j < persTPs.get(i).getTravelComponents().size(); j++){
 				if(persTPs.get(i).getTravelComponents().get(j).getTravelComponent().getId() == travelComponent.getId()){
-					PersonalizedTravelPackageHandler handler = new PersonalizedTravelPackageHandler();
 					if(persTPs.get(i).getTravelComponents().get(j).getTravelElement() != null){
 						persTPs.get(i).getTravelComponents().get(j).setTravelComponent(null);
-						handler.updatePersonalizedTravelPackage(persTPs.get(i));
+						personalized_handler.updatePersonalizedTravelPackage(persTPs.get(i));
 					}	
 					else{
 						String message = new String();
 						persTPs.get(i).getTravelComponents().remove(j);
 						if(persTPs.get(i).getTravelComponents().isEmpty()){ // the deletion causes the package to be empty
-							handler.deletePersonalizedTravelPackage(persTPs.get(i)); // the package is then deleted
+							personalized_handler.deletePersonalizedTravelPackage(persTPs.get(i)); // the package is then deleted
 							message = "We are sorry to inform you that our staff has been forced to delete a Travel Component, and this affect one of your Travel Package: "
 									+ persTPs.get(i).getName() + ".\n"
 									+ "Since the Travel Package had only this Travel Component, it has been removed, sorry for the inconvenience.";
 						}
 						else{
-							handler.updatePersonalizedTravelPackage(persTPs.get(i)); // the package is updated accordingly
+							personalized_handler.updatePersonalizedTravelPackage(persTPs.get(i)); // the package is updated accordingly
 							message = "We are sorry to inform you that our staff has been forced to delete a Travel Component, and this affect one of your Travel Package: "
 									+ persTPs.get(i).getName() + ".\n"
 									+ "The Travel Component has been removed, please login and select another one to eventually substitute it!";

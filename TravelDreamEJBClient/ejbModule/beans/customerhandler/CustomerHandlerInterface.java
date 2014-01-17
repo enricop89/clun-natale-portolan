@@ -18,8 +18,6 @@ public interface CustomerHandlerInterface {
 
 	public boolean joinPersonalizedTravelPackage(UserDTO user, PersonalizedTravelPackageDTO personalizedTravelPackage);
 
-	public boolean addNewPersonalizedTravelPackage(PersonalizedTravelPackageDTO personalizedTravelPackage);
-
 	public boolean updatePersonalizedTravelPackage(PersonalizedTravelPackageDTO personalizedTravelPackage);
 
 	public boolean deletePersonalizedTravelPackage(PersonalizedTravelPackageDTO personalizedTravelPackage);
