@@ -26,7 +26,7 @@ public class CredentialRetrievalWeb {
 	public String send(ActionEvent actionEvent) {
 		FacesMessage message;
 		if(credentialRetrieval.retrieveCredentials(email))
-			message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Done",  "An email with the credential has been \nsent to " + email + ".\nPlease check your inbox.");  	          
+			message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Done",  "An email has been sent to: " + email + "\nPlease check your inbox.");  	          
 		else
 			message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",  "Invalid email.");  	          	
 		FacesContext.getCurrentInstance().addMessage(null, message);  
