@@ -11,8 +11,5 @@
 		<class>entities.TravelComponent</class>
 		<class>entities.TravelElement</class>
 		<class>entities.User</class>
-		<properties>
-			<property name="eclipselink.jdbc.batch-writing" value="JDBC"/>
-		</properties>
 	</persistence-unit>
 </persistence>
