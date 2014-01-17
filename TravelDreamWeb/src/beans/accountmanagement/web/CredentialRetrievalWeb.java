@@ -23,12 +23,13 @@ public class CredentialRetrievalWeb {
 		this.email = email;
 	}
 	
-	public void send(ActionEvent actionEvent) {
+	public String send(ActionEvent actionEvent) {
 		FacesMessage message;
 		if(credentialRetrieval.retrieveCredentials(email))
 			message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Done",  "an email with the credential has been sent to " + email + ".\nPlease check your inbox.");  	          
 		else
 			message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",  "Invalid email.");  	          	
 		FacesContext.getCurrentInstance().addMessage(null, message);  
+		return "index?faces-redirect=true";
 	}
 }

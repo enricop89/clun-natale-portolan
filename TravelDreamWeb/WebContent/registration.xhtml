@@ -14,25 +14,29 @@
 		<p:focus context="panel"/>            
         <p:messages />  
 			<h:panelGrid columns="3" id="regGrid">
-				<h:outputLabel for="email">Email:</h:outputLabel>
+				<h:outputLabel for="email">Email*:</h:outputLabel>
 				<p:inputText id="email" value="#{CustomerRegistrationWeb.user.email}" />
 				<p:message for="email" />
 
-				<h:outputLabel for="firstName">First name:</h:outputLabel>
+				<h:outputLabel for="firstName">First name*:</h:outputLabel>
 				<p:inputText id="firstName" value="#{CustomerRegistrationWeb.user.firstName}" />
 				<p:message for="firstName" />
 
-				<h:outputLabel for="lastName">Last name:</h:outputLabel>
+				<h:outputLabel for="lastName">Last name*:</h:outputLabel>
 				<p:inputText id="lastName" value="#{CustomerRegistrationWeb.user.lastName}" />
 				<p:message for="lastName" />
 
-				<h:outputLabel for="password">Password:</h:outputLabel>
+				<h:outputLabel for="password">Password*:</h:outputLabel>
 				<p:password id="password" value="#{CustomerRegistrationWeb.user.password}"
-					feedback="true" match="pwd2" label="Password"/>
+					feedback="true" match="password2" label="password 1" required="true"/>					
 				<p:message for="password" />
+				<h:outputLabel for="password2">Retype password*:</h:outputLabel>
+				<p:password id="password2" value="#{CustomerRegistrationWeb.user.password}"
+					feedback="true" match="password2" label="password 2" required="true"/>					
+				<p:message for="password2" />
 			</h:panelGrid>
 			<p:commandButton value="Register" update="regGrid"
-				action="#{CustomerRegistrationWeb.register()}" />
+				action="#{CustomerRegistrationWeb.register}" />
 
 		</p:panel>
 	</h:form>
