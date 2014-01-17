@@ -37,7 +37,7 @@ public class CustomerRegistration implements CustomerRegistrationInterface{
 				"The staff wants to welcome you on TravelDream!\n"
 			+	"Please keep note of your credentials, you will use them to login on the website.\n"
 			+ 	"\nPassword: " + user.getPassword()
-			+	"\nEnjoy your TravelDream experience!");
+			+	"\n\nEnjoy your TravelDream experience!");
 		return true;
 	}
 }
