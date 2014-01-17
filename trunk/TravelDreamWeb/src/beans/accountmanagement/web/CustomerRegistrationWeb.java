@@ -29,7 +29,7 @@ public class CustomerRegistrationWeb {
 	}
 	public String register() {
 		customerRegistration.addNewCustomer(user);
-		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Successful", "Registration succesful!")); 
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Successful", "Registration succesful!\nYou will be now redirected to the homepage.\n Please check your inbox!")); 
 		return "index?faces-redirect=true";
 	}
 }
