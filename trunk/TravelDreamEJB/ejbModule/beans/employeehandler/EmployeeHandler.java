@@ -15,50 +15,43 @@ import beans.utils.Search;
  */
 @Stateless
 public class EmployeeHandler implements EmployeeHandlerInterface{
-
+	private TravelComponentHandler component_handler;
+	private PredefinedTravelPackageHandler handler;
+	private Search search;
+	
 	@Override
 	@RolesAllowed("EMPLOYEE")
 	public boolean addNewPredefinedTravelPackage(PredefinedTravelPackageDTO predefinedTravelPackage){
-		PredefinedTravelPackageHandler handler = new PredefinedTravelPackageHandler();
 		return handler.addNewPredefinedTravelPackage(new PredefinedTravelPackage(predefinedTravelPackage));
 	}
 
 	@Override
 	@RolesAllowed("EMPLOYEE")
 	public boolean updatePredefinedTravelPackage(PredefinedTravelPackageDTO predefinedTravelPackage){	
-		Search search = new Search();
-		PredefinedTravelPackageHandler handler = new PredefinedTravelPackageHandler();
 		return handler.updatePredefinedTravelPackage(search.findPredefinedTravelPackage(predefinedTravelPackage));
 	}
 	
 	@Override
 	@RolesAllowed("EMPLOYEE")
 	public void deletePredefinedTravelPackage (PredefinedTravelPackageDTO prefedefinedTravelPackage){
-		Search search = new Search();
-		PredefinedTravelPackageHandler handler = new PredefinedTravelPackageHandler();
 		handler.deletePredefinedTravelPackage(search.findPredefinedTravelPackage(prefedefinedTravelPackage));
 	}
 	
 	@Override
 	@RolesAllowed({"EMPLOYEE"})
 	public boolean addNewTravelComponent(TravelComponentDTO travelComponent){
-		TravelComponentHandler component_handler = new TravelComponentHandler();
 		return component_handler.addNewTravelComponent(new TravelComponent(travelComponent), travelComponent.getAvailability());
 	}
 	
 	@Override
 	@RolesAllowed({"EMPLOYEE"})
 	public boolean updateTravelComponent(TravelComponentDTO travelComponent){
-		TravelComponentHandler component_handler = new TravelComponentHandler();
-		Search search = new Search();
 		return component_handler.updateTravelComponent(search.findTravelComponent(travelComponent), travelComponent.getAvailability());
 	}
 	
 	@Override
 	@RolesAllowed({"EMPLOYEE"})
 	public void deleteTravelComponent(TravelComponentDTO travelComponent){
-		TravelComponentHandler component_handler = new TravelComponentHandler();
-		Search search = new Search();
 		component_handler.deleteTravelComponent(search.findTravelComponent(travelComponent));
 	}
 	

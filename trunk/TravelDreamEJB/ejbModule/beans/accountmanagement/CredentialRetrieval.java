@@ -1,8 +1,6 @@
 package beans.accountmanagement;
 
 import javax.ejb.Stateless;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 
 import beans.accountmanagement.UserDTO;
 import beans.accountmanagement.ModifyInfo;
@@ -14,10 +12,7 @@ import org.apache.commons.lang3.RandomStringUtils;
  * Session Bean implementation class credentialRetrieval
  */
 @Stateless
-public class CredentialRetrieval implements CredentialRetrievalInterface{
-	@PersistenceContext
-    private EntityManager entityManager;
-	
+public class CredentialRetrieval implements CredentialRetrievalInterface{	
 	@Override
 	public boolean retrieveCredentials(String email){
 		SearchDTO search = new SearchDTO();
