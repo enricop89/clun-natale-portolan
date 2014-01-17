@@ -18,13 +18,10 @@ public class CredentialRetrieval implements CredentialRetrievalInterface{
 	@PersistenceContext
     private EntityManager entityManager;
 	
-	private SearchDTO search;
-	private ModifyInfo modifyInfo;
-	
 	@Override
 	public boolean retrieveCredentials(String email){
-		search = new SearchDTO();
-		modifyInfo = new ModifyInfo();
+		SearchDTO search = new SearchDTO();
+		ModifyInfo modifyInfo = new ModifyInfo();
 		UserDTO user = search.findUser(email);
 		if(user != null)
 		{
