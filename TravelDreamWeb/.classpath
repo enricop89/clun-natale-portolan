@@ -26,5 +26,6 @@
 	</classpathentry>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/smoothness-1.0.10.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/delta-1.0.10.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/cruze-1.0.10.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
