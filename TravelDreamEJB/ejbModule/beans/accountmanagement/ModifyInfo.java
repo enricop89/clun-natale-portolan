@@ -9,7 +9,6 @@ import entities.*;
  * Session Bean implementation class ModifyInfo
  */
 @Stateless
-
 public class ModifyInfo implements ModifyInfoInterface{
 	@PersistenceContext
     private EntityManager entityManager;
