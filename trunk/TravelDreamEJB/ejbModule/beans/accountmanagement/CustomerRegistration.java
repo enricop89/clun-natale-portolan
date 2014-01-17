@@ -34,7 +34,7 @@ public class CustomerRegistration implements CustomerRegistrationInterface{
 		entityManager.persist(giftList);
 		//send confirmation email
 		SendEmail.send(user.getEmail(), "Welcome to TravelDream", 
-				"The staff wants to welcome you on TravelDream!\n"
+				"Hi" + user.getFirstName() + " " + user.getLastName() + "!\nThe staff wants to welcome you on TravelDream!\n"
 			+	"Please keep note of your credentials, you will use them to login on the website.\n"
 			+ 	"\nPassword: " + user.getPassword()
 			+	"\n\nEnjoy your TravelDream experience!");
