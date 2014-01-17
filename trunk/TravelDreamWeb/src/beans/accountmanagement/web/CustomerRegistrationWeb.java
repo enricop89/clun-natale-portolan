@@ -1,8 +1,10 @@
 package beans.accountmanagement.web;
 
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.context.FacesContext;
 
 import beans.accountmanagement.CustomerRegistrationInterface;
 import beans.accountmanagement.UserDTO;
@@ -27,6 +29,7 @@ public class CustomerRegistrationWeb {
 	}
 	public String register() {
 		customerRegistration.addNewCustomer(user);
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Successful", "Registration succesful!")); 
 		return "index?faces-redirect=true";
 	}
 }
