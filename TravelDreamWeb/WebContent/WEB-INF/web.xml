@@ -31,4 +31,31 @@
   <listener>
     <listener-class>com.sun.faces.config.ConfigureListener</listener-class>
   </listener>
+	<login-config>
+		<auth-method>FORM</auth-method>
+		<form-login-config>
+			<form-login-page>/index.xhtml</form-login-page>
+			<form-error-page>/loginError.xhtml</form-error-page>
+		</form-login-config>
+	</login-config>
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>Employees Pages</web-resource-name>
+			<description />
+			<url-pattern>/employee/*</url-pattern>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>EMPLOYEE</role-name>
+		</auth-constraint>
+	</security-constraint>
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>Customers Pages</web-resource-name>
+			<description />
+			<url-pattern>/customer/*</url-pattern>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>CUSTOMER</role-name>
+		</auth-constraint>
+	</security-constraint>
 </web-app>
