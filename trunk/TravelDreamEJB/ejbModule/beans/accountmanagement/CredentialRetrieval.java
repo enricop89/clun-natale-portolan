@@ -4,7 +4,6 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
 import beans.accountmanagement.UserDTO;
-import beans.accountmanagement.ModifyInfo;
 import beans.utils.*;
 
 import org.apache.commons.lang3.RandomStringUtils;
@@ -15,9 +14,9 @@ import org.apache.commons.lang3.RandomStringUtils;
 @Stateless
 public class CredentialRetrieval implements CredentialRetrievalInterface{	
 	@EJB
-	private SearchDTO search;
+	private SearchDTOInterface search;
 	@EJB
-	private ModifyInfo modifyInfo;
+	private ModifyInfoInterface modifyInfo;
 	
 	@Override
 	public boolean retrieveCredentials(String email){
