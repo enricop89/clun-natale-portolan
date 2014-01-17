@@ -3,6 +3,7 @@ package beans.customerhandler;
 import java.util.List;
 
 import javax.annotation.security.RolesAllowed;
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
 import beans.accountmanagement.UserDTO;
@@ -13,16 +14,19 @@ import beans.travelpackage.PersonalizedTravelPackageHandler;
 import beans.travelpackage.PredefinedTravelPackageDTO;
 import beans.travelpackage.PredefinedTravelPackageHandler;
 import beans.utils.Search;
-import entities.*;
 
 /**
  * Session Bean implementation class CustomerHandler
  */
 @Stateless
 public class CustomerHandler implements CustomerHandlerInterface{
+	@EJB
 	private PersonalizedTravelPackageHandler handler;
+	@EJB
 	private PredefinedTravelPackageHandler predefined_handler;
+	@EJB
 	private GiftListHandler gift_handler;
+	@EJB
 	private Search search;
 
 	@Override
@@ -62,12 +66,6 @@ public class CustomerHandler implements CustomerHandlerInterface{
 	@RolesAllowed({"CUSTOMER"})
 	public boolean joinPersonalizedTravelPackage(UserDTO user, PersonalizedTravelPackageDTO personalizedTravelPackage){
 		return handler.copyPersonalizedTravelPackage(search.findPersonalizedTravelPackage(personalizedTravelPackage), search.findUser(user));
-	}
-	
-	@Override
-	@RolesAllowed({"CUSTOMER"})
-	public boolean addNewPersonalizedTravelPackage(PersonalizedTravelPackageDTO personalizedTravelPackage){
-		return handler.addNewPersonalizedTravelPackage(new PersonalizedTravelPackage(personalizedTravelPackage));
 	}
 	
 	@Override

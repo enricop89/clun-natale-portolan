@@ -2,7 +2,9 @@ package beans.travelpackage;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.persistence.PersistenceContext;
+import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.annotation.security.RolesAllowed;
@@ -19,7 +21,10 @@ import javax.persistence.EntityManager;
 public class PredefinedTravelPackageHandler {
 	@PersistenceContext
     private EntityManager entityManager;
-
+	
+	@EJB
+	PersonalizedTravelPackageHandler handler;
+	
 	@RolesAllowed("EMPLOYEE")
 	public boolean addNewPredefinedTravelPackage(PredefinedTravelPackage predefinedTravelPackage){			
 		if(predefinedTravelPackage.getTravelComponents().isEmpty())
@@ -62,7 +67,6 @@ public class PredefinedTravelPackageHandler {
 			constructor.add(component);	
 		}
 		persTP.setTravelComponents(constructor);
-		PersonalizedTravelPackageHandler handler = new PersonalizedTravelPackageHandler();
 		handler.addNewPersonalizedTravelPackage(persTP);
 	}
 
