@@ -3,7 +3,6 @@ package beans.accountmanagement;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.annotation.security.RolesAllowed;
 import entities.*;
 
 /**
@@ -16,7 +15,6 @@ public class ModifyInfo implements ModifyInfoInterface{
     private EntityManager entityManager;
 	
 	@Override
-	@RolesAllowed({"CUSTOMER"})
 	public void updateCustomer(UserDTO user) {
 		entityManager.merge(new User(user));
 	}
