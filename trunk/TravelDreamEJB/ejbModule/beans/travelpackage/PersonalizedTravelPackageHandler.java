@@ -29,7 +29,7 @@ public class PersonalizedTravelPackageHandler {
 			return false;
 		else{
 			boolean result = consistencyCheck(personalizedTravelPackage);
-			if(result)
+			if(result == true)
 				entityManager.persist(personalizedTravelPackage);
 			return result;	
 		}
@@ -39,14 +39,15 @@ public class PersonalizedTravelPackageHandler {
 	public boolean updatePersonalizedTravelPackage(PersonalizedTravelPackage personalizedTravelPackage){
 		if(personalizedTravelPackage.getTravelComponents().isEmpty())
 			return false;
-		else{
+		
+		else {
 			boolean result = false;
 			for(int i = 0; i < personalizedTravelPackage.getTravelComponents().size(); i++)
 				if(personalizedTravelPackage.getTravelComponents().get(i).getTravelElement() != null)
 					result = true;
-			if(result){	// if it is a confirmed package it does not procede!	
+			if(result == true){	// if it is a confirmed package it does not procede!	
 				result = consistencyCheck(personalizedTravelPackage);
-				if(result)
+				if(result == true)
 					entityManager.merge(personalizedTravelPackage);
 			}
 			return result;
@@ -59,7 +60,7 @@ public class PersonalizedTravelPackageHandler {
 		for(int i = 0; i < personalizedTravelPackage.getTravelComponents().size(); i++)
 			if(personalizedTravelPackage.getTravelComponents().get(i).getTravelElement() != null)
 				result = true;
-		if(result){ // if it is a confirmed package it does not procede!	
+		if(result == true){ // if it is a confirmed package it does not procede!	
 			for(int i = 0; i < personalizedTravelPackage.getTravelComponents().size(); i++)
 				entityManager.remove(personalizedTravelPackage.getTravelComponents().get(i));
 			entityManager.remove(personalizedTravelPackage);
@@ -141,25 +142,34 @@ public class PersonalizedTravelPackageHandler {
 				return false; 				
 			if(departureFlight.getFlightDepartureDateTime().compareTo(personalizedTravelPackage.getDepartureDate()) != 0)
 				return false; // dates mismatch
+			
 			if(returnFlight.getFlightArrivalDateTime().compareTo(personalizedTravelPackage.getReturnDate()) != 0)
-				return false; // dates mismatch	
+				return false; // dates mismatch
+			
 			if(departureFlight.getFlightArrivalCity() != returnFlight.getFlightDepartureCity())
 				return false; // city mismatch, error!
+			
 			for (int i=0;i<hotels.size();i++){
 				if(departureFlight.getFlightArrivalDateTime().compareTo(hotels.get(i).getHotelDate())<0)
 					return false; 	// date hotel before date departureFlight
+				
 				if(returnFlight.getFlightDepartureDateTime().compareTo(hotels.get(i).getHotelDate())>0)
 					return false; 	// date hotel after date returnFlight
+				
 				if(hotels.get(i).getHotelCity() != returnFlight.getFlightDepartureCity() )
 					return false;  // city control
+				
 			}
 			for (int i=0;i<excursions.size();i++){
 				if(departureFlight.getFlightArrivalDateTime().compareTo(excursions.get(i).getExcursionDateTime())<0)
 					return false; 	// date excursion before date departureFlight
+				
 				if(returnFlight.getFlightDepartureDateTime().compareTo(excursions.get(i).getExcursionDateTime())>0)
 					return false; 	// date excursion after date returnFlight
+				
 				if(excursions.get(i).getExcursionCity() != returnFlight.getFlightDepartureCity())
 					return false;  // city control
+				
 			}
 		}
 		else if(flights.size() == 1){
@@ -167,36 +177,48 @@ public class PersonalizedTravelPackageHandler {
 				for (int i=0;i<hotels.size();i++){
 					if(departureFlight.getFlightArrivalDateTime().compareTo(hotels.get(i).getHotelDate())<0)
 						return false; 	// date hotel before date departureFlight
+					
 					if(personalizedTravelPackage.getReturnDate().compareTo(hotels.get(i).getHotelDate())>0)
 						return false; 	// date hotel after date returnFlight
+					
 					if(hotels.get(i).getHotelCity() != departureFlight.getFlightArrivalCity() )
 						return false;  // city control
+					
 				}
 				for (int i=0;i<excursions.size();i++){
 					if(departureFlight.getFlightArrivalDateTime().compareTo(excursions.get(i).getExcursionDateTime())<0)
 						return false; 	// date excursion before date departureFlight
+					
 					if(personalizedTravelPackage.getReturnDate().compareTo(excursions.get(i).getExcursionDateTime())>0)
 						return false; 	// date excursion after date returnFlight
+					
 					if(excursions.get(i).getExcursionCity() != departureFlight.getFlightArrivalCity())
 						return false;  // city control
+					
 				}				
 			}
 			if((returnFlight = flights.get(0)).getFlightArrivalDateTime().compareTo(personalizedTravelPackage.getReturnDate()) == 0){
 				for (int i=0;i<hotels.size();i++){
 					if(personalizedTravelPackage.getDepartureDate().compareTo(hotels.get(i).getHotelDate())<0)
 						return false; 	// date hotel before date departureFlight
+					
 					if(returnFlight.getFlightDepartureDateTime().compareTo(hotels.get(i).getHotelDate())>0)
 						return false; 	// date hotel after date returnFlight
+					
 					if(hotels.get(i).getHotelCity() != returnFlight.getFlightDepartureCity() )
 						return false;  // city control
+					
 				}
 				for (int i=0;i<excursions.size();i++){
 					if(personalizedTravelPackage.getDepartureDate().compareTo(excursions.get(i).getExcursionDateTime())<0)
 						return false; 	// date excursion before date departureFlight
+					
 					if(returnFlight.getFlightDepartureDateTime().compareTo(excursions.get(i).getExcursionDateTime())>0)
 						return false; 	// date excursion after date returnFlight
+					
 					if(excursions.get(i).getExcursionCity() != returnFlight.getFlightDepartureCity())
 						return false;  // city control
+					
 				}				
 			}		
 			else
@@ -208,8 +230,10 @@ public class PersonalizedTravelPackageHandler {
 			for (int i=0;i<hotels.size();i++){
 				if(personalizedTravelPackage.getDepartureDate().compareTo(hotels.get(i).getHotelDate())<0)
 					return false; 	// date hotel before date departureFlight
+				
 				if(personalizedTravelPackage.getReturnDate().compareTo(hotels.get(i).getHotelDate())>0)
 					return false; 	// date hotel after date returnFlight
+				
 				if(hotels.get(i).getHotelCity() != city){
 					city = hotels.get(i).getHotelCity();
 					changes++;
@@ -218,8 +242,10 @@ public class PersonalizedTravelPackageHandler {
 			for (int i=0;i<excursions.size();i++){
 				if(personalizedTravelPackage.getDepartureDate().compareTo(excursions.get(i).getExcursionDateTime())<0)
 					return false; 	// date excursion before date departureFlight
+				
 				if(personalizedTravelPackage.getReturnDate().compareTo(excursions.get(i).getExcursionDateTime())>0)
 					return false; 	// date excursion after date returnFlight
+				
 				if(excursions.get(i).getExcursionCity() != city){
 					city = excursions.get(i).getExcursionCity();
 					changes++;
@@ -227,6 +253,7 @@ public class PersonalizedTravelPackageHandler {
 			}	
 			if(changes > 1)
 				return false; // more than one city, city mismatch!
+			
 		}
 		return true; // all the controls are OK	
 	}

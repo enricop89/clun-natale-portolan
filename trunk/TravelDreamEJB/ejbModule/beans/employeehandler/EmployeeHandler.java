@@ -66,6 +66,7 @@ public class EmployeeHandler implements EmployeeHandlerInterface{
 		for(int i = 0; i < predefinedTravelPackage.getTravelComponents().size(); i++)
 			if(predefinedTravelPackage.getTravelComponents().get(i) == travelComponent)
 				return false;
+		
 		predefinedTravelPackage.getTravelComponents().add(travelComponent);
 		return true;
 	}

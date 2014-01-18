@@ -36,6 +36,7 @@ public class CustomerHandler implements CustomerHandlerInterface{
 		for(int i = 0; i < personalizedTravelPackage.getTravelComponents().size(); i++)
 			if(personalizedTravelPackage.getTravelComponents().get(i).getTravelComponent() == travelComponent)
 				return false;
+		
 		List<Components_HelperDTO> components = personalizedTravelPackage.getTravelComponents();
 		Components_HelperDTO component = new Components_HelperDTO();
 		component.setPersonalizedTravelPackage(personalizedTravelPackage);
@@ -51,7 +52,7 @@ public class CustomerHandler implements CustomerHandlerInterface{
 	public boolean removeTravelComponentFromPersonalizedTravelPackage(PersonalizedTravelPackageDTO personalizedTravelPackage, Components_HelperDTO travelComponent){
 		List<Components_HelperDTO> components = personalizedTravelPackage.getTravelComponents();
 		boolean result = components.remove(travelComponent);
-		if(result)
+		if(result == true)
 			personalizedTravelPackage.setTravelComponents(components);
 		return result;
 	}

@@ -29,9 +29,10 @@ public class PredefinedTravelPackageHandler {
 	public boolean addNewPredefinedTravelPackage(PredefinedTravelPackage predefinedTravelPackage){			
 		if(predefinedTravelPackage.getTravelComponents().isEmpty())
 			return false;
+		
 		else{
 			boolean result = consistencyCheck(predefinedTravelPackage);
-			if(result)
+			if(result == true)
 				entityManager.persist(predefinedTravelPackage);		
 			return result;
 		}
@@ -41,9 +42,10 @@ public class PredefinedTravelPackageHandler {
 	public boolean updatePredefinedTravelPackage(PredefinedTravelPackage predefinedTravelPackage){	
 		if(predefinedTravelPackage.getTravelComponents().isEmpty())
 			return false;
+		
 		else{
 			boolean result = consistencyCheck(predefinedTravelPackage);
-			if(result)
+			if(result == true)
 				entityManager.merge(predefinedTravelPackage);	
 			return result;
 		}
@@ -103,26 +105,35 @@ public class PredefinedTravelPackageHandler {
 				returnFlight = flights.get(1);
 			}
 			else // equal, not possible!
-				return false; 				
+				return false; 			
+			
 			if(departureFlight.getFlightDepartureDateTime().compareTo(predefinedTravelPackage.getDepartureDate()) != 0)
 				return false; // dates mismatch
+			
 			if(returnFlight.getFlightArrivalDateTime().compareTo(predefinedTravelPackage.getReturnDate()) != 0)
 				return false; // dates mismatch	
+			
 			if(departureFlight.getFlightArrivalCity() != returnFlight.getFlightDepartureCity())
 				return false; // city mismatch, error!
+					
 			for (int i=0;i<hotels.size();i++){
 				if(departureFlight.getFlightArrivalDateTime().compareTo(hotels.get(i).getHotelDate())<0)
 					return false; 	// date hotel before date departureFlight
+							
 				if(returnFlight.getFlightDepartureDateTime().compareTo(hotels.get(i).getHotelDate())>0)
 					return false; 	// date hotel after date returnFlight
+				
 				if(hotels.get(i).getHotelCity() != returnFlight.getFlightDepartureCity() )
 					return false;  // city control
+				
 			}
 			for (int i=0;i<excursions.size();i++){
 				if(departureFlight.getFlightArrivalDateTime().compareTo(excursions.get(i).getExcursionDateTime())<0)
 					return false; 	// date excursion before date departureFlight
+				
 				if(returnFlight.getFlightDepartureDateTime().compareTo(excursions.get(i).getExcursionDateTime())>0)
 					return false; 	// date excursion after date returnFlight
+				
 				if(excursions.get(i).getExcursionCity() != returnFlight.getFlightDepartureCity())
 					return false;  // city control
 			}
@@ -132,16 +143,20 @@ public class PredefinedTravelPackageHandler {
 				for (int i=0;i<hotels.size();i++){
 					if(departureFlight.getFlightArrivalDateTime().compareTo(hotels.get(i).getHotelDate())<0)
 						return false; 	// date hotel before date departureFlight
+					
 					if(predefinedTravelPackage.getReturnDate().compareTo(hotels.get(i).getHotelDate())>0)
 						return false; 	// date hotel after date returnFlight
+					
 					if(hotels.get(i).getHotelCity() != departureFlight.getFlightArrivalCity() )
 						return false;  // city control
 				}
 				for (int i=0;i<excursions.size();i++){
 					if(departureFlight.getFlightArrivalDateTime().compareTo(excursions.get(i).getExcursionDateTime())<0)
 						return false; 	// date excursion before date departureFlight
+					
 					if(predefinedTravelPackage.getReturnDate().compareTo(excursions.get(i).getExcursionDateTime())>0)
 						return false; 	// date excursion after date returnFlight
+					
 					if(excursions.get(i).getExcursionCity() != departureFlight.getFlightArrivalCity())
 						return false;  // city control
 				}				
@@ -150,22 +165,29 @@ public class PredefinedTravelPackageHandler {
 				for (int i=0;i<hotels.size();i++){
 					if(predefinedTravelPackage.getDepartureDate().compareTo(hotels.get(i).getHotelDate())<0)
 						return false; 	// date hotel before date departureFlight
+					
 					if(returnFlight.getFlightDepartureDateTime().compareTo(hotels.get(i).getHotelDate())>0)
 						return false; 	// date hotel after date returnFlight
+					
 					if(hotels.get(i).getHotelCity() != returnFlight.getFlightDepartureCity() )
 						return false;  // city control
+					
 				}
 				for (int i=0;i<excursions.size();i++){
 					if(predefinedTravelPackage.getDepartureDate().compareTo(excursions.get(i).getExcursionDateTime())<0)
 						return false; 	// date excursion before date departureFlight
+					
 					if(returnFlight.getFlightDepartureDateTime().compareTo(excursions.get(i).getExcursionDateTime())>0)
 						return false; 	// date excursion after date returnFlight
+					
 					if(excursions.get(i).getExcursionCity() != returnFlight.getFlightDepartureCity())
 						return false;  // city control
+					
 				}				
 			}		
 			else
 				return false; // dates mismatch
+			
 		}
 		else{ // no flights
 			String city = null;
@@ -173,8 +195,10 @@ public class PredefinedTravelPackageHandler {
 			for (int i=0;i<hotels.size();i++){
 				if(predefinedTravelPackage.getDepartureDate().compareTo(hotels.get(i).getHotelDate())<0)
 					return false; 	// date hotel before date departureFlight
+				
 				if(predefinedTravelPackage.getReturnDate().compareTo(hotels.get(i).getHotelDate())>0)
 					return false; 	// date hotel after date returnFlight
+				
 				if(hotels.get(i).getHotelCity() != city){
 					city = hotels.get(i).getHotelCity();
 					changes++;
@@ -183,8 +207,10 @@ public class PredefinedTravelPackageHandler {
 			for (int i=0;i<excursions.size();i++){
 				if(predefinedTravelPackage.getDepartureDate().compareTo(excursions.get(i).getExcursionDateTime())<0)
 					return false; 	// date excursion before date departureFlight
+				
 				if(predefinedTravelPackage.getReturnDate().compareTo(excursions.get(i).getExcursionDateTime())>0)
 					return false; 	// date excursion after date returnFlight
+				
 				if(excursions.get(i).getExcursionCity() != city){
 					city = excursions.get(i).getExcursionCity();
 					changes++;
@@ -192,6 +218,7 @@ public class PredefinedTravelPackageHandler {
 			}	
 			if(changes > 1)
 				return false; // more than one city, city mismatch!
+			
 		}
 		return true; // all the controls are OK	
 	}
