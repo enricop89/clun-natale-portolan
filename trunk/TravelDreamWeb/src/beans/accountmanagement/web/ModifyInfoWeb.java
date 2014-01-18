@@ -34,6 +34,6 @@ public class ModifyInfoWeb {
 	public String save(){
 		modifyInfo.updateCustomer(user);
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Successful", "Your info has been succesfully updated!")); 
-		return "index?faces-redirect=true";//just for now
+		return "index?faces-redirect=true"; //just for now - see SDD flow
 	}
 }
