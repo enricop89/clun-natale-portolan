@@ -21,7 +21,11 @@ public class ModifyInfo implements ModifyInfoInterface{
 	
 	@Override
 	public void updateCustomer(UserDTO user) {
-		User modified = search.findUser(user);
+		User modified = search.findUser(user.getEmail());
+		modified.setFirstName(user.getFirstName());
+		modified.setLastName(user.getLastName());
+		if(!(user.getPassword() == null || user.getPassword() == ""))
+			modified.setPassword(user.getPassword());
 		entityManager.merge(modified);
 	}
 }

@@ -15,7 +15,6 @@ public class UserDTO {
 	@NotEmpty
     private String lastName;
 	
-	@NotEmpty
     private String password;
 	
     public String getFirstName() {
