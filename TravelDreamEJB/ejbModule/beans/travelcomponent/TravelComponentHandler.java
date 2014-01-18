@@ -44,6 +44,7 @@ public class TravelComponentHandler{
 	public TravelElement payTravelComponent(TravelComponent travelComponent, User owner){
 		if(travelComponent.getTravelElements().isEmpty())
 			return null;
+		
 		TravelElement travelElement = travelComponent.getTravelElements().get(0);
 		travelElement.setOwner(owner);
 		travelElement.setConfirmationDateTime(new Timestamp(new Date().getTime()));

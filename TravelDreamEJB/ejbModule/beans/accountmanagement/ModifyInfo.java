@@ -28,6 +28,7 @@ public class ModifyInfo implements ModifyInfoInterface{
 		modified.setLastName(user.getLastName());
 		if(!user.getPassword().isEmpty())
 			modified.setPassword(DigestUtils.sha256Hex(user.getPassword()));
+		
 		entityManager.merge(modified);
 	}
 }

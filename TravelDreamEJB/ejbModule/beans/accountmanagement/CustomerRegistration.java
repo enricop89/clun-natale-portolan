@@ -26,8 +26,9 @@ public class CustomerRegistration implements CustomerRegistrationInterface{
 	
 	@Override
 	public boolean addNewCustomer(UserDTO user){
-		if(search.findUser(user.getEmail())!=null)
+		if(search.findUser(user.getEmail()) != null)
 			return false;
+		
 		User newUser = new User(user);
 		List<Group> groups = new ArrayList<Group>();
 		groups.add(new Group("CUSTOMER"));
