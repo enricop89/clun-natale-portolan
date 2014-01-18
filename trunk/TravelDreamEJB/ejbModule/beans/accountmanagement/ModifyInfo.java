@@ -24,7 +24,7 @@ public class ModifyInfo implements ModifyInfoInterface{
 		User modified = search.findUser(user.getEmail());
 		modified.setFirstName(user.getFirstName());
 		modified.setLastName(user.getLastName());
-		if(user.getPassword() != null || !user.getPassword().isEmpty())
+		if(!user.getPassword().isEmpty())
 			modified.setPassword(user.getPassword());
 		entityManager.merge(modified);
 	}
