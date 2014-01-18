@@ -5,6 +5,8 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import org.apache.commons.codec.digest.DigestUtils;
+
 import beans.utils.Search;
 import entities.*;
 
@@ -25,7 +27,7 @@ public class ModifyInfo implements ModifyInfoInterface{
 		modified.setFirstName(user.getFirstName());
 		modified.setLastName(user.getLastName());
 		if(!user.getPassword().isEmpty())
-			modified.setPassword(user.getPassword());
+			modified.setPassword(DigestUtils.sha256Hex(user.getPassword()));
 		entityManager.merge(modified);
 	}
 }
