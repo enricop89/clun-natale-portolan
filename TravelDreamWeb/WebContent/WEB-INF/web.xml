@@ -26,7 +26,7 @@
   </context-param>
    <context-param>
     <param-name>primefaces.THEME</param-name>
-    <param-value>cruze</param-value>
+    <param-value>rocket</param-value>
   </context-param> 
   <listener>
     <listener-class>com.sun.faces.config.ConfigureListener</listener-class>
@@ -56,6 +56,17 @@
 		</web-resource-collection>
 		<auth-constraint>
 			<role-name>CUSTOMER</role-name>
+		</auth-constraint>
+	</security-constraint>
+		<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>Miscellanea</web-resource-name>
+			<description />
+			<url-pattern>/misc/*</url-pattern>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>CUSTOMER</role-name>
+			<role-name>EMPLOYEE</role-name>
 		</auth-constraint>
 	</security-constraint>
 </web-app>
