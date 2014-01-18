@@ -1,11 +1,13 @@
 package beans.accountmanagement;
 
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import entities.*;
 import beans.accountmanagement.UserDTO;
+import beans.utils.Search;
 import beans.utils.SendEmail;
 
 import java.util.ArrayList;
@@ -19,8 +21,13 @@ public class CustomerRegistration implements CustomerRegistrationInterface{
 	@PersistenceContext
     private EntityManager entityManager;
 	
+	@EJB
+	private Search search;
+	
 	@Override
 	public boolean addNewCustomer(UserDTO user){
+		if(search.findUser(user.getEmail())!=null)
+			return false;
 		User newUser = new User(user);
 		List<Group> groups = new ArrayList<Group>();
 		groups.add(new Group("CUSTOMER"));
