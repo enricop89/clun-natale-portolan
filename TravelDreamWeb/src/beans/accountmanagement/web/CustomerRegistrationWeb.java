@@ -35,8 +35,10 @@ public class CustomerRegistrationWeb {
 		flash.setRedirect(true);
 		if(customerRegistration.addNewCustomer(user) == true)
 			facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Successful", "Registration succesful!\n Please check your inbox!")); 
+		
 		else
-			facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error", "Registration error, user with this email may already exist.\nPlease try again or use the credential retrieval if you forgot your password.")); 	
+			facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error", "Registration error, user with this email may already exist.\nPlease try again or use the credential retrieval if you forgot your password.")); 
+		
 		return "index?faces-redirect=true";
 	}
 }
