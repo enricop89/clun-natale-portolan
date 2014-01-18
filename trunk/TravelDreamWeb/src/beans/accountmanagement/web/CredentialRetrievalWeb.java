@@ -4,7 +4,7 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.application.FacesMessage;  
 import javax.faces.context.FacesContext; 
-import javax.faces.event.ActionEvent;
+import javax.faces.context.Flash;
 
 import beans.accountmanagement.CredentialRetrievalInterface;
 
@@ -23,13 +23,17 @@ public class CredentialRetrievalWeb {
 		this.email = email;
 	}
 	
-	public String send(ActionEvent actionEvent) {
+	public String send() {
 		FacesMessage message;
 		if(credentialRetrieval.retrieveCredentials(email))
 			message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Done",  "An email has been sent to: " + email + "\nPlease check your inbox.");  	          
 		else
 			message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",  "Invalid email.");  	          	
-		FacesContext.getCurrentInstance().addMessage(null, message);  
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		Flash flash = facesContext.getExternalContext().getFlash();
+		flash.setKeepMessages(true);
+		flash.setRedirect(true);
+		facesContext.addMessage(null, message);  
 		return "index?faces-redirect=true";
 	}
 }
