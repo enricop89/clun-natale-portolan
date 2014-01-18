@@ -38,7 +38,7 @@ public class ModifyInfoWeb {
 		this.user = user;
 	}
 	
-	public String save() throws InterruptedException{
+	public String save(){
 		modifyInfo.updateCustomer(user);
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		Flash flash = facesContext.getExternalContext().getFlash();
