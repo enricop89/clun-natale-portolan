@@ -1,5 +1,6 @@
 package beans.accountmanagement.web;
 
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -20,7 +21,8 @@ public class ModifyInfoWeb {
 	
 	private UserDTO user;
 	
-	public ModifyInfoWeb() {
+	@PostConstruct
+	public void init(){
 		user = search.findUser(FacesContext.getCurrentInstance().getExternalContext().getRemoteUser());
 	}
 	public UserDTO getUser() {
