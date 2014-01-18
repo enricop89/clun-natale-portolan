@@ -1,8 +1,11 @@
 package beans.accountmanagement;
 
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+
+import beans.utils.Search;
 import entities.*;
 
 /**
@@ -13,8 +16,12 @@ public class ModifyInfo implements ModifyInfoInterface{
 	@PersistenceContext
     private EntityManager entityManager;
 	
+	@EJB
+	private Search search;
+	
 	@Override
 	public void updateCustomer(UserDTO user) {
-		entityManager.merge(new User(user));
+		User modified = search.findUser(user);
+		entityManager.merge(modified);
 	}
 }
