@@ -5,6 +5,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.context.Flash;
 
 import beans.accountmanagement.CustomerRegistrationInterface;
 import beans.accountmanagement.UserDTO;
@@ -29,7 +30,11 @@ public class CustomerRegistrationWeb {
 	}
 	public String register() {
 		customerRegistration.addNewCustomer(user);
-		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Successful", "Registration succesful!\nYou will be now redirected to the homepage.\n Please check your inbox!")); 
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		Flash flash = facesContext.getExternalContext().getFlash();
+		flash.setKeepMessages(true);
+		flash.setRedirect(true);
+		facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Successful", "Registration succesful!\n Please check your inbox!")); 
 		return "index?faces-redirect=true";
 	}
 }
