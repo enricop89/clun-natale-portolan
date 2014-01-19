@@ -1,5 +1,6 @@
 package beans.utils;
 
+import java.sql.Date;
 import java.util.List;
 
 import javax.ejb.Local;
@@ -20,7 +21,7 @@ public interface SearchDTOInterface {
 	
 	public List<PersonalizedTravelPackageDTO> findAllPersonalizedTravelPackages();
 	
-	public List<PredefinedTravelPackageDTO> findPredefinedTravelPackage(String name);
+	public List<PredefinedTravelPackageDTO> findPredefinedTravelPackage(String name, Date departureDate, Date returnDate);
 	
 	public List<PredefinedTravelPackageDTO> findAllPredefinedTravelPackages();
 	
