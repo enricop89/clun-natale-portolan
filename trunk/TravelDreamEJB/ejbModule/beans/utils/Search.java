@@ -5,6 +5,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import java.sql.Date;
 import java.util.List;
 
 import entities.*;
@@ -46,73 +47,86 @@ public class Search {
 		return entityManager.createNamedQuery(PersonalizedTravelPackage.FIND_ALL, PersonalizedTravelPackage.class).getResultList();		
 	}
 	
-	public List<PredefinedTravelPackage> findPredefinedTravelPackage(String name){
-		// name can also be only a part of the real package name
-		if(name.length() < 3)
-			return null;
-		 List<PredefinedTravelPackage> list = findAllPredefinedTravelPackages();
-		 for(int i = 0; i < list.size(); i++)
-			 if(!list.get(i).getName().contains(name))
-				 list.remove(i);
-		 return list;	
+	public List<PredefinedTravelPackage> findPredefinedTravelPackage(String name, Date departureDate, Date returnDate){
+		List<PredefinedTravelPackage> list = findAllPredefinedTravelPackages();	
+		if(name != null){
+			// name can also be only a part of the real package name
+			if(name.length() < 3)
+				return null;
+
+			 for(int i = 0; i < list.size(); i++)
+				 if(!list.get(i).getName().contains(name))
+					 list.remove(i);
+		}
+		if(departureDate != null){
+			 for(int i = 0; i < list.size(); i++)
+				 if(list.get(i).getDepartureDate().compareTo(departureDate) != 0)
+					 list.remove(i);				
+		}
+		if(returnDate != null){
+			 for(int i = 0; i < list.size(); i++)
+				 if(list.get(i).getDepartureDate().compareTo(returnDate) != 0)
+					 list.remove(i);	
+		}
+		return list;	
 	}
 	
 	public List<PredefinedTravelPackage> findAllPredefinedTravelPackages(){
 		return entityManager.createNamedQuery(PredefinedTravelPackage.FIND_ALL, PredefinedTravelPackage.class).getResultList();
 	}
 	
-	public List<TravelComponent> findTravelComponent(TravelComponent s){
+	public List<TravelComponent> findTravelComponent(TravelComponent travelComponent){
 	// a fictitious TravelComponent is used to specify the search criteria
 	// the unused field must be set to empty, even though it will consider only the field associated
 	// to the specific ComponentType
 		String query= new String();
-		switch(s.getType()){
+		switch(travelComponent.getType()){
 		case FLIGHT:
-			if(s.getFlightDepartureDateTime()!=null){
-				query=query + "c.flightDepartureDateTime = " + s.getFlightDepartureDateTime() ;
+			if(travelComponent.getFlightDepartureDateTime()!=null){
+				query=query + "c.flightDepartureDateTime = " + travelComponent.getFlightDepartureDateTime() ;
 			}
-			if(s.getFlightDepartureDateTime()!=null){
+			if(travelComponent.getFlightDepartureDateTime()!=null){
 				if(query.isEmpty())
-					query=query + "c.flightArrivalDateTime = " + s.getFlightArrivalDateTime() ;
-				else	query=query + " AND c.flightArrivalDateTime = " + s.getFlightArrivalDateTime() ;
+					query=query + "c.flightArrivalDateTime = " + travelComponent.getFlightArrivalDateTime() ;
+				else	query=query + " AND c.flightArrivalDateTime = " + travelComponent.getFlightArrivalDateTime() ;
 			}
-			if(s.getFlightDepartureDateTime()!=null){
+			if(travelComponent.getFlightDepartureDateTime()!=null){
 				if(query.isEmpty())
-					query=query + "c.flightDepartureCity = " + s.getFlightDepartureCity() ;
-				else	query=query + " AND c.flightDepartureCity = " + s.getFlightDepartureCity() ;
+					query=query + "c.flightDepartureCity = " + travelComponent.getFlightDepartureCity() ;
+				else	query=query + " AND c.flightDepartureCity = " + travelComponent.getFlightDepartureCity() ;
 			}
-			if(s.getFlightDepartureDateTime()!=null){
+			if(travelComponent.getFlightDepartureDateTime()!=null){
 				if(query.isEmpty())
-					query=query + "c.flightArrivalCity = " + s.getFlightArrivalCity() ;
-				else	query=query + " AND c.flightArrivalCity = " + s.getFlightArrivalCity() ;
+					query=query + "c.flightArrivalCity = " + travelComponent.getFlightArrivalCity() ;
+				else	query=query + " AND c.flightArrivalCity = " + travelComponent.getFlightArrivalCity() ;
 			}
-			if(s.getFlightDepartureDateTime()!=null){
+			if(travelComponent.getFlightDepartureDateTime()!=null){
 				if(query.isEmpty())
-					query=query + "c.flightCode = " + s.getFlightCode() ;
-				else	query=query + "AND flightCode = :" + s.getFlightCode() ;
+					query=query + "c.flightCode = " + travelComponent.getFlightCode() ;
+				else	query=query + "AND flightCode = :" + travelComponent.getFlightCode() ;
 			}
 			break;
 		case HOTEL:
-			if(s.getHotelCity()!=null)
-				query= query + "c.hotelCity = " + s.getHotelCity() ;
-			if(s.getHotelDate()!=null){
+			if(travelComponent.getHotelCity()!=null)
+				query= query + "c.hotelCity = " + travelComponent.getHotelCity() ;
+			if(travelComponent.getHotelDate()!=null){
 				if(query.isEmpty())
-					query=query + "c.hotelDate = " + s.getHotelDate() ;
-				else	query=query + " AND c.hotelDate = " + s.getHotelDate() ;
+					query=query + "c.hotelDate = " + travelComponent.getHotelDate() ;
+				else	query=query + " AND c.hotelDate = " + travelComponent.getHotelDate() ;
 			}
 			break;
 		case EXCURSION:
-			if(s.getExcursionDescription()!=null)
-				query= query + "CONTAINS(c.excursionDescription," + s.getExcursionDescription() + ")" ;
-			if(s.getExcursionDateTime()!=null){
+			if(travelComponent.getExcursionDescription()!=null)
+				query= query + "CONTAINS(c.excursionDescription," + travelComponent.getExcursionDescription() + ")" ;
+			if(travelComponent.getExcursionDateTime()!=null){
 				if(query.isEmpty())
-					query=query + "c.excursionDateTime = " + s.getExcursionDateTime() ;
-				else	query=query + " AND c.excursionDateTime = " + s.getExcursionDateTime() ;
+					query=query + "c.excursionDateTime = " + travelComponent.getExcursionDateTime() ;
+				else	query=query + " AND c.excursionDateTime = " + travelComponent.getExcursionDateTime() ;
 			}
-			if(s.getFlightDepartureDateTime()!=null){
+			if(travelComponent.getFlightDepartureDateTime()!=null){
 				if(query.isEmpty())
-					query=query + "c.excursionCity = " + s.getExcursionCity() ;
-				else	query=query + " AND c.excursionCity = " + s.getExcursionCity() ;
+					query=query + "c.excursionCity = " + travelComponent.getExcursionCity() ;
+				else	query=query + " AND c.excursionCity = " + travelComponent.getExcursionCity() ;
 			}
 			break;
 		}
