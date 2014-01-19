@@ -5,10 +5,67 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
 
-<h:head></h:head>
+<h:head>
+	<title>Search form</title>  
+</h:head>
 <h:body>
-	<p:panel header="TEST">
-            #{SearchWeb.auth}
-	</p:panel>
+<h:form>
+    <p:growl id="growl" showDetail="true" />  
+    	
+	<p:tabView id="tabView">  
+	  
+	    <p:tab id="predefinedTravelPackages" title="Predefined Travel Packages">  
+		    <p:panelGrid columns="2">  
+			    <f:facet name="header">  
+			        Search Predefined Travel Packages
+			    </f:facet>  
+			 	<h:outputLabel for="name">Name (even only a part of it):</h:outputLabel>
+            	<p:inputText id="name" value="" /> 							  
+			    <f:facet name="footer">  
+			    	<p:splitButton value="Search" icon="ui-icon-search"
+			    				   >  
+			       		<p:menuitem value="Browse All" icon="ui-icon-search"
+			       					/>   
+			    	</p:splitButton>
+			    </f:facet>  
+			</p:panelGrid> 
+	    </p:tab>  
+	  
+	    <p:tab id="Customers" title="Customers" rendered="#{SearchWeb.isCustomer}">  
+		    <p:panelGrid columns="2">  
+			    <f:facet name="header">  
+			        Search Customers
+			    </f:facet>  
+			 	<h:outputLabel for="firstname">Firstname:</h:outputLabel>
+            	<p:inputText id="firstname" value="" /> 				 
+			 	<h:outputLabel for="lastname">Lastame:</h:outputLabel>
+            	<p:inputText id="lastname" value="" /> 									  
+			    <f:facet name="footer">  
+			        <p:commandButton type="button" value="Search" icon="ui-icon-search"
+			        				 />    
+			    </f:facet>  
+			</p:panelGrid> 
+	    </p:tab>  
+	  
+	    <p:tab id="TravelComponents" title="Travel Components" rendered="#{!SearchWeb.isCustomer}">  
+		    <p:panelGrid columns="2">  
+			    <f:facet name="header">  
+			        Search Travel Components
+			    </f:facet>  
+			 	
+			
+				  
+			    <f:facet name="footer">  
+			    	<p:splitButton value="Search" icon="ui-icon-search"
+			       					 >  
+			       		<p:menuitem value="Browse All" icon="ui-icon-search"
+			       					/>   
+			    	</p:splitButton>			        
+			    </f:facet>  
+			</p:panelGrid> 
+	    </p:tab>  
+	  
+	</p:tabView>
+</h:form>
 </h:body>
 </html>
