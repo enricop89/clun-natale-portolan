@@ -1,5 +1,6 @@
 package beans.utils;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,8 +54,8 @@ public class SearchDTO implements SearchDTOInterface {
 	}
 	
 	@Override
-	public List<PredefinedTravelPackageDTO> findPredefinedTravelPackage(String name){
-		List<PredefinedTravelPackage> packages = search.findPredefinedTravelPackage(name);
+	public List<PredefinedTravelPackageDTO> findPredefinedTravelPackage(String name, Date departureDate, Date returnDate){
+		List<PredefinedTravelPackage> packages = search.findPredefinedTravelPackage(name,departureDate,returnDate);
 		List<PredefinedTravelPackageDTO> result = new ArrayList<PredefinedTravelPackageDTO>();
 		for(int i = 0; i < packages.size(); i++)
 			result.add(convertToDTO(packages.get(i)));
