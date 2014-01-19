@@ -14,13 +14,9 @@
 	<p:layout fullPage="true" >
 		<p:layoutUnit id="top" position="north" >
 			  <p:toolbar>  
-			  
 	 			  <p:toolbarGroup align="left">
-	 			  
-				  	<h:outputLink value="index.xhtml" ><img src="tdlogo.png"></img></h:outputLink>
-				  	
+				  	<h:outputLink value="index.xhtml" ><p:graphicImage value="/resources/images/tdlogo.png" /></h:outputLink>
 				  </p:toolbarGroup>
-
 			    <p:toolbarGroup align="right"  rendered="#{facesContext.externalContext.isUserInRole('CUSTOMER')}">  
 			    	<h:form>
 				        <p:menuButton value="#{request.remoteUser}">  
