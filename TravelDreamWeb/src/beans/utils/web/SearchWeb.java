@@ -25,4 +25,7 @@ public class SearchWeb {
 	public boolean getIsCustomer(){
 		return isCustomer;
 	}
+	
+	// NB: se quando clicco su un customer, esso è lo stesso della sessione, allora sta provando ad entrare nel proprio profilo(o meglio, per evitare bug, tipo che si
+	// paghi componenti dalla gift list da solo, DEVE ESSERE così)
 }
