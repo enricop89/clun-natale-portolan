@@ -74,17 +74,17 @@ public class Search {
 			if(s.getFlightDepartureDateTime()!=null){
 				if(query.isEmpty())
 					query=query + "c.flightArrivalDateTime = " + s.getFlightArrivalDateTime() ;
-				else	query=query + "AND c.flightArrivalDateTime = " + s.getFlightArrivalDateTime() ;
+				else	query=query + " AND c.flightArrivalDateTime = " + s.getFlightArrivalDateTime() ;
 			}
 			if(s.getFlightDepartureDateTime()!=null){
 				if(query.isEmpty())
 					query=query + "c.flightDepartureCity = " + s.getFlightDepartureCity() ;
-				else	query=query + "AND c.flightDepartureCity = " + s.getFlightDepartureCity() ;
+				else	query=query + " AND c.flightDepartureCity = " + s.getFlightDepartureCity() ;
 			}
 			if(s.getFlightDepartureDateTime()!=null){
 				if(query.isEmpty())
 					query=query + "c.flightArrivalCity = " + s.getFlightArrivalCity() ;
-				else	query=query + "AND c.flightArrivalCity = " + s.getFlightArrivalCity() ;
+				else	query=query + " AND c.flightArrivalCity = " + s.getFlightArrivalCity() ;
 			}
 			if(s.getFlightDepartureDateTime()!=null){
 				if(query.isEmpty())
@@ -98,21 +98,21 @@ public class Search {
 			if(s.getHotelDate()!=null){
 				if(query.isEmpty())
 					query=query + "c.hotelDate = " + s.getHotelDate() ;
-				else	query=query + "AND c.hotelDate = " + s.getHotelDate() ;
+				else	query=query + " AND c.hotelDate = " + s.getHotelDate() ;
 			}
 			break;
 		case EXCURSION:
 			if(s.getExcursionDescription()!=null)
-				query= query + "c.excursionDescription = " + s.getExcursionDescription() ;
+				query= query + "CONTAINS(c.excursionDescription," + s.getExcursionDescription() + ")" ;
 			if(s.getExcursionDateTime()!=null){
 				if(query.isEmpty())
 					query=query + "c.excursionDateTime = " + s.getExcursionDateTime() ;
-				else	query=query + "AND c.excursionDateTime = " + s.getExcursionDateTime() ;
+				else	query=query + " AND c.excursionDateTime = " + s.getExcursionDateTime() ;
 			}
 			if(s.getFlightDepartureDateTime()!=null){
 				if(query.isEmpty())
 					query=query + "c.excursionCity = " + s.getExcursionCity() ;
-				else	query=query + "AND c.excursionCity = " + s.getExcursionCity() ;
+				else	query=query + " AND c.excursionCity = " + s.getExcursionCity() ;
 			}
 			break;
 		}
