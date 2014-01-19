@@ -4,7 +4,7 @@
   <security-role>
     <role-name>EMPLOYEE</role-name>
   </security-role>
-    <security-role>
+  <security-role>
     <role-name>CUSTOMER</role-name>
   </security-role>
   <welcome-file-list>
@@ -50,6 +50,11 @@
 			<description />
 			<url-pattern>/employee/*</url-pattern>
 		</web-resource-collection>
+		<web-resource-collection>
+			<web-resource-name>Miscellanea</web-resource-name>
+			<description />
+			<url-pattern>/misc/*</url-pattern>
+		</web-resource-collection>		
 		<auth-constraint>
 			<role-name>EMPLOYEE</role-name>
 		</auth-constraint>
@@ -60,11 +65,6 @@
 			<description />
 			<url-pattern>/customer/*</url-pattern>
 		</web-resource-collection>
-		<auth-constraint>
-			<role-name>CUSTOMER</role-name>
-		</auth-constraint>
-	</security-constraint>
-		<security-constraint>
 		<web-resource-collection>
 			<web-resource-name>Miscellanea</web-resource-name>
 			<description />
@@ -72,7 +72,6 @@
 		</web-resource-collection>
 		<auth-constraint>
 			<role-name>CUSTOMER</role-name>
-			<role-name>EMPLOYEE</role-name>
 		</auth-constraint>
 	</security-constraint>
 </web-app>
