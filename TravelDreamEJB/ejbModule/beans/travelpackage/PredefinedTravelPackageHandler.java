@@ -113,7 +113,7 @@ public class PredefinedTravelPackageHandler {
 			if(returnFlight.getFlightArrivalDateTime().compareTo(predefinedTravelPackage.getReturnDate()) != 0)
 				return false; // dates mismatch	
 			
-			if(departureFlight.getFlightArrivalCity() != returnFlight.getFlightDepartureCity())
+			if(!departureFlight.getFlightArrivalCity().equals(returnFlight.getFlightDepartureCity()))
 				return false; // city mismatch, error!
 					
 			for (int i=0;i<hotels.size();i++){
@@ -123,7 +123,7 @@ public class PredefinedTravelPackageHandler {
 				if(returnFlight.getFlightDepartureDateTime().compareTo(hotels.get(i).getHotelDate())>0)
 					return false; 	// date hotel after date returnFlight
 				
-				if(hotels.get(i).getHotelCity() != returnFlight.getFlightDepartureCity() )
+				if(!hotels.get(i).getHotelCity().equals(returnFlight.getFlightDepartureCity()))
 					return false;  // city control
 				
 			}
@@ -134,7 +134,7 @@ public class PredefinedTravelPackageHandler {
 				if(returnFlight.getFlightDepartureDateTime().compareTo(excursions.get(i).getExcursionDateTime())>0)
 					return false; 	// date excursion after date returnFlight
 				
-				if(excursions.get(i).getExcursionCity() != returnFlight.getFlightDepartureCity())
+				if(!excursions.get(i).getExcursionCity().equals(returnFlight.getFlightDepartureCity()))
 					return false;  // city control
 			}
 		}
@@ -147,7 +147,7 @@ public class PredefinedTravelPackageHandler {
 					if(predefinedTravelPackage.getReturnDate().compareTo(hotels.get(i).getHotelDate())>0)
 						return false; 	// date hotel after date returnFlight
 					
-					if(hotels.get(i).getHotelCity() != departureFlight.getFlightArrivalCity() )
+					if(!hotels.get(i).getHotelCity().equals(departureFlight.getFlightArrivalCity()))
 						return false;  // city control
 				}
 				for (int i=0;i<excursions.size();i++){
@@ -157,7 +157,7 @@ public class PredefinedTravelPackageHandler {
 					if(predefinedTravelPackage.getReturnDate().compareTo(excursions.get(i).getExcursionDateTime())>0)
 						return false; 	// date excursion after date returnFlight
 					
-					if(excursions.get(i).getExcursionCity() != departureFlight.getFlightArrivalCity())
+					if(!excursions.get(i).getExcursionCity().equals(departureFlight.getFlightArrivalCity()))
 						return false;  // city control
 				}				
 			}
@@ -169,7 +169,7 @@ public class PredefinedTravelPackageHandler {
 					if(returnFlight.getFlightDepartureDateTime().compareTo(hotels.get(i).getHotelDate())>0)
 						return false; 	// date hotel after date returnFlight
 					
-					if(hotels.get(i).getHotelCity() != returnFlight.getFlightDepartureCity() )
+					if(!hotels.get(i).getHotelCity().equals(returnFlight.getFlightDepartureCity()))
 						return false;  // city control
 					
 				}
@@ -180,7 +180,7 @@ public class PredefinedTravelPackageHandler {
 					if(returnFlight.getFlightDepartureDateTime().compareTo(excursions.get(i).getExcursionDateTime())>0)
 						return false; 	// date excursion after date returnFlight
 					
-					if(excursions.get(i).getExcursionCity() != returnFlight.getFlightDepartureCity())
+					if(!excursions.get(i).getExcursionCity().equals(returnFlight.getFlightDepartureCity()))
 						return false;  // city control
 					
 				}				
@@ -199,7 +199,7 @@ public class PredefinedTravelPackageHandler {
 				if(predefinedTravelPackage.getReturnDate().compareTo(hotels.get(i).getHotelDate())>0)
 					return false; 	// date hotel after date returnFlight
 				
-				if(hotels.get(i).getHotelCity() != city){
+				if(!hotels.get(i).getHotelCity().equals(city)){
 					city = hotels.get(i).getHotelCity();
 					changes++;
 				}
@@ -211,7 +211,7 @@ public class PredefinedTravelPackageHandler {
 				if(predefinedTravelPackage.getReturnDate().compareTo(excursions.get(i).getExcursionDateTime())>0)
 					return false; 	// date excursion after date returnFlight
 				
-				if(excursions.get(i).getExcursionCity() != city){
+				if(!excursions.get(i).getExcursionCity().equals(city)){
 					city = excursions.get(i).getExcursionCity();
 					changes++;
 				}
