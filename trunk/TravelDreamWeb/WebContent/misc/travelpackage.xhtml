@@ -5,8 +5,30 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
 
-<h:head>
-</h:head>
-<h:body>
-</h:body>
+    <h:head>  
+        <title>Predefined Travel Packages</title>  
+        <link type="text/css" rel="stylesheet" href="#{request.contextPath}/css/default.css" />  
+    </h:head>  
+      
+    <h:body>  
+        <h:form>  
+            <p:dataTable var="predefinedTravelPackage" value="#{SearchWeb.predefinedTravelPackagesList}">  
+                <p:column headerText="Name">  
+                    <h:outputText value="#{predefinedTravelPackage.name}" />  
+                </p:column>  
+  
+                <p:column headerText="Departure Date">  
+                    <h:outputText value="#{predefinedTravelPackage.departureDate}" />  
+                </p:column> 
+                 
+                <p:column headerText="Return Date">  
+                    <h:outputText value="#{predefinedTravelPackage.returnDate}" />  
+                </p:column>  
+  
+                <p:column headerText="Predefined Travel Package Page">  
+                    <p:commandButton icon="ui-icon-extlink" actionListener="#{SearchWeb.selectFromDialog(predefinedTravelPackage)}" />  
+                </p:column>  
+            </p:dataTable>  
+        </h:form>  
+    </h:body>  
 </html>

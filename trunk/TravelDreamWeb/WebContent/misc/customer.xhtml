@@ -12,17 +12,17 @@
       
     <h:body>  
         <h:form>  
-            <p:dataTable var="First Name" value="#{SearchWeb.usersList}">  
-                <p:column headerText="Model">  
+            <p:dataTable var="user" value="#{SearchWeb.usersList}">  
+                <p:column headerText="Firstname">  
                     <h:outputText value="#{user.firstName}" />  
                 </p:column>  
   
-                <p:column headerText="Last Name">  
+                <p:column headerText="Lastname">  
                     <h:outputText value="#{user.lastName}" />  
                 </p:column>  
   
                 <p:column headerText="Personal Page">  
-                    <p:commandButton icon="ui-icon-search" actionListener="#{SearchWeb.selectFromDialog(user)}" />  
+                    <p:commandButton icon="ui-icon-extlink" actionListener="#{SearchWeb.selectFromDialog(user)}" />  
                 </p:column>  
             </p:dataTable>  
         </h:form>  
