@@ -32,6 +32,7 @@ public class SearchWeb {
 	
 	private List<PredefinedTravelPackageDTO> predefinedTravelPackagesList;
 	private List<UserDTO> usersList;
+	private List<TravelComponentDTO> travelComponentsList;
 	
 	public SearchWeb(){
 		if(FacesContext.getCurrentInstance().getExternalContext().isUserInRole("CUSTOMER"))
@@ -127,6 +128,19 @@ public class SearchWeb {
 		else // open up customer info page
 		*/
 		
+	}
+	
+	public List<TravelComponentDTO> getTravelComponentsList(){
+		return travelComponentsList;
+	}
+	public void searchTravelComponents(){
+		// TBD
+	}
+	public void browseAllTravelComponents(){
+		// TBD
+	}
+	public void selectFromDialog(TravelComponentDTO travelComponent){
+		// TBD		
 	}
 
 	
