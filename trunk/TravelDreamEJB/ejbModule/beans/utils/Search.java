@@ -6,6 +6,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 import entities.*;
@@ -37,10 +38,16 @@ public class Search {
 	
 	public List<PersonalizedTravelPackage> findAllPersonalizedTravelPackages(User owner){
 		List<PersonalizedTravelPackage> list = findAllPersonalizedTravelPackages();
+		List<Integer> toRemove = new ArrayList<Integer>();
 		for(int i = 0; i < list.size(); i++)
 			 if(list.get(i).getOwner()!=owner)
-				 list.remove(i);
-		 return list;
+				 toRemove.add(i);
+		
+		//actually removes elements
+		for(int i = 0; i < toRemove.size(); i++)
+			list.remove(toRemove.get(i));		
+		
+		return list;
 	}
 	
 	public List<PersonalizedTravelPackage> findAllPersonalizedTravelPackages(){
@@ -49,6 +56,7 @@ public class Search {
 	
 	public List<PredefinedTravelPackage> findPredefinedTravelPackage(String name, Date departureDate, Date returnDate){
 		List<PredefinedTravelPackage> list = findAllPredefinedTravelPackages();	
+		List<Integer> toRemove = new ArrayList<Integer>();
 		if(name != null){
 			// name can also be only a part of the real package name
 			if(name.length() < 3)
@@ -56,18 +64,23 @@ public class Search {
 
 			 for(int i = 0; i < list.size(); i++)
 				 if(!list.get(i).getName().contains(name))
-					 list.remove(i);
+					 toRemove.add(i);
 		}
 		if(departureDate != null){
 			 for(int i = 0; i < list.size(); i++)
 				 if(list.get(i).getDepartureDate().compareTo(departureDate) != 0)
-					 list.remove(i);				
+					 toRemove.add(i);				
 		}
 		if(returnDate != null){
 			 for(int i = 0; i < list.size(); i++)
 				 if(list.get(i).getDepartureDate().compareTo(returnDate) != 0)
-					 list.remove(i);	
+					 toRemove.add(i);	
 		}
+		
+		//actually removes elements
+		for(int i = 0; i < toRemove.size(); i++)
+			list.remove(toRemove.get(i));	
+		
 		return list;	
 	}
 	
@@ -146,33 +159,39 @@ public class Search {
 	public List<User> findUser(String firstName, String lastName){
 		//it considers both the case where all the fields are filled or only one of them
 		List<User> listUser = findAllUser();
+		List<Integer> toRemove = new ArrayList<Integer>();
 		
 		//employees must not be returned in this search!
 		for(int i = 0; i < listUser.size(); i++)
 			if(listUser.get(i).getGroups().get(0).getGroupName() == "EMPLOYEE")
-				listUser.remove(i);
+				toRemove.add(i);
 				
 		if(firstName == null){
 			if(lastName == null)
 				return null;
 			else{ //only lastName
 				for(int i = 0; i < listUser.size(); i++)
-					if(listUser.get(i).getLastName() != lastName)
-						listUser.remove(i);
+					if(!listUser.get(i).getLastName().equals(lastName))
+						toRemove.add(i);
 			}
 		}
 		else{
 			if(lastName == null){ //only firstName
 				for(int i = 0; i < listUser.size(); i++)
-					if(listUser.get(i).getFirstName() != firstName)
-						listUser.remove(i);
+					if(!listUser.get(i).getFirstName().equals(firstName))
+						toRemove.add(i);
 			}
 			else{ //both
 				for(int i = 0; i < listUser.size(); i++)
-					if(listUser.get(i).getFirstName() != firstName && listUser.get(i).getLastName() != lastName)
-						listUser.remove(i);
+					if(!listUser.get(i).getFirstName().equals(firstName) && !listUser.get(i).getLastName().equals(lastName))
+						toRemove.add(i);
 			}				
 		}
+				
+		//actually removes elements
+		for(int i = 0; i < toRemove.size(); i++)
+			listUser.remove(toRemove.get(i));
+		
 		return listUser;
 	}
 	public List<User> findAllUser(){
