@@ -1,0 +1,67 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+	<!-- The default title is TravelDream, but it can be modified -->
+	<title><ui:insert name="title">TravelDream</ui:insert></title>
+	<h:outputStylesheet name="css/style.css"  />
+</h:head>
+<h:body>
+	<p:layout fullPage="true" >
+		<p:layoutUnit id="top" position="north" >
+			  <p:toolbar>  
+			  
+	 			  <p:toolbarGroup align="left">
+	 			  
+				  	<h:outputLink value="index.xhtml" ><img src="tdlogo.png"></img></h:outputLink>
+				  	
+				  </p:toolbarGroup>
+
+			    <p:toolbarGroup align="right"  rendered="#{facesContext.externalContext.isUserInRole('CUSTOMER')}">  
+			    	<h:form>
+				        <p:menuButton value="#{request.remoteUser}">  
+				            <p:menuitem value="Customer control panel" url=".." />  
+				            <p:menuitem action="#{AuthenticationWeb.deauthenticate}" value="Logout" ajax="false" />
+				        </p:menuButton> 
+			        </h:form>
+			    </p:toolbarGroup>
+			    	
+   			    <p:toolbarGroup align="right" rendered="#{facesContext.externalContext.isUserInRole('EMPLOYEE')}">  
+   			    	<h:form>
+				        <p:menuButton value="#{request.remoteUser}">  
+				            <p:menuitem value="Employee control panel" url=".." />  
+				            <p:menuitem value="Logout" >
+				            <p:menuitem action="#{AuthenticationWeb.deauthenticate}" value="Logout" ajax="false"/>
+				            </p:menuitem>
+				        </p:menuButton>  
+			        </h:form>
+			    </p:toolbarGroup>
+			    
+   			    <p:toolbarGroup align="right" rendered="#{empty request.remoteUser}" >  
+	   			    <form action="j_security_check" method="post">
+					    <h:outputLabel for="j_username">Username:</h:outputLabel>
+					    <h:inputText id="j_username" size="20" />
+					
+					    <h:outputLabel for="j_password">Password:</h:outputLabel>
+					    <h:inputSecret id="j_password" size="20"/>
+					
+					    <input type="submit" value="Login" />
+					</form>
+   			    
+
+			    </p:toolbarGroup>
+			  	 
+			  </p:toolbar>  
+			
+		</p:layoutUnit>
+	    <p:layoutUnit position="center">  
+				<ui:insert name="content">Default content</ui:insert>
+	    </p:layoutUnit> 
+	</p:layout>
+
+</h:body>
+</html>

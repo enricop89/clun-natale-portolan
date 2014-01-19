@@ -1,22 +1,23 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:p="http://primefaces.org/ui"
-	xmlns:ui="http://java.sun.com/jsf/facelets">
+<ui:composition template="master.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+   	xmlns:p="http://primefaces.org/ui"
+    xmlns:ui="http://java.sun.com/jsf/facelets">
 
-<h:head>
-	<title>Login</title>
-</h:head>
-<h:body>
-		<form method="post" action="j_security_check">
+    <ui:define name="title">TravelDream Homepage</ui:define>
 
-		<p:growl id="growl" showDetail="true" sticky="true" globalOnly="true" />
-		
-			Email: <input type="text" name="j_username" />
-			Password: <input type="password" name="j_password" /> 
-				<input type="submit" value="Login" />
-				<input type="reset" value="Reset" />
-		</form>
-</h:body>
-</html>
+    <ui:define name="content">
+    	<h:panelGroup layout="block" rendered="#{empty request.remoteUser}">
+    		<h1>Welcome to TravelDream!</h1>
+        	<p>If you are already registered, you can log yourself in, using the form at the top of the page.</p>
+        	<p>Otherwise, you can [register] or [search].</p>
+    	</h:panelGroup>
+    	
+    	<h:panelGroup layout="block" rendered="#{not empty request.remoteUser}">
+    		<h1>Welcome back to TravelDream!</h1>
+        	<p>Long time no see!</p>
+    	</h:panelGroup>
+        
+    </ui:define>
+</ui:composition>
