@@ -12,19 +12,17 @@ import beans.utils.SearchDTOInterface;
 public class SearchWeb {
 	@EJB
 	private SearchDTOInterface search;
-	
-	private String auth;
+		
+	private boolean isCustomer; // otherwise is employee, cannot be another value since the folder is not accessible by unauthenticated users
 	
 	public SearchWeb(){
 		if(FacesContext.getCurrentInstance().getExternalContext().isUserInRole("CUSTOMER"))
-			auth = "CUSTOMER";
+			isCustomer = true;
 		else if(FacesContext.getCurrentInstance().getExternalContext().isUserInRole("EMPLOYEE"))
-			auth = "EMPLOYEE";
-		else
-			auth = null;
+			isCustomer = false;
 	}
 	
-	public String getAuth(){
-		return auth;
+	public boolean getIsCustomer(){
+		return isCustomer;
 	}
 }
