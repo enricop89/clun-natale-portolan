@@ -20,12 +20,17 @@
 			        Search Predefined Travel Packages
 			    </f:facet>  
 			 	<h:outputLabel for="name">Name (even only a part of it):</h:outputLabel>
-            	<p:inputText id="name" value="" /> 							  
+            	<p:inputText id="name" value="#{SearchWeb.packageName}" /> 	
+            	
+ 			 	<h:outputLabel for="name">Departure Date:</h:outputLabel>           	
+            	<p:calendar value="#{SearchWeb.departureDate}" id="departureDate" showButtonPanel="true"/>  
+
+			 	<h:outputLabel for="name">Return Date:</h:outputLabel>            	
+            	<p:calendar value="#{SearchWeb.returnDate}" id="returnDate" showButtonPanel="true"/> 
+            							  
 			    <f:facet name="footer">  
-			    	<p:splitButton value="Search" icon="ui-icon-search"
-			    				   >  
-			       		<p:menuitem value="Browse All" icon="ui-icon-search"
-			       					/>   
+			    	<p:splitButton value="Search" icon="ui-icon-search" action="#{SearchWeb.searchPredefinedTravelPackages}">  			       		
+			       		<p:menuitem value="Browse All" icon="ui-icon-search" action="#{SearchWeb.browseAllPredefinedTravelPackages}"/>  			       				       					       		
 			    	</p:splitButton>
 			    </f:facet>  
 			</p:panelGrid> 
@@ -37,12 +42,11 @@
 			        Search Customers
 			    </f:facet>  
 			 	<h:outputLabel for="firstname">Firstname:</h:outputLabel>
-            	<p:inputText id="firstname" value="" /> 				 
+            	<p:inputText id="firstname" value="#{SearchWeb.firstName}" /> 				 
 			 	<h:outputLabel for="lastname">Lastame:</h:outputLabel>
-            	<p:inputText id="lastname" value="" /> 									  
+            	<p:inputText id="lastname" value="#{SearchWeb.lastName}" /> 									  
 			    <f:facet name="footer">  
-			        <p:commandButton type="button" value="Search" icon="ui-icon-search"
-			        				 />    
+			        <p:commandButton type="button" value="Search" icon="ui-icon-search" action="#{SearchWeb.searchCustomers}"/> 
 			    </f:facet>  
 			</p:panelGrid> 
 	    </p:tab>  
