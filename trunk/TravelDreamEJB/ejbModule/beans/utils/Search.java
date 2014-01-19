@@ -63,7 +63,7 @@ public class Search {
 	
 	public List<TravelComponent> findTravelComponent(TravelComponent s){
 	// a fictitious TravelComponent is used to specify the search criteria
-	// the unused field must be set to null, even though it will consider only the field associated
+	// the unused field must be set to empty, even though it will consider only the field associated
 	// to the specific ComponentType
 		String query= new String();
 		switch(s.getType()){
