@@ -57,17 +57,17 @@ public class TravelComponent implements Serializable {
 	public TravelComponent() {
 		super();
 	}   
-	public TravelComponent(TravelComponentDTO t){
+	public TravelComponent(TravelComponentDTO travelComponent){
 //		this.id = travelComponent.getId();
-		this.type = t.getType();
-		this.supplyingCompany = t.getSupplyingCompany();
-		switch(t.getType()){
+		this.type = travelComponent.getType();
+		this.supplyingCompany = travelComponent.getSupplyingCompany();
+		switch(travelComponent.getType()){
 		case FLIGHT:
-			flightDepartureDateTime = t.getFlightDepartureDateTime();
-			flightArrivalDateTime = t.getFlightArrivalDateTime();
-			flightDepartureCity = t.getFlightDepartureCity();
-			flightArrivalCity = t.getFlightArrivalCity();
-			flightCode = t.getFlightCode();
+			flightDepartureDateTime = travelComponent.getFlightDepartureDateTime();
+			flightArrivalDateTime = travelComponent.getFlightArrivalDateTime();
+			flightDepartureCity = travelComponent.getFlightDepartureCity();
+			flightArrivalCity = travelComponent.getFlightArrivalCity();
+			flightCode = travelComponent.getFlightCode();
 			
 			hotelCity = null;
 			hotelDate = null;
@@ -83,8 +83,8 @@ public class TravelComponent implements Serializable {
 			flightArrivalCity = null;
 			flightCode = null;
 			
-			hotelCity = t.getHotelCity();
-			hotelDate = t.getHotelDate();
+			hotelCity = travelComponent.getHotelCity();
+			hotelDate = travelComponent.getHotelDate();
 			
 			excursionDescription = null;
 			excursionDateTime = null;
@@ -100,9 +100,9 @@ public class TravelComponent implements Serializable {
 			hotelCity = null;
 			hotelDate = null;
 			
-			excursionDescription = t.getExcursionDescription();
-			excursionDateTime = t.getExcursionDateTime();
-			excursionCity = t.getExcursionCity();
+			excursionDescription = travelComponent.getExcursionDescription();
+			excursionDateTime = travelComponent.getExcursionDateTime();
+			excursionCity = travelComponent.getExcursionCity();
 			break;
 		}
 		this.predefinedTravelPackages = new ArrayList<PredefinedTravelPackage>(); //is empty when created
