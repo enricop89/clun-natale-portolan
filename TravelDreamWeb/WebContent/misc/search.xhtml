@@ -46,7 +46,7 @@
 			 	<h:outputLabel for="lastname">Lastame:</h:outputLabel>
             	<p:inputText id="lastname" value="#{SearchWeb.lastName}" /> 									  
 			    <f:facet name="footer">  
-			        <p:commandButton type="button" value="Search" icon="ui-icon-search" action="#{SearchWeb.searchCustomers}"/> 
+			        <p:commandButton type="button" value="Search" icon="ui-icon-search" actionListener="#{SearchWeb.searchCustomers}"/> 
 			    </f:facet>  
 			</p:panelGrid> 
 	    </p:tab>  
@@ -56,14 +56,10 @@
 			    <f:facet name="header">  
 			        Search Travel Components
 			    </f:facet>  
-			 	
-			
-				  
+			 					  
 			    <f:facet name="footer">  
-			    	<p:splitButton value="Search" icon="ui-icon-search"
-			       					 >  
-			       		<p:menuitem value="Browse All" icon="ui-icon-search"
-			       					/>   
+			    	<p:splitButton value="Search" icon="ui-icon-search" action="#{SearchWeb.searchTravelComponents}">  
+			       		<p:menuitem value="Browse All" icon="ui-icon-search" action="#{SearchWeb.browseAllTravelComponents}"/>   
 			    	</p:splitButton>			        
 			    </f:facet>  
 			</p:panelGrid> 
