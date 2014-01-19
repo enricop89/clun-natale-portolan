@@ -132,6 +132,12 @@ public class Search {
 	public List<User> findUser(String firstName, String lastName){
 		//it considers both the case where all the fields are filled or only one of them
 		List<User> listUser = findAllUser();
+		
+		//employees must not be returned in this search!
+		for(int i = 0; i < listUser.size(); i++)
+			if(listUser.get(i).getGroups().get(0).getGroupName() == "EMPLOYEE")
+				listUser.remove(i);
+				
 		if(firstName == null){
 			if(lastName == null)
 				return null;
