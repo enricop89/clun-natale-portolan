@@ -30,27 +30,35 @@ public class Data_Exchange implements java.io.Serializable{
 	
 	
 	public List<PersonalizedTravelPackageDTO> getPersonalizedTravelPackagesList() {
-		return personalizedTravelPackagesList;
+		List<PersonalizedTravelPackageDTO> result = new ArrayList<PersonalizedTravelPackageDTO>(personalizedTravelPackagesList);
+		personalizedTravelPackagesList.clear();
+		return result;
 	}
 	public void setPersonalizedTravelPackagesList(
 			List<PersonalizedTravelPackageDTO> personalizedTravelPackagesList) {
 		this.personalizedTravelPackagesList = personalizedTravelPackagesList;
 	}
 	public List<PredefinedTravelPackageDTO> getPredefinedTravelPackagesList() {
-		return predefinedTravelPackagesList;
+		List<PredefinedTravelPackageDTO> result = new ArrayList<PredefinedTravelPackageDTO>(predefinedTravelPackagesList);
+		predefinedTravelPackagesList.clear();
+		return result;
 	}
 	public void setPredefinedTravelPackagesList(
 			List<PredefinedTravelPackageDTO> predefinedTravelPackagesList) {
 		this.predefinedTravelPackagesList = predefinedTravelPackagesList;
 	}
 	public List<UserDTO> getUsersList() {
-		return usersList;
+		List<UserDTO> result = new ArrayList<UserDTO>(usersList);
+		usersList.clear();
+		return result;
 	}
 	public void setUsersList(List<UserDTO> usersList) {
 		this.usersList = usersList;
 	}
 	public List<TravelComponentDTO> getTravelComponentsList() {
-		return travelComponentsList;
+		List<TravelComponentDTO> result = new ArrayList<TravelComponentDTO>(travelComponentsList);
+		travelComponentsList.clear();
+		return result;
 	}
 	public void setTravelComponentsList(List<TravelComponentDTO> travelComponentsList) {
 		this.travelComponentsList = travelComponentsList;
