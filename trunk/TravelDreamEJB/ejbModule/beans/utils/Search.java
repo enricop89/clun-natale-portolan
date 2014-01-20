@@ -7,7 +7,9 @@ import javax.persistence.PersistenceContext;
 
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import entities.*;
 import beans.accountmanagement.UserDTO;
@@ -43,8 +45,12 @@ public class Search {
 			 if(list.get(i).getOwner()!=owner)
 				 toRemove.add(i);
 		
+		//remove duplicates
+		Set<Integer> noDup = new HashSet<Integer>(toRemove);
+		toRemove.clear();
+		toRemove.addAll(noDup);
 		//actually removes elements
-		for(int i = 0; i < toRemove.size(); i++)
+		for(int i = toRemove.size() - 1; i >= 0; i--)
 			list.remove(toRemove.get(i).intValue());		
 		
 		return list;
@@ -58,12 +64,13 @@ public class Search {
 		List<PredefinedTravelPackage> list = findAllPredefinedTravelPackages();	
 		List<Integer> toRemove = new ArrayList<Integer>();
 		if(name != null){
+			name = name.toLowerCase();
 			// name can also be only a part of the real package name
 			if(name.length() < 3)
 				return null;
 
 			 for(int i = 0; i < list.size(); i++)
-				 if(!list.get(i).getName().contains(name))
+				 if(!list.get(i).getName().toLowerCase().contains(name))
 					 toRemove.add(i);
 		}
 		if(departureDate != null){
@@ -77,8 +84,12 @@ public class Search {
 					 toRemove.add(i);	
 		}
 		
+		//remove duplicates
+		Set<Integer> noDup = new HashSet<Integer>(toRemove);
+		toRemove.clear();
+		toRemove.addAll(noDup);
 		//actually removes elements
-		for(int i = 0; i < toRemove.size(); i++)
+		for(int i = toRemove.size() - 1; i >= 0; i--)
 			list.remove(toRemove.get(i).intValue());	
 		
 		return list;	
@@ -163,33 +174,41 @@ public class Search {
 		
 		//employees must not be returned in this search!
 		for(int i = 0; i < listUser.size(); i++)
-			if(listUser.get(i).getGroups().get(0).getGroupName() == "EMPLOYEE")
+			if(listUser.get(i).getGroups().get(0).getGroupName().equals("EMPLOYEE"))
 				toRemove.add(i);
 				
 		if(firstName == null){
 			if(lastName == null)
 				return null;
 			else{ //only lastName
+				lastName = lastName.toLowerCase();
 				for(int i = 0; i < listUser.size(); i++)
-					if(!listUser.get(i).getLastName().equals(lastName))
+					if(!listUser.get(i).getLastName().toLowerCase().equals(lastName))
 						toRemove.add(i);
 			}
 		}
 		else{
 			if(lastName == null){ //only firstName
+				firstName = firstName.toLowerCase();
 				for(int i = 0; i < listUser.size(); i++)
-					if(!listUser.get(i).getFirstName().equals(firstName))
+					if(!listUser.get(i).getFirstName().toLowerCase().equals(firstName))
 						toRemove.add(i);
 			}
 			else{ //both
+				lastName = lastName.toLowerCase();
+				firstName = firstName.toLowerCase();
 				for(int i = 0; i < listUser.size(); i++)
-					if(!listUser.get(i).getFirstName().equals(firstName) && !listUser.get(i).getLastName().equals(lastName))
+					if(!listUser.get(i).getFirstName().toLowerCase().equals(firstName) && !listUser.get(i).getLastName().toLowerCase().equals(lastName))
 						toRemove.add(i);
 			}				
 		}
-				
+			
+		//remove duplicates
+		Set<Integer> noDup = new HashSet<Integer>(toRemove);
+		toRemove.clear();
+		toRemove.addAll(noDup);
 		//actually removes elements
-		for(int i = 0; i < toRemove.size(); i++)
+		for(int i = toRemove.size() - 1; i >= 0; i--)
 			listUser.remove(toRemove.get(i).intValue());
 		
 		return listUser;
