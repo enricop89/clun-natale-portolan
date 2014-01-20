@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.enterprise.context.SessionScoped;
 import javax.faces.bean.ManagedBean;
+import javax.inject.Named;
 
 import beans.accountmanagement.UserDTO;
 import beans.travelcomponent.TravelComponentDTO;
@@ -12,8 +13,9 @@ import beans.travelpackage.PersonalizedTravelPackageDTO;
 import beans.travelpackage.PredefinedTravelPackageDTO;
 
 @ManagedBean(name="Data_Exchange")
-@SessionScoped
-public class Data_Exchange {
+@SessionScoped @Named
+public class Data_Exchange implements java.io.Serializable{	
+	private static final long serialVersionUID = 1L;
 	private List<PersonalizedTravelPackageDTO> personalizedTravelPackagesList;
 	private List<PredefinedTravelPackageDTO> predefinedTravelPackagesList;
 	private List<UserDTO> usersList;

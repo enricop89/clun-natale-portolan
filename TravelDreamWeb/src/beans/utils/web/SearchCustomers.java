@@ -5,28 +5,27 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
+import javax.inject.Inject;
 
 import beans.accountmanagement.UserDTO;
 
 @ManagedBean(name="SearchCustomers")
 @RequestScoped
 public class SearchCustomers {
-	@ManagedProperty(value = "#{Data_Exchange}")
+	@Inject
 	private Data_Exchange data;
+	public Data_Exchange getData(){
+		return data;
+	}
+	public void setData(Data_Exchange data){
+		this.data = data;
+	}
 	
 	private List<UserDTO> usersList;
 	
 	@PostConstruct
 	public void init(){
 		usersList = data.getUsersList();
-	}
-	
-	public Data_Exchange getData(){
-		return data;
-	}
-	public void setData(Data_Exchange data){
-		this.data = data;
 	}
 	
 	public List<UserDTO> getUsersList(){
