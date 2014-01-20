@@ -27,7 +27,7 @@
             	<p:calendar value="#{SearchWeb.returnDate}" id="returnDate" showButtonPanel="true"/> 
             							  
 			    <f:facet name="footer">  
-			    	<p:splitButton value="Search" icon="ui-icon-search" action="#{SearchWeb.searchPredefinedTravelPackages}" update="growl" ajax="true" styleClass="ui-priority-primary">  			       		
+			    	<p:splitButton value="Search" icon="ui-icon-search" action="#{SearchWeb.searchPredefinedTravelPackages}" update="packagesGrowl" ajax="true" styleClass="ui-priority-primary">  			       		
 			       		<p:menuitem value="Browse All" icon="ui-icon-search" action="#{SearchWeb.browseAllPredefinedTravelPackages}" update="packagesGrowl" ajax="true"/>  			       				       					       		
 			    	</p:splitButton>
 			    </f:facet>  
@@ -58,7 +58,7 @@
 			    </f:facet>  
 			 					  
 			    <f:facet name="footer">  
-			    	<p:splitButton value="Search" icon="ui-icon-search" action="#{SearchWeb.searchTravelComponents}" update="growl" ajax="true" styleClass="ui-priority-primary">  
+			    	<p:splitButton value="Search" icon="ui-icon-search" action="#{SearchWeb.searchTravelComponents}" update="componentsGrowl" ajax="true" styleClass="ui-priority-primary">  
 			       		<p:menuitem value="Browse All" icon="ui-icon-search" action="#{SearchWeb.browseAllTravelComponents}" update="componentsGrowl" ajax="true"/>   
 			    	</p:splitButton>			        
 			    </f:facet>  
