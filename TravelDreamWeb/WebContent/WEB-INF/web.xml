@@ -53,7 +53,7 @@
 		<web-resource-collection>
 			<web-resource-name>Miscellanea</web-resource-name>
 			<description />
-			<url-pattern>/misc/*</url-pattern>
+			<url-pattern>/misc/search/*</url-pattern>
 		</web-resource-collection>		
 		<auth-constraint>
 			<role-name>EMPLOYEE</role-name>
@@ -68,7 +68,7 @@
 		<web-resource-collection>
 			<web-resource-name>Miscellanea</web-resource-name>
 			<description />
-			<url-pattern>/misc/*</url-pattern>
+			<url-pattern>/misc/search/*</url-pattern>
 		</web-resource-collection>
 		<auth-constraint>
 			<role-name>CUSTOMER</role-name>
