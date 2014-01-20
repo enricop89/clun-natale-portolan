@@ -111,9 +111,8 @@ public class SearchWeb {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"No Results", "Your search has given ro results")); 
 		else{
 			data.setPredefinedTravelPackagesList(predefinedTravelPackagesList);
-			RequestContext.getCurrentInstance().openDialog("travelpackage");
+			RequestContext.getCurrentInstance().openDialog("/misc/search/travelpackage");
 		}
-;
 	}
 	
 	public void browseAllPredefinedTravelPackages(){
