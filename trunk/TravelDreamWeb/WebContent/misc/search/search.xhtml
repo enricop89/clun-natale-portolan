@@ -31,7 +31,7 @@
 	    </p:panel>
 	    </p:tab>  
 	  
-	    <p:tab id="Customers" title="Customers" rendered="#{SearchWeb.isCustomer}">
+	    <p:tab id="Customers" title="Customers" rendered="#{facesContext.externalContext.isUserInRole('CUSTOMER')}">
 	    <p:growl id="customersGrowl" showDetail="true" globalOnly="true" /> 	
 	    <p:panel header="Search Customers">   	          
 		    <h:panelGrid columns="2">    
@@ -44,7 +44,7 @@
 	    </p:panel>	  
 	    </p:tab>  
 	  
-	    <p:tab id="TravelComponents" title="Travel Components" rendered="#{!SearchWeb.isCustomer}">
+	    <p:tab id="TravelComponents" title="Travel Components" rendered="#{facesContext.externalContext.isUserInRole('EMPLOYEE')}">
 	    <p:growl id="componentsGrowl" showDetail="true" globalOnly="true" />   
 	    <p:panel header="Search Travel Components">   	    
 		    <h:panelGrid columns="2">  

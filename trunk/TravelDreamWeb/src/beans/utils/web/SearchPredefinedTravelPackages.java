@@ -1,6 +1,5 @@
 package beans.utils.web;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -10,24 +9,24 @@ import javax.faces.bean.ManagedProperty;
 
 import beans.travelpackage.PredefinedTravelPackageDTO;
 
-@ManagedBean(name="SearchPredefinedTravelPackages")
+@ManagedBean(name="Data_Exchange")
 @RequestScoped
 public class SearchPredefinedTravelPackages {
-	@ManagedProperty(value = "#{SearchWeb}")
-	private SearchWeb searchWeb;
+	@ManagedProperty(value = "#{Data_Exchange}")
+	private Data_Exchange data;
 	
 	private List<PredefinedTravelPackageDTO> predefinedTravelPackagesList;
 	
 	@PostConstruct
 	public void init(){
-		predefinedTravelPackagesList = new ArrayList<PredefinedTravelPackageDTO>(searchWeb.getPredefinedTravelPackagesList());
+		predefinedTravelPackagesList = data.getPredefinedTravelPackagesList();
 	}
 	
-	public SearchWeb getSearchWeb(){
-		return searchWeb;
+	public Data_Exchange getData(){
+		return data;
 	}
-	public void setSearchWeb(SearchWeb searchWeb){
-		this.searchWeb = searchWeb;
+	public void setData(Data_Exchange data){
+		this.data = data;
 	}
 	
 	public List<PredefinedTravelPackageDTO> getPredefinedTravelPackagesList(){
