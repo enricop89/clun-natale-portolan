@@ -27,7 +27,7 @@
             	<p:calendar value="#{SearchWeb.returnDate}" id="returnDate" showButtonPanel="true"/> 
             							  
 			    <f:facet name="footer">  
-			    	<p:splitButton value="Search" icon="ui-icon-search" action="#{SearchWeb.searchPredefinedTravelPackages}" update="packagesGrowl" ajax="true" styleClass="ui-priority-primary">  			       		
+			    	<p:splitButton value="Search" icon="ui-icon-search" action="#{SearchWeb.searchPredefinedTravelPackages}" update="packagesGrowl" ajax="true">  			       		
 			       		<p:menuitem value="Browse All" icon="ui-icon-search" action="#{SearchWeb.browseAllPredefinedTravelPackages}" update="packagesGrowl" ajax="true"/>  			       				       					       		
 			    	</p:splitButton>
 			    </f:facet>  
@@ -45,7 +45,7 @@
 			 	<h:outputLabel for="lastname">Lastame:</h:outputLabel>
             	<p:inputText id="lastname" value="#{SearchWeb.lastName}" /> 									  
 			    <f:facet name="footer">  
-			    	<p:splitButton value="Search" icon="ui-icon-search" action="#{SearchWeb.searchCustomers}" update="customersGrowl" ajax="true" styleClass="ui-priority-primary"/>  			       		 			       				       					       		
+			    	<p:splitButton value="Search" icon="ui-icon-search" action="#{SearchWeb.searchCustomers}" update="customersGrowl" ajax="true"/>  			       		 			       				       					       		
 			    </f:facet>  
 			</p:panelGrid> 
 	    </p:tab>  
@@ -58,7 +58,7 @@
 			    </f:facet>  
 			 					  
 			    <f:facet name="footer">  
-			    	<p:splitButton value="Search" icon="ui-icon-search" action="#{SearchWeb.searchTravelComponents}" update="componentsGrowl" ajax="true" styleClass="ui-priority-primary">  
+			    	<p:splitButton value="Search" icon="ui-icon-search" action="#{SearchWeb.searchTravelComponents}" update="componentsGrowl" ajax="true">  
 			       		<p:menuitem value="Browse All" icon="ui-icon-search" action="#{SearchWeb.browseAllTravelComponents}" update="componentsGrowl" ajax="true"/>   
 			    	</p:splitButton>			        
 			    </f:facet>  
