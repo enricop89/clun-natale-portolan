@@ -1,0 +1,22 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/master.xhtml"
+	 xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+  <ui:define name="title">TravelDream Homepage</ui:define>
+
+    <ui:define name="content">
+	
+	<p:tabMenu activeIndex="2">  
+	 <p:menuitem value="Personal Info" url="personal_page.xhtml" icon="ui-icon-star"/>  
+     <p:menuitem value="PersonalTravelPackage" url="PersonalTravelPackage.xhtml" icon="ui-icon-document"/>  
+  	<p:menuitem value="GiftList" url="GiftList.xhtml" icon="ui-icon-document"/> 
+  	 <p:menuitem value="Search" url="/misc/search/search.xhtml" icon="ui-icon-search"/> 
+  	 </p:tabMenu> 
+  	 
+  	</ui:define> 
+</ui:composition>
+	
