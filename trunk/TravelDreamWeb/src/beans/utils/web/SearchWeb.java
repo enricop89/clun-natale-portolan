@@ -49,7 +49,6 @@ public class SearchWeb {
 		packageName = new String();
 		firstName = new String();
 		lastName = new String();
-
 	}
 
 	//---------------------------
