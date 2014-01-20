@@ -9,7 +9,7 @@ import javax.faces.bean.ManagedProperty;
 
 import beans.accountmanagement.UserDTO;
 
-@ManagedBean(name="Data_Exchange")
+@ManagedBean(name="SearchCustomers")
 @RequestScoped
 public class SearchCustomers {
 	@ManagedProperty(value = "#{Data_Exchange}")
