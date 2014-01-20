@@ -45,8 +45,6 @@ public class SearchWeb {
 		// initializations
 		searchCriteria = new TravelComponentDTO();
 		packageName = new String();
-		departureDate = new java.util.Date(0);
-		returnDate = new java.util.Date(0);
 		firstName = new String();
 		lastName = new String();
 		predefinedTravelPackagesList = new ArrayList<PredefinedTravelPackageDTO>();
@@ -103,8 +101,8 @@ public class SearchWeb {
 	private void clear(){
 		searchCriteria = new TravelComponentDTO();
 		packageName = "";
-		departureDate.setTime(0);;
-		returnDate.setTime(0);
+		departureDate = null;
+		returnDate = null;
 		firstName = "";
 		lastName = "";
 		
@@ -126,12 +124,13 @@ public class SearchWeb {
 			packageName = null;
 		Date departureDateCriteria = null;
 		Date returnDateCriteria = null;
-		if(departureDate.compareTo(new java.util.Date(0)) == 0)
+		if(departureDate != null)
 			departureDateCriteria =  new Date(departureDate.getTime());
-		if(returnDate.compareTo(new java.util.Date(0)) == 0)
+		if(returnDate != null)
 			returnDateCriteria = new Date(returnDate.getTime());
 		
 		predefinedTravelPackagesList = new ArrayList<PredefinedTravelPackageDTO>(finder.findPredefinedTravelPackage(packageName, departureDateCriteria, returnDateCriteria));
+		
 		if(predefinedTravelPackagesList == null || predefinedTravelPackagesList.isEmpty())
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"No Results", "Your search has given ro results")); 
 		else
