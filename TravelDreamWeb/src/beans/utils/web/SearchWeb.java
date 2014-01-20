@@ -144,12 +144,7 @@ public class SearchWeb {
 		else
 			RequestContext.getCurrentInstance().openDialog("travelpackage");
 	}
-	
-/*	public void selectFromDialog(PredefinedTravelPackageDTO predefinedTravelPackage){
-		// open up the predefinedTravelPackage page
-	}
-*/
-	
+		
 	//---------------------------
 	// CUSTOMERS
 	public List<UserDTO> getUsersList(){

@@ -12,7 +12,7 @@
       
     <h:body>  
         <h:form>  
-            <p:dataTable var="predefinedTravelPackage" value="#{SearchWeb.predefinedTravelPackagesList}">  
+            <p:dataTable var="predefinedTravelPackage" value="#{SearchPredefinedTravelPackages.predefinedTravelPackagesList}">  
                 <p:column headerText="Name">  
                     <h:outputText value="#{predefinedTravelPackage.name}" />  
                 </p:column>  
@@ -26,7 +26,7 @@
                 </p:column>  
   
                 <p:column headerText="Predefined Travel Package Page">  
-                    <p:commandButton icon="ui-icon-extlink" actionListener="#{SearchWeb.selectFromDialog(predefinedTravelPackage)}" />  
+                    <p:commandButton icon="ui-icon-extlink" actionListener="#{SearchPredefinedTravelPackages.selectFromDialog(predefinedTravelPackage)}" />  
                 </p:column>  
             </p:dataTable>  
         </h:form>  

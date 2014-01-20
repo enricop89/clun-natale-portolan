@@ -10,7 +10,6 @@ import javax.faces.bean.ManagedProperty;
 
 import beans.accountmanagement.UserDTO;
 
-
 @ManagedBean(name="SearchCustomers")
 @RequestScoped
 public class SearchCustomers {
