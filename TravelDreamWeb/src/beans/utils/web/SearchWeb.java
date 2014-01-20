@@ -129,17 +129,22 @@ public class SearchWeb {
 		if(returnDate != null)
 			returnDateCriteria = new Date(returnDate.getTime());
 		
-		predefinedTravelPackagesList = finder.findPredefinedTravelPackage(packageName, departureDateCriteria, returnDateCriteria);
+		List<PredefinedTravelPackageDTO> found = finder.findPredefinedTravelPackage(packageName, departureDateCriteria, returnDateCriteria);
+		if(found != null)
+			predefinedTravelPackagesList.addAll(found);
 		
-		if(predefinedTravelPackagesList == null || predefinedTravelPackagesList.isEmpty())
+		if(predefinedTravelPackagesList.isEmpty())
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"No Results", "Your search has given ro results")); 
 		else
 			RequestContext.getCurrentInstance().openDialog("travelpackage");
 	}
 	
 	public void browseAllPredefinedTravelPackages(){
-		predefinedTravelPackagesList = finder.findAllPredefinedTravelPackages();
-		if(predefinedTravelPackagesList == null || predefinedTravelPackagesList.isEmpty())
+		List<PredefinedTravelPackageDTO> found = finder.findAllPredefinedTravelPackages();
+		if(found != null)
+			predefinedTravelPackagesList.addAll(found);
+
+		if(predefinedTravelPackagesList.isEmpty())
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"No Results", "Your search has given ro results")); 
 		else
 			RequestContext.getCurrentInstance().openDialog("travelpackage");
@@ -160,9 +165,11 @@ public class SearchWeb {
 		if(lastName.isEmpty())
 			lastName = null;
 		
-		usersList = finder.findUser(firstName, lastName);
+		List<UserDTO> found = finder.findUser(firstName, lastName);
+		if(found != null)
+			usersList.addAll(found);
 		
-		if(usersList == null || usersList.isEmpty())
+		if(usersList.isEmpty())
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"No Results", "Your search has given ro results")); 
 		else
 			RequestContext.getCurrentInstance().openDialog("customer");
