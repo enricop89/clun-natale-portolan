@@ -1,9 +1,10 @@
 package beans.utils.web;
 
 import javax.ejb.EJB;
+import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
 
 import org.primefaces.context.RequestContext;
@@ -14,16 +15,22 @@ import beans.travelpackage.PredefinedTravelPackageDTO;
 import beans.utils.SearchDTOInterface;
 
 import java.sql.Date;
-import java.util.ArrayList;
 import java.util.List; 
 
 @ManagedBean(name="SearchWeb")
-@SessionScoped
+@RequestScoped
 public class SearchWeb {
 	@EJB
 	private SearchDTOInterface finder;
-		
-	private boolean isCustomer; // otherwise is employee, cannot be another value since the folder is not accessible by unauthenticated users
+
+	@ManagedProperty(value = "#{Data_Exchange}")
+	private Data_Exchange data;
+	public Data_Exchange getData(){
+		return data;
+	}
+	public void setData(Data_Exchange data){
+		this.data = data;
+	}
 	
 	private TravelComponentDTO searchCriteria;
 	private String packageName;
@@ -37,27 +44,16 @@ public class SearchWeb {
 	private List<TravelComponentDTO> travelComponentsList;
 	
 	public SearchWeb(){
-		if(FacesContext.getCurrentInstance().getExternalContext().isUserInRole("CUSTOMER"))
-			isCustomer = true;
-		else if(FacesContext.getCurrentInstance().getExternalContext().isUserInRole("EMPLOYEE"))
-			isCustomer = false;
-		
 		// initializations
 		searchCriteria = new TravelComponentDTO();
 		packageName = new String();
 		firstName = new String();
 		lastName = new String();
-		predefinedTravelPackagesList = new ArrayList<PredefinedTravelPackageDTO>();
-		usersList = new ArrayList<UserDTO>();
-		travelComponentsList = new ArrayList<TravelComponentDTO>();
+
 	}
 
 	//---------------------------
-	// SETTERS AND GETTERS
-	public boolean getIsCustomer(){
-		return isCustomer;
-	}
-	
+	// SETTERS AND GETTERS	
 	public TravelComponentDTO getSearchCriteria(){
 		return searchCriteria;
 	}
@@ -96,29 +92,9 @@ public class SearchWeb {
 	public void setLastName(String lastName){
 		this.lastName = lastName;
 	}
-	//---------------------------
-	// CLEAR FUNCTION - reset all search values, MUST be called after getting the results
-	private void clear(){
-		searchCriteria = new TravelComponentDTO();
-		packageName = "";
-		departureDate = null;
-		returnDate = null;
-		firstName = "";
-		lastName = "";
-		
-		predefinedTravelPackagesList.clear();
-		usersList.clear();
-		travelComponentsList.clear();
-	}
 	
 	//---------------------------
-	// PREDEFINED TRAVEL PACKAGES
-	public List<PredefinedTravelPackageDTO> getPredefinedTravelPackagesList(){
-		List<PredefinedTravelPackageDTO> result = new ArrayList<PredefinedTravelPackageDTO>(predefinedTravelPackagesList);
-		clear();
-		return result;
-	}
-	
+	// PREDEFINED TRAVEL PACKAGES	
 	public void searchPredefinedTravelPackages(){
 		if(packageName.isEmpty())
 			packageName = null;
@@ -129,35 +105,30 @@ public class SearchWeb {
 		if(returnDate != null)
 			returnDateCriteria = new Date(returnDate.getTime());
 		
-		List<PredefinedTravelPackageDTO> found = finder.findPredefinedTravelPackage(packageName, departureDateCriteria, returnDateCriteria);
-		if(found != null)
-			predefinedTravelPackagesList.addAll(found);
+		predefinedTravelPackagesList = finder.findPredefinedTravelPackage(packageName, departureDateCriteria, returnDateCriteria);
 		
-		if(predefinedTravelPackagesList.isEmpty())
+		if(predefinedTravelPackagesList == null || predefinedTravelPackagesList.isEmpty())
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"No Results", "Your search has given ro results")); 
-		else
+		else{
+			data.setPredefinedTravelPackagesList(predefinedTravelPackagesList);
 			RequestContext.getCurrentInstance().openDialog("travelpackage");
+		}
+;
 	}
 	
 	public void browseAllPredefinedTravelPackages(){
-		List<PredefinedTravelPackageDTO> found = finder.findAllPredefinedTravelPackages();
-		if(found != null)
-			predefinedTravelPackagesList.addAll(found);
-
-		if(predefinedTravelPackagesList.isEmpty())
+		predefinedTravelPackagesList = finder.findAllPredefinedTravelPackages();
+		
+		if(predefinedTravelPackagesList == null || predefinedTravelPackagesList.isEmpty())
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"No Results", "Your search has given ro results")); 
-		else
+		else{
+			data.setPredefinedTravelPackagesList(predefinedTravelPackagesList);
 			RequestContext.getCurrentInstance().openDialog("travelpackage");
+		}
 	}
 		
 	//---------------------------
 	// CUSTOMERS
-	public List<UserDTO> getUsersList(){
-		List<UserDTO> result = new ArrayList<UserDTO>(usersList);
-		clear();
-		return result;
-	}
-	
 	public void searchCustomers(){
 		if(firstName.isEmpty())
 			firstName = null;
@@ -165,23 +136,18 @@ public class SearchWeb {
 		if(lastName.isEmpty())
 			lastName = null;
 		
-		List<UserDTO> found = finder.findUser(firstName, lastName);
-		if(found != null)
-			usersList.addAll(found);
+		usersList = finder.findUser(firstName, lastName);
 		
-		if(usersList.isEmpty())
+		if(usersList == null || usersList.isEmpty())
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"No Results", "Your search has given ro results")); 
-		else
+		else{
+			data.setUsersList(usersList);
 			RequestContext.getCurrentInstance().openDialog("customer");
+		}
 	}
 	
 	//---------------------------
 	// TRAVEL COMPONENTS
-	public List<TravelComponentDTO> getTravelComponentsList(){
-		List<TravelComponentDTO> result = new ArrayList<TravelComponentDTO>(travelComponentsList);
-		clear();
-		return result;
-	}
 	public void searchTravelComponents(){
 		//TODO TBD
 	}
