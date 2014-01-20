@@ -45,6 +45,6 @@ public class ModifyInfoWeb {
 		flash.setKeepMessages(true);
 		flash.setRedirect(true);
 		facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Successful", "Your info has been succesfully updated!")); 
-		return "/index.xhtml?faces-redirect=true"; //TODO: just for now - see SDD flow
+		return "/customer/personal_page.xhtml?faces-redirect=true";
 	}
 }
