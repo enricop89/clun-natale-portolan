@@ -9,7 +9,7 @@ import javax.faces.bean.ManagedProperty;
 
 import beans.travelpackage.PredefinedTravelPackageDTO;
 
-@ManagedBean(name="Data_Exchange")
+@ManagedBean(name="SearchPredefinedTravelPackages")
 @RequestScoped
 public class SearchPredefinedTravelPackages {
 	@ManagedProperty(value = "#{Data_Exchange}")
