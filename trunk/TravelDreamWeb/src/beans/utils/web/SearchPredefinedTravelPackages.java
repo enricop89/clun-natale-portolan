@@ -35,7 +35,8 @@ public class SearchPredefinedTravelPackages {
 	}
 	
 	public void selectFromDialog(PredefinedTravelPackageDTO predefinedTravelPackage){
-		//TODO open up the predefinedTravelPackage page
+		// open up the predefinedTravelPackage page
+		// TODO: waiting for TravelPackage page
 	}
 
 }
