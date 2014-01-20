@@ -10,7 +10,7 @@
 
     <ui:define name="content">
 	
-	<p:tabMenu activeIndex="2">  
+	<p:tabMenu activeIndex="1">  
 	 <p:menuitem value="Personal Info" url="personal_page.xhtml" icon="ui-icon-star"/>  
      <p:menuitem value="PersonalTravelPackage" url="personal_travel_package.xhtml" icon="ui-icon-document"/>  
   	<p:menuitem value="GiftList" url="giftList.xhtml" icon="ui-icon-document"/> 
@@ -18,19 +18,19 @@
   	 </p:tabMenu> 
   	 
   	  <h:form>  
-            <p:dataTable var="element" value="#{UserPersonalPage.giftList.giftElements}">  
-                <p:column headerText="Type">  
-                    <h:outputText value="#{UserPersonalPage.giftList.giftElements.travelComponent.type}" />  
+            <p:dataTable var="element" value="#{UserPersonalPage.persTP}">  
+                <p:column headerText="Name">  
+                    <h:outputText value="#{UserPersonalPage.persTP.name}" />  
                 </p:column>  
-  
-                <p:column headerText="PersonalizedTravelPackage">  
-                    <h:outputText value="#{UserPersonalPage.giftList.giftElements.personalizedTravelPackage.name}" />  
+ 				<p:column headerText="departureDate">  
+                    <h:outputText value="#{UserPersonalPage.persTP.departureDate}" />  
+                </p:column>  
+                <p:column headerText="returnDate">  
+                    <h:outputText value="#{UserPersonalPage.persTP.returnDate}" />  
                 </p:column>  
   
                 <p:column headerText="">  
-                    <p:commandButton icon="ui-icon-extlink" actionListener="#{SearchCustomers.selectFromDialog(user)}"/> 
-                    <p:commandButton icon="ui-icon-extlink" actionListener="#{SearchCustomers.selectFromDialog(user)}"/>
-                    <p:commandButton icon="ui-icon-trash" actionListener="#{UserPersonalPage.deletebutton(element)}"/> 
+                    <p:commandButton icon="ui-icon-search" actionListener="#{UserPersonalPage.visualizeTP(element)}"/> 
                 </p:column>  
             </p:dataTable>  
         </h:form>  

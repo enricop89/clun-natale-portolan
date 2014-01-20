@@ -1,0 +1,27 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/master.xhtml"
+	 xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+
+
+<h:form>  
+            <p:dataTable var="element" value="#{UserPersonalPage.persTP}">  
+                <p:column headerText="Name">  
+                    <h:outputText value="#{UserPersonalPage.persTP.name}" />  
+                </p:column>  
+ 				<p:column headerText="departureDate">  
+                    <h:outputText value="#{UserPersonalPage.persTP.departureDate}" />  
+                </p:column>  
+                <p:column headerText="returnDate">  
+                    <h:outputText value="#{UserPersonalPage.persTP.returnDate}" />  
+                </p:column>  
+  
+                <p:column headerText="">  
+                    <p:commandButton icon="ui-icon-search" actionListener="#{UserPersonalPage.visualizeTP(element)}"/> 
+                </p:column>  
+            </p:dataTable>  
+        </h:form>  
