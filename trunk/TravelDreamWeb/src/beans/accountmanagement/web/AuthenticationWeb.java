@@ -16,7 +16,7 @@ public class AuthenticationWeb  {
 	public String deauthenticate()
 	{
 		authentication.deauthenticate();
-		return "index?faces-redirect=true";
+		return "/index.xhtml?faces-redirect=true";
 	}
 	
 }
