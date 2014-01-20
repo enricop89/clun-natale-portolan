@@ -9,11 +9,9 @@
 	<title>Search form</title>  
 </h:head>
 <h:body>
-<h:form>
-    <p:growl id="growl" showDetail="true" />  
-    	
-	<p:tabView id="tabView">  
-	  
+<h:form>  
+	<p:tabView id="tabView" >
+	  	<p:growl id="growl" showDetail="true" sticky="true" globalOnly="true" /> 
 	    <p:tab id="predefinedTravelPackages" title="Predefined Travel Packages">  
 		    <p:panelGrid columns="2">  
 			    <f:facet name="header">  
@@ -29,8 +27,8 @@
             	<p:calendar value="#{SearchWeb.returnDate}" id="returnDate" showButtonPanel="true"/> 
             							  
 			    <f:facet name="footer">  
-			    	<p:splitButton value="Search" icon="ui-icon-search" action="#{SearchWeb.searchPredefinedTravelPackages}">  			       		
-			       		<p:menuitem value="Browse All" icon="ui-icon-search" action="#{SearchWeb.browseAllPredefinedTravelPackages}"/>  			       				       					       		
+			    	<p:splitButton value="Search" icon="ui-icon-search" action="#{SearchWeb.searchPredefinedTravelPackages}" update="growl" ajax="true">  			       		
+			       		<p:menuitem value="Browse All" icon="ui-icon-search" action="#{SearchWeb.browseAllPredefinedTravelPackages}" update="growl" ajax="true"/>  			       				       					       		
 			    	</p:splitButton>
 			    </f:facet>  
 			</p:panelGrid> 
@@ -42,11 +40,11 @@
 			        Search Customers
 			    </f:facet>  
 			 	<h:outputLabel for="firstname">Firstname:</h:outputLabel>
-            	<p:inputText id="firstname" value="#{SearchWeb.firstName}" /> 				 
+            	<p:inputText id="firstname" value="#{SearchWeb.firstName}"/> 				 
 			 	<h:outputLabel for="lastname">Lastame:</h:outputLabel>
             	<p:inputText id="lastname" value="#{SearchWeb.lastName}" /> 									  
 			    <f:facet name="footer">  
-			        <p:commandButton type="button" value="Search" icon="ui-icon-search" actionListener="#{SearchWeb.searchCustomers}"/> 
+			    	<p:splitButton value="Search" icon="ui-icon-search" action="#{SearchWeb.searchCustomers}" update="growl" ajax="true"/>  			       		 			       				       					       		
 			    </f:facet>  
 			</p:panelGrid> 
 	    </p:tab>  
@@ -58,8 +56,8 @@
 			    </f:facet>  
 			 					  
 			    <f:facet name="footer">  
-			    	<p:splitButton value="Search" icon="ui-icon-search" action="#{SearchWeb.searchTravelComponents}">  
-			       		<p:menuitem value="Browse All" icon="ui-icon-search" action="#{SearchWeb.browseAllTravelComponents}"/>   
+			    	<p:splitButton value="Search" icon="ui-icon-search" action="#{SearchWeb.searchTravelComponents}" update="growl" ajax="true">  
+			       		<p:menuitem value="Browse All" icon="ui-icon-search" action="#{SearchWeb.browseAllTravelComponents}" update="growl" ajax="true"/>   
 			    	</p:splitButton>			        
 			    </f:facet>  
 			</p:panelGrid> 
