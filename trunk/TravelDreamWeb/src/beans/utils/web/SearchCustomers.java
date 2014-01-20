@@ -37,7 +37,7 @@ public class SearchCustomers {
 	public void selectFromDialog(UserDTO user){
 		// if the user is selecting is own name, then shows his personal page. This is indeed also to prevent from unexpected behavior (such paying his own components in the gift list)
 		/*if(FacesContext.getCurrentInstance().getExternalContext().getRemoteUser() == user.getEmail())
-			
+		TODO	
 			
 		else // open up customer info page
 		*/	
