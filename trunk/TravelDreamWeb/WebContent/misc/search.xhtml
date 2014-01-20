@@ -13,10 +13,8 @@
 	<p:tabView id="tabView" >
 	    <p:tab id="predefinedTravelPackages" title="Predefined Travel Packages">  
 	    <p:growl id="packagesGrowl" showDetail="true" globalOnly="true" /> 
-		    <p:panelGrid columns="2">  
-			    <f:facet name="header">  
-			        Search Predefined Travel Packages
-			    </f:facet>  
+	    <p:panel header="Search Predefined Travel Packages">   
+		    <h:panelGrid columns="2">  
 			 	<h:outputLabel for="name">Name (even only a part of it):</h:outputLabel>
             	<p:inputText id="name" value="#{SearchWeb.packageName}" /> 	
             	
@@ -25,46 +23,39 @@
 
 			 	<h:outputLabel for="name">Return Date:</h:outputLabel>            	
             	<p:calendar value="#{SearchWeb.returnDate}" id="returnDate" showButtonPanel="true"/> 
-            							  
-			    <f:facet name="footer">  
-			    	<p:splitButton value="Search" icon="ui-icon-search" action="#{SearchWeb.searchPredefinedTravelPackages}" update="packagesGrowl" ajax="true">  			       		
-			       		<p:menuitem value="Browse All" icon="ui-icon-search" action="#{SearchWeb.browseAllPredefinedTravelPackages}" update="packagesGrowl" ajax="true"/>  			       				       					       		
-			    	</p:splitButton>
-			    </f:facet>  
-			</p:panelGrid> 
+            							
+			</h:panelGrid> 
+			<p:splitButton value="Search" icon="ui-icon-search" action="#{SearchWeb.searchPredefinedTravelPackages}" update="packagesGrowl" ajax="true">  			       		
+	       		<p:menuitem value="Browse All" icon="ui-icon-search" action="#{SearchWeb.browseAllPredefinedTravelPackages}" update="packagesGrowl" ajax="true"/>  			       				       					       		
+	    	</p:splitButton>
+	    </p:panel>
 	    </p:tab>  
 	  
 	    <p:tab id="Customers" title="Customers" rendered="#{SearchWeb.isCustomer}">
-	    <p:growl id="customersGrowl" showDetail="true" globalOnly="true" /> 	      
-		    <p:panelGrid columns="2">  
-			    <f:facet name="header">  
-			        Search Customers
-			    </f:facet>  
+	    <p:growl id="customersGrowl" showDetail="true" globalOnly="true" /> 	
+	    <p:panel header="Search Customers">   	          
+		    <h:panelGrid columns="2">    
 			 	<h:outputLabel for="firstname">Firstname:</h:outputLabel>
             	<p:inputText id="firstname" value="#{SearchWeb.firstName}"/> 				 
 			 	<h:outputLabel for="lastname">Lastame:</h:outputLabel>
-            	<p:inputText id="lastname" value="#{SearchWeb.lastName}" /> 									  
-			    <f:facet name="footer">  
-			    	<p:splitButton value="Search" icon="ui-icon-search" action="#{SearchWeb.searchCustomers}" update="customersGrowl" ajax="true"/>  			       		 			       				       					       		
-			    </f:facet>  
-			</p:panelGrid> 
+            	<p:inputText id="lastname" value="#{SearchWeb.lastName}" /> 									  		       		 			       				       					       		
+			</h:panelGrid>
+			<p:commandButton value="Search" icon="ui-icon-search" action="#{SearchWeb.searchCustomers}" update="customersGrowl" ajax="true"/>  				 
+	    </p:panel>	  
 	    </p:tab>  
 	  
 	    <p:tab id="TravelComponents" title="Travel Components" rendered="#{!SearchWeb.isCustomer}">
 	    <p:growl id="componentsGrowl" showDetail="true" globalOnly="true" />   
-		    <p:panelGrid columns="2">  
-			    <f:facet name="header">  
-			        Search Travel Components
-			    </f:facet>  
+	    <p:panel header="Search Travel Components">   	    
+		    <h:panelGrid columns="2">  
 			 					  
-			    <f:facet name="footer">  
-			    	<p:splitButton value="Search" icon="ui-icon-search" action="#{SearchWeb.searchTravelComponents}" update="componentsGrowl" ajax="true">  
-			       		<p:menuitem value="Browse All" icon="ui-icon-search" action="#{SearchWeb.browseAllTravelComponents}" update="componentsGrowl" ajax="true"/>   
-			    	</p:splitButton>			        
-			    </f:facet>  
-			</p:panelGrid> 
-	    </p:tab>  
-	  
+
+			</h:panelGrid>
+	    	<p:splitButton value="Search" icon="ui-icon-search" action="#{SearchWeb.searchTravelComponents}" update="componentsGrowl" ajax="true">  
+	       		<p:menuitem value="Browse All" icon="ui-icon-search" action="#{SearchWeb.browseAllTravelComponents}" update="componentsGrowl" ajax="true"/>   
+	    	</p:splitButton>			        
+ 		</p:panel>
+	    </p:tab>  	  
 	</p:tabView>
 </h:form>
 </h:body>
