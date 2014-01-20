@@ -10,7 +10,7 @@
 </h:head>
 <h:body>
 	<h:form>
-		<p:growl id="growl" showDetail="true" sticky="true" globalOnly="true" />  
+		<p:growl id="growl" showDetail="true" globalOnly="true" />  
 		
 		<p:panel id="panel" header="Registration form">          
         <p:messages />  
@@ -40,7 +40,7 @@
 				
 			</h:panelGrid>
 			<p:commandButton value="Register" update="regGrid, growl"
-				action="#{CustomerRegistrationWeb.register}" />
+				action="#{CustomerRegistrationWeb.register}" styleClass="ui-priority-primary"/>
 		</p:panel>
 	</h:form>                   
 </h:body>
