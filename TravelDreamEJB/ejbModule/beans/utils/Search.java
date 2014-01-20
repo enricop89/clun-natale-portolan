@@ -45,7 +45,7 @@ public class Search {
 		
 		//actually removes elements
 		for(int i = 0; i < toRemove.size(); i++)
-			list.remove(toRemove.get(i));		
+			list.remove(toRemove.get(i).intValue());		
 		
 		return list;
 	}
@@ -79,7 +79,7 @@ public class Search {
 		
 		//actually removes elements
 		for(int i = 0; i < toRemove.size(); i++)
-			list.remove(toRemove.get(i));	
+			list.remove(toRemove.get(i).intValue());	
 		
 		return list;	
 	}
@@ -190,7 +190,7 @@ public class Search {
 				
 		//actually removes elements
 		for(int i = 0; i < toRemove.size(); i++)
-			listUser.remove(toRemove.get(i));
+			listUser.remove(toRemove.get(i).intValue());
 		
 		return listUser;
 	}
