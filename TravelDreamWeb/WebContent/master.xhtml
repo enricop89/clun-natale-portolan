@@ -21,7 +21,7 @@
 			    <p:toolbarGroup align="right"  rendered="#{facesContext.externalContext.isUserInRole('CUSTOMER')}">  
 			    	<h:form>
 				        <p:menuButton value="#{request.remoteUser}">  
-				            <p:menuitem value="Customer control panel" url=".." />  
+				            <p:menuitem value="Customer control panel" url="/customer/personal_page.xhtml" />  
 				            <p:menuitem action="#{AuthenticationWeb.deauthenticate}" value="Logout" ajax="false" />
 				        </p:menuButton> 
 			        </h:form>
