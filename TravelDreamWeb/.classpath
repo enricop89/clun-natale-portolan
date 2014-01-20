@@ -28,5 +28,6 @@
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/delta-1.0.10.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/cruze-1.0.10.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/rocket-1.0.10.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/bootstrap-1.0.10.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
