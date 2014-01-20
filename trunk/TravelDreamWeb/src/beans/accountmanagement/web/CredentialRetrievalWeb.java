@@ -36,6 +36,6 @@ public class CredentialRetrievalWeb {
 		flash.setKeepMessages(true);
 		flash.setRedirect(true);
 		facesContext.addMessage(null, message);  
-		return "index?faces-redirect=true";
+		return "/index.xhtml?faces-redirect=true";
 	}
 }

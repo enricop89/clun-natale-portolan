@@ -39,6 +39,6 @@ public class CustomerRegistrationWeb {
 		else
 			facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error", "Registration error, user with this email may already exist.\nPlease try again or use the credential retrieval if you forgot your password.")); 
 		
-		return "index?faces-redirect=true";
+		return "/index.xhtml?faces-redirect=true";
 	}
 }
