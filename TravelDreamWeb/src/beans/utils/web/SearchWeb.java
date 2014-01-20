@@ -129,7 +129,7 @@ public class SearchWeb {
 		if(returnDate != null)
 			returnDateCriteria = new Date(returnDate.getTime());
 		
-		predefinedTravelPackagesList = new ArrayList<PredefinedTravelPackageDTO>(finder.findPredefinedTravelPackage(packageName, departureDateCriteria, returnDateCriteria));
+		predefinedTravelPackagesList = finder.findPredefinedTravelPackage(packageName, departureDateCriteria, returnDateCriteria);
 		
 		if(predefinedTravelPackagesList == null || predefinedTravelPackagesList.isEmpty())
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"No Results", "Your search has given ro results")); 
@@ -138,7 +138,7 @@ public class SearchWeb {
 	}
 	
 	public void browseAllPredefinedTravelPackages(){
-		predefinedTravelPackagesList = new ArrayList<PredefinedTravelPackageDTO>(finder.findAllPredefinedTravelPackages());
+		predefinedTravelPackagesList = finder.findAllPredefinedTravelPackages();
 		if(predefinedTravelPackagesList == null || predefinedTravelPackagesList.isEmpty())
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"No Results", "Your search has given ro results")); 
 		else
@@ -160,7 +160,7 @@ public class SearchWeb {
 		if(lastName.isEmpty())
 			lastName = null;
 		
-		usersList = new ArrayList<UserDTO>(finder.findUser(firstName, lastName));
+		usersList = finder.findUser(firstName, lastName);
 		
 		if(usersList == null || usersList.isEmpty())
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"No Results", "Your search has given ro results")); 
