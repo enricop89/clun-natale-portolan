@@ -7,7 +7,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 
@@ -21,7 +21,7 @@ import beans.utils.SearchDTOInterface;
 //import beans.utils.web.Data_Exchange;
 
 @ManagedBean(name="UserPersonalPage")
-@RequestScoped
+@ViewScoped
 public class UserPersonalPage {
 	@EJB
 	private SearchDTOInterface search;
@@ -60,11 +60,18 @@ public class UserPersonalPage {
 		data.setPersonalizedTravelPackagesList(helper);
 		return "link alla pagina che far��";	//visualize a Personalize Travel Package
 	}*/											//redirecting to the travel package page
-public String deletePTPelement(PersonalizedTravelPackageDTO helper){
+	public String deletePTPelement(PersonalizedTravelPackageDTO helper){
 		
 		customerhandler.deletePersonalizedTravelPackage(helper);
 		
 		return "personal_travel_package?faces-redirect=true";//delete a Personalize Travel Package
+	}
+	public boolean checkStatus(PersonalizedTravelPackageDTO helper){
+		for (int i=0;i<helper.getTravelComponents().size();i++)
+			if(helper.getTravelComponents().get(i).getTravelElement()==null)
+				return false;
+		
+		return true;
 	}
 	
 	public UserDTO getUser() {
