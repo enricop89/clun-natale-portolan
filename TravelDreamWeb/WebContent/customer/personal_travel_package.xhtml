@@ -30,7 +30,8 @@
                 </p:column>  
   
                 <p:column headerText="">  
-                    <p:commandButton icon="ui-icon-search" actionListener="#{UserPersonalPage.visualizeTP(element)}"/> 
+                    <p:commandButton icon="ui-icon-search" actionListener="#{UserPersonalPage.visualizeTP(element)}"/>
+                    <p:commandButton icon="ui-icon-trash" actionListener="#{UserPersonalPage.deletePTPelement(element)}"/> 
                 </p:column>  
             </p:dataTable>  
         </h:form>  

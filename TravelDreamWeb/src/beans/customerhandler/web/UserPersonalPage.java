@@ -48,17 +48,23 @@ public class UserPersonalPage {
 		persTP=search.findAllPersonalizedTravelPackages(user);
 	}
 	
-	public String deletebutton(GiftElements_HelperDTO helper){
+	public String deleteGFelement(GiftElements_HelperDTO helper){
 		
 		customerhandler.removeTravelComponentFromGiftList(helper);
 		
-		return "gift_list?faces-redirect=true";
+		return "gift_list?faces-redirect=true";	//delete a GiftList element 
 	}
-	public String visualizeTP(PersonalizedTravelPackageDTO persTP){
+	public String visualizeTP(PersonalizedTravelPackageDTO persTP){  
 		List<PersonalizedTravelPackageDTO> helper= new ArrayList<PersonalizedTravelPackageDTO>();
 		helper.add(persTP);
 		data.setPersonalizedTravelPackagesList(helper);
-		return "link alla pagina che farò";
+		return "link alla pagina che far��";	//visualize a Personalize Travel Package
+	}											//redirecting to the travel package page
+public String deletePTPelement(PersonalizedTravelPackageDTO helper){
+		
+		customerhandler.deletePersonalizedTravelPackage(helper);
+		
+		return "personal_travel_package?faces-redirect=true";//delete a Personalize Travel Package
 	}
 	
 	public UserDTO getUser() {
