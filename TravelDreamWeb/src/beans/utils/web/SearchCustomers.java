@@ -3,15 +3,15 @@ package beans.utils.web;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.RequestScoped;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 
 import beans.accountmanagement.UserDTO;
 
 @ManagedBean(name="SearchCustomers")
-@RequestScoped
+@ViewScoped
 public class SearchCustomers {
 	@Inject
 	private Data_Exchange data;
