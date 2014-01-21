@@ -18,7 +18,7 @@ import beans.customerhandler.GiftListDTO;
 import beans.travelpackage.PersonalizedTravelPackageDTO;
 import beans.utils.SearchDTOInterface;
 //TODO:inserire visualizza travel component nel'xml
-import beans.utils.web.Data_Exchange;
+//import beans.utils.web.Data_Exchange;
 
 @ManagedBean(name="UserPersonalPage")
 @RequestScoped
@@ -31,7 +31,7 @@ public class UserPersonalPage {
 	private UserDTO user;
 	private List<PersonalizedTravelPackageDTO> persTP;
 	
-	@Inject
+	/*@Inject
 	private Data_Exchange data;
 	public Data_Exchange getData(){
 		return data;
@@ -39,7 +39,7 @@ public class UserPersonalPage {
 	public void setData(Data_Exchange data){
 		this.data = data;
 	}
-	
+	*/
 	
 	@PostConstruct
 	public void init(){
@@ -54,12 +54,12 @@ public class UserPersonalPage {
 		
 		return "gift_list?faces-redirect=true";	//delete a GiftList element 
 	}
-	public String visualizeTP(PersonalizedTravelPackageDTO persTP){  
+	/*public String visualizeTP(PersonalizedTravelPackageDTO persTP){  
 		List<PersonalizedTravelPackageDTO> helper= new ArrayList<PersonalizedTravelPackageDTO>();
 		helper.add(persTP);
 		data.setPersonalizedTravelPackagesList(helper);
 		return "link alla pagina che far��";	//visualize a Personalize Travel Package
-	}											//redirecting to the travel package page
+	}*/											//redirecting to the travel package page
 public String deletePTPelement(PersonalizedTravelPackageDTO helper){
 		
 		customerhandler.deletePersonalizedTravelPackage(helper);
