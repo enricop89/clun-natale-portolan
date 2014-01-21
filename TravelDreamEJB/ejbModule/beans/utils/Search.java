@@ -66,9 +66,10 @@ public class Search {
 		if(name != null){
 			name = name.toLowerCase();
 			// name can also be only a part of the real package name
-			if(name.length() < 3)
+			if(name.length() < 3){
 				if(departureDate == null && returnDate == null)
 					return null;
+			}
 			else{
 			 for(int i = 0; i < list.size(); i++)
 				 if(!list.get(i).getName().toLowerCase().contains(name))
