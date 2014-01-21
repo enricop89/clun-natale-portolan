@@ -161,14 +161,7 @@ public class SearchDTO implements SearchDTOInterface {
     	travelComponentDTO.setExcursionDescription(travelComponent.getExcursionDescription());
     	travelComponentDTO.setExcursionDateTime(travelComponent.getExcursionDateTime());
     	travelComponentDTO.setExcursionCity(travelComponent.getExcursionCity());
-    	List<PredefinedTravelPackageDTO> predefinedTravelPackages = new ArrayList<PredefinedTravelPackageDTO>();
-    	for(int i = 0; i < travelComponent.getPredefinedTravelPackages().size(); i++)
-    		predefinedTravelPackages.add(convertToDTO(travelComponent.getPredefinedTravelPackages().get(i)));
-    	travelComponentDTO.setPredefinedTravelPackagess(predefinedTravelPackages);
-    	List<TravelElementDTO> travelElements = new ArrayList<TravelElementDTO>();
-    	for(int i = 0; i < travelComponent.getTravelElements().size(); i++)
-    		travelElements.add(convertToDTO(travelComponent.getTravelElements().get(i)));
-    	travelComponentDTO.setTravelElements(travelElements);
+    	travelComponentDTO.setAvailability(travelComponent.getTravelElements().size());
     	return travelComponentDTO;
     }
     private TravelElementDTO convertToDTO(TravelElement travelElement){
@@ -206,8 +199,10 @@ public class SearchDTO implements SearchDTOInterface {
     	personalizedTravelPackageDTO.setDepartureDate(personalizedTravelPackage.getDepartureDate());
     	personalizedTravelPackageDTO.setReturnDate(personalizedTravelPackage.getReturnDate());
     	List<Components_HelperDTO> travelComponents = new ArrayList<Components_HelperDTO>();
-    	for(int i = 0; i < personalizedTravelPackage.getTravelComponents().size(); i++)
+    	for(int i = 0; i < personalizedTravelPackage.getTravelComponents().size(); i++){
     		travelComponents.add(convertToDTO(personalizedTravelPackage.getTravelComponents().get(i)));
+    		travelComponents.get(i).setPersonalizedTravelPackage(personalizedTravelPackageDTO);
+    	}
     	personalizedTravelPackageDTO.setTravelComponents(travelComponents);
     	return personalizedTravelPackageDTO;
     }
@@ -216,7 +211,6 @@ public class SearchDTO implements SearchDTOInterface {
     		return null;
     	Components_HelperDTO componentDTO = new Components_HelperDTO();
     	componentDTO.setId(component.getId());
-    	componentDTO.setPersonalizedTravelPackage(convertToDTO(component.getPersonalizedTravelPackage()));
     	componentDTO.setTravelComponent(convertToDTO(component.getTravelComponent()));
     	componentDTO.setTravelElement(convertToDTO(component.getTravelElement()));
     	componentDTO.setPersistence(convertToDTO(component.getPersistence()));
@@ -229,8 +223,10 @@ public class SearchDTO implements SearchDTOInterface {
     	GiftListDTO giftListDTO = new GiftListDTO();
     	giftListDTO.setOwner(convertToDTO(giftList.getOwner()));
     	List<GiftElements_HelperDTO> giftElements = new ArrayList<GiftElements_HelperDTO>();
-    	for(int i = 0; i < giftList.getGiftElements().size(); i++)
+    	for(int i = 0; i < giftList.getGiftElements().size(); i++){
     		giftElements.add(convertToDTO(giftList.getGiftElements().get(i)));
+    		giftElements.get(i).setGiftList(giftListDTO);
+    	}
     	giftListDTO.setGiftElements(giftElements);
     	return giftListDTO;
     }
@@ -239,7 +235,6 @@ public class SearchDTO implements SearchDTOInterface {
     		return null;
     	GiftElements_HelperDTO elementsDTO = new GiftElements_HelperDTO();
     	elementsDTO.setId(elements.getId());
-    	elementsDTO.setGiftList(convertToDTO(elements.getGiftList()));
     	elementsDTO.setPersonalizedTravelPackage(convertToDTO(elements.getPersonalizedTravelPackage()));
     	elementsDTO.setTravelComponent(convertToDTO(elements.getTravelComponent()));
     	return elementsDTO;

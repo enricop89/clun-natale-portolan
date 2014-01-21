@@ -86,8 +86,9 @@ public class TravelComponentHandler{
 		if(availability <= 0)
 			return false;
 		List<TravelElement> travelElements = travelComponent.getTravelElements();
-		if(travelComponent.getTravelElements().size() < availability)
-			for(int i = 0; i < availability - travelComponent.getTravelElements().size(); i++){
+		int delta = travelComponent.getTravelElements().size() - availability;
+		if(delta < 0)
+			for(int i = delta; i > 0; i--){
 				TravelElement te = new TravelElement();
 				te.setConfirmationDateTime(null);
 				te.setOwner(null);
@@ -95,14 +96,10 @@ public class TravelComponentHandler{
 				travelElements.add(te);
 				addNewTravelElement(te);
 			}
-		else if(travelComponent.getTravelElements().size() > availability)
-			for(int i = 0; i < travelComponent.getTravelElements().size() - availability; i++){
-				TravelElement te = new TravelElement();
-				te.setConfirmationDateTime(null);
-				te.setOwner(null);
-				te.setTravelComponent(travelComponent);
-				travelElements.add(te);
-				addNewTravelElement(te);
+		else if(delta > 0)
+			for(int i = 0; i < delta; i++){
+				entityManager.remove(travelElements.get(i));
+				travelElements.remove(i);
 			}
 		travelComponent.setTravelElements(travelElements);
 		// check if the update affects some predefined travel package
