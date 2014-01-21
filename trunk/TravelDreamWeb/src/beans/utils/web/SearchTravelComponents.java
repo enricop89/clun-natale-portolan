@@ -7,6 +7,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
 
+import org.primefaces.context.RequestContext;
+
 import beans.travelcomponent.TravelComponentDTO;;
 
 @ManagedBean(name="SearchTravelComponents")
@@ -33,7 +35,6 @@ public class SearchTravelComponents {
 	}
 	
 	public void selectFromDialog(TravelComponentDTO travelComponent){
-		// open up the travelComponent page
-		// TODO: waiting for TravelComponent page
+		RequestContext.getCurrentInstance().closeDialog(travelComponent); 
 	}
 }

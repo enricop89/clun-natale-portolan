@@ -161,8 +161,12 @@ public class SearchWeb {
 		if(FacesContext.getCurrentInstance().getExternalContext().getRemoteUser().equals(user.getEmail()))
 			FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/customer/personal_page.xhtml");
 			
-		else // open up customer info page
-			FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/index.xhtml");//TODO: Waiting for Customer Info Page
+		else{ // open up customer info page
+			List<UserDTO> toSend = new ArrayList<UserDTO>();
+			toSend.add(user);
+			data.setUsersList(toSend);
+			FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/index.xhtml");//TODO: waiting for Customer Info Page
+		}
 	}
 	
 	//---------------------------
@@ -173,6 +177,12 @@ public class SearchWeb {
 	public void browseAllTravelComponents(){
 		//TODO TBD
 	}
-	
-	
+	public void onTravelComponentChosen(SelectEvent event) throws IOException{
+		// open up the travelComponent page
+		TravelComponentDTO travelComponent = (TravelComponentDTO) event.getObject(); 
+		List<TravelComponentDTO> toSend = new ArrayList<TravelComponentDTO>();
+		toSend.add(travelComponent);
+		data.setTravelComponentsList(toSend);
+		FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/index.xhtml"); // TODO: waiting for TravelComponent page
+	}
 }
