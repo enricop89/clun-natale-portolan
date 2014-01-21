@@ -2,11 +2,8 @@ package beans.travelcomponent;
 
 import java.sql.Date;
 import java.sql.Timestamp;
-import java.util.List;
 
 import org.hibernate.validator.constraints.NotEmpty;
-
-import beans.travelpackage.PredefinedTravelPackageDTO;
 
 public class TravelComponentDTO {
 	private long id;
@@ -24,8 +21,6 @@ public class TravelComponentDTO {
 	private String excursionDescription;
 	private Timestamp excursionDateTime;
 	private String excursionCity;
-	private List<PredefinedTravelPackageDTO> predefinedTravelPackages;
-	private List<TravelElementDTO> travelElements;
 	@NotEmpty
 	int availability;
 	
@@ -133,22 +128,6 @@ public class TravelComponentDTO {
 
 	public void setExcursionCity(String excursionCity) {
 		this.excursionCity = excursionCity;
-	}
- 
-	public List<PredefinedTravelPackageDTO> getPredefinedTravelPackages() {
-		return this.predefinedTravelPackages;
-	}
-	
-	public void setPredefinedTravelPackagess(List<PredefinedTravelPackageDTO> predefinedTravelPackages) {
-		this.predefinedTravelPackages = predefinedTravelPackages;
-	}
-
-	public List<TravelElementDTO> getTravelElements() {
-		return this.travelElements;
-	}
-	
-	public void setTravelElements(List<TravelElementDTO> travelElements) {
-		this.travelElements = travelElements;
 	}
 	
 	public int getAvailability(){
