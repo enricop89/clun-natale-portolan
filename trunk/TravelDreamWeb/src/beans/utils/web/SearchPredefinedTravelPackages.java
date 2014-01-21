@@ -3,14 +3,14 @@ package beans.utils.web;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.RequestScoped;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
 
 import beans.travelpackage.PredefinedTravelPackageDTO;
 
 @ManagedBean(name="SearchPredefinedTravelPackages")
-@RequestScoped
+@ViewScoped
 public class SearchPredefinedTravelPackages {
 	@Inject
 	private Data_Exchange data;
