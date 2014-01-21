@@ -67,11 +67,14 @@ public class Search {
 			name = name.toLowerCase();
 			// name can also be only a part of the real package name
 			if(name.length() < 3)
-				return null;
-
+				if(departureDate == null && returnDate == null)
+					return null;
+			else{
 			 for(int i = 0; i < list.size(); i++)
 				 if(!list.get(i).getName().toLowerCase().contains(name))
 					 toRemove.add(i);
+		
+			}
 		}
 		if(departureDate != null){
 			 for(int i = 0; i < list.size(); i++)
@@ -83,6 +86,8 @@ public class Search {
 				 if(list.get(i).getDepartureDate().compareTo(returnDate) != 0)
 					 toRemove.add(i);	
 		}
+		if(name == null && departureDate == null && returnDate == null)
+			return null;
 		
 		//remove duplicates
 		Set<Integer> noDup = new HashSet<Integer>(toRemove);
