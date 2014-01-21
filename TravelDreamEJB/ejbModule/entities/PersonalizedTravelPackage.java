@@ -41,7 +41,7 @@ public class PersonalizedTravelPackage implements Serializable {
 	}   
 	public PersonalizedTravelPackage(PersonalizedTravelPackageDTO personalizedTravelPackage) {
 		Search search = new Search();
-		this.id = personalizedTravelPackage.getId();
+//		this.id = personalizedTravelPackage.getId();
 		this.name = personalizedTravelPackage.getName();
 		this.owner = search.findUser(personalizedTravelPackage.getOwner());
 		this.returnDate = personalizedTravelPackage.getReturnDate();
