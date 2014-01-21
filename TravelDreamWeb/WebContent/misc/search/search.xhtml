@@ -51,10 +51,32 @@
 	  
 	    <p:tab id="TravelComponents" title="Travel Components" rendered="#{facesContext.externalContext.isUserInRole('EMPLOYEE')}">
 	    <p:growl id="componentsGrowl" showDetail="true" globalOnly="true" />   
-	    <p:panel header="Search Travel Components">   	    
+	    <p:panel header="Search Travel Components">   
+	    	<p:tabView id="travelComponents" >
+			    <p:tab id="flights" title="Flights">
+			    <p:panel header="Define search criteria">   	    
+				    <h:panelGrid columns="2">  
+						  
+					</h:panelGrid>	        
+		 		</p:panel>
+			    </p:tab> 
+			    <p:tab id="hotels" title="Hotels">
+			    <p:panel header="Define search criteria">   	    
+				    <h:panelGrid columns="2">  
+						  
+					</h:panelGrid>	        
+		 		</p:panel>
+			    </p:tab> 
+			    <p:tab id="excursions" title="Excursions">
+			    <p:panel header="Define search criteria">   	    
+				    <h:panelGrid columns="2">  
+						  
+					</h:panelGrid>	        
+		 		</p:panel>
+			    </p:tab> 			     	  				     		    	
+	    	</p:tabView>	    
 		    <h:panelGrid columns="2">  
-			 					  
-
+				  
 			</h:panelGrid>
 	    	<p:commandButton value="Search" icon="ui-icon-search" action="#{SearchWeb.searchTravelComponents}" update="componentsGrowl" ajax="true" styleClass="ui-priority-primary">  
 	       		<p:ajax event="dialogReturn" listener="#{SearchWeb.onTravelComponentChosen}"/> 

@@ -53,7 +53,6 @@ public class SearchWeb {
 		firstName = new String();
 		lastName = new String();
 	}
-
 	//---------------------------
 	// SETTERS AND GETTERS	
 	public TravelComponentDTO getSearchCriteria(){
