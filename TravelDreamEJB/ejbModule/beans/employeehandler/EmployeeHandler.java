@@ -31,8 +31,9 @@ public class EmployeeHandler implements EmployeeHandlerInterface{
 
 	@Override
 	@RolesAllowed("EMPLOYEE")
-	public boolean updatePredefinedTravelPackage(PredefinedTravelPackageDTO predefinedTravelPackage){	
-		return handler.updatePredefinedTravelPackage(search.findPredefinedTravelPackage(predefinedTravelPackage));
+	public boolean updatePredefinedTravelPackage(PredefinedTravelPackageDTO predefinedTravelPackage){
+		PredefinedTravelPackage toModify = new PredefinedTravelPackage(predefinedTravelPackage);
+		return handler.updatePredefinedTravelPackage(toModify);
 	}
 	
 	@Override
@@ -50,7 +51,10 @@ public class EmployeeHandler implements EmployeeHandlerInterface{
 	@Override
 	@RolesAllowed({"EMPLOYEE"})
 	public boolean updateTravelComponent(TravelComponentDTO travelComponent){
-		return component_handler.updateTravelComponent(search.findTravelComponent(travelComponent), travelComponent.getAvailability());
+		TravelComponent toModify = new TravelComponent(travelComponent);
+		toModify.setTravelElements(search.findTravelComponent(travelComponent).getTravelElements());
+		toModify.setPredefinedTravelPackagess(search.findTravelComponent(travelComponent).getPredefinedTravelPackages());
+		return component_handler.updateTravelComponent(toModify, travelComponent.getAvailability());
 	}
 	
 	@Override
