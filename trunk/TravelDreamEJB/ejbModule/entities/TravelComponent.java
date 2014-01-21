@@ -58,7 +58,7 @@ public class TravelComponent implements Serializable {
 		super();
 	}   
 	public TravelComponent(TravelComponentDTO travelComponent){
-//		this.id = travelComponent.getId();
+		this.id = travelComponent.getId();
 		this.type = travelComponent.getType();
 		this.supplyingCompany = travelComponent.getSupplyingCompany();
 		switch(travelComponent.getType()){

@@ -6,6 +6,7 @@ import javax.annotation.security.RolesAllowed;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
+import entities.PersonalizedTravelPackage;
 import beans.accountmanagement.UserDTO;
 import beans.travelcomponent.TravelComponentDTO;
 import beans.travelpackage.Components_HelperDTO;
@@ -72,7 +73,8 @@ public class CustomerHandler implements CustomerHandlerInterface{
 	@Override
 	@RolesAllowed({"CUSTOMER"})
 	public boolean updatePersonalizedTravelPackage(PersonalizedTravelPackageDTO personalizedTravelPackage){
-		return handler.updatePersonalizedTravelPackage(search.findPersonalizedTravelPackage(personalizedTravelPackage));
+		PersonalizedTravelPackage toModify = new PersonalizedTravelPackage(personalizedTravelPackage);	
+		return handler.updatePersonalizedTravelPackage(toModify);
 	}
 
 	@Override
