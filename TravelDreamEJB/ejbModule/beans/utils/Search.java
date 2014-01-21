@@ -69,6 +69,7 @@ public class Search {
 			if(name.length() < 3){
 				if(departureDate == null && returnDate == null)
 					return null;
+				
 			}
 			else{
 				 for(int i = 0; i < list.size(); i++)
@@ -86,6 +87,8 @@ public class Search {
 				 if(list.get(i).getDepartureDate().compareTo(returnDate) != 0)
 					 toRemove.add(i);	
 		}
+		if(name == null && departureDate == null && returnDate == null)
+			return null;
 		
 		//remove duplicates
 		Set<Integer> noDup = new HashSet<Integer>(toRemove);
