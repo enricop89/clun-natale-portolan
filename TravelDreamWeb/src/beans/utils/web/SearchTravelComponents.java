@@ -9,7 +9,7 @@ import javax.inject.Inject;
 
 import beans.travelcomponent.TravelComponentDTO;;
 
-@ManagedBean(name="SearchPredefinedTravelPackages")
+@ManagedBean(name="SearchTravelComponents")
 @RequestScoped
 public class SearchTravelComponents {
 	@Inject
