@@ -20,18 +20,23 @@
   	  <h:form>  
             <p:dataTable var="element" value="#{UserPersonalPage.persTP}">  
                 <p:column headerText="Name">  
-                    <h:outputText value="#{UserPersonalPage.persTP.name}" />  
+                    <h:outputText value="#{UserPersonalPage.persTP(element).name}" />  
                 </p:column>  
  				<p:column headerText="departureDate">  
-                    <h:outputText value="#{UserPersonalPage.persTP.departureDate}" />  
+                    <h:outputText value="#{UserPersonalPage.persTP(element).departureDate}" />  
                 </p:column>  
                 <p:column headerText="returnDate">  
-                    <h:outputText value="#{UserPersonalPage.persTP.returnDate}" />  
+                    <h:outputText value="#{UserPersonalPage.persTP(element).returnDate}" />  
                 </p:column>  
   
-                <p:column headerText="">  
-                    <p:commandButton icon="ui-icon-search" actionListener="#{UserPersonalPage.visualizeTP(element)}"/>
-                    <p:commandButton icon="ui-icon-trash" actionListener="#{UserPersonalPage.deletePTPelement(element)}"/> 
+                <p:column headerText="Visualize">  
+                    <p:commandLink styleClass="ui-icon ui-icon-trash" actionListener="#{UserPersonalPage.visualizeTP(element)}"/>
+                     </p:column> 
+                     <p:column headerText="Get Id of TravelPackage">
+                     <p:commandLink styleClass="ui-icon ui-icon-trash" actionListener="#{UserPersonalPage.visualizeTP(element)}"/>
+                     </p:column>
+                  <p:column headerText="Delete">    
+                    <p:commandLink styleClass="ui-icon ui-icon-search" actionListener="#{UserPersonalPage.deletePTPelement(element)}"/> 
                 </p:column>  
             </p:dataTable>  
         </h:form>  
