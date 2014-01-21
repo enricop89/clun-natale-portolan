@@ -164,6 +164,28 @@ public class SearchDTO implements SearchDTOInterface {
     	travelComponentDTO.setAvailability(travelComponent.getTravelElements().size());
     	return travelComponentDTO;
     }
+    private TravelComponentDTO convertToDTO(TravelComponent travelComponent, boolean isPersistence){
+    	if(travelComponent == null)
+    		return null;
+    	TravelComponentDTO travelComponentDTO = new TravelComponentDTO();
+    	travelComponentDTO.setId(travelComponent.getId());
+    	travelComponentDTO.setType(travelComponent.getType());
+    	travelComponentDTO.setSupplyingCompany(travelComponent.getSupplyingCompany());
+    	travelComponentDTO.setFlightDepartureDateTime(travelComponent.getFlightDepartureDateTime());
+    	travelComponentDTO.setFlightArrivalDateTime(travelComponent.getFlightArrivalDateTime());
+    	travelComponentDTO.setFlightDepartureCity(travelComponent.getFlightDepartureCity());
+    	travelComponentDTO.setFlightArrivalCity(travelComponent.getFlightArrivalCity());
+    	travelComponentDTO.setFlightCode(travelComponent.getFlightCode());
+    	travelComponentDTO.setHotelCity(travelComponent.getHotelCity());
+    	travelComponentDTO.setHotelDate(travelComponent.getHotelDate());
+    	travelComponentDTO.setExcursionDescription(travelComponent.getExcursionDescription());
+    	travelComponentDTO.setExcursionDateTime(travelComponent.getExcursionDateTime());
+    	travelComponentDTO.setExcursionCity(travelComponent.getExcursionCity());
+    	if(isPersistence == false)
+    		travelComponentDTO.setAvailability(travelComponent.getTravelElements().size());
+    	
+    	return travelComponentDTO;
+    }
     private TravelElementDTO convertToDTO(TravelElement travelElement){
     	if(travelElement == null)
     		return null;    	
@@ -213,7 +235,7 @@ public class SearchDTO implements SearchDTOInterface {
     	componentDTO.setId(component.getId());
     	componentDTO.setTravelComponent(convertToDTO(component.getTravelComponent()));
     	componentDTO.setTravelElement(convertToDTO(component.getTravelElement()));
-    	componentDTO.setPersistence(convertToDTO(component.getPersistence()));
+    	componentDTO.setPersistence(convertToDTO(component.getPersistence(),true));
     	return componentDTO;
  
     }
