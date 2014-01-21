@@ -11,7 +11,7 @@ import beans.travelcomponent.TravelComponentDTO;;
 
 @ManagedBean(name="SearchPredefinedTravelPackages")
 @RequestScoped
-public class SearchTravelComponent {
+public class SearchTravelComponents {
 	@Inject
 	private Data_Exchange data;
 	public Data_Exchange getData(){
