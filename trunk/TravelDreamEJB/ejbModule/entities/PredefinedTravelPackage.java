@@ -49,7 +49,7 @@ public class PredefinedTravelPackage implements Serializable {
 	}   
 	public PredefinedTravelPackage(PredefinedTravelPackageDTO predefinedTravelPackage){
 		Search search = new Search();
-		this.id = predefinedTravelPackage.getId();
+//		this.id = p.getId();
 		this.name = predefinedTravelPackage.getName();
 		this.description = predefinedTravelPackage.getDescription();
 		this.returnDate = predefinedTravelPackage.getReturnDate();
