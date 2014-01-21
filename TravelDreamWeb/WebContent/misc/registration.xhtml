@@ -1,0 +1,47 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+	<title>Register to TravelDream</title>
+</h:head>
+<h:body>
+	<h:form>
+		<p:growl id="growl" showDetail="true" globalOnly="true" />  
+		
+		<p:panel id="panel" header="Registration form">          
+        <p:messages />  
+			<h:panelGrid columns="3" id="regGrid">
+			
+				<h:outputLabel for="email">Email*:</h:outputLabel>
+				<p:inputText id="email" value="#{CustomerRegistrationWeb.user.email}" />
+				<p:message for="email" />
+
+				<h:outputLabel for="firstName">Firstname*:</h:outputLabel>
+				<p:inputText id="firstName" value="#{CustomerRegistrationWeb.user.firstName}" />
+				<p:message for="firstName" />
+
+				<h:outputLabel for="lastName">Lastname*:</h:outputLabel>
+				<p:inputText id="lastName" value="#{CustomerRegistrationWeb.user.lastName}" />
+				<p:message for="lastName" />
+
+				<h:outputLabel for="password">Password*:</h:outputLabel>
+				<p:password id="password" value="#{CustomerRegistrationWeb.user.password}"
+					feedback="true" match="password2" label="password 1" required="true"/>					
+				<p:message for="password" />
+				
+				<h:outputLabel for="password2">Retype password*:</h:outputLabel>
+				<p:password id="password2" value="#{CustomerRegistrationWeb.user.password}"
+					feedback="true" match="password2" label="password 2" required="true"/>					
+				<p:message for="password2" />
+				
+			</h:panelGrid>
+			<p:commandButton value="Register" update="regGrid, growl"
+				action="#{CustomerRegistrationWeb.register}" styleClass="ui-priority-primary"/>
+		</p:panel>
+	</h:form>                   
+</h:body>
+</html>
