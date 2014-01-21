@@ -29,17 +29,15 @@
                     <h:outputText value="#{element.returnDate}" />  
                 </p:column>  
   
-              
-                     
-                     <p:column headerText="Status">
-                      <p:graphicImage id="Confirm" value="/resources/images/confirmed.png" rendered="{UserPersonalPage.checkStatus(element)" />
+                     <p:column headerText="Status" style="text-align: center">
+                      <p:graphicImage id="Confirm" value="/resources/images/confirmed.png" style="float:center" rendered="#{UserPersonalPage.checkStatus(element)}" />
                      <p:tooltip for="Confirm" value="The package is confirmed" showEffect="fade" hideEffect="fade" /> 
-                      <p:graphicImage id="Unconfirm" value="/resources/images/unconfirmed.png" rendered="{UserPersonalPage.checkStatus(element)" />
+                      <p:graphicImage id="Unconfirm" value="/resources/images/unconfirmed.png" style="float:center" rendered="#{UserPersonalPage.checkStatus(element)==false}" />
                      <p:tooltip for="Unconfirm" value="The package is unconfirmed" showEffect="fade" hideEffect="fade" /> 
-                     </p:column>
-                     
+                     </p:column>   
+                             
                   <p:column headerText="Delete">    
-                    <p:commandLink styleClass="ui-icon ui-icon-search" actionListener="#{UserPersonalPage.deletePTPelement(element)}"/> 
+                    <p:commandLink styleClass="ui-icon ui-icon-trash" actionListener="#{UserPersonalPage.deletePTPelement(element)}"/> 
                 </p:column>  
             </p:dataTable>  
         </h:form>  
