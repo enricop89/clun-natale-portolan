@@ -152,9 +152,5 @@ public class SearchWeb {
 	public void browseAllTravelComponents(){
 		//TODO TBD
 	}
-/*	public void selectFromDialog(TravelComponentDTO travelComponent){
-		//TODO TBD		
-	}
-*/
 	
 }
