@@ -8,13 +8,16 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 
 import org.primefaces.context.RequestContext;
+import org.primefaces.event.SelectEvent;
 
 import beans.accountmanagement.UserDTO;
 import beans.travelcomponent.TravelComponentDTO;
 import beans.travelpackage.PredefinedTravelPackageDTO;
 import beans.utils.SearchDTOInterface;
 
+import java.io.IOException;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List; 
 
 @ManagedBean(name="SearchWeb")
@@ -124,6 +127,15 @@ public class SearchWeb {
 			RequestContext.getCurrentInstance().openDialog("/misc/search/travelpackage.xhtml");
 		}
 	}
+	
+	public void onPredefinedTravelPackageChosen(SelectEvent event) throws IOException{
+		// open up the predefinedTravelPackage page
+		PredefinedTravelPackageDTO predefinedTravelPackage = (PredefinedTravelPackageDTO) event.getObject(); 
+		List<PredefinedTravelPackageDTO> toSend = new ArrayList<PredefinedTravelPackageDTO>();
+		toSend.add(predefinedTravelPackage);
+		data.setPredefinedTravelPackagesList(toSend);
+		FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/index.xhtml"); // TODO: waiting for TravelPackage page	
+	}
 		
 	//---------------------------
 	// CUSTOMERS
@@ -143,6 +155,15 @@ public class SearchWeb {
 			RequestContext.getCurrentInstance().openDialog("/misc/search/customer.xhtml");
 		}
 	}
+	public void onCustomerChosen(SelectEvent event) throws IOException{
+		UserDTO user = (UserDTO) event.getObject(); 
+		// if the user is selecting is own name, then shows his personal page. This is indeed also to prevent from unexpected behavior (such paying his own components in the gift list)
+		if(FacesContext.getCurrentInstance().getExternalContext().getRemoteUser().equals(user.getEmail()))
+			FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/customer/personal_page.xhtml");
+			
+		else // open up customer info page
+			FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/index.xhtml");//TODO: Waiting for Customer Info Page
+	}
 	
 	//---------------------------
 	// TRAVEL COMPONENTS
@@ -152,5 +173,6 @@ public class SearchWeb {
 	public void browseAllTravelComponents(){
 		//TODO TBD
 	}
+	
 	
 }

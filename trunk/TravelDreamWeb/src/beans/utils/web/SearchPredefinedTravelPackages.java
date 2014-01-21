@@ -7,6 +7,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
 
+import org.primefaces.context.RequestContext;
+
 import beans.travelpackage.PredefinedTravelPackageDTO;
 
 @ManagedBean(name="SearchPredefinedTravelPackages")
@@ -33,8 +35,7 @@ public class SearchPredefinedTravelPackages {
 	}
 	
 	public void selectFromDialog(PredefinedTravelPackageDTO predefinedTravelPackage){
-		// open up the predefinedTravelPackage page
-		// TODO: waiting for TravelPackage page
+		RequestContext.getCurrentInstance().closeDialog(predefinedTravelPackage); 
 	}
 
 }
