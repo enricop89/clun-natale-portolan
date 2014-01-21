@@ -29,12 +29,7 @@
                     <h:outputText value="#{element.returnDate}" />  
                 </p:column>  
   
-               <p:column headerText="Visualize">  
-                    <p:commandLink styleClass="ui-icon ui-icon-trash" actionListener="#{UserPersonalPage.visualizeTP(element)}"/>
-                     </p:column> 
-                     <p:column headerText="Get Id of TravelPackage">
-                     <p:commandLink styleClass="ui-icon ui-icon-tag"  actionListener="#{UserPersonalPage.visualizeTP(element)} "/>
-                     </p:column>
+              
                      
                      <p:column headerText="Status">
                       <p:graphicImage id="Confirm" value="/resources/images/confirmed.png" rendered="{UserPersonalPage.checkStatus(element)" />
