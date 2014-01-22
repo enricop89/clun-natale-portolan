@@ -1,6 +1,6 @@
 package beans.travelcomponent;
 
-import java.sql.Date;
+//import java.sql.Date;
 import java.sql.Timestamp;
 
 import org.hibernate.validator.constraints.NotEmpty;
@@ -17,11 +17,11 @@ public class TravelComponentDTO {
 	private String flightArrivalCity;
 	private String flightCode;	
 	private String hotelCity;
-	private Date hotelDate;	
+	private java.sql.Date hotelDate;	
 	private String excursionDescription;
 	private Timestamp excursionDateTime;
 	private String excursionCity;
-	@NotEmpty
+	//@NotNull // http://stackoverflow.com/questions/17074611/javax-servlet-servletexception-hv000030-no-validator-could-be-found-for-type
 	int availability;
 	
 	public TravelComponentDTO() {
@@ -98,11 +98,11 @@ public class TravelComponentDTO {
 		this.hotelCity = hotelCity;
 	}   
 	
-	public Date getHotelDate() {
+	public java.sql.Date getHotelDate() {
 		return this.hotelDate;
 	}
 
-	public void setHotelDate(Date hotelDate) {
+	public void setHotelDate(java.sql.Date hotelDate) {
 		this.hotelDate = hotelDate;
 	}   
 	
