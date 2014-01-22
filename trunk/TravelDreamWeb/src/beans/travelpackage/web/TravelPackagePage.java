@@ -25,6 +25,7 @@ public class TravelPackagePage {
 		persTP=data.getPersonalizedTravelPackagesList().get(0);
 	}
 	
+	
 	public PersonalizedTravelPackageDTO getPersTP() {
 		return persTP;
 	}
