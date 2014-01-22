@@ -3,7 +3,6 @@
 	  xmlns:h="http://java.sun.com/jsf/html"
 	  xmlns:f="http://java.sun.com/jsf/core"
 	  xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:c="http://java.sun.com/jsp/jstl/core"
       xmlns:p="http://primefaces.org/ui">
 
     <h:head>  
@@ -20,58 +19,15 @@
                  
                  <p:column headerText="Type">  
                     <h:outputText value="Flight" rendered="#{travelComponent.type == 'FLIGHT'}"/> 
-                    <h:outputText value="Hotel" rendered="#{travelComponent.type == 'EXCURSION'}"/> 
-                    <h:outputText value="Excursion" rendered="#{travelComponent.type == 'HOTEL'}"/>  
+                    <h:outputText value="Hotel" rendered="#{travelComponent.type == 'HOTEL'}"/> 
+                    <h:outputText value="Excursion" rendered="#{travelComponent.type == 'EXCURSION'}"/>  
                 </p:column>  
                 <p:column headerText="Supplying Company">  
                     <h:outputText value="#{travelComponent.supplyingCompany}" />  
                 </p:column>  
-   				
-				<c:if test="#{travelComponent.type == 'FLIGHT'}"> 				
-	                 <p:column headerText="Departure Date and Time">  
-	                    <h:outputText value="#{travelComponent.flightDepartureDateTime}" />  
-	                </p:column> 
-	                 
-	                <p:column headerText="Arrival Date and Time">  
-	                    <h:outputText value="#{travelComponent.flightArrivalDateTime}" />  
-	                </p:column>  				
-	 				
-	                <p:column headerText="Departure City">  
-	                    <h:outputText value="#{travelComponent.flightDepartureCity}" />  
-	                </p:column> 
-	                 
-	                <p:column headerText="Arrival City">  
-	                    <h:outputText value="#{travelComponent.flightArrivalCity}" />  
-	                </p:column>  
-	
-	                <p:column headerText="Code">  
-	                    <h:outputText value="#{travelComponent.flightCode}" />  
-	                </p:column>   				
- 				</c:if>           
-
-				<c:if test="#{travelComponent.type == 'HOTEL'}"> 				
-	                <p:column headerText="Date">  
-	                    <h:outputText value="#{travelComponent.}" />  
-	                </p:column>  	
-	                
-	                 <p:column headerText="City">  
-	                    <h:outputText value="#{travelComponent.hotelCity}" />  
-	                </p:column> 				 			 				
- 				</c:if>  
- 				
- 				<c:if test="#{travelComponent.type == 'EXCURSION'}"> 				
-	                 <p:column headerText="Description">  
-	                    <h:outputText value="#{travelComponent.excursionDescription}" />  
-	                </p:column> 
-	 				
-	                <p:column headerText="Date and Time">  
-	                    <h:outputText value="#{travelComponent.excursionDateTime}" />  
-	                </p:column>  
-	                
-	                <p:column headerText="City">  
-	                    <h:outputText value="#{travelComponent.excursionCity}" />  
-	                </p:column>  							
- 				</c:if>   
+                <p:column headerText="Availability">  
+                    <h:outputText value="#{travelComponent.availability}" />  
+                </p:column> 
             </p:dataTable>  
         </h:form>  
     </h:body>  

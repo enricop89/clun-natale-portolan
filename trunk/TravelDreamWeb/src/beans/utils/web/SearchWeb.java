@@ -190,7 +190,7 @@ public class SearchWeb {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"No Results", "Your search has given ro results")); 
 		else{
 			data.setUsersList(usersList);
-			RequestContext.getCurrentInstance().openDialog("/misc/search/customer.xhtml");
+			RequestContext.getCurrentInstance().openDialog("/misc/search/customer_search.xhtml");
 		}
 	}
 	public void onCustomerChosen(SelectEvent event) throws IOException{

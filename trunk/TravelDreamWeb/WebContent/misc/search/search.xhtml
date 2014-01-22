@@ -55,55 +55,52 @@
 	    	<p:tabView id="travelComponents">
 	    	<p:ajax event="tabChange" listener="#{SearchWeb.tabChangeListener}"/>
 			    <p:tab id="flights" title="Flights">
-			    <p:panel header="Define search criteria">   	    
-				    <h:panelGrid columns="2">  
-				 	<h:outputLabel for="flightSupplyinCompany">Supplying Company:</h:outputLabel>
-	            	<p:inputText id="flightSupplyinCompany" value="#{SearchWeb.searchCriteria.supplyingCompany}"/>						  
-				 	<h:outputLabel for="flightCode">Flight Code:</h:outputLabel>
-	            	<p:inputText id="flightCode" value="#{SearchWeb.searchCriteria.flightCode}"/>						
-				 	<h:outputLabel for="flightDepartureCity">Departure City:</h:outputLabel>
-	            	<p:inputText id="flightDepartureCity" value="#{SearchWeb.searchCriteria.flightDepartureCity}"/>	
-				 	<h:outputLabel for="flightArrivalCity">Arrival City:</h:outputLabel>
-	            	<p:inputText id="flightArrivalCity" value="#{SearchWeb.searchCriteria.flightArrivalCity}"/>	
-	 			 	<h:outputLabel for="flightDepartureDateTime">Departure Date and Time:</h:outputLabel>           	
-	            	<p:calendar value="#{SearchWeb.flightDepartureDateTime}" id="flightDepartureDateTime" showButtonPanel="true" pattern="MM/dd/yyyy HH:mm"/>  
-				 	<h:outputLabel for="flightArrivalDateTime">Arrival Date and Time:</h:outputLabel>            	
-	            	<p:calendar value="#{SearchWeb.flightArrivalDateTime}" id="flightArrivalDateTime" showButtonPanel="true" pattern="MM/dd/yyyy HH:mm"/> 					
-					</h:panelGrid>	        
-		 		</p:panel>
+				    <p:panel header="Define search criteria">   	    
+					    <h:panelGrid columns="2">  
+					 	<h:outputLabel for="flightSupplyinCompany">Supplying Company:</h:outputLabel>
+		            	<p:inputText id="flightSupplyinCompany" value="#{SearchWeb.searchCriteria.supplyingCompany}"/>						  
+					 	<h:outputLabel for="flightCode">Flight Code:</h:outputLabel>
+		            	<p:inputText id="flightCode" value="#{SearchWeb.searchCriteria.flightCode}"/>						
+					 	<h:outputLabel for="flightDepartureCity">Departure City:</h:outputLabel>
+		            	<p:inputText id="flightDepartureCity" value="#{SearchWeb.searchCriteria.flightDepartureCity}"/>	
+					 	<h:outputLabel for="flightArrivalCity">Arrival City:</h:outputLabel>
+		            	<p:inputText id="flightArrivalCity" value="#{SearchWeb.searchCriteria.flightArrivalCity}"/>	
+		 			 	<h:outputLabel for="flightDepartureDateTime">Departure Date and Time:</h:outputLabel>           	
+		            	<p:calendar value="#{SearchWeb.flightDepartureDateTime}" id="flightDepartureDateTime" showButtonPanel="true" pattern="MM/dd/yyyy HH:mm"/>  
+					 	<h:outputLabel for="flightArrivalDateTime">Arrival Date and Time:</h:outputLabel>            	
+		            	<p:calendar value="#{SearchWeb.flightArrivalDateTime}" id="flightArrivalDateTime" showButtonPanel="true" pattern="MM/dd/yyyy HH:mm"/> 					
+						</h:panelGrid>	        
+			 		</p:panel>
 			    </p:tab> 
 			    <p:tab id="hotels" title="Hotels">
-			    <p:panel header="Define search criteria">   	    
-				    <h:panelGrid columns="2">  
-				 	<h:outputLabel for="hotelSupplyinCompany">Supplying Company:</h:outputLabel>
-	            	<p:inputText id="hotelSupplyinCompany" value="#{SearchWeb.searchCriteria.supplyingCompany}"/>	
-				 	<h:outputLabel for="hotelCity">City:</h:outputLabel>
-	            	<p:inputText id="hotelCity" value="#{SearchWeb.searchCriteria.hotelCity}"/>	            	
-	 			 	<h:outputLabel for="hotelStartingDate">Starting Date:</h:outputLabel>           	
-	            	<p:calendar value="#{SearchWeb.hotelStartingDate}" id="hotelStartingDate" showButtonPanel="true"/>  	
-				 	<h:outputLabel for="hotelEndingDate">Ending Date:</h:outputLabel>            	
-	            	<p:calendar value="#{SearchWeb.hotelEndingDate}" id="hotelEndingDate" showButtonPanel="true"/> 	            							  
-					</h:panelGrid>	        
-		 		</p:panel>
+				    <p:panel header="Define search criteria">   	    
+					    <h:panelGrid columns="2">  
+					 	<h:outputLabel for="hotelSupplyinCompany">Supplying Company:</h:outputLabel>
+		            	<p:inputText id="hotelSupplyinCompany" value="#{SearchWeb.searchCriteria.supplyingCompany}"/>	
+					 	<h:outputLabel for="hotelCity">City:</h:outputLabel>
+		            	<p:inputText id="hotelCity" value="#{SearchWeb.searchCriteria.hotelCity}"/>	            	
+		 			 	<h:outputLabel for="hotelStartingDate">Starting Date:</h:outputLabel>           	
+		            	<p:calendar value="#{SearchWeb.hotelStartingDate}" id="hotelStartingDate" showButtonPanel="true"/>  	
+					 	<h:outputLabel for="hotelEndingDate">Ending Date:</h:outputLabel>            	
+		            	<p:calendar value="#{SearchWeb.hotelEndingDate}" id="hotelEndingDate" showButtonPanel="true"/> 	            							  
+						</h:panelGrid>	        
+			 		</p:panel>
 			    </p:tab> 
 			    <p:tab id="excursions" title="Excursions">
-			    <p:panel header="Define search criteria">   	    
-				    <h:panelGrid columns="2">  
-					<h:outputLabel for="excursionSupplyinCompany">Supplying Company:</h:outputLabel>
-	            	<p:inputText id="excursionSupplyinCompany" value="#{SearchWeb.searchCriteria.supplyingCompany}"/>	
-					<h:outputLabel for="excursionCity">City:</h:outputLabel>
-	            	<p:inputText id="excursionCity" value="#{SearchWeb.searchCriteria.excursionCity}"/>		            	
-					<h:outputLabel for="excursionDescription">Description (even only a part):</h:outputLabel>
-	            	<p:inputText id="excursionDescription" value="#{SearchWeb.searchCriteria.excursionDescription}"/>	            	
-				 	<h:outputLabel for="excursionDateTime">Date and Time:</h:outputLabel>            	
-	            	<p:calendar value="#{SearchWeb.excursionDateTime}" id="excursionDateTime" showButtonPanel="true" pattern="MM/dd/yyyy HH:mm"/> 						            						  
-					</h:panelGrid>	        
-		 		</p:panel>
+				    <p:panel header="Define search criteria">   	    
+					    <h:panelGrid columns="2">  
+						<h:outputLabel for="excursionSupplyinCompany">Supplying Company:</h:outputLabel>
+		            	<p:inputText id="excursionSupplyinCompany" value="#{SearchWeb.searchCriteria.supplyingCompany}"/>	
+						<h:outputLabel for="excursionCity">City:</h:outputLabel>
+		            	<p:inputText id="excursionCity" value="#{SearchWeb.searchCriteria.excursionCity}"/>		            	
+						<h:outputLabel for="excursionDescription">Description (even only a part):</h:outputLabel>
+		            	<p:inputText id="excursionDescription" value="#{SearchWeb.searchCriteria.excursionDescription}"/>	            	
+					 	<h:outputLabel for="excursionDateTime">Date and Time:</h:outputLabel>            	
+		            	<p:calendar value="#{SearchWeb.excursionDateTime}" id="excursionDateTime" showButtonPanel="true" pattern="MM/dd/yyyy HH:mm"/> 						            						  
+						</h:panelGrid>	        
+			 		</p:panel>
 			    </p:tab> 			     	  				     		    	
 	    	</p:tabView>	    
-		    <h:panelGrid columns="2">  
-				  
-			</h:panelGrid>
 	    	<p:commandButton value="Search" icon="ui-icon-search" action="#{SearchWeb.searchTravelComponents}" update="componentsGrowl" ajax="true" styleClass="ui-priority-primary">  
 	       		<p:ajax event="dialogReturn" listener="#{SearchWeb.onTravelComponentChosen}"/> 
 	       	</p:commandButton>
