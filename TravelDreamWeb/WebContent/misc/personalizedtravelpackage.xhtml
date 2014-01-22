@@ -15,12 +15,12 @@
 			<p:message for="name" />
 			<h:outputLabel value="" /> 
 			<p:inplace id="Departure_date" editor="true">
-				<p:inputText value="#{TravelPackagePage.persTP.departureDate}" />
+				<p:calendar value="#{TravelPackagePage.persTP.departureDate}" showButtonPanel="true" />
 			</p:inplace> 
 			<p:message for="Departure_date" /> 
 			<h:outputLabel value="" />  
 			<p:inplace id="Arrival_date" editor="true">
-			<p:inputText value="#{TravelPackagePage.persTP.returnDate}" />
+			<p:calendar value="#{TravelPackagePage.persTP.returnDate}" showButtonPanel="true" />
 			</p:inplace> 
 			<p:message for="Arrival_date" />
 		</h:panelGrid>
