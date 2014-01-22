@@ -62,6 +62,9 @@ public class SearchWeb {
 		// initializations
 		searchCriteria = new TravelComponentDTO();
 		searchCriteria.setType(ComponentType.FLIGHT); // default value (since is the first tab displayed)
+		flightSupplyingCompany = new String();
+		hotelSupplyingCompany = new String();
+		excursionSupplyingCompany = new String();
 		packageName = new String();
 		firstName = new String();
 		lastName = new String();
