@@ -107,7 +107,7 @@ public class UserPersonalPage {
 		List<PersonalizedTravelPackageDTO> toSend = new ArrayList<PersonalizedTravelPackageDTO>();
 		toSend.add(personalizedTravelPackage);
 		data.setPersonalizedTravelPackagesList(toSend);
-		FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "misc/personalized_travel_package.xhtml"); // TODO: waiting for TravelPackage page	
+		FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/customer/personalized_travel_package.xhtml"); // TODO: waiting for TravelPackage page	
 	}
 	
 	
