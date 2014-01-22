@@ -13,16 +13,16 @@
     <h:body>  
         <h:form>  
             <p:dataTable var="user" value="#{SearchCustomers.usersList}">  
+                <p:column headerText="">  
+                    <p:commandButton icon="ui-icon-contact" actionListener="#{SearchCustomers.selectFromDialog(user)}"/>  
+                </p:column>  
+                
                 <p:column headerText="Firstname">  
                     <h:outputText value="#{user.firstName}" />  
                 </p:column>  
   
                 <p:column headerText="Lastname">  
                     <h:outputText value="#{user.lastName}" />  
-                </p:column>  
-  
-                <p:column headerText="">  
-                    <p:commandButton icon="ui-icon-contact" actionListener="#{SearchCustomers.selectFromDialog(user)}"/>  
                 </p:column>  
             </p:dataTable>  
         </h:form>  
