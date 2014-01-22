@@ -141,7 +141,7 @@ public class Search {
 				query= query + "c.hotelCity LIKE \"" + travelComponent.getHotelCity() + "\"";
 			if(travelComponent.getHotelDate()!=null){
 				if(query.isEmpty())
-					query=query + "c.hotelDate LIKE " + travelComponent.getHotelDate() + "\"";
+					query=query + "c.hotelDate LIKE \"" + travelComponent.getHotelDate() + "\"";
 				else	query=query + " AND c.hotelDate LIKE \"" + travelComponent.getHotelDate() + "\"";
 			}
 			break;
