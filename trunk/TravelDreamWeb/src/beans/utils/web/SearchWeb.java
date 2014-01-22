@@ -40,6 +40,9 @@ public class SearchWeb {
 	}
 	
 	private TravelComponentDTO searchCriteria;
+	private String flightSupplyingCompany;
+	private String hotelSupplyingCompany;
+	private String excursionSupplyingCompany;	
 	private String packageName;
 	private java.util.Date departureDate;
 	private java.util.Date returnDate;
@@ -70,6 +73,24 @@ public class SearchWeb {
 	}
 	public void setSearchCriteria(TravelComponentDTO searchCriteria){
 		this.searchCriteria = searchCriteria;
+	}
+	public String getFlightSupplyingCompany() {
+		return flightSupplyingCompany;
+	}
+	public void setFlightSupplyingCompany(String flightSupplyingCompany) {
+		this.flightSupplyingCompany = flightSupplyingCompany;
+	}
+	public String getHotelSupplyingCompany() {
+		return hotelSupplyingCompany;
+	}
+	public void setHotelSupplyingCompany(String hotelSupplyingCompany) {
+		this.hotelSupplyingCompany = hotelSupplyingCompany;
+	}
+	public String getExcursionSupplyingCompany() {
+		return excursionSupplyingCompany;
+	}
+	public void setExcursionSupplyingCompany(String excursionSupplyingCompany) {
+		this.excursionSupplyingCompany = excursionSupplyingCompany;
 	}
 	public String getPackageName(){
 		return packageName;
@@ -225,10 +246,10 @@ public class SearchWeb {
 	}
 	
 	public void searchTravelComponents(){
-		if(searchCriteria.getSupplyingCompany().isEmpty())
-			searchCriteria.setSupplyingCompany(null);
 		switch(searchCriteria.getType()){
 		case FLIGHT:
+			if(flightSupplyingCompany.isEmpty())
+				searchCriteria.setSupplyingCompany(null);
 			if(flightDepartureDateTime != null)
 				searchCriteria.setFlightDepartureDateTime(new Timestamp(flightDepartureDateTime.getTime()));		
 			else
@@ -252,6 +273,8 @@ public class SearchWeb {
 			
 			break;
 		case HOTEL:
+			if(hotelSupplyingCompany.isEmpty())
+				searchCriteria.setSupplyingCompany(null);
 			if(searchCriteria.getHotelCity().isEmpty())
 				searchCriteria.setHotelCity(null);
 			if(hotelStartingDate != null && hotelEndingDate != null){
@@ -276,6 +299,8 @@ public class SearchWeb {
 			
 			break;
 		case EXCURSION:
+			if(excursionSupplyingCompany.isEmpty())
+				searchCriteria.setSupplyingCompany(null);
 			if(searchCriteria.getExcursionCity().isEmpty())
 				searchCriteria.setExcursionCity(null);
 			
