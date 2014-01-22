@@ -14,17 +14,18 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.Flash;
 import javax.inject.Inject;
 
-import org.primefaces.event.SelectEvent;
+import org.primefaces.context.RequestContext;
 
 import beans.accountmanagement.UserDTO;
 import beans.customerhandler.CustomerHandlerInterface;
 import beans.customerhandler.GiftElements_HelperDTO;
 import beans.customerhandler.GiftListDTO;
+import beans.travelcomponent.TravelComponentDTO;
 import beans.travelpackage.PersonalizedTravelPackageDTO;
-import beans.travelpackage.PredefinedTravelPackageDTO;
 import beans.utils.SearchDTOInterface;
-//TODO:inserire visualizza travel component nel'xml
 import beans.utils.web.Data_Exchange;
+
+//TODO:inserire visualizza travel component nel'xml
 
 @ManagedBean(name="UserPersonalPage")
 @ViewScoped
@@ -54,35 +55,62 @@ public class UserPersonalPage {
 		persTP=search.findAllPersonalizedTravelPackages(user);
 	}
 	
-	public String deleteGFelement(GiftElements_HelperDTO helper){
-		
+	public void deleteGFelement(GiftElements_HelperDTO helper) throws IOException{
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		Flash flash = facesContext.getExternalContext().getFlash();
+		flash.setKeepMessages(true);
+		flash.setRedirect(true);
 		customerhandler.removeTravelComponentFromGiftList(helper);
+			facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Successful", "You have succesfully deleted your component from GiftList!")); 
+			FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/customer/gift_list.xhtml"); //delete a Personalize Travel Package
 		
-		return "gift_list?faces-redirect=true";	//delete a GiftList element 
 	}
-	public String visualizeTP(PersonalizedTravelPackageDTO persTP){  
-		List<PersonalizedTravelPackageDTO> helper= new ArrayList<PersonalizedTravelPackageDTO>();
-		helper.add(persTP);
-		data.setPersonalizedTravelPackagesList(helper);
-		return "link alla pagina che far��";	//visualize a Personalize Travel Package
-	}										//redirecting to the travel package page
 	
 	public void deletePTPelement(PersonalizedTravelPackageDTO helper) throws IOException{
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		Flash flash = facesContext.getExternalContext().getFlash();
 		flash.setKeepMessages(true);
 		flash.setRedirect(true);
-		//PersonalizedTravelPackageDTO helper= (PersonalizedTravelPackageDTO) event.getObject(); 
 		boolean result=customerhandler.deletePersonalizedTravelPackage(helper);
 			if (result==true){
-				FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/customer/personal_travel_package.xhtml"); //delete a Personalize Travel Package
 				facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Successful", "You have succesfully deleted your package!")); 
+				FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/customer/personal_travel_package.xhtml"); //delete a Personalize Travel Package
 			}
 			else
-				facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Successful", "Something went wrong")); 
+				facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error", "You cannot delete a confirmed package")); 
 			
-				
 	}
+	
+	public void showMessage(PersonalizedTravelPackageDTO helper) {  //get identifier
+        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Identifier", "SUKA");  
+        RequestContext.getCurrentInstance().showMessageInDialog(message);  //TODO
+    } 
+	
+	public void showComponentfromGiftList(GiftElements_HelperDTO gift) throws IOException{
+		//select package and go to personal_package_home
+		List<TravelComponentDTO> toSend = new ArrayList<TravelComponentDTO>();
+		toSend.add(gift.getTravelComponent().getTravelComponent());
+		data.setTravelComponentsList(toSend);
+		FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/index.xhtml"); // TODO: waiting for TravelComponent page	
+	}
+	
+	public void showPackagefromGiftList(GiftElements_HelperDTO gift) throws IOException{
+		//select package and go to personal_package_home
+		List<PersonalizedTravelPackageDTO> toSend = new ArrayList<PersonalizedTravelPackageDTO>();
+		toSend.add(gift.getPersonalizedTravelPackage());
+		data.setPersonalizedTravelPackagesList(toSend);
+		FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/index.xhtml"); // TODO: waiting for TravelPackage page	
+	}
+	
+	public void showPackage(PersonalizedTravelPackageDTO personalizedTravelPackage) throws IOException{
+		// open up the predefinedTravelPackage page
+		List<PersonalizedTravelPackageDTO> toSend = new ArrayList<PersonalizedTravelPackageDTO>();
+		toSend.add(personalizedTravelPackage);
+		data.setPersonalizedTravelPackagesList(toSend);
+		FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/index.xhtml"); // TODO: waiting for TravelPackage page	
+	}
+	
+	
 	public String goToNextpage() {
 	    return "personal_travel_package";
 	}
