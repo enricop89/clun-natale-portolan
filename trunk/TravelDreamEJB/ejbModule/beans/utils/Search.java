@@ -132,7 +132,7 @@ public class Search {
 			}
 			if(travelComponent.getFlightDepartureDateTime()!=null){
 				if(query.isEmpty())
-					query=query + "c.flightCode LIKE " + travelComponent.getFlightCode() + "\"";
+					query=query + "c.flightCode LIKE \"" + travelComponent.getFlightCode() + "\"";
 				else	query=query + "AND flightCode LIKE \"" + travelComponent.getFlightCode() + "\"";
 			}
 			break;
