@@ -153,7 +153,7 @@ public class Search {
 					query=query + "c.excursionDateTime = " + travelComponent.getExcursionDateTime() ;
 				else	query=query + " AND c.excursionDateTime = " + travelComponent.getExcursionDateTime() ;
 			}
-			if(travelComponent.getFlightDepartureDateTime()!=null){
+			if(travelComponent.getExcursionCity()!=null){
 				if(query.isEmpty())
 					query=query + "c.excursionCity = " + travelComponent.getExcursionCity() ;
 				else	query=query + " AND c.excursionCity = " + travelComponent.getExcursionCity() ;
