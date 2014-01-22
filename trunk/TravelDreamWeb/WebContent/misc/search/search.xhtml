@@ -101,10 +101,10 @@
 			 		</p:panel>
 			    </p:tab> 			     	  				     		    	
 	    	</p:tabView>	    
-	    	<p:commandButton value="Search" icon="ui-icon-search" action="#{SearchWeb.searchTravelComponents}" update="componentsGrowl" ajax="true" styleClass="ui-priority-primary">  
+	    	<p:commandButton value="Search" icon="ui-icon-search" actionListener="#{SearchWeb.searchTravelComponents}" update="componentsGrowl" ajax="true" styleClass="ui-priority-primary">  
 	       		<p:ajax event="dialogReturn" listener="#{SearchWeb.onTravelComponentChosen}"/> 
 	       	</p:commandButton>
-       		<p:commandButton value="Browse All" icon="ui-icon-search" action="#{SearchWeb.browseAllTravelComponents}" update="componentsGrowl" ajax="true">
+       		<p:commandButton value="Browse All" icon="ui-icon-search" actionListener="#{SearchWeb.browseAllTravelComponents}" update="componentsGrowl" ajax="true">
 		       	<p:ajax event="dialogReturn" listener="#{SearchWeb.onTravelComponentChosen}"/> 
 			</p:commandButton>			        
  		</p:panel>
