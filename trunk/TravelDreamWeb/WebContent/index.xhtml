@@ -8,6 +8,7 @@
     <ui:define name="title">TravelDream Homepage</ui:define>
 
     <ui:define name="content">
+    	<p:growl id="growl" showDetail="true" globalOnly="true" />
     	<h:panelGroup layout="block" rendered="#{empty request.remoteUser}">
     		<h1>Welcome to TravelDream!</h1>
         	<p>If you are already registered, you can log yourself in, using the form at the top of the page.</p>
