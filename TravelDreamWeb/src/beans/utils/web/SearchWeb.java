@@ -172,7 +172,7 @@ public class SearchWeb {
 		predefinedTravelPackagesList = finder.findPredefinedTravelPackage(packageName, departureDateCriteria, returnDateCriteria);
 		
 		if(predefinedTravelPackagesList == null || predefinedTravelPackagesList.isEmpty())
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"No Results", "Your search has given ro results")); 
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"No Results", "Your search has given no results")); 
 		else{
 			data.setPredefinedTravelPackagesList(predefinedTravelPackagesList);
 			RequestContext.getCurrentInstance().openDialog("/misc/search/travelpackage_search.xhtml");
@@ -183,7 +183,7 @@ public class SearchWeb {
 		predefinedTravelPackagesList = finder.findAllPredefinedTravelPackages();
 		
 		if(predefinedTravelPackagesList == null || predefinedTravelPackagesList.isEmpty())
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"No Results", "Your search has given ro results")); 
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"No Results", "Your search has given no results")); 
 		else{
 			data.setPredefinedTravelPackagesList(predefinedTravelPackagesList);
 			RequestContext.getCurrentInstance().openDialog("/misc/search/travelpackage_search.xhtml");
@@ -211,7 +211,7 @@ public class SearchWeb {
 		usersList = finder.findUser(firstName, lastName);
 		
 		if(usersList == null || usersList.isEmpty())
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"No Results", "Your search has given ro results")); 
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"No Results", "Your search has given no results")); 
 		else{
 			data.setUsersList(usersList);
 			RequestContext.getCurrentInstance().openDialog("/misc/search/customer_search.xhtml");
@@ -321,7 +321,7 @@ public class SearchWeb {
 		}
 		
 		if(travelComponentsList == null || travelComponentsList.isEmpty())
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"No Results", "Your search has given ro results")); 
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"No Results", "Your search has given no results")); 
 		else{
 			data.setTravelComponentsList(travelComponentsList);
 			RequestContext.getCurrentInstance().openDialog("/misc/search/travelcomponent_search.xhtml");
@@ -331,7 +331,7 @@ public class SearchWeb {
 		travelComponentsList = finder.findAllTravelComponents();
 		
 		if(travelComponentsList == null || travelComponentsList.isEmpty())
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"No Results", "Your search has given ro results")); 
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"No Results", "Your search has given no results")); 
 		else{
 			data.setTravelComponentsList(travelComponentsList);
 			RequestContext.getCurrentInstance().openDialog("/misc/search/travelcomponent_search.xhtml");
