@@ -9,7 +9,7 @@
   <ui:define name="title">TravelDream Homepage</ui:define>
 
     <ui:define name="content">
-	
+	<p:growl id="growl1" showDetail="true" globalOnly="true" />
 	<p:tabMenu activeIndex="1">  
 	 <p:menuitem value="Personal Info" url="personal_page.xhtml" icon="ui-icon-star"/>  
      <p:menuitem value="PersonalTravelPackage" url="personal_travel_package.xhtml" icon="ui-icon-document"/>  
@@ -17,7 +17,8 @@
   	 <p:menuitem value="Search" url="search_page.xhtml" icon="ui-icon-search"/> 
   	 </p:tabMenu> 
   	  <h:form>  
-            <p:dataTable var="element" value="#{UserPersonalPage.persTP}">  
+  	  		
+            <p:dataTable var="element" value="#{UserPersonalPage.persTP}" >  
                 <p:column headerText="Name">  
                     <h:outputText value="#{element.name}" />  
                 </p:column>  
@@ -34,12 +35,20 @@
                       <p:graphicImage id="Unconfirm" value="/resources/images/unconfirmed.png" style="float:center" rendered="#{UserPersonalPage.checkStatus(element)==false}" />
                      <p:tooltip for="Unconfirm" value="The package is unconfirmed" showEffect="fade" hideEffect="fade" /> 
                      </p:column>   
+                          
                              
-                  <p:column headerText="" style="text-align: center">    
-	                    <p:commandLink styleClass="ui-icon ui-icon-trash" update="growl"  style="float:center" action="#{UserPersonalPage.deletePTPelement(element)}"
-               					ajax="false"		/>
-	                      
-                </p:column>  
+                  	<p:column headerText="" style="text-align: center"> 
+                  			<h:panelGroup style="white-space: nowrap">
+                  			<h:panelGrid columns="3" > 
+                  			<p:commandButton id="link" icon="ui-icon-link"  actionListener="#{UserPersonalPage.showPackage(elements)}"/> 
+                  			<p:commandButton id="link" icon="ui-icon-link"  actionListener="#{UserPersonalPage.showMessage(element)}"/>
+	                    	<p:commandButton id="delete" icon="ui-icon-trash" update="growl1"   action="#{UserPersonalPage.deletePTPelement(element)}"
+               					ajax="false"/> 
+	                       </h:panelGrid>
+	                       </h:panelGroup>
+	                       <p:tooltip for="delete" value="Delete the package" showEffect="fade" hideEffect="fade" /> 
+	                       <p:tooltip for="link" value="Get the package identifier" showEffect="fade" hideEffect="fade" />   
+	                </p:column>         
                 
             </p:dataTable>  
         </h:form>  
