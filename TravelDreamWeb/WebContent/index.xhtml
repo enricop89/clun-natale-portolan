@@ -11,13 +11,9 @@
     	<h:panelGroup layout="block" rendered="#{empty request.remoteUser}">
     		<h1>Welcome to TravelDream!</h1>
         	<p>If you are already registered, you can log yourself in, using the form at the top of the page.</p>
-        	<p>Otherwise, you can [register] or [search].</p>
+        	<p>Otherwise, you can <h:link outcome="/registration.xhtml" value="[register]" /> a new account</p> 
     	</h:panelGroup>
     	
-    	<h:panelGroup layout="block" rendered="#{not empty request.remoteUser}">
-    		<h1>Welcome back to TravelDream!</h1>
-        	<p>Long time no see!</p>
-    	</h:panelGroup>
-        
+		<f:event type="preRenderView" listener="#{AuthenticationWeb.checkRole}" />       
     </ui:define>
 </ui:composition>
