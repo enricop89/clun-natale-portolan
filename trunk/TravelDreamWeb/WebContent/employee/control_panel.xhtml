@@ -9,14 +9,99 @@
 
     <ui:define name="content">
 <p:accordionPanel>  
-    <p:tab title="Create travel component">  
-        <h:panelGrid columns="2" cellpadding="10">  
-            <h:outputText  
-                value="The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding.   
-                His beloved son Michael has just come home from the war, but does not intend to become part of his father's business. T  
-                hrough Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family, kind and benevolent to those who give respect,   
-                but given to ruthless violence whenever anything stands against the good of the family." />  
+    <p:tab title="Create travel component"> 
+    <h:form> 
+        <h:panelGrid columns="6" cellpadding="10">  
+			<h:outputLabel for="company">Supplying company:</h:outputLabel>
+			<p:inputText id="company" value="#{EmployeeHandlerWeb.componentDTO.supplyingCompany}" />
+			<p:message for="company" />
+			
+			<h:outputLabel for="places">Number of available places:</h:outputLabel>
+			<p:inputText id="places" value="#{EmployeeHandlerWeb.componentDTO.availability}" />
+			<p:message for="places" />			
         </h:panelGrid>  
+         
+        <p:tabView id="tabView" > 
+	        <p:tab title="Flight" id="Flight">  
+	        	<h:panelGrid columns="6" cellpadding="10" >  
+				    <f:facet name="header">Flight details</f:facet> 
+				     
+					<h:outputText value="Flight departure date: "/>
+					<p:calendar value="#{EmployeeHandlerWeb.flightDepartureDate}" id="flight_dep_date" />  
+					<p:message for="flight_dep_date" />
+					
+					<h:outputLabel for="flight_dep_time" value="Flight departure time: "/>
+		            <p:inputMask value="#{EmployeeHandlerWeb.flightDepartureTime}" mask="99:99" id="flight_dep_time"/>  
+					<p:message for="flight_dep_time" />       
+	
+					<h:outputText value="Flight arrival date: "/>
+					<p:calendar value="#{EmployeeHandlerWeb.flightArrivalDate}" id="flight_arrival_date" />  
+					<p:message for="flight_arrival_date" />
+					
+					<h:outputLabel for="flight_arrival_time" value="Flight arrival time: "/>	
+		            <p:inputMask value="#{EmployeeHandlerWeb.flightArrivalTime}" mask="99:99" id="flight_arrival_time"/>  
+					<p:message for="flight_arrival_time" />
+					
+					<h:outputLabel for="flight_dep_city">Flight departure city:</h:outputLabel>
+					<p:inputText id="flight_dep_city" value="#{EmployeeHandlerWeb.componentDTO.flightDepartureCity}" />
+					<p:message for="flight_dep_city" />
+	
+					<h:outputLabel for="flight_arrival_city">Flight arrival city:</h:outputLabel>
+					<p:inputText id="flight_arrival_city" value="#{EmployeeHandlerWeb.componentDTO.flightArrivalCity}" />
+					<p:message for="flight_arrival_city" />
+					
+					<h:outputLabel for="flight_code">Flight code:</h:outputLabel>
+					<p:inputText id="flight_code" value="#{EmployeeHandlerWeb.componentDTO.flightCode}" />
+					<p:message for="flight_code" />	
+				</h:panelGrid>
+				<p:commandButton id="createFlight" value="Add this travel component" action="#{EmployeeHandlerWeb.createFlight}"/>
+	        </p:tab>  
+	  
+	        <p:tab title="Hotel" id="Hotel">  
+	            <h:panelGrid columns="6" cellpadding="10">  
+				    <f:facet name="header">Hotel details:</f:facet> 
+
+					<h:outputLabel for="hotel_city">Hotel city:</h:outputLabel>
+					<p:inputText id="hotel_city" value="#{EmployeeHandlerWeb.componentDTO.hotelCity}" />
+					<p:message for="hotel_city" />
+					
+					<h:outputText value="Hotel date: "/>
+					<p:calendar value="#{EmployeeHandlerWeb.hotelDate}" id="hotel_date" />
+					<p:message for="hotel_date" />
+
+	            </h:panelGrid>  
+				<p:commandButton id="createHotel" value="Add this travel component" action="#{EmployeeHandlerWeb.createHotel}"/>
+	        </p:tab>  
+	  
+	        <p:tab title="Excursion" id="Excursion">  
+	            <h:panelGrid columns="6" cellpadding="10"> 
+				    <f:facet name="header">Excursion details</f:facet>  
+	            
+					<h:outputText value="Excursion date: "/>
+					<p:calendar value="#{EmployeeHandlerWeb.excursionDate}" id="excursion_date" />  
+					<p:message for="excursion_date" />
+					
+					<h:outputLabel for="excursion_city">Excursion city:</h:outputLabel>
+					<p:inputText id="excursion_city" value="#{EmployeeHandlerWeb.componentDTO.excursionCity}" />
+					<p:message for="excursion_city" />
+					
+					<h:outputLabel for="excursion_time" value="Excursion time: "/>	
+		            <p:inputMask value="#{EmployeeHandlerWeb.excursionTime}" mask="99:99" id="excursion_time"/>  
+					<p:message for="excursion_time" />
+					
+					<h:outputLabel for="descr" value="Description: "/>	
+					<p:inputTextarea rows="5" cols="30" counter="counter" maxlength="255"       
+    					counterTemplate="{0} characters remaining." autoResize="false"
+    					value="#{EmployeeHandlerWeb.componentDTO.excursionDescription}" id="descr"/>
+   					<h:outputText id="counter" />    
+	            </h:panelGrid> 
+				<p:commandButton id="createExcursion" value="Add this travel component" action="#{EmployeeHandlerWeb.createExcursion}"/>
+	        </p:tab>  
+    	</p:tabView> 
+        
+        
+	
+		</h:form>
     </p:tab>  
     <p:tab title="Create predefined travel package">  
         <h:panelGrid columns="2" cellpadding="10">  
