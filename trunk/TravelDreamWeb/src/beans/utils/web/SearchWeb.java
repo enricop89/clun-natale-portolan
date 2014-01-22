@@ -9,8 +9,10 @@ import javax.inject.Inject;
 
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
+import org.primefaces.event.TabChangeEvent;
 
 import beans.accountmanagement.UserDTO;
+import beans.travelcomponent.ComponentType;
 import beans.travelcomponent.TravelComponentDTO;
 import beans.travelpackage.PredefinedTravelPackageDTO;
 import beans.utils.SearchDTOInterface;
@@ -49,6 +51,7 @@ public class SearchWeb {
 	public SearchWeb(){
 		// initializations
 		searchCriteria = new TravelComponentDTO();
+		searchCriteria.setType(ComponentType.FLIGHT); // default value (since is the first tab displayed)
 		packageName = new String();
 		firstName = new String();
 		lastName = new String();
@@ -170,6 +173,21 @@ public class SearchWeb {
 	
 	//---------------------------
 	// TRAVEL COMPONENTS
+	public void tabChangeListener(TabChangeEvent event){
+		searchCriteria = new TravelComponentDTO(); // flushes previous criteria
+		switch(event.getTab().getId()){
+		case "flights":
+			searchCriteria.setType(ComponentType.FLIGHT);
+			break;
+		case "hotels":
+			searchCriteria.setType(ComponentType.HOTEL);
+			break;
+		case "excursions":
+			searchCriteria.setType(ComponentType.EXCURSION);
+			break;
+		}
+	}
+	
 	public void searchTravelComponents(){
 		//TODO TBD
 	}
