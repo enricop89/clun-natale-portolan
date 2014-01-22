@@ -113,53 +113,56 @@ public class Search {
 		switch(travelComponent.getType()){
 		case FLIGHT:
 			if(travelComponent.getFlightDepartureDateTime()!=null){
-				query=query + "c.flightDepartureDateTime = " + travelComponent.getFlightDepartureDateTime() ;
+				query=query + "c.flightDepartureDateTime LIKE \"" + travelComponent.getFlightDepartureDateTime() + "\"";
 			}
 			if(travelComponent.getFlightDepartureDateTime()!=null){
 				if(query.isEmpty())
-					query=query + "c.flightArrivalDateTime = " + travelComponent.getFlightArrivalDateTime() ;
-				else	query=query + " AND c.flightArrivalDateTime = " + travelComponent.getFlightArrivalDateTime() ;
+					query=query + "c.flightArrivalDateTime LIKE \"" + travelComponent.getFlightArrivalDateTime() + "\"";
+				else	query=query + " AND c.flightArrivalDateTime LIKE \"" + travelComponent.getFlightArrivalDateTime() + "\"";
 			}
 			if(travelComponent.getFlightDepartureDateTime()!=null){
 				if(query.isEmpty())
-					query=query + "c.flightDepartureCity = " + travelComponent.getFlightDepartureCity() ;
-				else	query=query + " AND c.flightDepartureCity = " + travelComponent.getFlightDepartureCity() ;
+					query=query + "c.flightDepartureCity LIKE \"" + travelComponent.getFlightDepartureCity() + "\"";
+				else	query=query + " AND c.flightDepartureCity LIKE \"" + travelComponent.getFlightDepartureCity() + "\"";
 			}
 			if(travelComponent.getFlightDepartureDateTime()!=null){
 				if(query.isEmpty())
-					query=query + "c.flightArrivalCity = " + travelComponent.getFlightArrivalCity() ;
-				else	query=query + " AND c.flightArrivalCity = " + travelComponent.getFlightArrivalCity() ;
+					query=query + "c.flightArrivalCity LIKE \"" + travelComponent.getFlightArrivalCity() + "\"";
+				else	query=query + " AND c.flightArrivalCity LIKE \"" + travelComponent.getFlightArrivalCity() + "\"";
 			}
 			if(travelComponent.getFlightDepartureDateTime()!=null){
 				if(query.isEmpty())
-					query=query + "c.flightCode = " + travelComponent.getFlightCode() ;
-				else	query=query + "AND flightCode = :" + travelComponent.getFlightCode() ;
+					query=query + "c.flightCode LIKE " + travelComponent.getFlightCode() + "\"";
+				else	query=query + "AND flightCode LIKE \"" + travelComponent.getFlightCode() + "\"";
 			}
 			break;
 		case HOTEL:
 			if(travelComponent.getHotelCity()!=null)
-				query= query + "c.hotelCity = " + travelComponent.getHotelCity() ;
+				query= query + "c.hotelCity LIKE \"" + travelComponent.getHotelCity() + "\"";
 			if(travelComponent.getHotelDate()!=null){
 				if(query.isEmpty())
-					query=query + "c.hotelDate = " + travelComponent.getHotelDate() ;
-				else	query=query + " AND c.hotelDate = " + travelComponent.getHotelDate() ;
+					query=query + "c.hotelDate LIKE " + travelComponent.getHotelDate() + "\"";
+				else	query=query + " AND c.hotelDate LIKE \"" + travelComponent.getHotelDate() + "\"";
 			}
 			break;
 		case EXCURSION:
 			if(travelComponent.getExcursionDescription()!=null)
-				query= query + "CONTAINS(c.excursionDescription," + travelComponent.getExcursionDescription() + ")" ;
+				query= query + "CONTAINS(c.excursionDescription,\"" + travelComponent.getExcursionDescription() + "\")" ;
 			if(travelComponent.getExcursionDateTime()!=null){
 				if(query.isEmpty())
-					query=query + "c.excursionDateTime = " + travelComponent.getExcursionDateTime() ;
-				else	query=query + " AND c.excursionDateTime = " + travelComponent.getExcursionDateTime() ;
+					query=query + "c.excursionDateTime LIKE \"" + travelComponent.getExcursionDateTime() + "\"";
+				else	query=query + " AND c.excursionDateTime LIKE \"" + travelComponent.getExcursionDateTime() + "\"";
 			}
 			if(travelComponent.getExcursionCity()!=null){
 				if(query.isEmpty())
-					query=query + "c.excursionCity = " + travelComponent.getExcursionCity() ;
-				else	query=query + " AND c.excursionCity = " + travelComponent.getExcursionCity() ;
+					query=query + "c.excursionCity LIKE \"" + travelComponent.getExcursionCity() + "\"";
+				else	query=query + " AND c.excursionCity LIKE \"" + travelComponent.getExcursionCity() + "\"";
 			}
 			break;
 		}
+		if(query.isEmpty())
+			return null;
+		
 		return entityManager.createQuery("SELECT c FROM TravelComponent c WHERE " + query, TravelComponent.class).getResultList();
 	}
 	
