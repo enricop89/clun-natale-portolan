@@ -19,7 +19,9 @@ import beans.utils.SearchDTOInterface;
 
 import java.io.IOException;
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List; 
 
 @ManagedBean(name="SearchWeb")
@@ -41,6 +43,11 @@ public class SearchWeb {
 	private String packageName;
 	private java.util.Date departureDate;
 	private java.util.Date returnDate;
+	private java.util.Date flightDepartureDateTime;
+	private java.util.Date flightArrivalDateTime;
+	private java.util.Date hotelStartingDate;
+	private java.util.Date hotelEndingDate;
+	private java.util.Date excursionDateTime;
 	private String firstName;
 	private String lastName;
 	
@@ -96,7 +103,36 @@ public class SearchWeb {
 	public void setLastName(String lastName){
 		this.lastName = lastName;
 	}
-	
+	public java.util.Date getFlightDepartureDateTime() {
+		return flightDepartureDateTime;
+	}
+	public void setFlightDepartureDateTime(java.util.Date flightDepartureDateTime) {
+		this.flightDepartureDateTime = flightDepartureDateTime;
+	}
+	public java.util.Date getFlightArrivalDateTime() {
+		return flightArrivalDateTime;
+	}
+	public void setFlightArrivalDateTime(java.util.Date flightArrivalDateTime) {
+		this.flightArrivalDateTime = flightArrivalDateTime;
+	}
+	public java.util.Date getHotelStartingDate() {
+		return hotelStartingDate;
+	}
+	public void setHotelStartingDate(java.util.Date hotelStartingDate) {
+		this.hotelStartingDate = hotelStartingDate;
+	}
+	public java.util.Date getHotelEndingDate() {
+		return hotelEndingDate;
+	}
+	public void setHotelEndingDate(java.util.Date hotelEndingDate) {
+		this.hotelEndingDate = hotelEndingDate;
+	}
+	public java.util.Date getExcursionDateTime() {
+		return excursionDateTime;
+	}
+	public void setExcursionDateTime(java.util.Date excursionDateTime) {
+		this.excursionDateTime = excursionDateTime;
+	}	
 	//---------------------------
 	// PREDEFINED TRAVEL PACKAGES	
 	public void searchPredefinedTravelPackages(){
@@ -115,7 +151,7 @@ public class SearchWeb {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"No Results", "Your search has given ro results")); 
 		else{
 			data.setPredefinedTravelPackagesList(predefinedTravelPackagesList);
-			RequestContext.getCurrentInstance().openDialog("/misc/search/travelpackage.xhtml");
+			RequestContext.getCurrentInstance().openDialog("/misc/search/travelpackage_search.xhtml");
 		}
 	}
 	
@@ -126,7 +162,7 @@ public class SearchWeb {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"No Results", "Your search has given ro results")); 
 		else{
 			data.setPredefinedTravelPackagesList(predefinedTravelPackagesList);
-			RequestContext.getCurrentInstance().openDialog("/misc/search/travelpackage.xhtml");
+			RequestContext.getCurrentInstance().openDialog("/misc/search/travelpackage_search.xhtml");
 		}
 	}
 	
@@ -189,10 +225,89 @@ public class SearchWeb {
 	}
 	
 	public void searchTravelComponents(){
-		//TODO TBD
+		if(searchCriteria.getSupplyingCompany().isEmpty())
+			searchCriteria.setSupplyingCompany(null);
+		switch(searchCriteria.getType()){
+		case FLIGHT:
+			if(flightDepartureDateTime != null)
+				searchCriteria.setFlightDepartureDateTime(new Timestamp(flightDepartureDateTime.getTime()));		
+			else
+				searchCriteria.setFlightDepartureDateTime(null);
+		
+			if(flightArrivalDateTime != null)
+				searchCriteria.setFlightArrivalDateTime(new Timestamp(flightArrivalDateTime.getTime()));	
+			else
+				searchCriteria.setFlightArrivalDateTime(null);
+			
+			if(searchCriteria.getFlightDepartureCity().isEmpty())
+				searchCriteria.setFlightDepartureCity(null);
+			
+			if(searchCriteria.getFlightArrivalCity().isEmpty())
+				searchCriteria.setFlightArrivalCity(null);
+			
+			if(searchCriteria.getFlightCode().isEmpty())
+				searchCriteria.setFlightCode(null);
+			
+			travelComponentsList = finder.findTravelComponent(searchCriteria);
+			
+			break;
+		case HOTEL:
+			if(searchCriteria.getHotelCity().isEmpty())
+				searchCriteria.setHotelCity(null);
+			if(hotelStartingDate != null && hotelEndingDate != null){
+				Calendar start = Calendar.getInstance();
+				start.setTime(hotelStartingDate);
+				Calendar end = Calendar.getInstance();
+				end.setTime(hotelEndingDate);
+				travelComponentsList.clear();
+				for (java.util.Date date = start.getTime(); !start.after(end); start.add(Calendar.DATE, 1), date = start.getTime()) {
+				    searchCriteria.setHotelDate(new Date(date.getTime()));
+				    travelComponentsList.addAll(finder.findTravelComponent(searchCriteria));
+				}
+			}
+			else{
+				if(hotelStartingDate != null)
+					searchCriteria.setHotelDate(new Date(hotelStartingDate.getTime()));
+				else if(hotelEndingDate != null)
+					searchCriteria.setHotelDate(new Date(hotelEndingDate.getTime()));
+				
+				travelComponentsList = finder.findTravelComponent(searchCriteria);
+			}
+			
+			break;
+		case EXCURSION:
+			if(searchCriteria.getExcursionCity().isEmpty())
+				searchCriteria.setExcursionCity(null);
+			
+			if(searchCriteria.getExcursionDescription().isEmpty())
+				searchCriteria.setExcursionDescription(null);
+			
+			if(excursionDateTime != null)
+				searchCriteria.setExcursionDateTime(new Timestamp(excursionDateTime.getTime()));
+			else
+				searchCriteria.setExcursionDateTime(null);
+			
+			travelComponentsList = finder.findTravelComponent(searchCriteria);
+			
+			break;
+		}
+		
+		if(travelComponentsList == null || travelComponentsList.isEmpty())
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"No Results", "Your search has given ro results")); 
+		else{
+			data.setTravelComponentsList(travelComponentsList);
+			RequestContext.getCurrentInstance().openDialog("/misc/search/travelcomponent_search.xhtml");
+		}
 	}
 	public void browseAllTravelComponents(){
-		//TODO TBD
+		travelComponentsList = finder.findAllTravelComponents();
+		
+		if(travelComponentsList == null || travelComponentsList.isEmpty())
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"No Results", "Your search has given ro results")); 
+		else{
+			data.setTravelComponentsList(travelComponentsList);
+			RequestContext.getCurrentInstance().openDialog("/misc/search/travelcomponent_search.xhtml");
+		}
 	}
 	public void onTravelComponentChosen(SelectEvent event) throws IOException{
 		// open up the travelComponent page

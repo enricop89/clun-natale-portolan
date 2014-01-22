@@ -9,7 +9,7 @@ import javax.inject.Inject;
 
 import org.primefaces.context.RequestContext;
 
-import beans.travelcomponent.TravelComponentDTO;;
+import beans.travelcomponent.TravelComponentDTO;
 
 @ManagedBean(name="SearchTravelComponents")
 @ViewScoped
