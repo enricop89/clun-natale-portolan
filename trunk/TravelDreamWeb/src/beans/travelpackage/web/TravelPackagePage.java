@@ -2,11 +2,15 @@ package beans.travelpackage.web;
 
 
 import javax.annotation.PostConstruct;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
 
 import beans.travelpackage.PersonalizedTravelPackageDTO;
 import beans.utils.web.Data_Exchange;
 
+@ManagedBean(name="TravelPackagePage")
+@ViewScoped
 public class TravelPackagePage {
 
 	@Inject
@@ -21,7 +25,7 @@ public class TravelPackagePage {
 	private PersonalizedTravelPackageDTO persTP;
 	
 	@PostConstruct
-	public void visualizepersonalizeTP(){	
+	public void init(){	
 		persTP=data.getPersonalizedTravelPackagesList().get(0);
 	}
 	
