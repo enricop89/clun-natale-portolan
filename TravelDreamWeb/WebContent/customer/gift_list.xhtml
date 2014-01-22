@@ -20,12 +20,19 @@
   	  <h:form>  
             <p:dataTable var="element" value="#{UserPersonalPage.giftList.giftElements}">  
                 <p:column headerText="Type">  
-                    <h:outputText value="#{UserPersonalPage.giftList.giftElements.travelComponent.type}" />  
+                    <h:outputText value="#{element.travelComponent.type}" />  
                 </p:column>  
   
                 <p:column headerText="PersonalizedTravelPackage">  
-                    <h:outputText value="#{UserPersonalPage.giftList.giftElements.personalizedTravelPackage.name}" />  
+                    <h:outputText value="#{element.personalizedTravelPackage.name}" />  
                 </p:column>  
+                
+                <p:column headerText="Status" style="text-align: center">
+                      <p:graphicImage id="Confirm" value="/resources/images/confirmed.png" style="float:center" rendered="#{UserPersonalPage.checkStatusGF(element)}" />
+                     <p:tooltip for="Confirm" value="The component is confirmed" showEffect="fade" hideEffect="fade" /> 
+                      <p:graphicImage id="Unconfirm" value="/resources/images/unconfirmed.png" style="float:center" rendered="#{UserPersonalPage.checkStatusGF(element)==false}" />
+                     <p:tooltip for="Unconfirm" value="The component is unconfirmed" showEffect="fade" hideEffect="fade" /> 
+                     </p:column>  
   
                 <p:column headerText="">  
                     <p:commandButton icon="ui-icon-extlink" actionListener="#{SearchCustomers.selectFromDialog(user)}"/> 
