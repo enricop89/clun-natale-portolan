@@ -70,6 +70,11 @@
 			<description />
 			<url-pattern>/misc/search/*</url-pattern>
 		</web-resource-collection>
+		<web-resource-collection>
+			<web-resource-name>Other Customer Page</web-resource-name>
+			<description />
+			<url-pattern>/misc/other_customer/*</url-pattern>
+		</web-resource-collection>
 		<auth-constraint>
 			<role-name>CUSTOMER</role-name>
 		</auth-constraint>
