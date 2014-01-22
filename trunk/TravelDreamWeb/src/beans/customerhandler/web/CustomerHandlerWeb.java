@@ -29,7 +29,7 @@ import beans.utils.web.Data_Exchange;
 
 @ManagedBean(name="UserPersonalPage")
 @ViewScoped
-public class UserPersonalPage {
+public class CustomerHandlerWeb {
 	@EJB
 	private SearchDTOInterface search;
 	@EJB
