@@ -10,13 +10,9 @@ import beans.accountmanagement.UserDTO;
 public class PersonalizedTravelPackageDTO {
 	private long id; 	
 	@NotEmpty
-	private String name;
-	
+	private String name;	
 	private UserDTO owner;
-
-	@NotEmpty
 	private Date departureDate;
-	@NotEmpty
 	private Date returnDate;
 	
 	private List<Components_HelperDTO> travelComponents;
