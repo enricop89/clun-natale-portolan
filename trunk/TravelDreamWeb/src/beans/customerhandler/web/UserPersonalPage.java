@@ -1,6 +1,7 @@
 
 package beans.customerhandler.web;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -60,12 +61,21 @@ public class UserPersonalPage {
 		data.setPersonalizedTravelPackagesList(helper);
 		return "link alla pagina che far��";	//visualize a Personalize Travel Package
 	}*/											//redirecting to the travel package page
-	public String deletePTPelement(PersonalizedTravelPackageDTO helper){
+	
+	public boolean deletePTPelement(PersonalizedTravelPackageDTO helper) throws IOException{
 		
-		customerhandler.deletePersonalizedTravelPackage(helper);
-		
-		return "personal_travel_package?faces-redirect=true";//delete a Personalize Travel Package
+		boolean result=customerhandler.deletePersonalizedTravelPackage(helper);
+			if (result==true){
+			FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/index.xhtml"); //delete a Personalize Travel Package
+			return result;}
+			
+			return result;
 	}
+	public String goToNextpage() {
+	    return "personal_travel_package";
+	}
+	
+	
 	public boolean checkStatus(PersonalizedTravelPackageDTO helper){
 		for (int i=0;i<helper.getTravelComponents().size();i++)
 			if(helper.getTravelComponents().get(i).getTravelElement()==null)
