@@ -1,13 +1,12 @@
 package beans.travelcomponent;
 
-//import java.sql.Date;
+import java.sql.Date;
 import java.sql.Timestamp;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
 public class TravelComponentDTO {
 	private long id;
-	@NotEmpty
 	private ComponentType type;	
 	@NotEmpty
 	private String supplyingCompany;	
@@ -17,7 +16,7 @@ public class TravelComponentDTO {
 	private String flightArrivalCity;
 	private String flightCode;	
 	private String hotelCity;
-	private java.sql.Date hotelDate;	
+	private Date hotelDate;	
 	private String excursionDescription;
 	private Timestamp excursionDateTime;
 	private String excursionCity;
@@ -98,7 +97,7 @@ public class TravelComponentDTO {
 		this.hotelCity = hotelCity;
 	}   
 	
-	public java.sql.Date getHotelDate() {
+	public Date getHotelDate() {
 		return this.hotelDate;
 	}
 

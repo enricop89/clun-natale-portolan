@@ -13,9 +13,7 @@ public class PredefinedTravelPackageDTO {
 	private String name;
 	@NotEmpty
 	private String description;
-	@NotEmpty
 	private Date departureDate;
-	@NotEmpty
 	private Date returnDate;
 	private List<TravelComponentDTO> travelComponents;
 
