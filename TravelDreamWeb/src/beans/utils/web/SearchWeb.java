@@ -285,7 +285,7 @@ public class SearchWeb {
 				start.setTime(hotelStartingDate);
 				Calendar end = Calendar.getInstance();
 				end.setTime(hotelEndingDate);
-				travelComponentsList.clear();
+				travelComponentsList = new ArrayList<TravelComponentDTO>();
 				for (java.util.Date date = start.getTime(); !start.after(end); start.add(Calendar.DATE, 1), date = start.getTime()) {
 				    searchCriteria.setHotelDate(new Date(date.getTime()));
 				    travelComponentsList.addAll(finder.findTravelComponent(searchCriteria));
