@@ -98,13 +98,12 @@
 				<p:commandButton id="createExcursion" value="Add this travel component" action="#{EmployeeHandlerWeb.createExcursion}"/>
 	        </p:tab>  
     	</p:tabView> 
-        
-        
-	
+     	
 		</h:form>
     </p:tab>  
+     
     <p:tab title="Create predefined travel package"> 
-    
+    	<h:form>
 	            <p:dataTable var="travelComponent" value="#{EmployeeHandlerWeb.packageDTO.travelComponents}">
                 <p:column headerText="" style="text-align: center">  
                 <p:row>
@@ -126,10 +125,11 @@
                     <h:outputText value="#{travelComponent.availability}" />  
                 </p:column> 
             	</p:dataTable> 
-            	
+          	
             	<p:commandButton value="Add Travel Component" style="float:center" icon="ui-icon-plusthick" actionListener="#{EmployeeHandlerWeb.addComponent}">
             		<p:ajax event="dialogReturn" listener="#{EmployeeHandlerWeb.onTravelComponentChosen}"/>
             	</p:commandButton>
+		</h:form>
     </p:tab>  
     <p:tab title="Search">  
 		<ui:include src="/misc/search/search.xhtml" /> 	
