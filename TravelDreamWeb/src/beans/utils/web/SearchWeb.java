@@ -227,7 +227,7 @@ public class SearchWeb {
 			List<UserDTO> toSend = new ArrayList<UserDTO>();
 			toSend.add(user);
 			data.setUsersList(toSend);
-			FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/index.xhtml");//TODO: waiting for Customer Info Page
+			FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/misc/other_customer/personal_page.xhtml");
 		}
 	}
 	

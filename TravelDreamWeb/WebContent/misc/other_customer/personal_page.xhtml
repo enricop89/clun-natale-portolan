@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/master.xhtml"
+	 xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<ui:define name="title">Customer Info Page</ui:define>
+
+	<ui:define name="content">
+	
+		<p:tabMenu activeIndex="0">  
+		<p:menuitem value="Personal Info" url="other_customer.xhtml" icon="ui-icon-person"/>  
+		<p:menuitem value="GiftList" url="gift_list.xhtml" icon="ui-icon-cart"/> 
+		</p:tabMenu>  
+		<p:panel id="panel" header="Customer personal informations">      
+			<h:panelGrid columns="2" id="info">
+			
+				<h:outputLabel>Email:</h:outputLabel>
+            	<h:outputText value="#{OtherCustomerWeb.user.email}" /> 
+
+				<h:outputLabel for="firstName">Firstname:</h:outputLabel>
+				<h:outputText value="#{OtherCustomerWeb.user.firstName}" />
+
+				<h:outputLabel for="lastName">Lastname:</h:outputLabel>
+				<h:outputText value="#{OtherCustomerWeb.user.lastName}" />			
+				
+			</h:panelGrid>
+		</p:panel>	
+ 		
+ 	</ui:define>
+</ui:composition>
+
+	
