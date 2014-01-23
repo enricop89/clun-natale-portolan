@@ -9,7 +9,7 @@
 		<p:growl id="growl" showDetail="true" globalOnly="true" /> 
 		 
 		<p:panel id="panel" header="Update your personal informations">      
-			<h:panelGrid columns="3" id="regGrid">
+			<h:panelGrid columns="3" id="info">
 			
 				<h:outputLabel>Email:</h:outputLabel>
             	<h:outputText value="#{ModifyInfoWeb.user.email}" /> 
@@ -38,7 +38,7 @@
 				<p:message for="password2" />
 				
 			</h:panelGrid>
-			<p:commandButton value="Update changes" update="regGrid, growl"
+			<p:commandButton value="Update changes" update="info, growl"
 				action="#{ModifyInfoWeb.save}" />
 		</p:panel>
 	</h:form>                    
