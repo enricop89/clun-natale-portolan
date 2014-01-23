@@ -17,15 +17,15 @@
 			<p:message for="name" />
 			<h:outputLabel value="" /> 
 			<p:inplace id="Departure_date" editor="true">
-				<p:calendar value="#{PersonalizedTravelPackageWeb.persTP.departureDate}" showButtonPanel="true" >
-				<f:convertDateTime pattern="yyyy-MM-dd" />
+				<p:calendar value="#{PersonalizedTravelPackageWeb.departureDate}" pattern="dd-MM-yyyy" showButtonPanel="true" >
+				<f:convertDateTime pattern="dd-MM-yyyy" />
 				</p:calendar>
 			</p:inplace> 
 			<p:message for="Departure_date" /> 
 			<h:outputLabel value="" />  
 			<p:inplace id="Arrival_date" editor="true">
-			<p:calendar value="#{PersonalizedTravelPackageWeb.persTP.returnDate}" showButtonPanel="true" >
-			<f:convertDateTime pattern="yyyy-MM-dd" />
+			<p:calendar value="#{PersonalizedTravelPackageWeb.returnDate}" pattern="dd-MM-yyyy" showButtonPanel="true" >
+			<f:convertDateTime pattern="dd-MM-yyyy" />
 			</p:calendar>
 			</p:inplace> 
 			<p:message for="Arrival_date" />
@@ -62,9 +62,12 @@
 				</p:dataTable>
 				<p:commandButton id="link" icon="ui-icon-link" rendered="#{PersonalizedTravelPackageWeb.checkRole()==false}" actionListener="#{PersonalizedTravelPackageWeb.joinComponent(element)}"/> 
 	            <p:commandButton id="linktwo" icon="ui-icon-link" rendered="#{PersonalizedTravelPackageWeb.checkIfRegistered()}" actionListener="#{PersonalizedTravelPackageWeb.joinComponent(element)}"/>
-				<p:commandButton value="Save" icon="ui-icon-check" update="growl" style="float:right;" action="#{PersonalizedTravelPackageWeb.save}" />
+				<p:commandButton value="Save" icon="ui-icon-check" update="growl" style="float:right;" actionListener="#{PersonalizedTravelPackageWeb.save}" >
+				
+				</p:commandButton>
+				
 				<p:tooltip for="link" value="Join the package" showEffect="fade" hideEffect="fade" /> 
-	            <p:tooltip for="link2" value="Join the package" showEffect="fade" hideEffect="fade" /> 
+	            <p:tooltip for="linktwo" value="Join the package" showEffect="fade" hideEffect="fade" /> 
 			</h:form>
 </ui:composition>
 	

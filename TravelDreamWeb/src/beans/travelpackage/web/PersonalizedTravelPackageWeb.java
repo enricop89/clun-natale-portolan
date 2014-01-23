@@ -2,6 +2,7 @@ package beans.travelpackage.web;
 
 
 import java.io.IOException;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,6 +16,7 @@ import javax.faces.context.Flash;
 import javax.inject.Inject;
 
 import org.primefaces.context.RequestContext;
+
 
 
 
@@ -39,9 +41,15 @@ public class PersonalizedTravelPackageWeb {
 	@EJB
 	private CustomerHandlerInterface customerhandler;
 	private PersonalizedTravelPackageDTO persTP;
+	private java.util.Date departureDate;
+	private java.util.Date returnDate;
+	
 	@PostConstruct
 	public void init(){	
 		persTP=data.getPersonalizedTravelPackagesList().get(0);
+		departureDate=new java.util.Date (persTP.getDepartureDate().getTime());
+		returnDate=new java.util.Date (persTP.getReturnDate().getTime());
+		
 	}
 	
 	public boolean checkStatus(Components_HelperDTO helper){
@@ -87,14 +95,20 @@ public class PersonalizedTravelPackageWeb {
 		Flash flash = facesContext.getExternalContext().getFlash();
 		flash.setKeepMessages(true);
 		flash.setRedirect(true);
+			if(departureDate != null)
+				persTP.setDepartureDate(new Date(departureDate.getTime()));
+			if(returnDate != null)
+				persTP.setReturnDate(new Date(returnDate.getTime()));
+			
 		boolean result=customerhandler.updatePersonalizedTravelPackage(persTP);
-		if(result==true){
-		facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Successful", "Your package has been succesfully updated!")); 
-		FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/misc/personalizedtravelpackage.xhtml?faces-redirect=true");
+		
+			if(result==true){
+				facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Successful", "Your package has been succesfully updated!")); 
+				FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/customer/personal_travel_package.xhtml?faces-redirect=true");
 		}
-		else{
-			facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error", "Something went wrong"));
-			FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/misc/personalizedtravelpackage.xhtml?faces-redirect=true");
+			else{
+				facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error", "Something went wrong"));
+				FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/misc/personalizedtravelpackage.xhtml?faces-redirect=true");
 			
 		}
 	}
@@ -150,13 +164,23 @@ public class PersonalizedTravelPackageWeb {
 		
 	}
 	
-	
-		
 	public PersonalizedTravelPackageDTO getPersTP() {
 		return persTP;
 	}
 	public void setPersTP(PersonalizedTravelPackageDTO persTP) {
 		this.persTP = persTP;
+	}
+	public java.util.Date getDepartureDate() {
+		return departureDate;
+	}
+	public void setDepartureDate(java.util.Date departureDate) {
+		this.departureDate = departureDate;
+	}
+	public java.util.Date getReturnDate() {
+		return returnDate;
+	}
+	public void setReturnDate(java.util.Date returnDate) {
+		this.returnDate = returnDate;
 	}
 	
 	
