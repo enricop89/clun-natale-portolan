@@ -9,9 +9,9 @@
 	<ui:define name="title">Your Gift List</ui:define>
 	<ui:define name="content">
 	
-		<p:tabMenu activeIndex="0">  
-		<p:menuitem value="Personal Info" url="other_customer.xhtml" icon="ui-icon-person"/>  
-		<p:menuitem value="GiftList" url="gift_list.xhtml" icon="ui-icon-cart"/> 
+		<p:tabMenu activeIndex="1">  
+		<p:menuitem value="Personal Info" action="OtherCustomerWeb.open('other_customer.xhtml')" icon="ui-icon-person"/>  
+		<p:menuitem value="GiftList" action="OtherCustomerWeb.open('gift_list.xhtml')" icon="ui-icon-cart"/> 
 		</p:tabMenu>  
   	 
 		<h:form>  
