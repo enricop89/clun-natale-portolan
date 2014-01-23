@@ -14,7 +14,7 @@
             <p:dataTable var="travelComponent" value="#{SearchTravelComponents.travelComponentsList}">
                 <p:column headerText="" style="text-align: center">  
                 	<p:row>
-                    <p:commandButton id="add" style="float:center" icon="ui-icon-plusthick" actionListener="#{SearchTravelComponents.selectFromDialog(travelComponent)}" />  
+                    <p:commandButton id="add" style="float:center" icon="ui-icon-check" actionListener="#{SearchTravelComponents.selectFromDialog(travelComponent)}" />  
                     <p:commandButton id="visualize" style="float:center" icon="ui-icon-suitcase" actionListener="#{SearchTravelComponents.visualize(travelComponent)}" /> 
 					</p:row>
 					<p:tooltip for="add" value="Add the travel component" showEffect="fade" hideEffect="fade" /> 

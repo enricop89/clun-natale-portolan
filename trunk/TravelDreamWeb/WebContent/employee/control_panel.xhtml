@@ -127,7 +127,9 @@
                 </p:column> 
             	</p:dataTable> 
             	
-            	<p:commandButton style="float:center" icon="ui-icon-suitcase" actionListener="#{EmployeeHandlerWeb.addComponent}" />
+            	<p:commandButton value="Add Travel Component" style="float:center" icon="ui-icon-plusthick" actionListener="#{EmployeeHandlerWeb.addComponent}">
+            		<p:ajax event="dialogReturn" listener="#{EmployeeHandlerWeb.onTravelComponentChosen}"/>
+            	</p:commandButton>
     </p:tab>  
     <p:tab title="Search">  
 		<ui:include src="/misc/search/search.xhtml" /> 	
