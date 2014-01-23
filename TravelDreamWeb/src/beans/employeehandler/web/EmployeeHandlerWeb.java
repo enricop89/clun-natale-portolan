@@ -1,5 +1,10 @@
 package beans.employeehandler.web;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
@@ -9,9 +14,15 @@ import javax.faces.bean.ManagedBean;
 
 import javax.faces.context.FacesContext;
 import javax.faces.context.Flash;
+import javax.inject.Inject;
+
+import org.primefaces.context.RequestContext;
+import org.primefaces.event.SelectEvent;
 
 import beans.employeehandler.EmployeeHandlerInterface;
 import beans.travelcomponent.*;
+import beans.travelpackage.*;
+import beans.utils.web.Data_Exchange;
 
 @ManagedBean(name="EmployeeHandlerWeb")
 @RequestScoped
@@ -20,6 +31,13 @@ public class EmployeeHandlerWeb  {
 	@EJB
 	private EmployeeHandlerInterface employeeHandler;
 
+	//Travel package creation data
+	private PredefinedTravelPackageDTO packageDTO;
+	
+	private java.util.Date packageDepDate;
+	private java.util.Date packageArrDate;
+	
+	//Travel component creation data
 	private TravelComponentDTO componentDTO;
 	
 	private java.util.Date flightDepartureDate;
@@ -31,10 +49,34 @@ public class EmployeeHandlerWeb  {
 	private String excursionTime;
 	
 	private java.util.Date hotelDate;
+	
+	private boolean redirected;
+	
+	private int activePanel;
+	
+	@Inject
+	private Data_Exchange data;
+	public Data_Exchange getData(){
+		return data;
+	}
+	public void setData(Data_Exchange data){
+		this.data = data;
+	}
 		
 	public EmployeeHandlerWeb()
 	{
 		componentDTO = new TravelComponentDTO();
+		setPackageDTO(new PredefinedTravelPackageDTO());
+		redirected = false;
+	}
+	
+	@PostConstruct
+	public void init(){
+		if (data.getPredefinedTravelPackagesList() != null && !data.getPredefinedTravelPackagesList().isEmpty())
+		{
+			packageDTO = data.getPredefinedTravelPackagesList().get(0);
+			redirected = true;
+		}
 	}
 	
 	public TravelComponentDTO getComponentDTO()
@@ -219,5 +261,70 @@ public class EmployeeHandlerWeb  {
 	public void setHotelDate(java.util.Date hotelDate) {
 		this.hotelDate = hotelDate;
 	}
+
+	public java.util.Date getPackageDepDate() {
+		return packageDepDate;
+	}
+
+	public void setPackageDepDate(java.util.Date packageDepDate) {
+		this.packageDepDate = packageDepDate;
+	}
+
+	public java.util.Date getPackageArrDate() {
+		return packageArrDate;
+	}
+
+	public void setPackageArrDate(java.util.Date packageArrDate) {
+		this.packageArrDate = packageArrDate;
+	}
+
+	public PredefinedTravelPackageDTO getPackageDTO() {
+		return packageDTO;
+	}
+
+	public void setPackageDTO(PredefinedTravelPackageDTO packageDTO) {
+		this.packageDTO = packageDTO;
+	}
 	
+	public void deleteComponent(TravelComponentDTO component)
+	{
+		employeeHandler.removeTravelComponentFromPredefinedTravelPackage(packageDTO, component);
+		
+	}
+	
+	public void addComponent()
+	{
+		RequestContext.getCurrentInstance().openDialog("/misc/search/search_travelcomponent_to_add.xhtml");
+	}
+	
+	public void onTravelComponentChosen(SelectEvent event) throws IOException
+	{
+		TravelComponentDTO travelComponent = (TravelComponentDTO) event.getObject(); 
+		employeeHandler.addTravelComponentToPredefinedTravelPackage(packageDTO, travelComponent);
+		
+		List<PredefinedTravelPackageDTO> toSend = new ArrayList<PredefinedTravelPackageDTO>();
+		toSend.add(packageDTO);
+		data.setPredefinedTravelPackagesList(toSend);
+		FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/employee/control_panel.xhtml");
+	}
+	
+	public boolean isRedirected() {
+		return redirected;
+	}
+	
+
+	public int getActivePanel() {
+		if (redirected == true)
+		{
+			return 1;
+		}
+		else
+		{
+			return activePanel;
+		}
+	}
+	
+	public void setActivePanel(int activePanel) {
+		this.activePanel = activePanel;
+	}
 }

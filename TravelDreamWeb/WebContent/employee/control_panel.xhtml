@@ -8,7 +8,7 @@
     <ui:define name="title">TravelDream - Employee control panel</ui:define>
 
     <ui:define name="content">
-<p:accordionPanel>  
+<p:accordionPanel activeIndex="#{EmployeeHandlerWeb.activePanel}">  
     <p:tab title="Create travel component"> 
     <h:form> 
         <h:panelGrid columns="6" cellpadding="10">  
@@ -103,12 +103,31 @@
 	
 		</h:form>
     </p:tab>  
-    <p:tab title="Create predefined travel package">  
-        <h:panelGrid columns="2" cellpadding="10">  
-            <h:outputText value="Francis Ford Coppola's legendary continuation and sequel to his landmark 1972 film, The_Godfather, parallels the young Vito Corleone's rise with his son Michael's spiritual fall, deepening The_Godfather's depiction of the dark side of the American dream.   
-            In the early 1900s, the child Vito flees his Sicilian village for America after the local Mafia kills his family. Vito struggles to make a living, legally or illegally, for his wife and growing brood in Little Italy,   
-            killing the local Black Hand Fanucci after he demands his customary cut of the tyro's business. With Fanucci gone, Vito's communal stature grows." />  
-        </h:panelGrid>  
+    <p:tab title="Create predefined travel package"> 
+    
+	            <p:dataTable var="travelComponent" value="#{EmployeeHandlerWeb.packageDTO.travelComponents}">
+                <p:column headerText="" style="text-align: center">  
+                <p:row>
+                    <!--  <p:commandButton style="float:center" icon="ui-icon-suitcase" actionListener="" /> -->
+                    <p:commandButton style="float:center" icon="ui-icon-trash" actionListener="#{EmployeeHandlerWeb.deleteComponent(travelComponent)}" />
+                    
+                </p:row>  
+                </p:column>  
+                 
+                 <p:column headerText="Type" style="text-align: center">  
+                    <h:outputText value="Flight" rendered="#{travelComponent.type == 'FLIGHT'}"/> 
+                    <h:outputText value="Hotel" rendered="#{travelComponent.type == 'HOTEL'}"/> 
+                    <h:outputText value="Excursion" rendered="#{travelComponent.type == 'EXCURSION'}"/>  
+                </p:column>  
+                <p:column headerText="Supplying Company" style="text-align: center">  
+                    <h:outputText value="#{travelComponent.supplyingCompany}" />  
+                </p:column>  
+                <p:column headerText="Availability" style="text-align: center">  
+                    <h:outputText value="#{travelComponent.availability}" />  
+                </p:column> 
+            	</p:dataTable> 
+            	
+            	<p:commandButton style="float:center" icon="ui-icon-suitcase" actionListener="#{EmployeeHandlerWeb.addComponent}" />
     </p:tab>  
     <p:tab title="Search">  
 		<ui:include src="/misc/search/search.xhtml" /> 	
