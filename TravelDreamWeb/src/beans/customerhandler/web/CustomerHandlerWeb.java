@@ -25,9 +25,7 @@ import beans.travelpackage.PersonalizedTravelPackageDTO;
 import beans.utils.SearchDTOInterface;
 import beans.utils.web.Data_Exchange;
 
-//TODO:inserire visualizza travel component nel'xml
-
-@ManagedBean(name="UserPersonalPage")
+@ManagedBean(name="CustomerHandlerWeb")
 @ViewScoped
 public class CustomerHandlerWeb {
 	@EJB
