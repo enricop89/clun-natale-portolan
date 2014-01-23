@@ -10,10 +10,9 @@
 	<ui:define name="content">
 		<h:form>	
 		<p:tabMenu activeIndex="1">  
-		<p:menuitem value="Personal Info" action="OtherCustomerWeb.open('other_customer.xhtml')" icon="ui-icon-person"/>  
-		<p:menuitem value="GiftList" action="OtherCustomerWeb.open('gift_list.xhtml')" icon="ui-icon-cart"/> 
-		</p:tabMenu>  
-  	 
+		<p:menuitem value="Personal Info" action="#{OtherCustomerWeb.open('personal_page.xhtml')}" icon="ui-icon-person"/>  
+		<p:menuitem value="GiftList" action="#{OtherCustomerWeb.open('gift_list.xhtml')}" icon="ui-icon-cart"/> 
+		</p:tabMenu>   	 
 		<h:form>  
 		<p:growl id="growl1" showDetail="true" globalOnly="true" />   	
 		<p:dataTable var="element" value="#{OtherCustomerWeb.giftList.giftElements}">  
