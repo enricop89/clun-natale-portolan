@@ -9,7 +9,7 @@
 	<ui:define name="title">Your Gift List</ui:define>
 	<ui:define name="content">
 	
-		<p:tabMenu activeIndex="1">  
+		<p:tabMenu activeIndex="2">  
 		<p:menuitem value="Personal Info" url="personal_page.xhtml" icon="ui-icon-person"/>  
 		<p:menuitem value="PersonalTravelPackage" url="personal_travel_package.xhtml" icon="ui-icon-suitcase"/>  
 		<p:menuitem value="GiftList" url="gift_list.xhtml" icon="ui-icon-cart"/> 
@@ -22,7 +22,7 @@
 				<h:outputText value="#{element.travelComponent.travelComponent.type}" />  
 			</p:column>  
 			
-			<p:column headerText="Personalized travel package">  
+			<p:column headerText="Personalized Travel Package">  
 				<h:outputText value="#{element.personalizedTravelPackage.name}" />  
 			</p:column>  
 			
