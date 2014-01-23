@@ -5,7 +5,6 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
-
 	<ui:define name="title">Your Personalized Travel Packages</ui:define>
 
 	<ui:define name="content">
@@ -20,10 +19,10 @@
 	            <p:column headerText="Name">  
 	                <h:outputText value="#{element.name}" />  
 	            </p:column>  
-				<p:column headerText="departureDate">  
+				<p:column headerText="Departure Date">  
 	                <h:outputText value="#{element.departureDate}" />  
 	            </p:column>  
-	            <p:column headerText="returnDate">  
+	            <p:column headerText="Return Date">  
 	                <h:outputText value="#{element.returnDate}" />  
 	            </p:column>  
 	
@@ -36,13 +35,11 @@
 	                         
 	                             
 	          	<p:column headerText="" style="text-align: center"> 
-	      			<h:panelGroup style="white-space: nowrap">
-	      			<h:panelGrid columns="3" > 
+	      			<p:row> 
 	      				<p:commandButton id="visualize" icon="ui-icon-script"  actionListener="#{CustomerHandlerWeb.showPackage(element)}"/> 
 	      				<p:commandButton id="link" icon="ui-icon-tag"  actionListener="#{CustomerHandlerWeb.showMessage(element)}"/>
 	         			<p:commandButton id="delete" icon="ui-icon-trash" update="growl1"   action="#{CustomerHandlerWeb.deletePTPelement(element)}"	ajax="false"/> 
-	            	</h:panelGrid>
-	            	</h:panelGroup>
+	            	</p:row>
 	            	<p:tooltip for="delete" value="Delete the package" showEffect="fade" hideEffect="fade" /> 
 	            	<p:tooltip for="link" value="Get the package identifier" showEffect="fade" hideEffect="fade" /> 
 	            	<p:tooltip for="visualize" value="View the details of the package" showEffect="fade" hideEffect="fade" />   
