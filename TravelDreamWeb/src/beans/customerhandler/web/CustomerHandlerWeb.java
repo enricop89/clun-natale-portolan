@@ -80,7 +80,7 @@ public class CustomerHandlerWeb {
 	
 	public void showMessage(PersonalizedTravelPackageDTO helper) {  //get identifier
         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Identifier", "SUKA");  
-        RequestContext.getCurrentInstance().showMessageInDialog(message);  //TODO
+        RequestContext.getCurrentInstance().showMessageInDialog(message);  //TODO: Generate Link
     } 
 	
 	public void showComponentfromGiftList(GiftElements_HelperDTO gift) throws IOException{
