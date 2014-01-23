@@ -9,12 +9,12 @@
 	<ui:define name="title">Customer Gift List</ui:define>
 	<ui:define name="content">
 		<h:form>	
+		<p:growl id="growl1" showDetail="true" globalOnly="true" />
 		<p:tabMenu activeIndex="1">  
 		<p:menuitem value="Personal Info" action="#{OtherCustomerWeb.open('personal_page.xhtml')}" icon="ui-icon-person"/>  
 		<p:menuitem value="GiftList" action="#{OtherCustomerWeb.open('gift_list.xhtml')}" icon="ui-icon-cart"/> 
 		</p:tabMenu>   	    	
 		<p:dataTable var="element" value="#{OtherCustomerWeb.giftList.giftElements}">  
-			<p:growl id="growl1" showDetail="true" globalOnly="true" />
 			<p:column headerText="Type">  
 				<h:outputText value="#{element.travelComponent.travelComponent.type}" />  
 			</p:column>  
@@ -22,7 +22,7 @@
 			<p:column headerText=""> 
 				<p:row>
 					<p:commandButton id="show" icon="ui-icon-script" actionListener="#{OtherCustomerWeb.showComponent(element)}"/> 
-					<p:commandButton id="pay" icon="ui-icon-cart" update="growl1" actionListener="#{OtherCustomerWeb.payComponent(element)}"/>								
+					<p:commandButton id="pay" icon="ui-icon-cart" actionListener="#{OtherCustomerWeb.payComponent(element)}"/>								
 				</p:row>
             	<p:tooltip for="pay" value="Pay the component for your friend!" showEffect="fade" hideEffect="fade" /> 
             	<p:tooltip for="show" value="Show the travel component info" showEffect="fade" hideEffect="fade" /> 
