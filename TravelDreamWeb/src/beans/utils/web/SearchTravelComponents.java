@@ -38,6 +38,9 @@ public class SearchTravelComponents {
 	}
 	
 	public void selectFromDialog(TravelComponentDTO travelComponent){
+		if(instance != null)
+			RequestContext.setCurrentInstance(instance);
+		
 		RequestContext.getCurrentInstance().closeDialog(travelComponent); 
 	}
 	
@@ -45,7 +48,6 @@ public class SearchTravelComponents {
 		List<TravelComponentDTO> toSend = new ArrayList<TravelComponentDTO>();
 		toSend.add(travelComponent);
 		data.setTravelComponentsList(toSend);
-		RequestContext.setCurrentInstance(instance);
 		RequestContext.getCurrentInstance().openDialog("/index.xhtml"); //TODO: Waiting for Travel Component page
 	}
 }
