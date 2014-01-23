@@ -18,11 +18,13 @@
 			<h:outputLabel value="" /> 
 			<p:inplace id="Departure_date" editor="true">
 				<p:calendar value="#{PersonalizedTravelPackageWeb.persTP.departureDate}" showButtonPanel="true" />
+				<f:convertDateTime pattern="yyyy-MM-dd" />
 			</p:inplace> 
 			<p:message for="Departure_date" /> 
 			<h:outputLabel value="" />  
 			<p:inplace id="Arrival_date" editor="true">
 			<p:calendar value="#{PersonalizedTravelPackageWeb.persTP.returnDate}" showButtonPanel="true" />
+			<f:convertDateTime pattern="yyyy-MM-dd" />
 			</p:inplace> 
 			<p:message for="Arrival_date" />
 		</h:panelGrid>
@@ -49,9 +51,9 @@
 	         			<p:commandButton id="delete" icon="ui-icon-trash" update="growl1"   action="#{PersonalizedTravelPackageWeb.deletePackage(element)}"	ajax="false"/> 
 	            	</h:panelGrid>
 	            	</h:panelGroup>
-	            	<p:tooltip for="delete" value="Delete the package" showEffect="fade" hideEffect="fade" /> 
+	            	<p:tooltip for="delete" value="Delete the component" showEffect="fade" hideEffect="fade" /> 
 	            	
-	            	<p:tooltip for="visualize" value="View the details of the package" showEffect="fade" hideEffect="fade" />   
+	            	<p:tooltip for="visualize" value="View the details of the component" showEffect="fade" hideEffect="fade" />   
 	         	
 				</p:column> 
 				</p:dataTable>
