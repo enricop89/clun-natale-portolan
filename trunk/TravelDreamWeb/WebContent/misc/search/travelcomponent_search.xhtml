@@ -12,19 +12,19 @@
     <h:body>  
         <h:form>  
             <p:dataTable var="travelComponent" value="#{SearchTravelComponents.travelComponentsList}">
-                <p:column headerText="">  
-                    <p:commandButton icon="ui-icon-suitcase" actionListener="#{SearchTravelComponents.selectFromDialog(travelComponent)}" />  
+                <p:column headerText="" style="text-align: center">  
+                    <p:commandButton style="float:center" icon="ui-icon-suitcase" actionListener="#{SearchTravelComponents.selectFromDialog(travelComponent)}" />  
                 </p:column>  
                  
-                 <p:column headerText="Type">  
+                 <p:column headerText="Type" style="text-align: center">  
                     <h:outputText value="Flight" rendered="#{travelComponent.type == 'FLIGHT'}"/> 
                     <h:outputText value="Hotel" rendered="#{travelComponent.type == 'HOTEL'}"/> 
                     <h:outputText value="Excursion" rendered="#{travelComponent.type == 'EXCURSION'}"/>  
                 </p:column>  
-                <p:column headerText="Supplying Company">  
+                <p:column headerText="Supplying Company" style="text-align: center">  
                     <h:outputText value="#{travelComponent.supplyingCompany}" />  
                 </p:column>  
-                <p:column headerText="Availability">  
+                <p:column headerText="Availability" style="text-align: center">  
                     <h:outputText value="#{travelComponent.availability}" />  
                 </p:column> 
             </p:dataTable>  
