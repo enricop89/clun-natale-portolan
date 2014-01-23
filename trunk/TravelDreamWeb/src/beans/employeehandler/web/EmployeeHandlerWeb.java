@@ -6,12 +6,10 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 
-
-
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.context.Flash;
 import javax.inject.Inject;
@@ -25,7 +23,7 @@ import beans.travelpackage.*;
 import beans.utils.web.Data_Exchange;
 
 @ManagedBean(name="EmployeeHandlerWeb")
-@RequestScoped
+@ViewScoped
 public class EmployeeHandlerWeb  {
 	
 	@EJB
@@ -51,7 +49,6 @@ public class EmployeeHandlerWeb  {
 	private java.util.Date hotelDate;
 	
 	private boolean redirected;
-	
 	private int activePanel;
 	
 	@Inject
@@ -291,7 +288,7 @@ public class EmployeeHandlerWeb  {
 		employeeHandler.removeTravelComponentFromPredefinedTravelPackage(packageDTO, component);
 		
 	}
-	
+
 	public void addComponent()
 	{
 		RequestContext.getCurrentInstance().openDialog("/misc/search/search_travelcomponent_to_add.xhtml");
@@ -308,11 +305,6 @@ public class EmployeeHandlerWeb  {
 		FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/employee/control_panel.xhtml");
 	}
 	
-	public boolean isRedirected() {
-		return redirected;
-	}
-	
-
 	public int getActivePanel() {
 		if (redirected == true)
 		{

@@ -25,10 +25,12 @@ public class SearchTravelComponents {
 	}
 	
 	private List<TravelComponentDTO> travelComponentsList;
+	private RequestContext instance;
 	
 	@PostConstruct
 	public void init(){
 		travelComponentsList = data.getTravelComponentsList();
+		instance = data.getInstance();
 	}
 	
 	public List<TravelComponentDTO> getTravelComponentsList(){
@@ -36,13 +38,17 @@ public class SearchTravelComponents {
 	}
 	
 	public void selectFromDialog(TravelComponentDTO travelComponent){
-		RequestContext.getCurrentInstance().closeDialog(travelComponent); 
+		if(instance != null)
+			instance.closeDialog(travelComponent);
+			
+		else
+			RequestContext.getCurrentInstance().closeDialog(travelComponent); 
 	}
 	
 	public void visualize(TravelComponentDTO travelComponent){
 		List<TravelComponentDTO> toSend = new ArrayList<TravelComponentDTO>();
 		toSend.add(travelComponent);
 		data.setTravelComponentsList(toSend);
-		RequestContext.getCurrentInstance().openDialog("/index.xhtml"); //TODO: Waiting for Travel Component page
+		RequestContext.getCurrentInstance().openDialog("/index.xhtml"); //TODO: Waiting for Travel Component page. NB: MUST CHECK IF THIS WORKS, PRIMEFACES DOES NOT SUPPORT NESTED DIALOGS!
 	}
 }
