@@ -414,7 +414,7 @@ public class SearchWeb {
 				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"No Results", "Your search has given no results")); 
 			else{
 				data.setTravelComponentsList(travelComponentsList);
-				data.setInstance((RequestContext)FacesContext.getCurrentInstance().getAttributes());
+				data.setInstance(RequestContext.getCurrentInstance());
 				FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/misc/search/add_travelcomponent.xhtml");
 			}
 		}
@@ -427,7 +427,7 @@ public class SearchWeb {
 				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"No Results", "Your search has given no results")); 
 			else{
 				data.setTravelComponentsList(travelComponentsList);
-				data.setInstance((RequestContext)FacesContext.getCurrentInstance().getAttributes());
+				data.setInstance(RequestContext.getCurrentInstance());
 				FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/misc/search/add_travelcomponent.xhtml");
 			}
 		}
