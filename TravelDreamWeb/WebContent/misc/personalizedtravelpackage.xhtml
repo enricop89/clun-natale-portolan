@@ -17,14 +17,16 @@
 			<p:message for="name" />
 			<h:outputLabel value="" /> 
 			<p:inplace id="Departure_date" editor="true">
-				<p:calendar value="#{PersonalizedTravelPackageWeb.persTP.departureDate}" showButtonPanel="true" />
+				<p:calendar value="#{PersonalizedTravelPackageWeb.persTP.departureDate}" showButtonPanel="true" >
 				<f:convertDateTime pattern="yyyy-MM-dd" />
+				</p:calendar>
 			</p:inplace> 
 			<p:message for="Departure_date" /> 
 			<h:outputLabel value="" />  
 			<p:inplace id="Arrival_date" editor="true">
-			<p:calendar value="#{PersonalizedTravelPackageWeb.persTP.returnDate}" showButtonPanel="true" />
+			<p:calendar value="#{PersonalizedTravelPackageWeb.persTP.returnDate}" showButtonPanel="true" >
 			<f:convertDateTime pattern="yyyy-MM-dd" />
+			</p:calendar>
 			</p:inplace> 
 			<p:message for="Arrival_date" />
 		</h:panelGrid>
