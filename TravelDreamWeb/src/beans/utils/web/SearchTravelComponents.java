@@ -25,9 +25,11 @@ public class SearchTravelComponents {
 	}
 	
 	private List<TravelComponentDTO> travelComponentsList;
+	private RequestContext instance;
 	
 	@PostConstruct
 	public void init(){
+		instance = data.getInstance();
 		travelComponentsList = data.getTravelComponentsList();
 	}
 	
@@ -43,6 +45,7 @@ public class SearchTravelComponents {
 		List<TravelComponentDTO> toSend = new ArrayList<TravelComponentDTO>();
 		toSend.add(travelComponent);
 		data.setTravelComponentsList(toSend);
+		RequestContext.setCurrentInstance(instance);
 		RequestContext.getCurrentInstance().openDialog("/index.xhtml"); //TODO: Waiting for Travel Component page
 	}
 }
