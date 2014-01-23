@@ -15,6 +15,9 @@ import javax.faces.context.Flash;
 import javax.inject.Inject;
 
 import org.primefaces.context.RequestContext;
+import org.primefaces.model.DefaultTreeNode;
+import org.primefaces.model.TreeNode;
+
 
 import beans.customerhandler.CustomerHandlerInterface;
 import beans.travelcomponent.TravelComponentDTO;
@@ -37,7 +40,7 @@ public class PersonalizedTravelPackageWeb {
 	@EJB
 	private CustomerHandlerInterface customerhandler;
 	private PersonalizedTravelPackageDTO persTP;
-	
+	private TreeNode root;  
 	@PostConstruct
 	public void init(){	
 		persTP=data.getPersonalizedTravelPackagesList().get(0);
@@ -70,7 +73,7 @@ public class PersonalizedTravelPackageWeb {
 		RequestContext.getCurrentInstance().openDialog("/index.xhtml"); // TODO: waiting for TravelComponent page	
 	}
 	
-	public String save(){
+	public void save() throws IOException{
 		
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		Flash flash = facesContext.getExternalContext().getFlash();
@@ -79,11 +82,12 @@ public class PersonalizedTravelPackageWeb {
 		boolean result=customerhandler.updatePersonalizedTravelPackage(persTP);
 		if(result==true){
 		facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Successful", "Your package has been succesfully updated!")); 
-		return "/misc/personalizedtravelpackage.xhtml?faces-redirect=true";
+		FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/misc/personalizedtravelpackage.xhtml?faces-redirect=true");
 		}
 		else{
 			facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error", "Something went wrong"));
-		return "/misc/personalizedtravelpackage.xhtml?faces-redirect=true";
+			FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/misc/personalizedtravelpackage.xhtml?faces-redirect=true");
+			
 		}
 	}
 		
@@ -102,7 +106,7 @@ public class PersonalizedTravelPackageWeb {
 				return false;
 		}
 	
-	public String joinComponent(Components_HelperDTO helper)	{
+	public void joinComponent(Components_HelperDTO helper) throws IOException	{
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		Flash flash = facesContext.getExternalContext().getFlash();
 		flash.setKeepMessages(true);
@@ -112,11 +116,12 @@ public class PersonalizedTravelPackageWeb {
 				boolean result=customerhandler.joinPersonalizedTravelPackage(persTP.getOwner(), persTP);	//faccio join
 					if(result==true){
 						facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Successful", "You have successfully joined the package!"));	
-						return "/customer/personal_travel_package.xhtml?faces-redirect=true";
+						FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/customer/personal_travel_package.xhtml?faces-redirect=true");
+					
 					}	
 					else {
 						facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Error", "Something went worng!"));	
-						return "/misc/personalizedtravelpackage.xhtml?faces-redirect=true";	
+						FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/misc/personalizedtravelpackage.xhtml?faces-redirect=true");
 						
 					}
 
@@ -125,16 +130,27 @@ public class PersonalizedTravelPackageWeb {
 		if(FacesContext.getCurrentInstance().getExternalContext().getRemoteUser()==null)
 		{
 			facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Error", "You must be registered to be able to join a package"));	
-			return "registration.xhtml?faces-redirect=true";
+			FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "registration.xhtml?faces-redirect=true");
+		
 		}
 				
 		else {	//for any reason the if condition is not respected
 			facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Error", "Something went wrong!"));	
-			return "/misc/personalizedtravelpackage.xhtml?faces-redirect=true";	
-			
+			FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/misc/personalizedtravelpackage.xhtml?faces-redirect=true");
+		
 		}
 		
 	}
+	
+	  public void DocumentsController() {
+		  root = new DefaultTreeNode("root", null);  
+          
+	        TreeNode hotel = new DefaultTreeNode(new Document("Documents", "-", "Folder"), root);  
+		  
+		  
+	  }
+	  
+	  
 		
 		
 	public PersonalizedTravelPackageDTO getPersTP() {
