@@ -1,0 +1,30 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+	
+	<p:panel header="Travel component details"> 
+		<p:panelGrid columns="2" >  
+			<h:outputText value="Supplying company:" />
+			<h:outputText value="#{TravelComponentVisualizationWeb.component.supplyingCompany}" />  
+			
+			<h:outputText rendered="#{TravelComponentVisualizationWeb.component.type == 'FLIGHT'}" value="Flight code:" />
+			<h:outputText value="#{TravelComponentVisualizationWeb.component.}" />  
+			
+			<h:outputText rendered="#{TravelComponentVisualizationWeb.component.type == 'FLIGHT'}" value="Departure city:" />
+			<h:outputText value="#{TravelComponentVisualizationWeb.component.}" />  
+			
+			<h:outputText rendered="#{TravelComponentVisualizationWeb.component.type == 'FLIGHT'}" value="Arrival city:" />
+			<h:outputText value="#{TravelComponentVisualizationWeb.component.}" />  
+			
+			<h:outputText rendered="#{TravelComponentVisualizationWeb.component.type == 'FLIGHT'}" value="Flight :" />
+			<h:outputText value="#{TravelComponentVisualizationWeb.component.}" />  
+			
+			<h:outputText rendered="#{TravelComponentVisualizationWeb.component.type == 'FLIGHT'}" value="Flight :" />
+			<h:outputText value="#{TravelComponentVisualizationWeb.component.}" />
+		</p:panelGrid>
+	</p:panel>
+	
+</ui:composition>
+	
