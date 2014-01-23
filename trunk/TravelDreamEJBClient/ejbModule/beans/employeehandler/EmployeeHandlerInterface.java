@@ -19,8 +19,8 @@ public interface EmployeeHandlerInterface {
 
 	public void deleteTravelComponent(TravelComponentDTO travelComponent);
 
-	public boolean addTravelComponentToPersonalizedTravelPackage(PredefinedTravelPackageDTO predefinedTravelPackage, TravelComponentDTO travelComponent);
+	public boolean addTravelComponentToPredefinedTravelPackage(PredefinedTravelPackageDTO predefinedTravelPackage, TravelComponentDTO travelComponent);
 
-	public boolean removeTravelComponentFromPersonalizedTravelPackage(PredefinedTravelPackageDTO predefinedTravelPackage, TravelComponentDTO travelComponent);
+	public boolean removeTravelComponentFromPredefinedTravelPackage(PredefinedTravelPackageDTO predefinedTravelPackage, TravelComponentDTO travelComponent);
 
 }
