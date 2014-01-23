@@ -28,7 +28,6 @@ public class Data_Exchange implements java.io.Serializable{
 		travelComponentsList = new ArrayList<TravelComponentDTO>();
 	}
 	
-	
 	public List<PersonalizedTravelPackageDTO> getPersonalizedTravelPackagesList() {
 		List<PersonalizedTravelPackageDTO> result = new ArrayList<PersonalizedTravelPackageDTO>(personalizedTravelPackagesList);
 		personalizedTravelPackagesList.clear();
