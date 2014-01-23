@@ -12,19 +12,19 @@
     <h:body>  
         <h:form>  
             <p:dataTable var="predefinedTravelPackage" value="#{SearchPredefinedTravelPackages.predefinedTravelPackagesList}">  
-                <p:column headerText="">  
-                    <p:commandButton icon="ui-icon-suitcase" actionListener="#{SearchPredefinedTravelPackages.selectFromDialog(predefinedTravelPackage)}" />  
+                <p:column headerText="" style="text-align: center">  
+                    <p:commandButton style="float:center" icon="ui-icon-suitcase" actionListener="#{SearchPredefinedTravelPackages.selectFromDialog(predefinedTravelPackage)}" />  
                 </p:column>  
  
-                <p:column headerText="Name">  
+                <p:column headerText="Name" style="text-align: center">  
                     <h:outputText value="#{predefinedTravelPackage.name}" />  
                 </p:column>  
   
-                <p:column headerText="Departure Date">  
+                <p:column headerText="Departure Date" style="text-align: center">  
                     <h:outputText value="#{predefinedTravelPackage.departureDate}" />  
                 </p:column> 
                  
-                <p:column headerText="Return Date">  
+                <p:column headerText="Return Date" style="text-align: center">  
                     <h:outputText value="#{predefinedTravelPackage.returnDate}" />  
                 </p:column>  
             </p:dataTable>  

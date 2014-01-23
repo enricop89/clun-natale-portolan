@@ -12,15 +12,15 @@
     <h:body>  
         <h:form>  
             <p:dataTable var="user" value="#{SearchCustomers.usersList}">  
-                <p:column headerText="">  
-                    <p:commandButton icon="ui-icon-contact" actionListener="#{SearchCustomers.selectFromDialog(user)}"/>  
+                <p:column headerText="" style="text-align: center">  
+                    <p:commandButton style="float:center" icon="ui-icon-contact" actionListener="#{SearchCustomers.selectFromDialog(user)}"/>  
                 </p:column>  
                 
-                <p:column headerText="Firstname">  
+                <p:column headerText="Firstname" style="text-align: center">  
                     <h:outputText value="#{user.firstName}" />  
                 </p:column>  
   
-                <p:column headerText="Lastname">  
+                <p:column headerText="Lastname" style="text-align: center">  
                     <h:outputText value="#{user.lastName}" />  
                 </p:column>  
             </p:dataTable>  
