@@ -85,9 +85,58 @@ public class PersonalizedTravelPackageWeb {
 			facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error", "Something went wrong"));
 		return "/misc/personalizedtravelpackage.xhtml?faces-redirect=true";
 		}
+	}
+		
+		public boolean checkRole() throws IOException{
+			
+			if(FacesContext.getCurrentInstance().getExternalContext().isUserInRole("CUSTOMER"))
+				if(persTP.getOwner().getEmail().equals(FacesContext.getCurrentInstance().getExternalContext().getRemoteUser()))
+					return true; //the remote user is also the owner of the travel package
+				
+				return false;  
+	}
+		public boolean checkIfRegistered() throws IOException{
+				if(FacesContext.getCurrentInstance().getExternalContext().getRemoteUser()==null)
+					return true; //the remote user is not registered
+				
+				return false;
+		}
+	
+	public String joinComponent(Components_HelperDTO helper)	{
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		Flash flash = facesContext.getExternalContext().getFlash();
+		flash.setKeepMessages(true);
+		flash.setRedirect(true);
+		if(FacesContext.getCurrentInstance().getExternalContext().isUserInRole("CUSTOMER"))
+			if(persTP.getOwner().getEmail().equals(FacesContext.getCurrentInstance().getExternalContext().getRemoteUser())==false){
+				boolean result=customerhandler.joinPersonalizedTravelPackage(persTP.getOwner(), persTP);	//faccio join
+					if(result==true){
+						facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Successful", "You have successfully joined the package!"));	
+						return "/customer/personal_travel_package.xhtml?faces-redirect=true";
+					}	
+					else {
+						facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Error", "Something went worng!"));	
+						return "/misc/personalizedtravelpackage.xhtml?faces-redirect=true";	
+						
+					}
+
+			}	//join for a registered User 
+		
+		if(FacesContext.getCurrentInstance().getExternalContext().getRemoteUser()==null)
+		{
+			facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Error", "You must be registered to be able to join a package"));	
+			return "registration.xhtml?faces-redirect=true";
+		}
+				
+		else {	//for any reason the if condition is not respected
+			facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Error", "Something went wrong!"));	
+			return "/misc/personalizedtravelpackage.xhtml?faces-redirect=true";	
+			
+		}
 		
 	}
-	
+		
+		
 	public PersonalizedTravelPackageDTO getPersTP() {
 		return persTP;
 	}
