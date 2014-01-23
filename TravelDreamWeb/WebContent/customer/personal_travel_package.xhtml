@@ -15,9 +15,8 @@
 		<p:menuitem value="GiftList" url="gift_list.xhtml" icon="ui-icon-cart"/> 
 		<p:menuitem value="Search" url="search_page.xhtml" icon="ui-icon-search"/> 
 		</p:tabMenu> 
-	  	  <h:form>  
-	  	  		
-	        <p:dataTable var="element" value="#{CustomerHandlerWeb.persTP}" >  
+		<h:form>  	  	  		
+			<p:dataTable var="element" value="#{CustomerHandlerWeb.persTP}" >  
 	            <p:column headerText="Name">  
 	                <h:outputText value="#{element.name}" />  
 	            </p:column>  
@@ -47,11 +46,9 @@
 	            	<p:tooltip for="delete" value="Delete the package" showEffect="fade" hideEffect="fade" /> 
 	            	<p:tooltip for="link" value="Get the package identifier" showEffect="fade" hideEffect="fade" /> 
 	            	<p:tooltip for="visualize" value="View the details of TravelPackage" showEffect="fade" hideEffect="fade" />   
-	         	</p:column>         
-	                
-	            </p:dataTable>  
-	        </h:form>  
-  	 
+	         	</p:column>         	                
+			</p:dataTable>  
+		</h:form>   	 
   	</ui:define> 
 </ui:composition>
 	
