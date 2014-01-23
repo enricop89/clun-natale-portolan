@@ -31,7 +31,7 @@
 			<p:message for="Arrival_date" />
 		</h:panelGrid>
 		
-		<p:dataTable var="element" value="#{PersonalizedTravelPackageWeb.persTP.travelComponents}" >  
+		<p:treeTable var="element" value="#{PersonalizedTravelPackageWeb.persTP.travelComponents}" >  
 	            <p:column headerText="Type">  
 	                <h:outputText value="#{element.travelComponent.type}" />  
 	            </p:column>  
@@ -49,19 +49,38 @@
 						<p:column headerText="" style="text-align: center"> 
 	      			<h:panelGroup style="white-space: nowrap">
 	      			<h:panelGrid columns="2" > 
-	      				<p:commandButton id="visualize" icon="ui-icon-script"  actionListener="#{PersonalizedTravelPackageWeb.showComponent(element)}"/> 
-	         			<p:commandButton id="delete" icon="ui-icon-trash" update="growl1"   action="#{PersonalizedTravelPackageWeb.deletePackage(element)}"	ajax="false"/> 
+	      			<p:row> 
+	      				<p:commandButton id="visualize" icon="ui-icon-script" rendered="#{PersonalizedTravelPackageWeb.checkRole()}" actionListener="#{PersonalizedTravelPackageWeb.showComponent(element)}"/> 
+	         			<p:commandButton id="delete" icon="ui-icon-trash" update="growl1" rendered="#{PersonalizedTravelPackageWeb.checkRole()}"  action="#{PersonalizedTravelPackageWeb.deletePackage(element)}"	ajax="false"/> 
+	            		<p:commandButton id="link" icon="ui-icon-link" rendered="#{PersonalizedTravelPackageWeb.checkRole()==false}" actionListener="#{PersonalizedTravelPackageWeb.joinComponent(element)}"/> 
+	            		<p:commandButton id="linktwo" icon="ui-icon-link" rendered="#{PersonalizedTravelPackageWeb.checkIfRegistered()}" actionListener="#{PersonalizedTravelPackageWeb.joinComponent(element)}"/>
+	            	</p:row>
 	            	</h:panelGrid>
 	            	</h:panelGroup>
 	            	<p:tooltip for="delete" value="Delete the component" showEffect="fade" hideEffect="fade" /> 
-	            	
 	            	<p:tooltip for="visualize" value="View the details of the component" showEffect="fade" hideEffect="fade" />   
+					<p:tooltip for="link" value="Join the package" showEffect="fade" hideEffect="fade" /> 
+	            	<p:tooltip for="link2" value="Join the package" showEffect="fade" hideEffect="fade" />   
 	         	
 				</p:column> 
-				</p:dataTable>
+				</p:treeTable>
 				
-				<p:commandButton value="Save" update="growl"
-				style="float:right;" action="#{PersonalizedTravelPackageWeb.save}" />
+				<p:dialog id="dialog" header="Document Detail" showEffect="fade" widgetVar="documentDialog" modal="true">  
+        <p:outputPanel id="documentPanel">  
+            <h:panelGrid  columns="1" rendered="#{not empty documentsController.selectedDocument}">  
+                <h:outputLabel for="name" value="Name: " />  
+                <h:outputText id="name" value="#{element.travelComponent.supplyingCompany}" style="font-weight:bold" />  
+  
+                <h:outputLabel for="size" value="Size: " />  
+                <h:outputText id="size" value="#{element.travelComponent.type}" style="font-weight:bold" />  
+  
+                <h:outputLabel for="type" value="Type " />  
+                <h:outputText id="type" value="#{documentsController.selectedDocument.type}" style="font-weight:bold" />  
+            </h:panelGrid>  
+        </p:outputPanel>  
+    </p:dialog>  
+				
+				<p:commandButton value="Save" update="growl" style="float:right;" action="#{PersonalizedTravelPackageWeb.save}" />
 			</h:form>
 </ui:composition>
 	
