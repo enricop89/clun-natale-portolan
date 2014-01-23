@@ -18,7 +18,7 @@
   	 </p:tabMenu> 
   	 
   	  <h:form>  
-            <p:dataTable var="element" value="#{UserPersonalPage.giftList.giftElements}">  
+            <p:dataTable var="element" value="#{CustomerHandlerWeb.giftList.giftElements}">  
                 <p:column headerText="Type">  
                     <h:outputText value="#{element.travelComponent.travelComponent.type}" />  
                 </p:column>  
@@ -30,9 +30,9 @@
                 <p:column headerText=""> 
                 <h:panelGroup style="white-space: nowrap">
                 <h:panelGrid columns="3" >  
-                	<p:commandButton icon="ui-icon-suitcase" actionListener="#{UserPersonalPage.showPackagefromGiftList(element)}"/>
-                    <p:commandButton icon="ui-icon-script" actionListener="#{UserPersonalPage.showComponentfromGiftList(element)}"/> 
-                    <p:commandButton icon="ui-icon-trash" actionListener="#{UserPersonalPage.deleteGFelement(element)}"/>
+                	<p:commandButton icon="ui-icon-suitcase" actionListener="#{CustomerHandlerWeb.showPackagefromGiftList(element)}"/>
+                    <p:commandButton icon="ui-icon-script" actionListener="#{CustomerHandlerWeb.showComponentfromGiftList(element)}"/> 
+                    <p:commandButton icon="ui-icon-trash" actionListener="#{CustomerHandlerWeb.deleteGFelement(element)}"/>
               
               </h:panelGrid>
               </h:panelGroup> 
