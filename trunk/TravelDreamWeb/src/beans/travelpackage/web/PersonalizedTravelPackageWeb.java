@@ -15,8 +15,7 @@ import javax.faces.context.Flash;
 import javax.inject.Inject;
 
 import org.primefaces.context.RequestContext;
-import org.primefaces.model.DefaultTreeNode;
-import org.primefaces.model.TreeNode;
+
 
 
 import beans.customerhandler.CustomerHandlerInterface;
@@ -40,7 +39,6 @@ public class PersonalizedTravelPackageWeb {
 	@EJB
 	private CustomerHandlerInterface customerhandler;
 	private PersonalizedTravelPackageDTO persTP;
-	private TreeNode root;  
 	@PostConstruct
 	public void init(){	
 		persTP=data.getPersonalizedTravelPackagesList().get(0);
@@ -67,10 +65,20 @@ public class PersonalizedTravelPackageWeb {
 	}
 	public void showComponent(Components_HelperDTO helper) throws IOException{
 		//select package and go to personal_package_home
-		List<TravelComponentDTO> toSend = new ArrayList<TravelComponentDTO>();
-		toSend.add(helper.getTravelComponent());
-		data.setTravelComponentsList(toSend);
-		RequestContext.getCurrentInstance().openDialog("/index.xhtml"); // TODO: waiting for TravelComponent page	
+		if(helper.getTravelElement()==null){ //the component is not confirmed
+			List<TravelComponentDTO> toSend = new ArrayList<TravelComponentDTO>();
+			toSend.add(helper.getTravelComponent());
+			data.setTravelComponentsList(toSend);
+			RequestContext.getCurrentInstance().openDialog("/index.xhtml"); // TODO: waiting for TravelComponent page	
+		}
+		else 
+			if(helper.getTravelElement()!=null){	//The component is confirmed
+				List<TravelComponentDTO> toSend = new ArrayList<TravelComponentDTO>();
+				toSend.add(helper.getPersistence());
+				data.setTravelComponentsList(toSend);
+				RequestContext.getCurrentInstance().openDialog("/index.xhtml");
+			}
+		
 	}
 	
 	public void save() throws IOException{
@@ -142,16 +150,7 @@ public class PersonalizedTravelPackageWeb {
 		
 	}
 	
-	  public void DocumentsController() {
-		  root = new DefaultTreeNode("root", null);  
-          
-	        TreeNode hotel = new DefaultTreeNode(new Document("Documents", "-", "Folder"), root);  
-		  
-		  
-	  }
-	  
-	  
-		
+	
 		
 	public PersonalizedTravelPackageDTO getPersTP() {
 		return persTP;
