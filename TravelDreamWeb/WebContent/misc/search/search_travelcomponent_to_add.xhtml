@@ -62,12 +62,8 @@
 			 		</p:panel>
 			    </p:tab> 			     	  				     		    	
 	    	</p:tabView>    
-	    	<p:commandButton value="Search" icon="ui-icon-search" actionListener="#{SearchWeb.searchTravelComponents(true)}" update="componentsGrowl" ajax="true" styleClass="ui-priority-primary">  
-	       		<p:ajax event="dialogReturn" listener="#{EmployeeHandlerWeb.onTravelComponentChosen}"/> 
-	       	</p:commandButton>
-       		<p:commandButton value="Browse All" icon="ui-icon-search" actionListener="#{SearchWeb.browseAllTravelComponents(true)}" update="componentsGrowl" ajax="true">
-		       	<p:ajax event="dialogReturn" listener="#{EmployeeHandlerWeb.onTravelComponentChosen}"/> 
-			</p:commandButton>			        
+	    	<p:commandButton value="Search" icon="ui-icon-search" actionListener="#{SearchWeb.searchTravelComponents(true)}" update="componentsGrowl" ajax="true" styleClass="ui-priority-primary"/>  
+       		<p:commandButton value="Browse All" icon="ui-icon-search" actionListener="#{SearchWeb.browseAllTravelComponents(true)}" update="componentsGrowl" ajax="true"/>		        
  		</p:panel>
 </h:form>
 </h:body>

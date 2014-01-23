@@ -25,11 +25,9 @@ public class SearchTravelComponents {
 	}
 	
 	private List<TravelComponentDTO> travelComponentsList;
-	private RequestContext instance;
 	
 	@PostConstruct
 	public void init(){
-		instance = data.getInstance();
 		travelComponentsList = data.getTravelComponentsList();
 	}
 	
@@ -38,9 +36,6 @@ public class SearchTravelComponents {
 	}
 	
 	public void selectFromDialog(TravelComponentDTO travelComponent){
-		if(instance != null)
-			RequestContext.setCurrentInstance(instance);
-		
 		RequestContext.getCurrentInstance().closeDialog(travelComponent); 
 	}
 	
