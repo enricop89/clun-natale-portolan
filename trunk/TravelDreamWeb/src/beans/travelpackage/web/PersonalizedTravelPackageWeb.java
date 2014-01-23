@@ -45,9 +45,9 @@ public class PersonalizedTravelPackageWeb {
 	
 	public boolean checkStatus(Components_HelperDTO helper){
 			if(helper.getTravelElement()!=null)
-				return false;
+				return true;
 		
-		return true;
+		return false;
 	}
 	public void deletePackage(Components_HelperDTO helper) throws IOException{
 		FacesContext facesContext = FacesContext.getCurrentInstance();
@@ -56,7 +56,7 @@ public class PersonalizedTravelPackageWeb {
 		flash.setRedirect(true);
 		boolean result=customerhandler.removeTravelComponentFromPersonalizedTravelPackage(persTP, helper);
 				if(result==true){
-					facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Successful", "You have succesfully deleted your component from GiftList!")); 
+					facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Successful", "You have succesfully deleted your component from your own travel package!")); 
 					FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/misc/personalizedtravelpackage.xhtml"); //delete a TravelComponent
 			}
 				else
@@ -71,7 +71,6 @@ public class PersonalizedTravelPackageWeb {
 	}
 	
 	public String save(){
-		
 		
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		Flash flash = facesContext.getExternalContext().getFlash();
