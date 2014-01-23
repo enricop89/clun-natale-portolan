@@ -28,10 +28,13 @@
 			
 			<p:column headerText=""> 
 				<p:row>
-					<p:commandButton icon="ui-icon-suitcase" actionListener="#{CustomerHandlerWeb.showPackagefromGiftList(element)}"/>
-					<p:commandButton icon="ui-icon-script" actionListener="#{CustomerHandlerWeb.showComponentfromGiftList(element)}"/> 
-					<p:commandButton icon="ui-icon-trash" actionListener="#{CustomerHandlerWeb.deleteGFelement(element)}"/>			
+					<p:commandButton id="package" icon="ui-icon-suitcase" actionListener="#{CustomerHandlerWeb.showPackagefromGiftList(element)}"/>
+					<p:commandButton id="component" icon="ui-icon-script" actionListener="#{CustomerHandlerWeb.showComponentfromGiftList(element)}"/> 
+					<p:commandButton id="delete" icon="ui-icon-trash" actionListener="#{CustomerHandlerWeb.deleteGFelement(element)}"/>			
 				</p:row>
+            	<p:tooltip for="delete" value="Remove the component from the gift list" showEffect="fade" hideEffect="fade" /> 
+            	<p:tooltip for="link" value="Show the travel component info" showEffect="fade" hideEffect="fade" /> 
+            	<p:tooltip for="package" value="View the details of the package" showEffect="fade" hideEffect="fade" />  
 			</p:column>  
 		</p:dataTable>  
 		</h:form>  

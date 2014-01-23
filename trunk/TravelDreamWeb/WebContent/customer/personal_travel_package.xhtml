@@ -14,7 +14,8 @@
 		<p:menuitem value="GiftList" url="gift_list.xhtml" icon="ui-icon-cart"/> 
 		<p:menuitem value="Search" url="search_page.xhtml" icon="ui-icon-search"/> 
 		</p:tabMenu> 
-		<h:form>  	  	  		
+		<h:form>  	
+			<p:growl id="growl1" showDetail="true" globalOnly="true" />   	  		
 			<p:dataTable var="element" value="#{CustomerHandlerWeb.persTP}" >  
 	            <p:column headerText="Name">  
 	                <h:outputText value="#{element.name}" />  
@@ -32,9 +33,7 @@
 				 	<p:graphicImage id="Unconfirm" value="/resources/images/unconfirmed.png" style="float:center" rendered="#{CustomerHandlerWeb.checkStatus(element)==false}" />
 					<p:tooltip for="Unconfirm" value="The package is unconfirmed" showEffect="fade" hideEffect="fade" /> 
 				</p:column>   
-				
-	                         
-	                             
+					                             
 	          	<p:column headerText="" style="text-align: center"> 
 	      			<p:row> 
 	      				<p:commandButton id="visualize" icon="ui-icon-script"  actionListener="#{CustomerHandlerWeb.showPackage(element)}"/> 

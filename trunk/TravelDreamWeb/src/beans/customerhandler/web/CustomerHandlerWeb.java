@@ -75,8 +75,7 @@ public class CustomerHandlerWeb {
 				FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/customer/personal_travel_package.xhtml"); //delete a Personalize Travel Package
 			}
 			else
-				facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error", "You cannot delete a confirmed package")); 
-			
+				facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error", "You cannot delete a confirmed package")); 			
 	}
 	
 	public void showMessage(PersonalizedTravelPackageDTO helper) {  //get identifier
@@ -89,7 +88,7 @@ public class CustomerHandlerWeb {
 		List<TravelComponentDTO> toSend = new ArrayList<TravelComponentDTO>();
 		toSend.add(gift.getTravelComponent().getTravelComponent());
 		data.setTravelComponentsList(toSend);
-		FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/index.xhtml"); // TODO: waiting for TravelComponent page	
+		RequestContext.getCurrentInstance().openDialog("/index.xhtml"); // TODO: waiting for TravelComponent page	
 	}
 	
 	public void showPackagefromGiftList(GiftElements_HelperDTO gift) throws IOException{
