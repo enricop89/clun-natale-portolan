@@ -85,10 +85,10 @@ public class OtherCustomerWeb {
 		flash.setRedirect(true);
 		boolean result = customerHandler.payTravelComponent(user, finder.findUser(FacesContext.getCurrentInstance().getExternalContext().getRemoteUser()), giftListElement);
 			if (result==true){
-				facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Successful", "You have succesfully payed this component!")); 
 				List<UserDTO> toSend = new ArrayList<UserDTO>();
 				toSend.add(user);
 				data.setUsersList(toSend);
+				facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Successful", "You have succesfully payed this component!")); 
 				FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/misc/other_customer/gift_list.xhtml");
 			}
 			else
