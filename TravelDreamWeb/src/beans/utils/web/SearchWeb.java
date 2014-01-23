@@ -337,6 +337,99 @@ public class SearchWeb {
 			RequestContext.getCurrentInstance().openDialog("/misc/search/travelcomponent_search.xhtml");
 		}
 	}
+	public void searchTravelComponents(boolean add) throws IOException{
+		if(add == true){
+			switch(searchCriteria.getType()){
+			case FLIGHT:
+				if(flightSupplyingCompany.isEmpty())
+					searchCriteria.setSupplyingCompany(null);
+				if(flightDepartureDateTime != null)
+					searchCriteria.setFlightDepartureDateTime(new Timestamp(flightDepartureDateTime.getTime()));		
+				else
+					searchCriteria.setFlightDepartureDateTime(null);
+			
+				if(flightArrivalDateTime != null)
+					searchCriteria.setFlightArrivalDateTime(new Timestamp(flightArrivalDateTime.getTime()));	
+				else
+					searchCriteria.setFlightArrivalDateTime(null);
+				
+				if(searchCriteria.getFlightDepartureCity().isEmpty())
+					searchCriteria.setFlightDepartureCity(null);
+				
+				if(searchCriteria.getFlightArrivalCity().isEmpty())
+					searchCriteria.setFlightArrivalCity(null);
+				
+				if(searchCriteria.getFlightCode().isEmpty())
+					searchCriteria.setFlightCode(null);
+				
+				travelComponentsList = finder.findTravelComponent(searchCriteria);
+				
+				break;
+			case HOTEL:
+				if(hotelSupplyingCompany.isEmpty())
+					searchCriteria.setSupplyingCompany(null);
+				if(searchCriteria.getHotelCity().isEmpty())
+					searchCriteria.setHotelCity(null);
+				if(hotelStartingDate != null && hotelEndingDate != null){
+					Calendar start = Calendar.getInstance();
+					start.setTime(hotelStartingDate);
+					Calendar end = Calendar.getInstance();
+					end.setTime(hotelEndingDate);
+					travelComponentsList = new ArrayList<TravelComponentDTO>();
+					for (java.util.Date date = start.getTime(); !start.after(end); start.add(Calendar.DATE, 1), date = start.getTime()) {
+					    searchCriteria.setHotelDate(new Date(date.getTime()));
+					    travelComponentsList.addAll(finder.findTravelComponent(searchCriteria));
+					}
+				}
+				else{
+					if(hotelStartingDate != null)
+						searchCriteria.setHotelDate(new Date(hotelStartingDate.getTime()));
+					else if(hotelEndingDate != null)
+						searchCriteria.setHotelDate(new Date(hotelEndingDate.getTime()));
+					
+					travelComponentsList = finder.findTravelComponent(searchCriteria);
+				}
+				
+				break;
+			case EXCURSION:
+				if(excursionSupplyingCompany.isEmpty())
+					searchCriteria.setSupplyingCompany(null);
+				if(searchCriteria.getExcursionCity().isEmpty())
+					searchCriteria.setExcursionCity(null);
+				
+				if(searchCriteria.getExcursionDescription().isEmpty())
+					searchCriteria.setExcursionDescription(null);
+				
+				if(excursionDateTime != null)
+					searchCriteria.setExcursionDateTime(new Timestamp(excursionDateTime.getTime()));
+				else
+					searchCriteria.setExcursionDateTime(null);
+				
+				travelComponentsList = finder.findTravelComponent(searchCriteria);
+				
+				break;
+			}
+			
+			if(travelComponentsList == null || travelComponentsList.isEmpty())
+				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"No Results", "Your search has given no results")); 
+			else{
+				data.setTravelComponentsList(travelComponentsList);
+				FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/misc/search/add_travelcomponent.xhtml");
+			}
+		}
+	}
+	public void browseAllTravelComponents(boolean add) throws IOException{
+		if(add==true){
+			travelComponentsList = finder.findAllTravelComponents();
+			
+			if(travelComponentsList == null || travelComponentsList.isEmpty())
+				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"No Results", "Your search has given no results")); 
+			else{
+				data.setTravelComponentsList(travelComponentsList);
+				FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/misc/search/add_travelcomponent.xhtml");
+			}
+		}
+	}
 	public void onTravelComponentChosen(SelectEvent event) throws IOException{
 		// open up the travelComponent page
 		TravelComponentDTO travelComponent = (TravelComponentDTO) event.getObject(); 

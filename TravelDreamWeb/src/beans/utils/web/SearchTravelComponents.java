@@ -1,5 +1,6 @@
 package beans.utils.web;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -36,5 +37,12 @@ public class SearchTravelComponents {
 	
 	public void selectFromDialog(TravelComponentDTO travelComponent){
 		RequestContext.getCurrentInstance().closeDialog(travelComponent); 
+	}
+	
+	public void visualize(TravelComponentDTO travelComponent){
+		List<TravelComponentDTO> toSend = new ArrayList<TravelComponentDTO>();
+		toSend.add(travelComponent);
+		data.setTravelComponentsList(toSend);
+		RequestContext.getCurrentInstance().openDialog("/index.xhtml"); //TODO: Waiting for Travel Component page
 	}
 }
