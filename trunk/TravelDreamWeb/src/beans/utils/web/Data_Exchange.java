@@ -7,6 +7,8 @@ import javax.enterprise.context.SessionScoped;
 import javax.faces.bean.ManagedBean;
 import javax.inject.Named;
 
+import org.primefaces.context.RequestContext;
+
 import beans.accountmanagement.UserDTO;
 import beans.travelcomponent.TravelComponentDTO;
 import beans.travelpackage.PersonalizedTravelPackageDTO;
@@ -20,12 +22,14 @@ public class Data_Exchange implements java.io.Serializable{
 	private List<PredefinedTravelPackageDTO> predefinedTravelPackagesList;
 	private List<UserDTO> usersList;
 	private List<TravelComponentDTO> travelComponentsList;
+	private RequestContext instance;
 	
 	public Data_Exchange(){
 		personalizedTravelPackagesList = new ArrayList<PersonalizedTravelPackageDTO>();
 		predefinedTravelPackagesList = new ArrayList<PredefinedTravelPackageDTO>();
 		usersList = new ArrayList<UserDTO>();
 		travelComponentsList = new ArrayList<TravelComponentDTO>();
+		instance = null;
 	}
 	
 	public List<PersonalizedTravelPackageDTO> getPersonalizedTravelPackagesList() {
@@ -61,5 +65,13 @@ public class Data_Exchange implements java.io.Serializable{
 	}
 	public void setTravelComponentsList(List<TravelComponentDTO> travelComponentsList) {
 		this.travelComponentsList = travelComponentsList;
+	}
+
+	public RequestContext getInstance() {
+		return instance;
+	}
+
+	public void setInstance(RequestContext instance) {
+		this.instance = instance;
 	}
 }
