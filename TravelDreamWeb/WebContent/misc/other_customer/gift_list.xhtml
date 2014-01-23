@@ -6,16 +6,15 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 
-	<ui:define name="title">Your Gift List</ui:define>
+	<ui:define name="title">Customer Gift List</ui:define>
 	<ui:define name="content">
 		<h:form>	
 		<p:tabMenu activeIndex="1">  
 		<p:menuitem value="Personal Info" action="#{OtherCustomerWeb.open('personal_page.xhtml')}" icon="ui-icon-person"/>  
 		<p:menuitem value="GiftList" action="#{OtherCustomerWeb.open('gift_list.xhtml')}" icon="ui-icon-cart"/> 
-		</p:tabMenu>   	 
-		<h:form>  
-		<p:growl id="growl1" showDetail="true" globalOnly="true" />   	
+		</p:tabMenu>   	    	
 		<p:dataTable var="element" value="#{OtherCustomerWeb.giftList.giftElements}">  
+			<p:growl id="growl1" showDetail="true" globalOnly="true" />
 			<p:column headerText="Type">  
 				<h:outputText value="#{element.travelComponent.travelComponent.type}" />  
 			</p:column>  
@@ -28,8 +27,7 @@
             	<p:tooltip for="pay" value="Pay the component for your friend!" showEffect="fade" hideEffect="fade" /> 
             	<p:tooltip for="show" value="Show the travel component info" showEffect="fade" hideEffect="fade" /> 
 			</p:column>  
-		</p:dataTable>  
-		</h:form>  
+		</p:dataTable>    
   	 	</h:form>
   	</ui:define> 
 </ui:composition>
