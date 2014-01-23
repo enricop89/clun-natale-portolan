@@ -11,8 +11,8 @@
 	<ui:define name="content">
 	
 		<p:tabMenu activeIndex="0">  
-		<p:menuitem value="Personal Info" url="other_customer.xhtml" icon="ui-icon-person"/>  
-		<p:menuitem value="GiftList" url="gift_list.xhtml" icon="ui-icon-cart"/> 
+		<p:menuitem value="Personal Info" action="OtherCustomerWeb.open('other_customer.xhtml')" icon="ui-icon-person"/>  
+		<p:menuitem value="GiftList" action="OtherCustomerWeb.open('gift_list.xhtml')" icon="ui-icon-cart"/> 
 		</p:tabMenu>  
 		<p:panel id="panel" header="Customer personal informations">      
 			<h:panelGrid columns="2" id="info">

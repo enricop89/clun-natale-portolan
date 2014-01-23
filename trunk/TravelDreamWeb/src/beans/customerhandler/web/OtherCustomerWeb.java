@@ -65,6 +65,12 @@ public class OtherCustomerWeb {
 	}
 	
 	//-----------------------
+	public void open(String link) throws IOException{
+		List<UserDTO> toSend = new ArrayList<UserDTO>();
+		toSend.add(user);
+		data.setUsersList(toSend);
+		FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/misc/other_customer/" + link);
+	}
 	public void showComponent(GiftElements_HelperDTO giftListElement) throws IOException{
 		//select package and go to personal_package_home
 		List<TravelComponentDTO> toSend = new ArrayList<TravelComponentDTO>();
