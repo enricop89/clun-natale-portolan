@@ -80,7 +80,7 @@
 		</h:form>
 		</p:dialog>		
 		
-		<p:commandButton value="Add Travel Component" rendered="#{PersonalizedTravelPackageWeb.isOwner() and PersonalizedTravelPackageWeb.checkStatus()}" style="float:left" icon="ui-icon-plusthick" onclick="PF('searchComponent').show();PF('selectComponent').hide()"/>
+		<p:commandButton value="Add Travel Component" rendered="#{PersonalizedTravelPackageWeb.isOwner() and (PersonalizedTravelPackageWeb.checkStatus() == false)}" style="float:left" icon="ui-icon-plusthick" onclick="PF('searchComponent').show();PF('selectComponent').hide()"/>
 		<p:commandButton id="link" icon="ui-icon-star" style="float:right;" rendered="#{PersonalizedTravelPackageWeb.isOwner() == false}" actionListener="#{PersonalizedTravelPackageWeb.joinPackage}"/> 
 		<p:commandButton value="Save" icon="ui-icon-check" style="float:right;" rendered="#{PersonalizedTravelPackageWeb.isOwner()}" actionListener="#{PersonalizedTravelPackageWeb.saveChanges}" />
 		
