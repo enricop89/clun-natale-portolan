@@ -51,6 +51,9 @@ public class CustomerHandler implements CustomerHandlerInterface{
 	@Override
 	@RolesAllowed({"CUSTOMER"})
 	public boolean removeTravelComponentFromPersonalizedTravelPackage(PersonalizedTravelPackageDTO personalizedTravelPackage, Components_HelperDTO travelComponent){
+		if(travelComponent.getTravelElement() != null)
+			return false;
+		
 		List<Components_HelperDTO> components = personalizedTravelPackage.getTravelComponents();
 		boolean result = components.remove(travelComponent);
 		if(result == true)
