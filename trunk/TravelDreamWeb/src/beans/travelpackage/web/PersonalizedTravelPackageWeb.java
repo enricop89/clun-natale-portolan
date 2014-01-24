@@ -78,13 +78,21 @@ public class PersonalizedTravelPackageWeb {
 	
 	//-----------------------	
 	
-	public boolean checkStatus(Components_HelperDTO helper){
-			if(helper.getTravelElement()!=null)
+	public boolean checkStatus(Components_HelperDTO toChcek){
+			if(toChcek.getTravelElement()!=null)
 				return true;
 		
 		return false;
 	}
 	
+	public boolean checkStatus(PersonalizedTravelPackageDTO toCheck){
+		for (int i=0;i<toCheck.getTravelComponents().size();i++)
+			if(toCheck.getTravelComponents().get(i).getTravelElement()==null)
+				return false;
+		
+		return true;
+	}
+		
 	public boolean isOwner(){
 		if(FacesContext.getCurrentInstance().getExternalContext().isUserInRole("CUSTOMER"))
 			if(personalizedPackage.getOwner().getEmail().equals(FacesContext.getCurrentInstance().getExternalContext().getRemoteUser()))
@@ -153,7 +161,7 @@ public class PersonalizedTravelPackageWeb {
 				FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/customer/personalized_travel_package.xhtml");
 			}
 			else{
-				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error", "The travel component is already in the travel package!"));
+				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error", "The component is already in the travel package!"));
 			}			
 		}
 		catch (java.lang.IndexOutOfBoundsException e){/* does nothing */}
