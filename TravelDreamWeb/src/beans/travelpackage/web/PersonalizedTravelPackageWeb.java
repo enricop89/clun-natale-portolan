@@ -60,16 +60,19 @@ public class PersonalizedTravelPackageWeb {
 	}
 	public void deleteComponent(Components_HelperDTO helper) throws IOException{
 		boolean result = customerhandler.removeTravelComponentFromPersonalizedTravelPackage(persTP, helper);
-		FacesContext facesContext = FacesContext.getCurrentInstance();
-		Flash flash = facesContext.getExternalContext().getFlash();
-		flash.setKeepMessages(true);
-		flash.setRedirect(true);
 		if(result==true){
+			FacesContext facesContext = FacesContext.getCurrentInstance();
+			Flash flash = facesContext.getExternalContext().getFlash();
+			flash.setKeepMessages(true);
+			flash.setRedirect(true);
 			facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Successful", "You have succesfully deleted your component from your own travel package!")); 
+			List<PersonalizedTravelPackageDTO> toSend = new ArrayList<PersonalizedTravelPackageDTO>();
+			toSend.add(persTP);
+			data.setPersonalizedTravelPackagesList(toSend);
 			FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/misc/personalizedtravelpackage.xhtml"); //delete a TravelComponent
 		}
 		else
-			facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error", "You cannot delete a payed component")); 
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error", "You cannot delete a payed component")); 
 	}
 	
 	public void showComponent(Components_HelperDTO helper){
