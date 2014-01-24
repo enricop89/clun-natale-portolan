@@ -5,63 +5,79 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
-	<ui:define name="title">Predefined Travel Packages</ui:define>
+	
+<ui:define name="title">Travel Package</ui:define>
 
+    <ui:define name="content">
 
 
 <h:form> 
+<p:growl id="growl1" showDetail="true" globalOnly="true" />   
 
-		<p:growl id="growl1" showDetail="true" globalOnly="true" />   
-			<h:panelGrid columns="5" id="regGrid">
+<h:panelGrid columns="5" id="regGrid" >
 			<h:outputLabel value="" />  
-			<h:outputLabel value="" />  
-			<p:inplace id="name" editor="true" rendered="#{PredefinedTravelPackageWeb.checkIfCustomer()}">
-				<p:inputText value="#{PersonalizedTravelPackageWeb.persTP.name}" />
+			<h:outputLabel for="name">Name:</h:outputLabel>
+			<p:inplace id="name" editor="true" rendered="#{PredefinedTravelPackageWeb.checkIfCustomer()}" >
+				<p:inputText value="#{PredefinedTravelPackageWeb.predTP.name}" />
 			</p:inplace>  
 			<p:message for="name" />
+			<h:outputLabel value="" />
 			<h:outputLabel value="" /> 
-			<p:inplace id="Departure_date" editor="true" rendered="#{PredefinedTravelPackageWeb.checkIfCustomer()}">
-				<p:calendar value="#{PersonalizedTravelPackageWeb.persTP.departureDate}" showButtonPanel="true" >
-				<f:convertDateTime pattern="yyyy-MM-dd" />
+			<h:outputLabel for="Description">Firstname:</h:outputLabel>
+			<h:outputLabel value="#{PredefinedTravelPackageWeb.predTP.description}" />  
+			<h:outputLabel value="" />
+			<h:outputLabel value="" />
+			
+
+			<h:outputLabel for="Departure_date">Departure date:</h:outputLabel>
+			<p:inplace id="Departure_date" editor="true" rendered="#{PredefinedTravelPackageWeb.checkIfCustomer()}" >
+				<p:calendar value="#{PredefinedTravelPackageWeb.predTP.departureDate}" pattern="dd-MM-yyyy" showButtonPanel="true" >
+				<f:convertDateTime pattern="dd-MM-yyyy" />
 				</p:calendar>
 			</p:inplace> 
 			<p:message for="Departure_date" /> 
-			<h:outputLabel value="" />  
-			<p:inplace id="Arrival_date" editor="true" rendered="#{PredefinedTravelPackageWeb.checkIfCustomer()}">
-			<p:calendar value="#{PersonalizedTravelPackageWeb.persTP.returnDate}" showButtonPanel="true" >
-			<f:convertDateTime pattern="yyyy-MM-dd" />
+			 <h:outputLabel for="Arrival_date">Arrival date:</h:outputLabel>
+			<p:inplace id="Arrival_date" editor="true" rendered="#{PredefinedTravelPackageWeb.checkIfCustomer()}" >
+			<p:calendar value="#{PredefinedTravelPackageWeb.predTP.returnDate}" pattern="dd-MM-yyyy" showButtonPanel="true" >
+			<f:convertDateTime pattern="dd-MM-yyyy" />
 			</p:calendar>
 			</p:inplace> 
 			<p:message for="Arrival_date" />
-		</h:panelGrid>	  
+	</h:panelGrid>	
+
+
+			  
 				
 			<p:dataTable var="element" value="#{PredefinedTravelPackageWeb.predTP.travelComponents}" >  
-	            <p:column headerText="Name">  
-	                <h:outputText value="#{element.name}" />  
+	            <p:column headerText="Type">  
+	                <h:outputText value="#{element.type}" />  
 	            </p:column> 
-	             <p:column headerText="Name">  
-	                <h:outputText value="#{element.description}" />  
+	             <p:column headerText="Supplyng company">  
+	                <h:outputText value="#{element.supplyingCompany}" />  
 	            </p:column> 
-				<p:column headerText="Departure Date">  
-	                <h:outputText value="#{element.departureDate}" />  
+				<p:column headerText="Availability">  
+	                <h:outputText value="#{element.availability}" />  
 	            </p:column>  
-	            <p:column headerText="Return Date">  
-	                <h:outputText value="#{element.returnDate}" />  
-	            </p:column> 
-	                              
-	          	<p:column headerText="" style="text-align: center"> 
-	      			<p:row> 
-	      				<p:commandButton id="visualize" icon="ui-icon-script" rendered="#{PredefinedTravelPackageWeb.checkIfEmployee()}" actionListener="#{PredefinedTravelPackageWeb.showComponent(element)}"/> 
-	      				<p:commandButton id="link" icon="ui-icon-tag" update="growl1" rendered="#{PredefinedTravelPackageWeb.checkIfEmployee()}" actionListener="#{PredefinedTravelPackageWeb.updateComponent(element)}"/>
-	         			<p:commandButton id="delete" icon="ui-icon-copy" update="growl1" rendered="#{PredefinedTravelPackageWeb.checkIfCustomer()}"  action="#{PredefinedTravelPackageWeb.copyInPersonalizedTravelPackage(element)}"	ajax="false"/> 
-	            	</p:row>
-	            	<p:tooltip for="delete" value="Delete the package" showEffect="fade" hideEffect="fade" /> 
-	            	<p:tooltip for="link" value="Get the package identifier" showEffect="fade" hideEffect="fade" /> 
-	            	<p:tooltip for="visualize" value="View the details of the package" showEffect="fade" hideEffect="fade" />   
+	                
+	          	<p:column headerText="" style="text-align: center">
+	          		
+		      			<p:row> 
+		      				<p:commandButton id="visualize" icon="ui-icon-script" rendered="#{PredefinedTravelPackageWeb.checkIfEmployee()}" actionListener="#{PredefinedTravelPackageWeb.showComponent(element)}"/> 
+		      				<p:commandButton id="modify" icon="ui-icon-wrench" rendered="#{PredefinedTravelPackageWeb.checkIfEmployee()}" actionListener="#{PredefinedTravelPackageWeb.updateComponent(element)}"/>
+		         			<p:commandButton id="copy" icon="ui-icon-copy" update="growl1" rendered="#{PredefinedTravelPackageWeb.checkIfCustomer()}"  action="#{PredefinedTravelPackageWeb.copyInPersonalizedTravelPackage(element)}"	ajax="false"/> 
+		            	</p:row>
+		            
+            	<p:tooltip for="copy" value="Add the package in your personal list" showEffect="fade" hideEffect="fade" /> 
+            	<p:tooltip for="modify" value="Modify the travel package" showEffect="fade" hideEffect="fade" /> 
+            	<p:tooltip for="visualize" value="View the details of the package" showEffect="fade" hideEffect="fade" />   
+	         	
 	         	</p:column>                  
 			</p:dataTable> 
-			<p:commandButton id="check" icon="ui-icon-check" update="growl1" rendered="#{PredefinedTravelPackageWeb.checkIfCustomer()}" style="float:right;" action="#{PredefinedTravelPackageWeb.save}"	ajax="false"/>
+			
+			<p:commandButton id="check" value="Save" icon="ui-icon-check" update="growl1" rendered="#{PredefinedTravelPackageWeb.checkIfCustomer()}" style="float:right;" action="#{PredefinedTravelPackageWeb.save}"	ajax="false"/>
 			<p:tooltip for="check" value="Save the package" showEffect="fade" hideEffect="fade" /> 
-</h:form>
+
+	</h:form>
+</ui:define>
 </ui:composition>
  

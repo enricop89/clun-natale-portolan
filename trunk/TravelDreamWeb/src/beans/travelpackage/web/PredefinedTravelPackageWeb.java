@@ -1,6 +1,7 @@
 package beans.travelpackage.web;
 
 import java.io.IOException;
+import java.sql.Date;
 import java.util.ArrayList;
 
 import javax.annotation.PostConstruct;
@@ -31,6 +32,8 @@ public class PredefinedTravelPackageWeb {
 	private EmployeeHandlerInterface employee;
 	private CustomerHandlerInterface customerhandler;
 	private UserDTO user;
+	private java.util.Date departureDate;
+	private java.util.Date returnDate;
 
 	@Inject
 	private Data_Exchange data;
@@ -44,6 +47,8 @@ public class PredefinedTravelPackageWeb {
 	@PostConstruct
 	public void init(){	
 		predTP=data.getPredefinedTravelPackagesList().get(0);
+		departureDate=new java.util.Date (predTP.getDepartureDate().getTime());
+		returnDate=new java.util.Date (predTP.getReturnDate().getTime());
 	}
 	
 	public void showComponent(TravelComponentDTO helper) throws IOException{
@@ -88,6 +93,11 @@ public void save() throws IOException{
 		Flash flash = facesContext.getExternalContext().getFlash();
 		flash.setKeepMessages(true);
 		flash.setRedirect(true);
+		if(departureDate != null)
+			predTP.setDepartureDate(new Date(departureDate.getTime()));
+		if(returnDate != null)
+			predTP.setReturnDate(new Date(returnDate.getTime()));
+		
 		user = search.findUser(FacesContext.getCurrentInstance().getExternalContext().getRemoteUser());
 		customerhandler.addNewPersonalizedTravelPackage(user,predTP);
 		facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Successful", "The package has been succesfully added to your package list!")); 
@@ -121,6 +131,18 @@ public void save() throws IOException{
 	}
 	public void setEmployee(EmployeeHandlerInterface employee) {
 		this.employee = employee;
+	}
+	public java.util.Date getDepartureDate() {
+		return departureDate;
+	}
+	public void setDepartureDate(java.util.Date departureDate) {
+		this.departureDate = departureDate;
+	}
+	public java.util.Date getReturnDate() {
+		return returnDate;
+	}
+	public void setReturnDate(java.util.Date returnDate) {
+		this.returnDate = returnDate;
 	}
 	
 	
