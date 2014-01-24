@@ -58,14 +58,28 @@
 				
 			<p:column headerText="" style="text-align: center"> 
       			<p:row> 
-      				<p:commandButton id="visualize" icon="ui-icon-script" rendered="#{PersonalizedTravelPackageWeb.isOwner()}" actionListener="#{PersonalizedTravelPackageWeb.showComponent(element)}"/> 
-         			<p:commandButton id="delete" icon="ui-icon-trash" rendered="#{PersonalizedTravelPackageWeb.isOwner()}"  action="#{PersonalizedTravelPackageWeb.deleteComponent(element)}"/> 
+      				<p:commandButton id="visualize" icon="ui-icon-script" actionListener="#{PersonalizedTravelPackageWeb.showComponent(element)}"/> 
+         			<p:commandButton id="addToGiftList" icon="ui-icon-cart" rendered="#{PersonalizedTravelPackageWeb.isOwner()}"  action="#{PersonalizedTravelPackageWeb.addToGiftList(element)}"/>
+         			<p:commandButton id="delete" icon="ui-icon-trash" rendered="#{PersonalizedTravelPackageWeb.isOwner()}"  action="#{PersonalizedTravelPackageWeb.deleteComponent(element)}"/>  
             	</p:row>
             	<p:tooltip for="delete" value="Delete the component" showEffect="fade" hideEffect="fade" /> 
             	<p:tooltip for="visualize" value="View the details of the component" showEffect="fade" hideEffect="fade" />   
+            	<p:tooltip for="addToGiftList" value="Add this component to your gift list" showEffect="fade" hideEffect="fade" />   
 			</p:column> 				
 		</p:dataTable>
 		
+		<p:dialog header="Search Travel Components" id="searchComponent" widgetVar="searchComponent" width="700" height="400" resizable="true" showEffect="clip" hideEffect="clip" dynamic="true">  
+			<ui:include src="/misc/search/search_travelcomponent_to_add.xhtml" /> 	
+		</p:dialog>  
+		
+		<p:dialog header="Add Travel Component" id="selectComponent" widgetVar="selectComponent" width="700" height="400" resizable="true" showEffect="clip" hideEffect="clip" dynamic="true">  
+		<p:ajax event="close" listener="#{PersonalizedTravelPackageWeb.onTravelComponentChosen}"/>
+		<h:form>		
+			<ui:include src="/misc/search/add_travelcomponent.xhtml" />  
+		</h:form>
+		</p:dialog>		
+		
+		<p:commandButton value="Add Travel Component" rendered="#{PersonalizedTravelPackageWeb.isOwner()}" style="float:left" icon="ui-icon-plusthick" onclick="PF('searchComponent').show();PF('selectComponent').hide()"/>
 		<p:commandButton id="link" icon="ui-icon-link" style="float:right;" rendered="#{PersonalizedTravelPackageWeb.isOwner() == false}" actionListener="#{PersonalizedTravelPackageWeb.joinPackage}"/> 
 		<p:commandButton value="Save" icon="ui-icon-check" style="float:right;" rendered="#{PersonalizedTravelPackageWeb.isOwner()}" actionListener="#{PersonalizedTravelPackageWeb.saveChanges}" />
 		

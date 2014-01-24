@@ -16,14 +16,13 @@ import javax.faces.context.Flash;
 import javax.inject.Inject;
 
 import org.primefaces.context.RequestContext;
-
-
-
+import org.primefaces.event.CloseEvent;
 
 import beans.customerhandler.CustomerHandlerInterface;
 import beans.travelcomponent.TravelComponentDTO;
 import beans.travelpackage.Components_HelperDTO;
 import beans.travelpackage.PersonalizedTravelPackageDTO;
+import beans.utils.SearchDTOInterface;
 import beans.utils.web.Data_Exchange;
 
 @ManagedBean(name="PersonalizedTravelPackageWeb")
@@ -39,6 +38,8 @@ public class PersonalizedTravelPackageWeb {
 		this.data = data;
 	}
 	
+	@EJB
+	private SearchDTOInterface finder;
 	@EJB
 	private CustomerHandlerInterface customerhandler;
 	
@@ -126,6 +127,34 @@ public class PersonalizedTravelPackageWeb {
 			}		
 	}
 	
+	public void addToGiftList(Components_HelperDTO component){
+		boolean result = customerhandler.addTravelComponentToGiftList(finder.findUser(FacesContext.getCurrentInstance().getExternalContext().getRemoteUser()), component, personalizedPackage);
+		if(result==true){
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Successful", "Component added succesfully to your gift list")); 
+		}
+		else
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error", "An error occured. Maybe your are trying to add a payed travel component")); 		
+	}
+	
+	public void onTravelComponentChosen(CloseEvent event) throws IOException
+	{
+		try{ // must use try catch, getters in Data_Exchange flushes lists by design! calling it twice is a logical error
+			TravelComponentDTO travelComponent = data.getTravelComponentsList().get(0);
+			customerhandler.addTravelComponentToPersonalizedTravelPackage(personalizedPackage, travelComponent);
+			
+			List<PersonalizedTravelPackageDTO> toSend = new ArrayList<PersonalizedTravelPackageDTO>();
+			toSend.add(personalizedPackage);
+			data.setPersonalizedTravelPackagesList(toSend);
+			FacesContext facesContext = FacesContext.getCurrentInstance();
+			Flash flash = facesContext.getExternalContext().getFlash();
+			flash.setKeepMessages(true);
+			flash.setRedirect(true);
+			facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Successful", "You have added the component to your package, click on the save button to submit your changes!")); 
+			FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/customer/personal_travel_package.xhtml");
+		}
+		catch (java.lang.IndexOutOfBoundsException e){/* does nothing */}
+	}
+	
 	public void saveChanges() throws IOException{	
 		if(departureDate != null){
 			personalizedPackage.setDepartureDate(new Date(departureDate.getTime()));
@@ -143,7 +172,7 @@ public class PersonalizedTravelPackageWeb {
 					flash.setKeepMessages(true);
 					flash.setRedirect(true);
 					facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Successful", "Your package has been succesfully updated!")); 
-					FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/customer/personal_travel_package.xhtml?faces-redirect=true");
+					FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/customer/personal_travel_package.xhtml");
 				}
 				else{
 					FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error", "Something went wrong. Maybe you are trying to save an unconsistent travel package"));	
@@ -157,7 +186,7 @@ public class PersonalizedTravelPackageWeb {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error", "You must specify the departure date"));
 		}
 	}
-			
+	
 	public void joinPackage() throws IOException{
 
 	}	
