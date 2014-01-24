@@ -435,6 +435,7 @@ public class SearchWeb {
 		List<TravelComponentDTO> toSend = new ArrayList<TravelComponentDTO>();
 		toSend.add(travelComponent);
 		data.setTravelComponentsList(toSend);
-		RequestContext.getCurrentInstance().openDialog("/view_travelcomponent.xhtml"); // TODO: waiting for TravelComponent page
+		String redirectTo = FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/view_travelcomponent.xhtml";
+		FacesContext.getCurrentInstance().getExternalContext().redirect(redirectTo); // TODO: waiting for TravelComponent page
 	}
 }
