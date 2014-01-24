@@ -76,7 +76,7 @@ public class OtherCustomerWeb {
 		List<TravelComponentDTO> toSend = new ArrayList<TravelComponentDTO>();
 		toSend.add(giftListElement.getTravelComponent().getTravelComponent());
 		data.setTravelComponentsList(toSend);
-		RequestContext.getCurrentInstance().openDialog("/index.xhtml"); // TODO: waiting for TravelComponent page	
+		RequestContext.getCurrentInstance().openDialog("/misc/travelcomponent_details.xhtml"); // TODO: waiting for TravelComponent page	
 	}
 	public void payComponent(GiftElements_HelperDTO giftListElement) throws IOException{
 		FacesContext facesContext = FacesContext.getCurrentInstance();

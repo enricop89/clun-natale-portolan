@@ -88,7 +88,7 @@ public class CustomerHandlerWeb {
 		List<TravelComponentDTO> toSend = new ArrayList<TravelComponentDTO>();
 		toSend.add(gift.getTravelComponent().getTravelComponent());
 		data.setTravelComponentsList(toSend);
-		RequestContext.getCurrentInstance().openDialog("/index.xhtml"); // TODO: waiting for TravelComponent page	
+		RequestContext.getCurrentInstance().openDialog("/misc/travelcomponent_details.xhtml"); // TODO: waiting for TravelComponent page	
 	}
 	
 	public void showPackagefromGiftList(GiftElements_HelperDTO gift) throws IOException{

@@ -131,7 +131,7 @@ public class PersonalizedTravelPackageWeb {
 				List<TravelComponentDTO> toSend = new ArrayList<TravelComponentDTO>();
 				toSend.add(component.getPersistence());
 				data.setTravelComponentsList(toSend);
-				RequestContext.getCurrentInstance().openDialog("/index.xhtml"); // TODO: waiting for TravelComponent page	
+				RequestContext.getCurrentInstance().openDialog("/misc/travelcomponent_details.xhtml"); // TODO: waiting for TravelComponent page	
 			}		
 	}
 	
