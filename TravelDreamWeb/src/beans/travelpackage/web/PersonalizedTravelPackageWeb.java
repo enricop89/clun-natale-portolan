@@ -85,9 +85,9 @@ public class PersonalizedTravelPackageWeb {
 		return false;
 	}
 	
-	public boolean checkStatus(PersonalizedTravelPackageDTO toCheck){
-		for (int i=0;i<toCheck.getTravelComponents().size();i++)
-			if(toCheck.getTravelComponents().get(i).getTravelElement()==null)
+	public boolean checkStatus(){
+		for (int i=0;i<personalizedPackage.getTravelComponents().size();i++)
+			if(personalizedPackage.getTravelComponents().get(i).getTravelElement()==null)
 				return false;
 		
 		return true;
