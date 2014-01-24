@@ -292,12 +292,17 @@ public class EmployeeHandlerWeb  {
 	{
 		try{ // must use try catch, getters in Data_Exchange flushes lists by design! calling it twice is a logical error
 			TravelComponentDTO travelComponent = data.getTravelComponentsList().get(0);
-			employeeHandler.addTravelComponentToPredefinedTravelPackage(packageDTO, travelComponent);
-			
-			List<PredefinedTravelPackageDTO> toSend = new ArrayList<PredefinedTravelPackageDTO>();
-			toSend.add(packageDTO);
-			data.setPredefinedTravelPackagesList(toSend);
-			FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/employee/control_panel.xhtml");
+			boolean result = employeeHandler.addTravelComponentToPredefinedTravelPackage(packageDTO, travelComponent);
+			if(result == true){
+				List<PredefinedTravelPackageDTO> toSend = new ArrayList<PredefinedTravelPackageDTO>();
+				toSend.add(packageDTO);
+				data.setPredefinedTravelPackagesList(toSend);
+				FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/employee/control_panel.xhtml");
+		
+			}
+			else{
+				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error", "The travel component is already in the travel package!"));
+			}			
 		}
 		catch (java.lang.IndexOutOfBoundsException e){/* does nothing */}
 	}
