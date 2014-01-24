@@ -6,6 +6,9 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 	<h:form>
+	
+		<p:growl id="growl" showDetail="true" globalOnly="true" /> 
+	
 		<p:panelGrid style="width:100%">
 		<f:facet name="header">
 			<p:row>
@@ -37,9 +40,7 @@
 			</p:column>	
 		</p:row>			 
 		</p:panelGrid>
-
-		<p:growl id="growl" showDetail="true" globalOnly="true" /> 
-		
+				
 		<p:dataTable id="data" var="element" value="#{PersonalizedTravelPackageWeb.personalizedPackage.travelComponents}">  	
 			<p:column headerText="Type">  
                 <h:outputText value="#{element.travelComponent.type}" />  
@@ -57,21 +58,18 @@
 				
 			<p:column headerText="" style="text-align: center"> 
       			<p:row> 
-      				<p:commandButton id="visualize" icon="ui-icon-script" rendered="#{PersonalizedTravelPackageWeb.checkRole()}" actionListener="#{PersonalizedTravelPackageWeb.showComponent(element)}"/> 
-         			<p:commandButton id="delete" icon="ui-icon-trash" rendered="#{PersonalizedTravelPackageWeb.checkRole()}"  action="#{PersonalizedTravelPackageWeb.deleteComponent(element)}"/> 
+      				<p:commandButton id="visualize" icon="ui-icon-script" rendered="#{PersonalizedTravelPackageWeb.isOwner()}" actionListener="#{PersonalizedTravelPackageWeb.showComponent(element)}"/> 
+         			<p:commandButton id="delete" icon="ui-icon-trash" rendered="#{PersonalizedTravelPackageWeb.isOwner()}"  action="#{PersonalizedTravelPackageWeb.deleteComponent(element)}"/> 
             	</p:row>
             	<p:tooltip for="delete" value="Delete the component" showEffect="fade" hideEffect="fade" /> 
             	<p:tooltip for="visualize" value="View the details of the component" showEffect="fade" hideEffect="fade" />   
 			</p:column> 				
 		</p:dataTable>
 		
-		<p:commandButton id="link" icon="ui-icon-link" rendered="#{PersonalizedTravelPackageWeb.checkRole()==false}" actionListener="#{PersonalizedTravelPackageWeb.joinComponent(element)}"/> 
-        <p:commandButton id="linktwo" icon="ui-icon-link" rendered="#{PersonalizedTravelPackageWeb.checkIfRegistered()}" actionListener="#{PersonalizedTravelPackageWeb.joinComponent(element)}"/>
-		<p:commandButton value="Save" icon="ui-icon-check" style="float:right;" actionListener="#{PersonalizedTravelPackageWeb.saveChanges}" />
+		<p:commandButton id="link" icon="ui-icon-link" style="float:right;" rendered="#{PersonalizedTravelPackageWeb.isOwner() == false}" actionListener="#{PersonalizedTravelPackageWeb.joinPackage}"/> 
+		<p:commandButton value="Save" icon="ui-icon-check" style="float:right;" rendered="#{PersonalizedTravelPackageWeb.isOwner()}" actionListener="#{PersonalizedTravelPackageWeb.saveChanges}" />
 		
-		<p:tooltip for="link" value="Join the package" showEffect="fade" hideEffect="fade" /> 
-        <p:tooltip for="linktwo" value="Join the package" showEffect="fade" hideEffect="fade" /> 
-        
+		<p:tooltip for="link" value="Join the package" showEffect="fade" hideEffect="fade" />        
 	</h:form>
 </ui:composition>
 	

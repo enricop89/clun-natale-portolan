@@ -84,21 +84,14 @@ public class PersonalizedTravelPackageWeb {
 		return false;
 	}
 	
-	public boolean checkRole(){
+	public boolean isOwner(){
 		if(FacesContext.getCurrentInstance().getExternalContext().isUserInRole("CUSTOMER"))
 			if(personalizedPackage.getOwner().getEmail().equals(FacesContext.getCurrentInstance().getExternalContext().getRemoteUser()))
 				return true; //the remote user is also the owner of the travel package
 				
 		return false;  
 	}
-	
-	public boolean checkIfRegistered(){
-		if(FacesContext.getCurrentInstance().getExternalContext().getRemoteUser()==null)
-			return true; //the remote user is not registered
 		
-		return false;
-	}
-	
 	public void deleteComponent(Components_HelperDTO component) throws IOException{
 		boolean result = customerhandler.removeTravelComponentFromPersonalizedTravelPackage(personalizedPackage, component);
 		if(result==true){
@@ -165,39 +158,7 @@ public class PersonalizedTravelPackageWeb {
 		}
 	}
 			
-	public void joinComponent(Components_HelperDTO helper) throws IOException{
-		FacesContext facesContext = FacesContext.getCurrentInstance();
-		Flash flash = facesContext.getExternalContext().getFlash();
-		flash.setKeepMessages(true);
-		flash.setRedirect(true);
-		if(FacesContext.getCurrentInstance().getExternalContext().isUserInRole("CUSTOMER"))
-			if(personalizedPackage.getOwner().getEmail().equals(FacesContext.getCurrentInstance().getExternalContext().getRemoteUser())==false){
-				boolean result=customerhandler.joinPersonalizedTravelPackage(personalizedPackage.getOwner(), personalizedPackage);	//faccio join
-					if(result==true){
-						facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Successful", "You have successfully joined the package!"));	
-						FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/customer/personal_travel_package.xhtml?faces-redirect=true");
-					
-					}	
-					else {
-						facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Error", "Something went worng!"));	
-						FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/misc/personalizedtravelpackage.xhtml?faces-redirect=true");
-						
-					}
+	public void joinPackage() throws IOException{
 
-			}	//join for a registered User 
-		
-		if(FacesContext.getCurrentInstance().getExternalContext().getRemoteUser()==null)
-		{
-			facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Error", "You must be registered to be able to join a package"));	
-			FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "registration.xhtml?faces-redirect=true");
-		
-		}
-				
-		else {	//for any reason the if condition is not respected
-			facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Error", "Something went wrong!"));	
-			FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/misc/personalizedtravelpackage.xhtml?faces-redirect=true");
-		
-		}
-		
 	}	
 }
