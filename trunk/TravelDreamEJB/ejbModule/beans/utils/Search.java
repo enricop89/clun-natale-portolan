@@ -171,7 +171,7 @@ public class Search {
 	}
 	
 	public User findUser(String email) {
-    	return entityManager.find(User.class, email);
+    	return entityManager.find(User.class, email); 
     } 
 	public User findUser(User user) {
 		return entityManager.find(User.class, user.getEmail());
