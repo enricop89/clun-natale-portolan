@@ -6,38 +6,41 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 	<h:form>
+		<p:panelGrid style="width:100%">
+		<f:facet name="header">
+			<p:row>
+				<p:column colspan="2" style="width:100%; text-align: center; font-size:30px;">
+					<p:inplace id="name" editor="true">
+						<p:inputText value="#{PersonalizedTravelPackageWeb.personalizedPackage.name}" label=" " required="true"/>
+					</p:inplace>  
+				</p:column>			
+			</p:row>
+			<p:row>
+				<p:column style="width:50%; text-align: left">Departure Date</p:column>
+				<p:column style="width:100%; text-align: right">Return Date</p:column>
+			</p:row>
+		</f:facet>
+		<p:row>
+			<p:column style="width:50%; text-align: left">
+				<p:inplace id="Departure_date" editor="true">
+					<p:calendar value="#{PersonalizedTravelPackageWeb.departureDate}" pattern="dd-MM-yyyy" showButtonPanel="true" label=" " required="true">
+						<f:convertDateTime pattern="dd-MM-yyyy" />
+					</p:calendar>
+				</p:inplace> 
+			</p:column>
+			<p:column style="width:100%; text-align: right">
+				<p:inplace id="Arrival_date" editor="true">
+					<p:calendar value="#{PersonalizedTravelPackageWeb.returnDate}" pattern="dd-MM-yyyy" showButtonPanel="true" label=" " required="true">
+						<f:convertDateTime pattern="dd-MM-yyyy" />
+					</p:calendar>
+				</p:inplace> 
+			</p:column>	
+		</p:row>			 
+		</p:panelGrid>
+
 		<p:growl id="growl" showDetail="true" globalOnly="true" /> 
-
-		<p:dataTable id="personalizedPackage" var="element" value="#{PersonalizedTravelPackageWeb.persTP.travelComponents}" stickyHeader="true">  	
-			<f:facet name="header">  
-				<p:inplace id="name" editor="true">
-					<p:inputText value="#{PersonalizedTravelPackageWeb.persTP.name}" label=" " required="true"/>
-				</p:inplace>  
-				<p:message for="name" />				
-			</f:facet> 
-			<p:columnGroup type="header">  
-				<p:row>
-					<p:outputLabel value="Departure Date" /> 
-					<p:outputLabel value="Return Date" />
-				</p:row>
-				<p:row>
-					<p:inplace id="Departure_date" editor="true">
-						<p:calendar value="#{PersonalizedTravelPackageWeb.departureDate}" pattern="dd-MM-yyyy" showButtonPanel="true" label=" " required="true">
-							<f:convertDateTime pattern="dd-MM-yyyy" />
-						</p:calendar>
-					</p:inplace> 
-					<p:message for="Departure_date" /> 
- 
-					<p:message for="Arrival_date" />
-					<p:inplace id="Arrival_date" editor="true">
-						<p:calendar value="#{PersonalizedTravelPackageWeb.returnDate}" pattern="dd-MM-yyyy" showButtonPanel="true" label=" " required="true">
-							<f:convertDateTime pattern="dd-MM-yyyy" />
-						</p:calendar>
-					</p:inplace> 				
-				</p:row>
-			</p:columnGroup> 
-	       
-
+		
+		<p:dataTable id="data" var="element" value="#{PersonalizedTravelPackageWeb.personalizedPackage.travelComponents}">  	
 			<p:column headerText="Type">  
                 <h:outputText value="#{element.travelComponent.type}" />  
             </p:column>  
@@ -64,7 +67,7 @@
 		
 		<p:commandButton id="link" icon="ui-icon-link" rendered="#{PersonalizedTravelPackageWeb.checkRole()==false}" actionListener="#{PersonalizedTravelPackageWeb.joinComponent(element)}"/> 
         <p:commandButton id="linktwo" icon="ui-icon-link" rendered="#{PersonalizedTravelPackageWeb.checkIfRegistered()}" actionListener="#{PersonalizedTravelPackageWeb.joinComponent(element)}"/>
-		<p:commandButton value="Save" icon="ui-icon-check" update="personalizedPackage" style="float:right;" actionListener="#{PersonalizedTravelPackageWeb.saveChanges}" />
+		<p:commandButton value="Save" icon="ui-icon-check" style="float:right;" actionListener="#{PersonalizedTravelPackageWeb.saveChanges}" />
 		
 		<p:tooltip for="link" value="Join the package" showEffect="fade" hideEffect="fade" /> 
         <p:tooltip for="linktwo" value="Join the package" showEffect="fade" hideEffect="fade" /> 

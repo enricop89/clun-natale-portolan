@@ -50,18 +50,17 @@ public class PersonalizedTravelPackageWeb {
 	public void init(){	
 		personalizedPackage = data.getPersonalizedTravelPackagesList().get(0);
 		departureDate = new java.util.Date (personalizedPackage.getDepartureDate().getTime());
-		returnDate = new java.util.Date (personalizedPackage.getReturnDate().getTime());
-		
+		returnDate = new java.util.Date (personalizedPackage.getReturnDate().getTime());		
 	}
 	
 	//------------------------
 	// SETTERS AND GETTERS
 	
-	public PersonalizedTravelPackageDTO getPersTP() {
+	public PersonalizedTravelPackageDTO getPersonalizedPackage() {
 		return personalizedPackage;
 	}
-	public void setPersTP(PersonalizedTravelPackageDTO persTP) {
-		this.personalizedPackage = persTP;
+	public void setPersonalizedPackage(PersonalizedTravelPackageDTO personalizedPackage) {
+		this.personalizedPackage = personalizedPackage;
 	}
 	public java.util.Date getDepartureDate() {
 		return departureDate;
