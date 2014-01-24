@@ -25,24 +25,25 @@ public class SearchTravelComponents {
 	}
 	
 	private List<TravelComponentDTO> travelComponentsList;
-	private RequestContext instance;
 	
 	@PostConstruct
 	public void init(){
 		travelComponentsList = data.getTravelComponentsList();
-		instance = data.getInstance();
 	}
 	
 	public List<TravelComponentDTO> getTravelComponentsList(){
 		return travelComponentsList;
 	}
 	
-	public void selectFromDialog(TravelComponentDTO travelComponent){
-		if(instance != null)
-			instance.closeDialog(travelComponent);
-			
-		else
-			RequestContext.getCurrentInstance().closeDialog(travelComponent); 
+	public void selectFromDialog(TravelComponentDTO travelComponent){		
+		RequestContext.getCurrentInstance().closeDialog(travelComponent); 
+	}
+	
+	public void selectFromDialog(TravelComponentDTO travelComponent, String resultDialogName){
+		List<TravelComponentDTO> toSend = new ArrayList<TravelComponentDTO>();
+		toSend.add(travelComponent);
+		data.setTravelComponentsList(toSend);
+		RequestContext.getCurrentInstance().execute(resultDialogName + ".hide()");
 	}
 	
 	public void visualize(TravelComponentDTO travelComponent){
