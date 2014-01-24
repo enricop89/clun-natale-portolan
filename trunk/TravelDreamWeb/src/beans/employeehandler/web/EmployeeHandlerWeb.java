@@ -8,14 +8,12 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.context.Flash;
 import javax.inject.Inject;
 
-import org.primefaces.context.RequestContext;
-import org.primefaces.event.SelectEvent;
+import org.primefaces.event.CloseEvent;
 
 import beans.employeehandler.EmployeeHandlerInterface;
 import beans.travelcomponent.*;
@@ -50,7 +48,7 @@ public class EmployeeHandlerWeb  {
 	
 	private boolean redirected;
 	private int activePanel;
-	
+		
 	@Inject
 	private Data_Exchange data;
 	public Data_Exchange getData(){
@@ -63,16 +61,18 @@ public class EmployeeHandlerWeb  {
 	public EmployeeHandlerWeb()
 	{
 		componentDTO = new TravelComponentDTO();
-		setPackageDTO(new PredefinedTravelPackageDTO());
+		packageDTO = new PredefinedTravelPackageDTO();
 		redirected = false;
 	}
 	
 	@PostConstruct
 	public void init(){
-		if (data.getPredefinedTravelPackagesList() != null && !data.getPredefinedTravelPackagesList().isEmpty())
-		{
+		try{ // must use try catch, getters in Data_Exchange flushes lists by design! calling it twice is a logical error
 			packageDTO = data.getPredefinedTravelPackagesList().get(0);
 			redirected = true;
+		}
+		catch (java.lang.IndexOutOfBoundsException e){
+			redirected = false;
 		}
 	}
 	
@@ -285,24 +285,22 @@ public class EmployeeHandlerWeb  {
 	
 	public void deleteComponent(TravelComponentDTO component)
 	{
-		employeeHandler.removeTravelComponentFromPredefinedTravelPackage(packageDTO, component);
-		
-	}
-
-	public void addComponent()
-	{
-		RequestContext.getCurrentInstance().openDialog("/misc/search/search_travelcomponent_to_add.xhtml");
+		employeeHandler.removeTravelComponentFromPredefinedTravelPackage(packageDTO, component);		
 	}
 	
-	public void onTravelComponentChosen(SelectEvent event) throws IOException
+	public void onTravelComponentChosen(CloseEvent event) throws IOException
 	{
-		TravelComponentDTO travelComponent = (TravelComponentDTO) event.getObject(); 
-		employeeHandler.addTravelComponentToPredefinedTravelPackage(packageDTO, travelComponent);
-		
-		List<PredefinedTravelPackageDTO> toSend = new ArrayList<PredefinedTravelPackageDTO>();
-		toSend.add(packageDTO);
-		data.setPredefinedTravelPackagesList(toSend);
-		FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/employee/control_panel.xhtml");
+		try{ // must use try catch, getters in Data_Exchange flushes lists by design! calling it twice is a logical error
+			TravelComponentDTO travelComponent = data.getTravelComponentsList().get(0);
+			employeeHandler.addTravelComponentToPredefinedTravelPackage(packageDTO, travelComponent);
+			
+			List<PredefinedTravelPackageDTO> toSend = new ArrayList<PredefinedTravelPackageDTO>();
+			toSend.add(packageDTO);
+			data.setPredefinedTravelPackagesList(toSend);
+			FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/employee/control_panel.xhtml");
+
+		}
+		catch (java.lang.IndexOutOfBoundsException e){/* does nothing */}
 	}
 	
 	public int getActivePanel() {

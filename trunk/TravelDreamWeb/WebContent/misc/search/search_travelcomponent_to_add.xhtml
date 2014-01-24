@@ -1,16 +1,10 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	  xmlns:h="http://java.sun.com/jsf/html"
 	  xmlns:f="http://java.sun.com/jsf/core"
 	  xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
-
-    <h:head>  
-        <title>Travel Components</title>  
-    </h:head>  
       
-    <h:body>  
-        <h:form> 
 	    <p:growl id="componentsGrowl" showDetail="true" globalOnly="true" />   
 	    <p:panel header="Search Travel Components">   
 	    	<p:tabView id="travelComponents">
@@ -62,11 +56,9 @@
 			 		</p:panel>
 			    </p:tab> 			     	  				     		    	
 	    	</p:tabView>    
-	    	<p:commandButton value="Search" icon="ui-icon-search" actionListener="#{SearchWeb.searchTravelComponents(true)}" update="componentsGrowl" ajax="true" styleClass="ui-priority-primary"/>  
-       		<p:commandButton value="Browse All" icon="ui-icon-search" actionListener="#{SearchWeb.browseAllTravelComponents(true)}" update="componentsGrowl" ajax="true"/>		        
+	    	<p:commandButton value="Search" icon="ui-icon-search" actionListener="#{SearchWeb.searchTravelComponents('searchComponent','selectComponent')}" update="componentsGrowl" ajax="true" styleClass="ui-priority-primary"/>  
+       		<p:commandButton value="Browse All" icon="ui-icon-search" actionListener="#{SearchWeb.browseAllTravelComponents('searchComponent','selectComponent')}" update="componentsGrowl" ajax="true"/>		        
  		</p:panel>
-</h:form>
-</h:body>
-</html>
+</ui:composition>
 
  		

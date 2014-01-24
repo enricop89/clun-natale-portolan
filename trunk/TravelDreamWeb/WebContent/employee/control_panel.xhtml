@@ -3,58 +3,62 @@
     xmlns:f="http://java.sun.com/jsf/core"
     xmlns:h="http://java.sun.com/jsf/html"
    	xmlns:p="http://primefaces.org/ui"
-    xmlns:ui="http://java.sun.com/jsf/facelets">
-
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+	
     <ui:define name="title">TravelDream - Employee control panel</ui:define>
 
     <ui:define name="content">
 <p:accordionPanel activeIndex="#{EmployeeHandlerWeb.activePanel}">  
     <p:tab title="Create travel component"> 
     <h:form> 
-        <h:panelGrid columns="6" cellpadding="10">  
+        <h:panelGrid id="grid" columns="6" cellpadding="10">  
 			<h:outputLabel for="company">Supplying company:</h:outputLabel>
-			<p:inputText id="company" value="#{EmployeeHandlerWeb.componentDTO.supplyingCompany}" />
+			<p:inputText id="company" value="#{EmployeeHandlerWeb.componentDTO.supplyingCompany}" label=" " required="true"/>
 			<p:message for="company" />
 			
 			<h:outputLabel for="places">Number of available places:</h:outputLabel>
-			<p:inputText id="places" value="#{EmployeeHandlerWeb.componentDTO.availability}" />
+			<p:inputText id="places" value="#{EmployeeHandlerWeb.componentDTO.availability}" label=" " required="true" maxlength="3"/>
 			<p:message for="places" />			
         </h:panelGrid>  
          
-        <p:tabView id="tabView" > 
+        <p:tabView id="tabView" dynamic="true" effect="clip"> 
+        
+        <p:ajax event="tabChange" update="tabView"/>  
+        
 	        <p:tab title="Flight" id="Flight">  
 	        	<h:panelGrid columns="6" cellpadding="10" >  
 				    <f:facet name="header">Flight details</f:facet> 
 				     
 					<h:outputText value="Flight departure date: "/>
-					<p:calendar value="#{EmployeeHandlerWeb.flightDepartureDate}" id="flight_dep_date" />  
+					<p:calendar label=" " value="#{EmployeeHandlerWeb.flightDepartureDate}" id="flight_dep_date" required="true"/>  
 					<p:message for="flight_dep_date" />
 					
 					<h:outputLabel for="flight_dep_time" value="Flight departure time: "/>
-		            <p:inputMask value="#{EmployeeHandlerWeb.flightDepartureTime}" mask="99:99" id="flight_dep_time"/>  
+		            <p:inputMask label=" " value="#{EmployeeHandlerWeb.flightDepartureTime}" mask="99:99" id="flight_dep_time" required="true"/>  
 					<p:message for="flight_dep_time" />       
 	
 					<h:outputText value="Flight arrival date: "/>
-					<p:calendar value="#{EmployeeHandlerWeb.flightArrivalDate}" id="flight_arrival_date" />  
+					<p:calendar label=" " value="#{EmployeeHandlerWeb.flightArrivalDate}" id="flight_arrival_date" required="true"/>  
 					<p:message for="flight_arrival_date" />
 					
 					<h:outputLabel for="flight_arrival_time" value="Flight arrival time: "/>	
-		            <p:inputMask value="#{EmployeeHandlerWeb.flightArrivalTime}" mask="99:99" id="flight_arrival_time"/>  
+		            <p:inputMask label=" " value="#{EmployeeHandlerWeb.flightArrivalTime}" mask="99:99" id="flight_arrival_time" required="true"/>  
 					<p:message for="flight_arrival_time" />
 					
 					<h:outputLabel for="flight_dep_city">Flight departure city:</h:outputLabel>
-					<p:inputText id="flight_dep_city" value="#{EmployeeHandlerWeb.componentDTO.flightDepartureCity}" />
+					<p:inputText label=" " id="flight_dep_city" value="#{EmployeeHandlerWeb.componentDTO.flightDepartureCity}" required="true"/>
 					<p:message for="flight_dep_city" />
 	
 					<h:outputLabel for="flight_arrival_city">Flight arrival city:</h:outputLabel>
-					<p:inputText id="flight_arrival_city" value="#{EmployeeHandlerWeb.componentDTO.flightArrivalCity}" />
+					<p:inputText label=" " id="flight_arrival_city" value="#{EmployeeHandlerWeb.componentDTO.flightArrivalCity}" required="true"/>
 					<p:message for="flight_arrival_city" />
 					
 					<h:outputLabel for="flight_code">Flight code:</h:outputLabel>
-					<p:inputText id="flight_code" value="#{EmployeeHandlerWeb.componentDTO.flightCode}" />
+					<p:inputText label=" " id="flight_code" value="#{EmployeeHandlerWeb.componentDTO.flightCode}" required="true"/>
 					<p:message for="flight_code" />	
 				</h:panelGrid>
-				<p:commandButton id="createFlight" value="Add this travel component" action="#{EmployeeHandlerWeb.createFlight}"/>
+				<p:commandButton id="createFlight" value="Add this travel component" action="#{EmployeeHandlerWeb.createFlight}" update=":j_idt36:j_idt38"/>
 	        </p:tab>  
 	  
 	        <p:tab title="Hotel" id="Hotel">  
@@ -62,15 +66,15 @@
 				    <f:facet name="header">Hotel details:</f:facet> 
 
 					<h:outputLabel for="hotel_city">Hotel city:</h:outputLabel>
-					<p:inputText id="hotel_city" value="#{EmployeeHandlerWeb.componentDTO.hotelCity}" />
+					<p:inputText label=" " id="hotel_city" value="#{EmployeeHandlerWeb.componentDTO.hotelCity}" required="true"/>
 					<p:message for="hotel_city" />
 					
 					<h:outputText value="Hotel date: "/>
-					<p:calendar value="#{EmployeeHandlerWeb.hotelDate}" id="hotel_date" />
+					<p:calendar label=" " value="#{EmployeeHandlerWeb.hotelDate}" id="hotel_date" required="true"/>
 					<p:message for="hotel_date" />
 
 	            </h:panelGrid>  
-				<p:commandButton id="createHotel" value="Add this travel component" action="#{EmployeeHandlerWeb.createHotel}"/>
+				<p:commandButton id="createHotel" value="Add this travel component" action="#{EmployeeHandlerWeb.createHotel}" update=":j_idt36:j_idt38"/>
 	        </p:tab>  
 	  
 	        <p:tab title="Excursion" id="Excursion">  
@@ -78,28 +82,28 @@
 				    <f:facet name="header">Excursion details</f:facet>  
 	            
 					<h:outputText value="Excursion date: "/>
-					<p:calendar value="#{EmployeeHandlerWeb.excursionDate}" id="excursion_date" />  
+					<p:calendar label=" " value="#{EmployeeHandlerWeb.excursionDate}" id="excursion_date" required="true"/>  
 					<p:message for="excursion_date" />
 					
 					<h:outputLabel for="excursion_city">Excursion city:</h:outputLabel>
-					<p:inputText id="excursion_city" value="#{EmployeeHandlerWeb.componentDTO.excursionCity}" />
+					<p:inputText label="" id="excursion_city" value="#{EmployeeHandlerWeb.componentDTO.excursionCity}" required="true"/>
 					<p:message for="excursion_city" />
 					
 					<h:outputLabel for="excursion_time" value="Excursion time: "/>	
-		            <p:inputMask value="#{EmployeeHandlerWeb.excursionTime}" mask="99:99" id="excursion_time"/>  
+		            <p:inputMask label=" " value="#{EmployeeHandlerWeb.excursionTime}" mask="99:99" id="excursion_time" required="true"/>  
 					<p:message for="excursion_time" />
 					
 					<h:outputLabel for="descr" value="Description: "/>	
-					<p:inputTextarea rows="5" cols="30" counter="counter" maxlength="255"       
+					<p:inputTextarea label=" " rows="5" cols="30" counter="counter" maxlength="255"       
     					counterTemplate="{0} characters remaining." autoResize="false"
-    					value="#{EmployeeHandlerWeb.componentDTO.excursionDescription}" id="descr"/>
-   					<h:outputText id="counter" />    
+    					value="#{EmployeeHandlerWeb.componentDTO.excursionDescription}" id="descr" required="true"/>
+   					<h:outputText id="counter" /> 
+   					<p:message for="descr" />   
 	            </h:panelGrid> 
-				<p:commandButton id="createExcursion" value="Add this travel component" action="#{EmployeeHandlerWeb.createExcursion}"/>
+				<p:commandButton id="createExcursion" value="Add this travel component" action="#{EmployeeHandlerWeb.createExcursion}" update=":j_idt36:j_idt38"/>
 	        </p:tab>  
-    	</p:tabView> 
-     	
-		</h:form>
+    	</p:tabView> 	
+	</h:form>
     </p:tab>  
      
     <p:tab title="Create predefined travel package"> 
@@ -126,10 +130,18 @@
                 </p:column> 
             	</p:dataTable> 
           	
-            	<p:commandButton value="Add Travel Component" style="float:center" icon="ui-icon-plusthick" actionListener="#{EmployeeHandlerWeb.addComponent}">
-            		<p:ajax event="dialogReturn" listener="#{EmployeeHandlerWeb.onTravelComponentChosen}"/>
-            	</p:commandButton>
+            	<p:commandButton value="Add Travel Component" style="float:center" icon="ui-icon-plusthick" onclick="PF('searchComponent').show();PF('selectComponent').hide()"/>
 		</h:form>
+		<p:dialog header="Search Travel Components" id="searchComponent" widgetVar="searchComponent" width="700" height="400" resizable="true" showEffect="clip" hideEffect="clip" dynamic="true">  
+			<ui:include src="/misc/search/search_travelcomponent_to_add.xhtml" /> 	
+		</p:dialog>  
+		
+		<p:dialog header="Add Travel Component" id="selectComponent" widgetVar="selectComponent" width="700" height="400" resizable="true" showEffect="clip" hideEffect="clip" dynamic="true">  
+		<p:ajax event="close" listener="#{EmployeeHandlerWeb.onTravelComponentChosen}"/> 
+		<h:form>		
+		    <ui:include src="/misc/search/add_travelcomponent.xhtml" />  
+		 </h:form>
+		 </p:dialog>            	
     </p:tab>  
     <p:tab title="Search">  
 		<ui:include src="/misc/search/search.xhtml" /> 	
