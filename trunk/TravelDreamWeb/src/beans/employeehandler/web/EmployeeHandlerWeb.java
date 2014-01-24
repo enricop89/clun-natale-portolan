@@ -301,7 +301,7 @@ public class EmployeeHandlerWeb  {
 		
 			}
 			else{
-				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error", "The travel component is already in the travel package!"));
+				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error", "The component is already in the travel package!"));
 			}			
 		}
 		catch (java.lang.IndexOutOfBoundsException e){/* does nothing */}
