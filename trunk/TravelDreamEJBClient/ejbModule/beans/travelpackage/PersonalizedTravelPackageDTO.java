@@ -1,6 +1,7 @@
 package beans.travelpackage;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.validator.constraints.NotEmpty;
@@ -19,6 +20,7 @@ public class PersonalizedTravelPackageDTO {
 	
 	public PersonalizedTravelPackageDTO() {
 		super();
+		travelComponents = new ArrayList<Components_HelperDTO>();
 	}   
 	public long getId() {
 		return this.id;
