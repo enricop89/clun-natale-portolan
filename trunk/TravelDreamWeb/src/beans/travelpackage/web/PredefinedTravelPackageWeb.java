@@ -56,7 +56,7 @@ public class PredefinedTravelPackageWeb {
 		ArrayList<TravelComponentDTO> toSend = new ArrayList<TravelComponentDTO>();
 		toSend.add(helper);
 		data.setTravelComponentsList(toSend);
-		RequestContext.getCurrentInstance().openDialog("/index.xhtml"); // TODO: waiting for TravelComponent page	
+		RequestContext.getCurrentInstance().openDialog("/misc/travelcomponent_details.xhtml"); // TODO: waiting for TravelComponent page	
 	}
 	
 	public void updateComponent(TravelComponentDTO helper) throws IOException{
