@@ -8,7 +8,7 @@
 	<h:form>
 	
 	<p:growl id="growl" showDetail="true" globalOnly="true" /> 
-		<h:panelGrid columns="5" id="regGrid">
+		<h:panelGrid columns="5" id="regGrid" >
 			<h:outputLabel value="" />  
 			<h:outputLabel value="" />  
 			<p:inplace id="name" editor="true">
@@ -39,14 +39,14 @@
 	                <h:outputText value="#{element.travelComponent.supplyingCompany}" />  
 	            </p:column>  
 	           
-	           <p:column headerText="Status" style="text-align: center">
+	        <p:column headerText="Status" style="text-align: center">
 					<p:graphicImage id="Confirm" value="/resources/images/confirmed.png" style="float:center" rendered="#{PersonalizedTravelPackageWeb.checkStatus(element)}" />
 					<p:tooltip for="Confirm" value="The package is confirmed" showEffect="fade" hideEffect="fade" /> 
 				 	<p:graphicImage id="Unconfirm" value="/resources/images/unconfirmed.png" style="float:center" rendered="#{PersonalizedTravelPackageWeb.checkStatus(element)==false}" />
 					<p:tooltip for="Unconfirm" value="The package is unconfirmed" showEffect="fade" hideEffect="fade" /> 
-					</p:column>
+			</p:column>
 					
-						<p:column headerText="" style="text-align: center"> 
+				<p:column headerText="" style="text-align: center"> 
 	      			<h:panelGroup style="white-space: nowrap">
 	      			<h:panelGrid columns="2" > 
 	      			<p:row> 
@@ -59,7 +59,8 @@
 	            	<p:tooltip for="visualize" value="View the details of the component" showEffect="fade" hideEffect="fade" />   
 				
 				</p:column> 
-				</p:dataTable>
+				
+		</p:dataTable>
 				<p:commandButton id="link" icon="ui-icon-link" rendered="#{PersonalizedTravelPackageWeb.checkRole()==false}" actionListener="#{PersonalizedTravelPackageWeb.joinComponent(element)}"/> 
 	            <p:commandButton id="linktwo" icon="ui-icon-link" rendered="#{PersonalizedTravelPackageWeb.checkIfRegistered()}" actionListener="#{PersonalizedTravelPackageWeb.joinComponent(element)}"/>
 				<p:commandButton value="Save" icon="ui-icon-check" update="growl" style="float:right;" actionListener="#{PersonalizedTravelPackageWeb.save}" >
