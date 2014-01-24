@@ -16,7 +16,7 @@
 		</p:tabMenu> 
 		<h:form>  	
 			<p:growl id="growl1" showDetail="true" globalOnly="true" />   	  		
-			<p:dataTable var="element" value="#{CustomerHandlerWeb.persTP}" >  
+			<p:dataTable var="element" value="#{CustomerHandlerWeb.persTP}" stickyHeader="true">  
 	            <p:column headerText="Name">  
 	                <h:outputText value="#{element.name}" />  
 	            </p:column>  

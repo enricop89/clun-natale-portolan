@@ -38,19 +38,45 @@ public class PersonalizedTravelPackageWeb {
 	public void setData(Data_Exchange data){
 		this.data = data;
 	}
+	
 	@EJB
 	private CustomerHandlerInterface customerhandler;
-	private PersonalizedTravelPackageDTO persTP;
+	
+	private PersonalizedTravelPackageDTO personalizedPackage;
 	private java.util.Date departureDate;
 	private java.util.Date returnDate;
 	
 	@PostConstruct
 	public void init(){	
-		persTP=data.getPersonalizedTravelPackagesList().get(0);
-		departureDate=new java.util.Date (persTP.getDepartureDate().getTime());
-		returnDate=new java.util.Date (persTP.getReturnDate().getTime());
+		personalizedPackage = data.getPersonalizedTravelPackagesList().get(0);
+		departureDate = new java.util.Date (personalizedPackage.getDepartureDate().getTime());
+		returnDate = new java.util.Date (personalizedPackage.getReturnDate().getTime());
 		
 	}
+	
+	//------------------------
+	// SETTERS AND GETTERS
+	
+	public PersonalizedTravelPackageDTO getPersTP() {
+		return personalizedPackage;
+	}
+	public void setPersTP(PersonalizedTravelPackageDTO persTP) {
+		this.personalizedPackage = persTP;
+	}
+	public java.util.Date getDepartureDate() {
+		return departureDate;
+	}
+	public void setDepartureDate(java.util.Date departureDate) {
+		this.departureDate = departureDate;
+	}
+	public java.util.Date getReturnDate() {
+		return returnDate;
+	}
+	public void setReturnDate(java.util.Date returnDate) {
+		this.returnDate = returnDate;
+	}
+	
+	//-----------------------	
 	
 	public boolean checkStatus(Components_HelperDTO helper){
 			if(helper.getTravelElement()!=null)
@@ -58,68 +84,15 @@ public class PersonalizedTravelPackageWeb {
 		
 		return false;
 	}
-	public void deleteComponent(Components_HelperDTO helper) throws IOException{
-		boolean result = customerhandler.removeTravelComponentFromPersonalizedTravelPackage(persTP, helper);
-		if(result==true){
-			FacesContext facesContext = FacesContext.getCurrentInstance();
-			Flash flash = facesContext.getExternalContext().getFlash();
-			flash.setKeepMessages(true);
-			flash.setRedirect(true);
-			facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Successful", "You have succesfully deleted your component from your own travel package!")); 
-			List<PersonalizedTravelPackageDTO> toSend = new ArrayList<PersonalizedTravelPackageDTO>();
-			toSend.add(persTP);
-			data.setPersonalizedTravelPackagesList(toSend);
-			FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/misc/personalizedtravelpackage.xhtml"); //delete a TravelComponent
-		}
-		else
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error", "You cannot delete a payed component")); 
-	}
 	
-	public void showComponent(Components_HelperDTO helper){
-		//select package and go to personal_package_home
-		if(helper.getTravelElement()==null){ //the component is not confirmed
-			List<TravelComponentDTO> toSend = new ArrayList<TravelComponentDTO>();
-			toSend.add(helper.getTravelComponent());
-			data.setTravelComponentsList(toSend);
-			RequestContext.getCurrentInstance().openDialog("/index.xhtml"); // TODO: waiting for TravelComponent page	
-		}
-		else 
-			if(helper.getTravelElement()!=null){	//The component is confirmed
-				List<TravelComponentDTO> toSend = new ArrayList<TravelComponentDTO>();
-				toSend.add(helper.getPersistence());
-				data.setTravelComponentsList(toSend);
-				RequestContext.getCurrentInstance().openDialog("/index.xhtml");
-			}
-		
-	}
-	
-	public void save() throws IOException{	//TODO:CONTROLLARE COSA SUCCEDE SULLA FIND		
-		if(departureDate != null)
-			persTP.setDepartureDate(new Date(departureDate.getTime()));
-		if(returnDate != null)
-			persTP.setReturnDate(new Date(returnDate.getTime()));			
-		boolean result=customerhandler.updatePersonalizedTravelPackage(persTP);
-		FacesContext facesContext = FacesContext.getCurrentInstance();
-		Flash flash = facesContext.getExternalContext().getFlash();
-		flash.setKeepMessages(true);
-		flash.setRedirect(true);
-		if(result==true){
-			facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Successful", "Your package has been succesfully updated!")); 
-			FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/customer/personal_travel_package.xhtml?faces-redirect=true");
-		}
-		else{
-			facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error", "Something went wrong."));
-			FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/misc/personalizedtravelpackage.xhtml?faces-redirect=true");		
-		}
-	}
-		
 	public boolean checkRole(){
 		if(FacesContext.getCurrentInstance().getExternalContext().isUserInRole("CUSTOMER"))
-			if(persTP.getOwner().getEmail().equals(FacesContext.getCurrentInstance().getExternalContext().getRemoteUser()))
+			if(personalizedPackage.getOwner().getEmail().equals(FacesContext.getCurrentInstance().getExternalContext().getRemoteUser()))
 				return true; //the remote user is also the owner of the travel package
 				
-				return false;  
+		return false;  
 	}
+	
 	public boolean checkIfRegistered(){
 		if(FacesContext.getCurrentInstance().getExternalContext().getRemoteUser()==null)
 			return true; //the remote user is not registered
@@ -127,14 +100,80 @@ public class PersonalizedTravelPackageWeb {
 		return false;
 	}
 	
+	public void deleteComponent(Components_HelperDTO component) throws IOException{
+		boolean result = customerhandler.removeTravelComponentFromPersonalizedTravelPackage(personalizedPackage, component);
+		if(result==true){
+			FacesContext facesContext = FacesContext.getCurrentInstance();
+			Flash flash = facesContext.getExternalContext().getFlash();
+			flash.setKeepMessages(true);
+			flash.setRedirect(true);
+			List<PersonalizedTravelPackageDTO> toSend = new ArrayList<PersonalizedTravelPackageDTO>();
+			toSend.add(personalizedPackage);
+			data.setPersonalizedTravelPackagesList(toSend);
+			facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Successful", "You have deleted the component from your package, click on the save button to submit your changes!")); 
+			FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/misc/personalizedtravelpackage.xhtml"); //delete a TravelComponent
+		}
+		else
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error", "You cannot delete a payed component")); 
+	}
+	
+	public void showComponent(Components_HelperDTO component){
+		//select package and go to personal_package_home
+		if(component.getTravelElement()==null){ //the component is not confirmed
+			List<TravelComponentDTO> toSend = new ArrayList<TravelComponentDTO>();
+			toSend.add(component.getTravelComponent());
+			data.setTravelComponentsList(toSend);
+			RequestContext.getCurrentInstance().openDialog("/index.xhtml"); // TODO: waiting for TravelComponent page	
+		}
+		else 
+			if(component.getTravelElement()!=null){	//The component is confirmed
+				List<TravelComponentDTO> toSend = new ArrayList<TravelComponentDTO>();
+				toSend.add(component.getPersistence());
+				data.setTravelComponentsList(toSend);
+				RequestContext.getCurrentInstance().openDialog("/index.xhtml"); // TODO: waiting for TravelComponent page	
+			}		
+	}
+	
+	public void saveChanges() throws IOException{	
+		if(departureDate != null){
+			personalizedPackage.setDepartureDate(new Date(departureDate.getTime()));
+			if(returnDate != null){
+				personalizedPackage.setReturnDate(new Date(returnDate.getTime()));
+				
+				boolean result=customerhandler.updatePersonalizedTravelPackage(personalizedPackage);
+
+				if(result==true){
+					List<PersonalizedTravelPackageDTO> toSend = new ArrayList<PersonalizedTravelPackageDTO>();
+					toSend.add(personalizedPackage);
+					data.setPersonalizedTravelPackagesList(toSend);
+					FacesContext facesContext = FacesContext.getCurrentInstance();
+					Flash flash = facesContext.getExternalContext().getFlash();
+					flash.setKeepMessages(true);
+					flash.setRedirect(true);
+					facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Successful", "Your package has been succesfully updated!")); 
+					FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/customer/personal_travel_package.xhtml?faces-redirect=true");
+				}
+				else{
+					FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error", "Something went wrong. Maybe you are trying to save an unconsistent travel package"));	
+				}
+			}				
+			else{		
+				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error", "You must specify the return date"));
+			}
+		}			
+		else{
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error", "You must specify the departure date"));
+		}
+	}
+			
 	public void joinComponent(Components_HelperDTO helper) throws IOException{
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		Flash flash = facesContext.getExternalContext().getFlash();
 		flash.setKeepMessages(true);
 		flash.setRedirect(true);
 		if(FacesContext.getCurrentInstance().getExternalContext().isUserInRole("CUSTOMER"))
-			if(persTP.getOwner().getEmail().equals(FacesContext.getCurrentInstance().getExternalContext().getRemoteUser())==false){
-				boolean result=customerhandler.joinPersonalizedTravelPackage(persTP.getOwner(), persTP);	//faccio join
+			if(personalizedPackage.getOwner().getEmail().equals(FacesContext.getCurrentInstance().getExternalContext().getRemoteUser())==false){
+				boolean result=customerhandler.joinPersonalizedTravelPackage(personalizedPackage.getOwner(), personalizedPackage);	//faccio join
 					if(result==true){
 						facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Successful", "You have successfully joined the package!"));	
 						FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/customer/personal_travel_package.xhtml?faces-redirect=true");
@@ -161,27 +200,5 @@ public class PersonalizedTravelPackageWeb {
 		
 		}
 		
-	}
-	
-	public PersonalizedTravelPackageDTO getPersTP() {
-		return persTP;
-	}
-	public void setPersTP(PersonalizedTravelPackageDTO persTP) {
-		this.persTP = persTP;
-	}
-	public java.util.Date getDepartureDate() {
-		return departureDate;
-	}
-	public void setDepartureDate(java.util.Date departureDate) {
-		this.departureDate = departureDate;
-	}
-	public java.util.Date getReturnDate() {
-		return returnDate;
-	}
-	public void setReturnDate(java.util.Date returnDate) {
-		this.returnDate = returnDate;
-	}
-	
-	
-	
+	}	
 }
