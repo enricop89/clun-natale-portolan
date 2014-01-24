@@ -69,9 +69,13 @@
 					<p:inputText label=" " id="hotel_city" value="#{EmployeeHandlerWeb.componentDTO.hotelCity}" required="true"/>
 					<p:message for="hotel_city" />
 					
-					<h:outputText value="Hotel date: "/>
-					<p:calendar label=" " value="#{EmployeeHandlerWeb.hotelDate}" id="hotel_date" required="true"/>
-					<p:message for="hotel_date" />
+					<h:outputText value="Hotel starting date: "/>
+					<p:calendar label=" " value="#{EmployeeHandlerWeb.hotelStartingDate}" id="hotel_starting_date" required="true"/>
+					<p:message for="hotel_starting_date" />
+					
+					<h:outputText value="Hotel ending date: "/>
+					<p:calendar label=" " value="#{EmployeeHandlerWeb.hotelEndingDate}" id="hotel_ending_date" required="true"/>
+					<p:message for="hotel_ending_date" />
 
 	            </h:panelGrid>  
 				<p:commandButton id="createHotel" value="Add this travel component" action="#{EmployeeHandlerWeb.createHotel}" update=":j_idt36:j_idt38"/>

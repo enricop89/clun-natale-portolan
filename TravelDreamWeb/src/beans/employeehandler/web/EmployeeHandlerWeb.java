@@ -1,7 +1,9 @@
 package beans.employeehandler.web;
 
 import java.io.IOException;
+import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -44,7 +46,8 @@ public class EmployeeHandlerWeb  {
 	private java.util.Date excursionDate;
 	private String excursionTime;
 	
-	private java.util.Date hotelDate;
+	private java.util.Date hotelStartingDate;
+	private java.util.Date hotelEndingDate;
 	
 	private boolean redirected;
 	private int activePanel;
@@ -142,6 +145,19 @@ public class EmployeeHandlerWeb  {
 		this.excursionTime = excursionTime;
 	}
 	
+	public java.util.Date getHotelStartingDate() {
+		return hotelStartingDate;
+	}
+	public void setHotelStartingDate(java.util.Date hotelStartingDate) {
+		this.hotelStartingDate = hotelStartingDate;
+	}
+	public java.util.Date getHotelEndingDate() {
+		return hotelEndingDate;
+	}
+	public void setHotelEndingDate(java.util.Date hotelEndingDate) {
+		this.hotelEndingDate = hotelEndingDate;
+	}
+	
 	public String createExcursion()
 	{
 		FacesContext facesContext = FacesContext.getCurrentInstance();
@@ -237,8 +253,39 @@ public class EmployeeHandlerWeb  {
 		componentDTO.setExcursionDateTime(null);
 		componentDTO.setExcursionDescription(null);
 		
-		componentDTO.setHotelDate(new java.sql.Date(hotelDate.getTime()));
-		boolean result = employeeHandler.addNewTravelComponent(componentDTO);
+		boolean result = false;
+		
+		if(hotelStartingDate != null && hotelEndingDate != null){
+			Calendar start = Calendar.getInstance();
+			start.setTime(hotelStartingDate);
+			Calendar end = Calendar.getInstance();
+			end.setTime(hotelEndingDate);
+			for (java.util.Date date = start.getTime(); !start.after(end); start.add(Calendar.DATE, 1), date = start.getTime()) {
+				componentDTO.setHotelDate(new Date(date.getTime()));
+				result = employeeHandler.addNewTravelComponent(componentDTO);
+				if(result == false)
+				{
+					facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL,"Fatal Error", "An unexpected error has occurred. The travel components may have not been correctly created."));
+					return "/employee/control_panel.html?faces-redirect=true";
+				}
+			}
+		}
+		else{
+			if(hotelStartingDate != null){
+				componentDTO.setHotelDate(new java.sql.Date(hotelStartingDate.getTime()));
+			}
+			else if(hotelEndingDate != null){
+				componentDTO.setHotelDate(new java.sql.Date(hotelStartingDate.getTime()));
+			}
+
+			else{
+				facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error", "Unable to add the travel component."));
+				return "/employee/control_panel.html?faces-redirect=true";
+			}
+			
+			result = employeeHandler.addNewTravelComponent(componentDTO);
+		}
+		
 		if (result == true)
 		{
 			facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Successful", "Travel component correctly added."));
@@ -250,15 +297,7 @@ public class EmployeeHandlerWeb  {
 			return "/employee/control_panel.html?faces-redirect=true";
 		}
 	}
-
-	public java.util.Date getHotelDate() {
-		return hotelDate;
-	}
-
-	public void setHotelDate(java.util.Date hotelDate) {
-		this.hotelDate = hotelDate;
-	}
-
+	
 	public java.util.Date getPackageDepDate() {
 		return packageDepDate;
 	}
