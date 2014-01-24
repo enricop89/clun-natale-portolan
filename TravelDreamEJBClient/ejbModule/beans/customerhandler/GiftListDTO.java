@@ -1,6 +1,8 @@
 package beans.customerhandler;
 
+import java.util.ArrayList;
 import java.util.List;
+
 import beans.accountmanagement.UserDTO;
 
 public class GiftListDTO {
@@ -9,6 +11,7 @@ public class GiftListDTO {
 	
 	public GiftListDTO() {
 		super();
+		giftElements = new ArrayList<GiftElements_HelperDTO>();
 	}   
 	public UserDTO getOwner() {
 		return this.owner;
