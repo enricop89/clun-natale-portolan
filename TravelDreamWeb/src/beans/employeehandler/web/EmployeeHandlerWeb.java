@@ -298,7 +298,6 @@ public class EmployeeHandlerWeb  {
 			toSend.add(packageDTO);
 			data.setPredefinedTravelPackagesList(toSend);
 			FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/employee/control_panel.xhtml");
-
 		}
 		catch (java.lang.IndexOutOfBoundsException e){/* does nothing */}
 	}
