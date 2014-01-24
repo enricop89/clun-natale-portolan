@@ -5,6 +5,7 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
+	
 	<h:form>
 	
 		<p:growl id="growl" showDetail="true" globalOnly="true" /> 
@@ -80,7 +81,7 @@
 		</p:dialog>		
 		
 		<p:commandButton value="Add Travel Component" rendered="#{PersonalizedTravelPackageWeb.isOwner()}" style="float:left" icon="ui-icon-plusthick" onclick="PF('searchComponent').show();PF('selectComponent').hide()"/>
-		<p:commandButton id="link" icon="ui-icon-link" style="float:right;" rendered="#{PersonalizedTravelPackageWeb.isOwner() == false}" actionListener="#{PersonalizedTravelPackageWeb.joinPackage}"/> 
+		<p:commandButton id="link" icon="ui-icon-star" style="float:right;" rendered="#{PersonalizedTravelPackageWeb.isOwner() == false}" actionListener="#{PersonalizedTravelPackageWeb.joinPackage}"/> 
 		<p:commandButton value="Save" icon="ui-icon-check" style="float:right;" rendered="#{PersonalizedTravelPackageWeb.isOwner()}" actionListener="#{PersonalizedTravelPackageWeb.saveChanges}" />
 		
 		<p:tooltip for="link" value="Join the package" showEffect="fade" hideEffect="fade" />        
