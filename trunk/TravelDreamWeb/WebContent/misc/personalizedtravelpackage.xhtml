@@ -69,7 +69,7 @@
 			</p:column> 				
 		</p:dataTable>
 		
-		<p:dialog header="Search Travel Components" id="searchComponent" widgetVar="searchComponent" width="700" height="400" resizable="true" showEffect="clip" hideEffect="clip" dynamic="true">  
+		<p:dialog id="searchComponent" widgetVar="searchComponent" width="700" height="400" resizable="true" showEffect="clip" hideEffect="clip" dynamic="true">  
 			<ui:include src="/misc/search/search_travelcomponent_to_add.xhtml" /> 	
 		</p:dialog>  
 		
@@ -80,7 +80,8 @@
 		</h:form>
 		</p:dialog>		
 		
-		<p:commandButton value="Add Travel Component" rendered="#{PersonalizedTravelPackageWeb.isOwner() and (PersonalizedTravelPackageWeb.checkStatus() == false)}" style="float:left" icon="ui-icon-plusthick" onclick="PF('searchComponent').show();PF('selectComponent').hide()"/>
+		<!-- p:commandButton value="Add Travel Component" rendered="#{PersonalizedTravelPackageWeb.isOwner() and (PersonalizedTravelPackageWeb.checkStatus() == false)}" style="float:left" icon="ui-icon-plusthick" onclick="PF('searchComponent').show();PF('selectComponent').hide()"/-->
+		<p:commandButton value="Add Travel Component" rendered="#{PersonalizedTravelPackageWeb.isOwner()}" style="float:left" icon="ui-icon-plusthick" onclick="PF('searchComponent').show();PF('selectComponent').hide()"/>
 		<p:commandButton id="link" icon="ui-icon-star" style="float:right;" rendered="#{PersonalizedTravelPackageWeb.isOwner() == false}" actionListener="#{PersonalizedTravelPackageWeb.joinPackage}"/> 
 		<p:commandButton value="Save" icon="ui-icon-check" style="float:right;" rendered="#{PersonalizedTravelPackageWeb.isOwner()}" actionListener="#{PersonalizedTravelPackageWeb.saveChanges}" />
 		
