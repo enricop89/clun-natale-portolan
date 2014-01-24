@@ -26,13 +26,13 @@ public class EmployeeHandler implements EmployeeHandlerInterface{
 	@Override
 	@RolesAllowed("EMPLOYEE")
 	public boolean addNewPredefinedTravelPackage(PredefinedTravelPackageDTO predefinedTravelPackage){
-		return handler.addNewPredefinedTravelPackage(new PredefinedTravelPackage(predefinedTravelPackage));
+		return handler.addNewPredefinedTravelPackage(new PredefinedTravelPackage(predefinedTravelPackage,search));
 	}
 
 	@Override
 	@RolesAllowed("EMPLOYEE")
 	public boolean updatePredefinedTravelPackage(PredefinedTravelPackageDTO predefinedTravelPackage){	
-		PredefinedTravelPackage result = new PredefinedTravelPackage(predefinedTravelPackage);
+		PredefinedTravelPackage result = new PredefinedTravelPackage(predefinedTravelPackage,search);
 		return handler.updatePredefinedTravelPackage(result);
 	}
 	

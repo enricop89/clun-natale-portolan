@@ -76,7 +76,7 @@ public class CustomerHandler implements CustomerHandlerInterface{
 	@Override
 	@RolesAllowed({"CUSTOMER"})
 	public boolean updatePersonalizedTravelPackage(PersonalizedTravelPackageDTO personalizedTravelPackage){
-		PersonalizedTravelPackage result = new PersonalizedTravelPackage(personalizedTravelPackage);
+		PersonalizedTravelPackage result = new PersonalizedTravelPackage(personalizedTravelPackage,search);
 		return handler.updatePersonalizedTravelPackage(result);
 	}
 

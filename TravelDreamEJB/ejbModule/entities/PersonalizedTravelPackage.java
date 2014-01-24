@@ -5,7 +5,6 @@ import java.sql.Date;
 import java.util.List;
 import java.lang.String;
 
-import javax.ejb.EJB;
 import javax.persistence.*;
 
 import beans.travelpackage.PersonalizedTravelPackageDTO;
@@ -26,8 +25,6 @@ public class PersonalizedTravelPackage implements Serializable {
 	
 	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long id; 
-	@EJB
-	Search search;
 	
 	private String name;
 	private Date departureDate;
@@ -42,7 +39,7 @@ public class PersonalizedTravelPackage implements Serializable {
 	public PersonalizedTravelPackage() {
 		super();
 	}   
-	public PersonalizedTravelPackage(PersonalizedTravelPackageDTO personalizedTravelPackage) {
+	public PersonalizedTravelPackage(PersonalizedTravelPackageDTO personalizedTravelPackage, Search search) {
 		
 		this.id = personalizedTravelPackage.getId();
 		this.name = personalizedTravelPackage.getName();
