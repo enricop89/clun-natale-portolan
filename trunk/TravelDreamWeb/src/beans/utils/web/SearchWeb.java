@@ -3,6 +3,7 @@ package beans.utils.web;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
@@ -337,6 +338,7 @@ public class SearchWeb {
 			RequestContext.getCurrentInstance().openDialog("/misc/search/travelcomponent_search.xhtml");
 		}
 	}
+	
 	public void searchTravelComponents(String searchDialogName, String resultDialogName){
 		switch(searchCriteria.getType()){
 		case FLIGHT:
@@ -434,6 +436,7 @@ public class SearchWeb {
 		List<TravelComponentDTO> toSend = new ArrayList<TravelComponentDTO>();
 		toSend.add(travelComponent);
 		data.setTravelComponentsList(toSend);
-		FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/index.xhtml"); // TODO: waiting for TravelComponent page
+		String redirectTo = FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/view_travelcomponent.xhtml";
+		FacesContext.getCurrentInstance().getExternalContext().redirect(redirectTo); // TODO: waiting for TravelComponent page
 	}
 }
