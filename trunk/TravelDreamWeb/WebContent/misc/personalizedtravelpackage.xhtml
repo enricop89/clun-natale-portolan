@@ -41,20 +41,16 @@
 	           
 	        <p:column headerText="Status" style="text-align: center">
 					<p:graphicImage id="Confirm" value="/resources/images/confirmed.png" style="float:center" rendered="#{PersonalizedTravelPackageWeb.checkStatus(element)}" />
-					<p:tooltip for="Confirm" value="The package is confirmed" showEffect="fade" hideEffect="fade" /> 
+					<p:tooltip for="Confirm" value="The component is already payed" showEffect="fade" hideEffect="fade" /> 
 				 	<p:graphicImage id="Unconfirm" value="/resources/images/unconfirmed.png" style="float:center" rendered="#{PersonalizedTravelPackageWeb.checkStatus(element)==false}" />
-					<p:tooltip for="Unconfirm" value="The package is unconfirmed" showEffect="fade" hideEffect="fade" /> 
+					<p:tooltip for="Unconfirm" value="The component is not payed" showEffect="fade" hideEffect="fade" /> 
 			</p:column>
 					
 				<p:column headerText="" style="text-align: center"> 
-	      			<h:panelGroup style="white-space: nowrap">
-	      			<h:panelGrid columns="2" > 
 	      			<p:row> 
 	      				<p:commandButton id="visualize" icon="ui-icon-script" rendered="#{PersonalizedTravelPackageWeb.checkRole()}" actionListener="#{PersonalizedTravelPackageWeb.showComponent(element)}"/> 
-	         			<p:commandButton id="delete" icon="ui-icon-trash" update="growl1" rendered="#{PersonalizedTravelPackageWeb.checkRole()}"  action="#{PersonalizedTravelPackageWeb.deletePackage(element)}"	ajax="false"/> 
+	         			<p:commandButton id="delete" icon="ui-icon-trash" update="growl1" rendered="#{PersonalizedTravelPackageWeb.checkRole()}"  action="#{PersonalizedTravelPackageWeb.deleteComponent(element)}"/> 
 	            	</p:row>
-	            	</h:panelGrid>
-	            	</h:panelGroup>
 	            	<p:tooltip for="delete" value="Delete the component" showEffect="fade" hideEffect="fade" /> 
 	            	<p:tooltip for="visualize" value="View the details of the component" showEffect="fade" hideEffect="fade" />   
 				
