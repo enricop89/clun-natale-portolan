@@ -41,7 +41,9 @@
 		</p:row>			 
 		</p:panelGrid>
 				
-		<p:dataTable id="data" var="element" value="#{PersonalizedTravelPackageWeb.personalizedPackage.travelComponents}">  	
+		<p:dataTable id="data" var="element" value="#{PersonalizedTravelPackageWeb.personalizedPackage.travelComponents}" paginator="true" rows="10"  
+                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                 rowsPerPageTemplate="5,10,15">  	
 			<p:column headerText="Type">  
                 <h:outputText value="#{element.travelComponent.type}" />  
             </p:column>  
