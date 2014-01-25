@@ -60,9 +60,8 @@ public class CustomerHandlerWeb {
 		flash.setKeepMessages(true);
 		flash.setRedirect(true);
 		customerhandler.removeTravelComponentFromGiftList(helper);
-			facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Successful", "You have succesfully deleted your component from GiftList!")); 
-			FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/customer/gift_list.xhtml"); //delete a Personalize Travel Package
-		
+		facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Successful", "You have succesfully deleted your component from GiftList!")); 
+		FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/customer/gift_list.xhtml");		
 	}
 	
 	public void deletePTPelement(PersonalizedTravelPackageDTO helper) throws IOException{
