@@ -43,7 +43,7 @@ public class PersonalizedTravelPackageHandler {
 		else {
 			boolean result = false;
 			for(int i = 0; i < personalizedTravelPackage.getTravelComponents().size(); i++)
-				if(personalizedTravelPackage.getTravelComponents().get(i).getTravelElement() != null)
+				if(personalizedTravelPackage.getTravelComponents().get(i).getTravelElement() == null)
 					result = true;
 			if(result == true){	// if it is a confirmed package it does not procede!	
 				result = consistencyCheck(personalizedTravelPackage);
