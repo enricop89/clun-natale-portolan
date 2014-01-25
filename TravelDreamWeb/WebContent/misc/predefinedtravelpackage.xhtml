@@ -30,7 +30,6 @@
 		      				<p:commandButton id="visualize" icon="ui-icon-script" rendered="#{PredefinedTravelPackageWeb.checkIfEmployee()}" actionListener="#{PredefinedTravelPackageWeb.showComponent(element)}"/> 
 		      				<p:commandButton id="modify" icon="ui-icon-wrench" rendered="#{PredefinedTravelPackageWeb.checkIfEmployee()}" actionListener="#{PredefinedTravelPackageWeb.updateComponent(element)}"/>
 		         			<p:commandButton id="copy" icon="ui-icon-copy" update="growl1" rendered="#{PredefinedTravelPackageWeb.checkIfCustomer()}"  action="#{PredefinedTravelPackageWeb.copyInPersonalizedTravelPackage(element)}"	ajax="false"/> 
-		            		
 		            	
 		            	</p:row>
 		            
@@ -41,7 +40,7 @@
 	         	</p:column>                  
 			</p:dataTable> 
 			
-			<p:commandButton id="check" value="Modify" icon="ui-icon-check" update="growl1" rendered="#{PredefinedTravelPackageWeb.checkIfCustomer()}" style="float:right;" action="#{PredefinedTravelPackageWeb.modify()}"	ajax="false"/>
+			<p:commandButton id="check" value="Modify" icon="ui-icon-check" update="growl1" rendered="#{PredefinedTravelPackageWeb.checkIfCustomer()}" style="float:right;" action="#{PredefinedTravelPackageWeb.modify(element)}"	ajax="false"/>
 			<p:tooltip for="check" value="Modify the package" showEffect="fade" hideEffect="fade" /> 
 	</h:form>
 </ui:define>
