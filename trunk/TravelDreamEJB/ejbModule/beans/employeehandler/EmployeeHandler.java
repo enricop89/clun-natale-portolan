@@ -66,7 +66,7 @@ public class EmployeeHandler implements EmployeeHandlerInterface{
 	public boolean addTravelComponentToPredefinedTravelPackage(PredefinedTravelPackageDTO predefinedTravelPackage, TravelComponentDTO travelComponent){
 		//control first if it is in the personalizedTravelPackage already
 		for(int i = 0; i < predefinedTravelPackage.getTravelComponents().size(); i++)
-			if(predefinedTravelPackage.getTravelComponents().get(i) == travelComponent)
+			if(predefinedTravelPackage.getTravelComponents().get(i).getId() == travelComponent.getId())
 				return false;
 		
 		predefinedTravelPackage.getTravelComponents().add(travelComponent);
