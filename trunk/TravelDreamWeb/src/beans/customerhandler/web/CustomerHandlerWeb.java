@@ -92,7 +92,7 @@ public class CustomerHandlerWeb {
 		data.setTravelComponentsList(toSend);
         Map<String,Object> options = new HashMap<String, Object>();  
         options.put("resizable", false);
-		RequestContext.getCurrentInstance().openDialog("/misc/dialog_travelcomponent.xhtml",options,null); // TODO: waiting for TravelComponent page	
+		RequestContext.getCurrentInstance().openDialog("/misc/dialog_travelcomponent.xhtml",options,null);	
 	}
 	
 	public void showPackagefromGiftList(GiftElements_HelperDTO gift) throws IOException{
@@ -100,7 +100,7 @@ public class CustomerHandlerWeb {
 		List<PersonalizedTravelPackageDTO> toSend = new ArrayList<PersonalizedTravelPackageDTO>();
 		toSend.add(gift.getPersonalizedTravelPackage());
 		data.setPersonalizedTravelPackagesList(toSend);
-		FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/index.xhtml"); // TODO: waiting for TravelPackage page	
+		FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/customer/personalized_travel_package.xhtml");	
 	}
 	
 	public void showPackage(PersonalizedTravelPackageDTO personalizedTravelPackage) throws IOException{
@@ -108,7 +108,7 @@ public class CustomerHandlerWeb {
 		List<PersonalizedTravelPackageDTO> toSend = new ArrayList<PersonalizedTravelPackageDTO>();
 		toSend.add(personalizedTravelPackage);
 		data.setPersonalizedTravelPackagesList(toSend);
-		FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/customer/personalized_travel_package.xhtml"); // TODO: waiting for TravelPackage page	
+		FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/customer/personalized_travel_package.xhtml");	
 	}
 	
 	

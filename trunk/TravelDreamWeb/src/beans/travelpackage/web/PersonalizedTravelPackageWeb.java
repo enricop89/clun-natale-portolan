@@ -128,7 +128,7 @@ public class PersonalizedTravelPackageWeb {
 			data.setTravelComponentsList(toSend);
 	        Map<String,Object> options = new HashMap<String, Object>();  
 	        options.put("resizable", false); 
-			RequestContext.getCurrentInstance().openDialog("/misc/dialog_travelcomponent.xhtml",options,null); // TODO: waiting for TravelComponent page	
+			RequestContext.getCurrentInstance().openDialog("/misc/dialog_travelcomponent.xhtml",options,null);	
 		}
 		else 
 			if(component.getTravelElement()!=null){	//The component is confirmed
@@ -137,7 +137,7 @@ public class PersonalizedTravelPackageWeb {
 				data.setTravelComponentsList(toSend);
 		        Map<String,Object> options = new HashMap<String, Object>();  
 		        options.put("resizable", false); 
-				RequestContext.getCurrentInstance().openDialog("/misc/dialog_travelcomponent.xhtml",options,null); // TODO: waiting for TravelComponent page	
+				RequestContext.getCurrentInstance().openDialog("/misc/dialog_travelcomponent.xhtml",options,null);
 			}		
 	}
 	
