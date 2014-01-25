@@ -29,5 +29,9 @@
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/cruze-1.0.10.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/rocket-1.0.10.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/bootstrap-1.0.10.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/cupertino-1.0.10.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/home-1.0.10.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/excite-bike-1.0.10.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/flick-1.0.10.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
