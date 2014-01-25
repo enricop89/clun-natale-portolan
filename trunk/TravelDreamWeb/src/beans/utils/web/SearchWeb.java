@@ -22,7 +22,9 @@ import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List; 
+import java.util.Map;
 
 @ManagedBean(name="SearchWeb")
 @ViewScoped
@@ -175,7 +177,9 @@ public class SearchWeb {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"No Results", "Your search has given no results")); 
 		else{
 			data.setPredefinedTravelPackagesList(predefinedTravelPackagesList);
-			RequestContext.getCurrentInstance().openDialog("/misc/search/travelpackage_search.xhtml");
+	        Map<String,Object> options = new HashMap<String, Object>();  
+	        options.put("resizable", false);
+			RequestContext.getCurrentInstance().openDialog("/misc/search/travelpackage_search.xhtml",options,null);
 		}
 	}
 	
@@ -186,7 +190,9 @@ public class SearchWeb {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"No Results", "Your search has given no results")); 
 		else{
 			data.setPredefinedTravelPackagesList(predefinedTravelPackagesList);
-			RequestContext.getCurrentInstance().openDialog("/misc/search/travelpackage_search.xhtml");
+	        Map<String,Object> options = new HashMap<String, Object>();  
+	        options.put("resizable", false);
+			RequestContext.getCurrentInstance().openDialog("/misc/search/travelpackage_search.xhtml",options,null);
 		}
 	}
 	
@@ -214,7 +220,9 @@ public class SearchWeb {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"No Results", "Your search has given no results")); 
 		else{
 			data.setUsersList(usersList);
-			RequestContext.getCurrentInstance().openDialog("/misc/search/customer_search.xhtml");
+	        Map<String,Object> options = new HashMap<String, Object>();  
+	        options.put("resizable", false);
+			RequestContext.getCurrentInstance().openDialog("/misc/search/customer_search.xhtml",options,null);
 		}
 	}
 	public void onCustomerChosen(SelectEvent event) throws IOException{

@@ -3,6 +3,8 @@ package beans.travelpackage.web;
 import java.io.IOException;
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -56,7 +58,9 @@ public class PredefinedTravelPackageWeb {
 		ArrayList<TravelComponentDTO> toSend = new ArrayList<TravelComponentDTO>();
 		toSend.add(helper);
 		data.setTravelComponentsList(toSend);
-		RequestContext.getCurrentInstance().openDialog("/misc/dialog_travelcomponent.xhtml"); // TODO: waiting for TravelComponent page	
+        Map<String,Object> options = new HashMap<String, Object>();  
+        options.put("resizable", false);
+		RequestContext.getCurrentInstance().openDialog("/misc/dialog_travelcomponent.xhtml",options,null); // TODO: waiting for TravelComponent page	
 	}
 	
 	public void updateComponent(TravelComponentDTO helper) throws IOException{
