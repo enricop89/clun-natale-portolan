@@ -5,7 +5,7 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
-	
+
 	<h:form id="form">	
 		<p:growl id="growl" showDetail="true" globalOnly="true" /> 
 		
@@ -81,10 +81,10 @@
 		
 		<!-- p:commandButton value="Add Travel Component" rendered="#{PersonalizedTravelPackageWeb.isOwner() and (PersonalizedTravelPackageWeb.checkStatus() == false)}" style="float:left" icon="ui-icon-plusthick" onclick="PF('searchComponent').show();PF('selectComponent').hide()"/-->
 		<p:commandButton value="Add Travel Component" rendered="#{PersonalizedTravelPackageWeb.isOwner()}" style="float:left" icon="ui-icon-plusthick" onclick="PF('searchComponent').show();PF('selectComponent').hide()"/>
-		<p:commandButton id="link" icon="ui-icon-star" style="float:right;" rendered="#{PersonalizedTravelPackageWeb.isOwner() == false}" action="#{PersonalizedTravelPackageWeb.joinPackage}"  ajax="false"/> 
+		<div align="center"> <p:commandButton value="JOIN" id="join" icon="ui-icon-star" style="float:center;" rendered="#{PersonalizedTravelPackageWeb.isOwner() == false and PersonalizedTravelPackageWeb.personalizedPakcage != null}" action="#{PersonalizedTravelPackageWeb.joinPackage}"  ajax="false"/> </div>
 		<p:commandButton value="Save" icon="ui-icon-check" style="float:right;" rendered="#{PersonalizedTravelPackageWeb.isOwner() and (PersonalizedTravelPackageWeb.checkStatus() == false)}" action="#{PersonalizedTravelPackageWeb.saveChanges}"  ajax="false"/>
 		
-		<p:tooltip for="link" value="Join the package" showEffect="fade" hideEffect="fade" />        
+		<p:tooltip for="join" value="Join this package!" showEffect="fade" hideEffect="fade" />        
 	</h:form>
 </ui:composition>
 	

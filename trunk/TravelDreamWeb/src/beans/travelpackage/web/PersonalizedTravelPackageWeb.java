@@ -1,6 +1,5 @@
 package beans.travelpackage.web;
 
-
 import java.io.IOException;
 import java.sql.Date;
 import java.util.ArrayList;
@@ -48,12 +47,26 @@ public class PersonalizedTravelPackageWeb {
 	private PersonalizedTravelPackageDTO personalizedPackage;
 	private java.util.Date departureDate;
 	private java.util.Date returnDate;
-	
+
 	@PostConstruct
 	public void init(){	
-		personalizedPackage = data.getPersonalizedTravelPackagesList().get(0);
-		departureDate = new java.util.Date (personalizedPackage.getDepartureDate().getTime());
-		returnDate = new java.util.Date (personalizedPackage.getReturnDate().getTime());		
+		String shareId =FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("share");
+		boolean ok = true;
+		if(shareId != null) // the request has parsed the share parameter, this is "join package" context!			
+			try{
+				Long id = Long.parseLong(shareId);
+				personalizedPackage = finder.findPersonalizedTravelPackage(id);
+			}
+			catch(NumberFormatException | NullPointerException e){
+				ok = false;
+			}
+		else
+			personalizedPackage = data.getPersonalizedTravelPackagesList().get(0);
+		
+		if(ok == true){
+			departureDate = new java.util.Date (personalizedPackage.getDepartureDate().getTime());
+			returnDate = new java.util.Date (personalizedPackage.getReturnDate().getTime());
+		}
 	}
 	
 	//------------------------
@@ -94,8 +107,8 @@ public class PersonalizedTravelPackageWeb {
 		
 		return true;
 	}
-		
-	public boolean isOwner(){
+			
+	public boolean isOwner(){		
 		if(FacesContext.getCurrentInstance().getExternalContext().isUserInRole("CUSTOMER"))
 			if(personalizedPackage.getOwner().getEmail().equals(FacesContext.getCurrentInstance().getExternalContext().getRemoteUser()))
 				return true; //the remote user is also the owner of the travel package
