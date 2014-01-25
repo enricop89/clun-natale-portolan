@@ -56,8 +56,8 @@
 			 		</p:panel>
 			    </p:tab> 			     	  				     		    	
 	    	</p:tabView>    
-	    	<p:commandButton value="Search" icon="ui-icon-search" actionListener="#{SearchWeb.searchTravelComponents('searchComponent','selectComponent')}" update="componentsGrowl" ajax="true" styleClass="ui-priority-primary"/>  
-       		<p:commandButton value="Browse All" icon="ui-icon-search" actionListener="#{SearchWeb.browseAllTravelComponents('searchComponent','selectComponent')}" update="componentsGrowl" ajax="true"/>		        
+	    	<p:commandButton value="Search" icon="ui-icon-search" action="#{SearchWeb.searchTravelComponents('searchComponent','selectComponent')}" update="componentsGrowl" styleClass="ui-priority-primary"/>  
+       		<p:commandButton value="Browse All" icon="ui-icon-search" action="#{SearchWeb.browseAllTravelComponents('searchComponent','selectComponent')}" update="componentsGrowl"/>		        
  		</p:panel>
 </ui:composition>
 

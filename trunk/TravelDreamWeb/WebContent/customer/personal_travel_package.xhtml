@@ -38,7 +38,7 @@
 	      			<p:row> 
 	      				<p:commandButton id="visualize" icon="ui-icon-script"  actionListener="#{CustomerHandlerWeb.showPackage(element)}"/> 
 	      				<p:commandButton id="link" icon="ui-icon-tag"  actionListener="#{CustomerHandlerWeb.showMessage(element)}"/>
-	         			<p:commandButton id="delete" icon="ui-icon-trash" update="growl1"   action="#{CustomerHandlerWeb.deletePTPelement(element)}"	ajax="false"/> 
+	         			<p:commandButton id="delete" icon="ui-icon-trash" update="growl1"   action="#{CustomerHandlerWeb.deletePTPelement(element)}" ajax="false"/> 
 	            	</p:row>
 	            	<p:tooltip for="delete" value="Delete the package" showEffect="fade" hideEffect="fade" /> 
 	            	<p:tooltip for="link" value="Get the package identifier" showEffect="fade" hideEffect="fade" /> 
