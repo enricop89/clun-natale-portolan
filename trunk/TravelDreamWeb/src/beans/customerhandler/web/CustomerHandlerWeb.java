@@ -47,7 +47,6 @@ public class CustomerHandlerWeb {
 		this.data = data;
 	}
 	
-	
 	@PostConstruct
 	public void init(){
 		user = search.findUser(FacesContext.getCurrentInstance().getExternalContext().getRemoteUser());
