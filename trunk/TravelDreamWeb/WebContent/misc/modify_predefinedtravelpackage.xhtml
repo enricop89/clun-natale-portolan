@@ -1,0 +1,47 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/master.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+	
+ 	<h:form>
+	            <p:dataTable var="travelComponent" value="#{PredefinedTravelPackageWeb.packageDTO.travelComponents}">
+                <p:column headerText="" style="text-align: center">  
+                <p:row>
+                    --> QUI CI VANNO GLI ALTRI BOTTONI, SOLITA ROBA
+                    <p:commandButton style="float:center" icon="ui-icon-trash" actionListener="#{PredefinedTravelPackageWeb.deleteComponent(travelComponent)}" />
+                    
+                </p:row>  
+                </p:column>  
+                 
+                 <p:column headerText="Type" style="text-align: center">  
+                    <h:outputText value="Flight" rendered="#{travelComponent.type == 'FLIGHT'}"/> 
+                    <h:outputText value="Hotel" rendered="#{travelComponent.type == 'HOTEL'}"/> 
+                    <h:outputText value="Excursion" rendered="#{travelComponent.type == 'EXCURSION'}"/>  
+                </p:column>  
+                <p:column headerText="Supplying Company" style="text-align: center">  
+                    <h:outputText value="#{travelComponent.supplyingCompany}" />  
+                </p:column>  
+                <p:column headerText="Availability" style="text-align: center">  
+                    <h:outputText value="#{travelComponent.availability}" />  
+                </p:column> 
+            	</p:dataTable> 
+          	
+
+            	<p:commandButton value="Add Travel Component" style="float:center" icon="ui-icon-plusthick" onclick="PF('searchComponent').show();PF('selectComponent').hide()"/>
+		</h:form>
+		<p:dialog header="Search Travel Components" id="searchComponent" widgetVar="searchComponent" width="700" height="400" resizable="true" showEffect="clip" hideEffect="clip" dynamic="true">  
+			<ui:include src="/misc/search/search_travelcomponent_to_add.xhtml" /> 	
+		</p:dialog>  
+		
+		<p:dialog header="Add Travel Component" id="selectComponent" widgetVar="selectComponent" width="700" height="400" resizable="true" showEffect="clip" hideEffect="clip" dynamic="true">  
+		<p:ajax event="close" listener="#{PredefinedTravelPackageWeb.onTravelComponentChosen}"/> 
+			<h:form>		
+
+		    <ui:include src="/misc/search/add_travelcomponent.xhtml" />  
+		 	</h:form>
+		 </p:dialog>
+		 
+</ui:composition>
