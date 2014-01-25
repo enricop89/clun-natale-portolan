@@ -2,6 +2,7 @@ package entities;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 import java.lang.String;
 
@@ -45,6 +46,7 @@ public class PersonalizedTravelPackage implements Serializable {
 		this.owner = search.findUser(personalizedTravelPackage.getOwner());
 		this.returnDate = personalizedTravelPackage.getReturnDate();
 		this.departureDate = personalizedTravelPackage.getDepartureDate();
+		this.travelComponents = new ArrayList<Components_Helper>();
 		for(int i = 0; i < personalizedTravelPackage.getTravelComponents().size(); i++)
 			travelComponents.add(search.findComponents_Helper(personalizedTravelPackage.getTravelComponents().get(i)));
 	}
