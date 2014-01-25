@@ -13,7 +13,7 @@
         <h:form>  
             <p:dataTable var="predefinedTravelPackage" value="#{SearchPredefinedTravelPackages.predefinedTravelPackagesList}">  
                 <p:column headerText="" style="text-align: center">  
-                    <p:commandButton style="float:center" icon="ui-icon-suitcase" actionListener="#{SearchPredefinedTravelPackages.selectFromDialog(predefinedTravelPackage)}" />  
+                    <p:commandButton style="float:center" icon="ui-icon-suitcase" action="#{SearchPredefinedTravelPackages.selectFromDialog(predefinedTravelPackage)}" />  
                 </p:column>  
  
                 <p:column headerText="Name" style="text-align: center">  

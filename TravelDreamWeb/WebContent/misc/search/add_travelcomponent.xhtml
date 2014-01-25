@@ -8,8 +8,8 @@
             <p:dataTable var="travelComponent" value="#{SearchTravelComponents.travelComponentsList}">
                 <p:column headerText="" style="text-align: center">  
                 	<p:row>
-                    <p:commandButton id="add" style="float:center" icon="ui-icon-check" actionListener="#{SearchTravelComponents.selectFromDialog(travelComponent,'selectComponent')}" ajax="false"/>  
-                    <p:commandButton id="visualize" style="float:center" icon="ui-icon-suitcase" actionListener="#{SearchTravelComponents.visualize(travelComponent)}" /> 
+                    <p:commandButton id="add" style="float:center" icon="ui-icon-check" actionListener="#{SearchTravelComponents.selectFromDialog(travelComponent,'selectComponent')}"/>  
+                    <p:commandButton id="visualize" style="float:center" icon="ui-icon-suitcase" actionListener="#{SearchTravelComponents.visualize(travelComponent)}"/> 
 					</p:row>
 					<p:tooltip for="add" value="Add the travel component" showEffect="fade" hideEffect="fade" /> 
 	            	<p:tooltip for="visualize" value="Show the travel component info" showEffect="fade" hideEffect="fade" />  

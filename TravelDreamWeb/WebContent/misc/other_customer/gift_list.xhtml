@@ -22,7 +22,7 @@
 			<p:column headerText=""> 
 				<p:row>
 					<p:commandButton id="show" icon="ui-icon-script" actionListener="#{OtherCustomerWeb.showComponent(element)}"/> 
-					<p:commandButton id="pay" icon="ui-icon-cart" actionListener="#{OtherCustomerWeb.payComponent(element)}"/>								
+					<p:commandButton id="pay" icon="ui-icon-cart" action="#{OtherCustomerWeb.payComponent(element)}" ajax="false"/>								
 				</p:row>
             	<p:tooltip for="pay" value="Pay the component for your friend!" showEffect="fade" hideEffect="fade" /> 
             	<p:tooltip for="show" value="Show the travel component info" showEffect="fade" hideEffect="fade" /> 
