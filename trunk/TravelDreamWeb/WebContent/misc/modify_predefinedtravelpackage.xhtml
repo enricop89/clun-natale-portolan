@@ -6,11 +6,17 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 	
+	
+	<ui:define name="title">Travel Package</ui:define>
+
+    <ui:define name="content">
+    
  	<h:form>
 	            <p:dataTable var="travelComponent" value="#{PredefinedTravelPackageWeb.packageDTO.travelComponents}">
                 <p:column headerText="" style="text-align: center">  
                 <p:row>
-                    --> QUI CI VANNO GLI ALTRI BOTTONI, SOLITA ROBA
+                	<p:commandButton id="visualize" icon="ui-icon-script"  actionListener="#{PredefinedTravelPackageWeb.showComponent(element)}"/>
+                	<p:commandButton id="modify" icon="ui-icon-wrench" rendered="#{PredefinedTravelPackageWeb.checkIfEmployee()}" actionListener="#{PredefinedTravelPackageWeb.updateComponent(element)}"/>
                     <p:commandButton style="float:center" icon="ui-icon-trash" actionListener="#{PredefinedTravelPackageWeb.deleteComponent(travelComponent)}" />
                     
                 </p:row>  
@@ -43,5 +49,5 @@
 		    <ui:include src="/misc/search/add_travelcomponent.xhtml" />  
 		 	</h:form>
 		 </p:dialog>
-		 
+	</ui:define>
 </ui:composition>

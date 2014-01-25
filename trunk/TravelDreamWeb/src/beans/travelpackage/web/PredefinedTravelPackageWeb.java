@@ -59,7 +59,7 @@ public class PredefinedTravelPackageWeb {
 	
 	public void showComponent(TravelComponentDTO helper) throws IOException{
 		//select package and go to personal_package_home
-		ArrayList<TravelComponentDTO> toSend = new ArrayList<TravelComponentDTO>();
+		List<TravelComponentDTO> toSend = new ArrayList<TravelComponentDTO>();
 		toSend.add(helper);
 		data.setTravelComponentsList(toSend);
         Map<String,Object> options = new HashMap<String, Object>();  
@@ -101,25 +101,33 @@ public void save() throws IOException{
 		Flash flash = facesContext.getExternalContext().getFlash();
 		flash.setKeepMessages(true);
 		flash.setRedirect(true);
+		
 		if(departureDate != null)
 			predTP.setDepartureDate(new Date(departureDate.getTime()));
 		if(returnDate != null)
 			predTP.setReturnDate(new Date(returnDate.getTime()));
 		
 		user = search.findUser(FacesContext.getCurrentInstance().getExternalContext().getRemoteUser());
-		customerhandler.addNewPersonalizedTravelPackage(user,predTP);
+		if(FacesContext.getCurrentInstance().getExternalContext().isUserInRole("CUSTOMER"))
+			copyInPersonalizedTravelPackage(predTP); //if customer copy in personalized
+		if(FacesContext.getCurrentInstance().getExternalContext().isUserInRole("EMPLOYEE"))
+			employee.updatePredefinedTravelPackage(predTP); //if employee update
+		
 		facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Successful", "The package has been succesfully added to your package list!")); 
 		FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/customer/personal_travel_package.xhtml?faces-redirect=true");
 		
 	}
 
-	public void modify() throws IOException{
+	public void modify(TravelComponentDTO helper) throws IOException{
 	
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		Flash flash = facesContext.getExternalContext().getFlash();
 		flash.setKeepMessages(true);
 		flash.setRedirect(true);
-		FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/customer/personal_travel_package.xhtml?faces-redirect=true");
+		List<TravelComponentDTO> toSend = new ArrayList<TravelComponentDTO>();
+		toSend.add(helper);
+		data.setTravelComponentsList(toSend);
+		FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/misc/modify_predefinedtravelpackage.xhtml?faces-redirect=true");
 	
 	}
 	
@@ -127,7 +135,7 @@ public void save() throws IOException{
 	{
 		try{ // must use try catch, getters in Data_Exchange flushes lists by design! calling it twice is a logical error
 			TravelComponentDTO travelComponent = data.getTravelComponentsList().get(0);
-			employee.addTravelComponentToPredefinedTravelPackage(packageDTO, travelComponent);
+			employee.addTravelComponentToPredefinedTravelPackage(packageDTO, travelComponent);	//TODO:se salva chiamo copy, dipende se customer o employee
 			List<PredefinedTravelPackageDTO> toSend = new ArrayList<PredefinedTravelPackageDTO>();
 			toSend.add(packageDTO);
 			data.setPredefinedTravelPackagesList(toSend);
@@ -135,6 +143,7 @@ public void save() throws IOException{
 		}
 		catch (java.lang.IndexOutOfBoundsException e){/* does nothing */}
 	}
+	
 	
 	
 	public boolean checkIfCustomer() throws IOException{
