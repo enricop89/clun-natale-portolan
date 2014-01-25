@@ -40,9 +40,9 @@
 	         	</p:column>                  
 			</p:dataTable> 
 			
-			<p:commandButton id="check" value="Modify" icon="ui-icon-check" update="growl1" rendered="#{PredefinedTravelPackageWeb.checkIfCustomer()}" style="float:right;" action="#{PredefinedTravelPackageWeb.modify(element)}"	ajax="false"/>
+			<p:commandButton id="check" value="Modify" icon="ui-icon-check" update="growl1" style="float:right;" action="#{PredefinedTravelPackageWeb.modify(PredefinedTravelPackageWeb.predTP)}"	ajax="false"/>
 			<p:tooltip for="check" value="Modify the package" showEffect="fade" hideEffect="fade" /> 
 	</h:form>
-</ui:define>
+ </ui:define>
 </ui:composition>
  

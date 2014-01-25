@@ -33,14 +33,18 @@ import beans.utils.web.Data_Exchange;
 public class PredefinedTravelPackageWeb {
 	@EJB
 	private SearchDTOInterface search;
-	private PredefinedTravelPackageDTO predTP;
+	@EJB
 	private EmployeeHandlerInterface employee;
+	@EJB
 	private CustomerHandlerInterface customerhandler;
+	
+	private PredefinedTravelPackageDTO predTP;
 	private UserDTO user;
 	private java.util.Date departureDate;
 	private java.util.Date returnDate;
 	private PersonalizedTravelPackageDTO personalizedPackage;
 	private PredefinedTravelPackageDTO packageDTO;
+	
 	@Inject
 	private Data_Exchange data;
 	public Data_Exchange getData(){
@@ -118,15 +122,15 @@ public void save() throws IOException{
 		
 	}
 
-	public void modify(TravelComponentDTO helper) throws IOException{
+	public void modify(PredefinedTravelPackageDTO helper) throws IOException{
 	
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		Flash flash = facesContext.getExternalContext().getFlash();
 		flash.setKeepMessages(true);
 		flash.setRedirect(true);
-		List<TravelComponentDTO> toSend = new ArrayList<TravelComponentDTO>();
+		List<PredefinedTravelPackageDTO> toSend = new ArrayList<PredefinedTravelPackageDTO>();
 		toSend.add(helper);
-		data.setTravelComponentsList(toSend);
+		data.setPredefinedTravelPackagesList(toSend);
 		FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/misc/modify_predefinedtravelpackage.xhtml?faces-redirect=true");
 	
 	}
@@ -161,6 +165,8 @@ public void save() throws IOException{
 	
 	}
 	
+	
+	//SETTERS AND GETTERS
 	public PredefinedTravelPackageDTO getPredTP() {
 		return predTP;
 	}
