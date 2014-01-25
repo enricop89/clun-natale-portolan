@@ -14,7 +14,7 @@
 		<p:menuitem value="Personal Info" action="#{OtherCustomerWeb.open('personal_page.xhtml')}" icon="ui-icon-person"/>  
 		<p:menuitem value="GiftList" action="#{OtherCustomerWeb.open('gift_list.xhtml')}" icon="ui-icon-cart"/> 
 		</p:tabMenu>   	    	
-		<p:dataTable var="element" value="#{OtherCustomerWeb.giftList.giftElements}">  
+		<p:dataTable var="element" value="#{OtherCustomerWeb.giftList.giftElements}"  paginator="true" rows="10" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="5,10,15" >  
 			<p:column headerText="Type">  
 				<h:outputText value="#{element.travelComponent.travelComponent.type}" />  
 			</p:column>  

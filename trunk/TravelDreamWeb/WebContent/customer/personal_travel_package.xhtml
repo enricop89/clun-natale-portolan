@@ -16,7 +16,7 @@
 		</p:tabMenu> 
 		<h:form>  	
 			<p:growl id="growl1" showDetail="true" globalOnly="true" />   	  		
-			<p:dataTable var="element" value="#{CustomerHandlerWeb.persTP}">  
+			<p:dataTable var="element" value="#{CustomerHandlerWeb.persTP}" paginator="true" rows="10" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="5,10,15" >  
 	            <p:column headerText="Name">  
 	                <h:outputText value="#{element.name}" />  
 	            </p:column>  
