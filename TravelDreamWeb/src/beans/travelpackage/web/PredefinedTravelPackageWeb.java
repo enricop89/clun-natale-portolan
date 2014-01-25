@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
@@ -16,11 +17,13 @@ import javax.faces.context.Flash;
 import javax.inject.Inject;
 
 import org.primefaces.context.RequestContext;
+import org.primefaces.event.CloseEvent;
 
 import beans.accountmanagement.UserDTO;
 import beans.customerhandler.CustomerHandlerInterface;
 import beans.employeehandler.EmployeeHandlerInterface;
 import beans.travelcomponent.TravelComponentDTO;
+import beans.travelpackage.PersonalizedTravelPackageDTO;
 import beans.travelpackage.PredefinedTravelPackageDTO;
 import beans.utils.SearchDTOInterface;
 import beans.utils.web.Data_Exchange;
@@ -36,7 +39,8 @@ public class PredefinedTravelPackageWeb {
 	private UserDTO user;
 	private java.util.Date departureDate;
 	private java.util.Date returnDate;
-
+	private PersonalizedTravelPackageDTO personalizedPackage;
+	private PredefinedTravelPackageDTO packageDTO;
 	@Inject
 	private Data_Exchange data;
 	public Data_Exchange getData(){
@@ -88,7 +92,7 @@ public class PredefinedTravelPackageWeb {
 		flash.setKeepMessages(true);
 		flash.setRedirect(true);
 		facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Successful", "You have succesfully add the travel package in your list of package!"));
-		FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/misc/personal_travel_package.xhtml?faces-redirect=true");
+		FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/customer/personal_travel_package.xhtml?faces-redirect=true");
 	}
 	
 public void save() throws IOException{
@@ -105,9 +109,33 @@ public void save() throws IOException{
 		user = search.findUser(FacesContext.getCurrentInstance().getExternalContext().getRemoteUser());
 		customerhandler.addNewPersonalizedTravelPackage(user,predTP);
 		facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Successful", "The package has been succesfully added to your package list!")); 
-		FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/misc/personal_travel_package.xhtml?faces-redirect=true");
+		FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/customer/personal_travel_package.xhtml?faces-redirect=true");
 		
 	}
+
+	public void modify() throws IOException{
+	
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		Flash flash = facesContext.getExternalContext().getFlash();
+		flash.setKeepMessages(true);
+		flash.setRedirect(true);
+		FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/customer/personal_travel_package.xhtml?faces-redirect=true");
+	
+	}
+	
+	public void onTravelComponentChosen(CloseEvent event) throws IOException
+	{
+		try{ // must use try catch, getters in Data_Exchange flushes lists by design! calling it twice is a logical error
+			TravelComponentDTO travelComponent = data.getTravelComponentsList().get(0);
+			employee.addTravelComponentToPredefinedTravelPackage(packageDTO, travelComponent);
+			List<PredefinedTravelPackageDTO> toSend = new ArrayList<PredefinedTravelPackageDTO>();
+			toSend.add(packageDTO);
+			data.setPredefinedTravelPackagesList(toSend);
+			FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/customer/control_panel.xhtml");
+		}
+		catch (java.lang.IndexOutOfBoundsException e){/* does nothing */}
+	}
+	
 	
 	public boolean checkIfCustomer() throws IOException{
 		
@@ -147,6 +175,12 @@ public void save() throws IOException{
 	}
 	public void setReturnDate(java.util.Date returnDate) {
 		this.returnDate = returnDate;
+	}
+	public PersonalizedTravelPackageDTO getPersonalizedPackage() {
+		return personalizedPackage;
+	}
+	public void setPersonalizedPackage(PersonalizedTravelPackageDTO personalizedPackage) {
+		this.personalizedPackage = personalizedPackage;
 	}
 	
 	
