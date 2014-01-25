@@ -78,9 +78,10 @@ public class CustomerHandlerWeb {
 				facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error", "You cannot delete a confirmed package")); 			
 	}
 	
-	public void showMessage(PersonalizedTravelPackageDTO helper) {  //get identifier
-        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Identifier", "SUKA");  
-        RequestContext.getCurrentInstance().showMessageInDialog(message);  //TODO: Generate Link
+	public void showMessage(PersonalizedTravelPackageDTO personalizedPackage) {  //get identifier
+		String text = "localhost:8080" + FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/join_package.xhtml?share=" + personalizedPackage.getId();
+        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Share this link to make your friend join this package!", text);  
+        RequestContext.getCurrentInstance().showMessageInDialog(message);
     } 
 	
 	public void showComponentfromGiftList(GiftElements_HelperDTO gift) throws IOException{

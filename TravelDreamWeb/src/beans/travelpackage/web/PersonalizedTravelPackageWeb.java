@@ -93,6 +93,14 @@ public class PersonalizedTravelPackageWeb {
 	
 	//-----------------------	
 	
+	public boolean noPackage(){
+		if(personalizedPackage == null)
+			return true;
+		
+		else
+			return false;
+	}
+	
 	public boolean checkStatus(Components_HelperDTO toChcek){
 			if(toChcek.getTravelElement()!=null)
 				return true;
