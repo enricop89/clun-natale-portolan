@@ -80,7 +80,7 @@ public class OtherCustomerWeb {
 		data.setTravelComponentsList(toSend);
         Map<String,Object> options = new HashMap<String, Object>();  
         options.put("resizable", false);
-		RequestContext.getCurrentInstance().openDialog("/misc/dialog_travelcomponent.xhtml",options,null); // TODO: waiting for TravelComponent page	
+		RequestContext.getCurrentInstance().openDialog("/misc/dialog_travelcomponent.xhtml",options,null);	
 	}
 	public void payComponent(GiftElements_HelperDTO giftListElement) throws IOException{
 		FacesContext facesContext = FacesContext.getCurrentInstance();

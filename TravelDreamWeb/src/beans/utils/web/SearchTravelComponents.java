@@ -50,6 +50,6 @@ public class SearchTravelComponents {
 		List<TravelComponentDTO> toSend = new ArrayList<TravelComponentDTO>();
 		toSend.add(travelComponent);
 		data.setTravelComponentsList(toSend);
-		RequestContext.getCurrentInstance().openDialog("/misc/dialog_travelcomponent.xhtml"); //TODO: Waiting for Travel Component page. NB: MUST CHECK IF THIS WORKS, PRIMEFACES DOES NOT SUPPORT NESTED DIALOGS!
+		RequestContext.getCurrentInstance().openDialog("/misc/dialog_travelcomponent.xhtml");
 	}
 }

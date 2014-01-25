@@ -60,7 +60,7 @@ public class PredefinedTravelPackageWeb {
 		data.setTravelComponentsList(toSend);
         Map<String,Object> options = new HashMap<String, Object>();  
         options.put("resizable", false);
-		RequestContext.getCurrentInstance().openDialog("/misc/dialog_travelcomponent.xhtml",options,null); // TODO: waiting for TravelComponent page	
+		RequestContext.getCurrentInstance().openDialog("/misc/dialog_travelcomponent.xhtml",options,null);	
 	}
 	
 	public void updateComponent(TravelComponentDTO helper) throws IOException{
