@@ -332,7 +332,9 @@ public class SearchWeb {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"No Results", "Your search has given no results")); 
 		else{
 			data.setTravelComponentsList(travelComponentsList);
-			RequestContext.getCurrentInstance().openDialog("/misc/search/travelcomponent_search.xhtml");
+	        Map<String,Object> options = new HashMap<String, Object>();  
+	        options.put("resizable", false);
+			RequestContext.getCurrentInstance().openDialog("/misc/search/travelcomponent_search.xhtml",options,null);
 		}
 	}
 	public void browseAllTravelComponents(){
@@ -342,7 +344,9 @@ public class SearchWeb {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"No Results", "Your search has given no results")); 
 		else{
 			data.setTravelComponentsList(travelComponentsList);
-			RequestContext.getCurrentInstance().openDialog("/misc/search/travelcomponent_search.xhtml");
+	        Map<String,Object> options = new HashMap<String, Object>();  
+	        options.put("resizable", false);
+			RequestContext.getCurrentInstance().openDialog("/misc/search/travelcomponent_search.xhtml",options,null);
 		}
 	}
 	
@@ -437,6 +441,7 @@ public class SearchWeb {
 			RequestContext.getCurrentInstance().execute(resultDialogName + ".show()");
 		}
 	}
+	
 	public void onTravelComponentChosen(SelectEvent event) throws IOException{
 		// open up the travelComponent page
 		TravelComponentDTO travelComponent = (TravelComponentDTO) event.getObject(); 
