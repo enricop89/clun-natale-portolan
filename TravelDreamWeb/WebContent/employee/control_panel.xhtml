@@ -140,11 +140,11 @@
           	
             	<p:commandButton value="Add Travel Component" style="float:center" icon="ui-icon-plusthick" onclick="PF('searchComponent').show();PF('selectComponent').hide()"/>
 		</h:form>
-		<p:dialog id="searchComponent" widgetVar="searchComponent" width="700" height="400" resizable="true" showEffect="clip" hideEffect="clip" dynamic="true">  
+		<p:dialog id="searchComponent" widgetVar="searchComponent" width="700" height="500" resizable="true" showEffect="clip" hideEffect="clip" dynamic="true">  
 			<ui:include src="/misc/search/search_travelcomponent_to_add.xhtml" /> 	
 		</p:dialog>  
 		
-		<p:dialog header="Add Travel Component" id="selectComponent" widgetVar="selectComponent" width="700" height="400" resizable="true" showEffect="clip" hideEffect="clip" dynamic="true">  
+		<p:dialog header="Add Travel Component" id="selectComponent" widgetVar="selectComponent" width="700" height="500" resizable="true" showEffect="clip" hideEffect="clip" dynamic="true">  
 		<p:ajax event="close" listener="#{EmployeeHandlerWeb.onTravelComponentChosen}"/> 
 		<h:form>		
 			<ui:include src="/misc/search/add_travelcomponent.xhtml" />  
