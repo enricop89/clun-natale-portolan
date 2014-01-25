@@ -82,7 +82,7 @@
 		<!-- p:commandButton value="Add Travel Component" rendered="#{PersonalizedTravelPackageWeb.isOwner() and (PersonalizedTravelPackageWeb.checkStatus() == false)}" style="float:left" icon="ui-icon-plusthick" onclick="PF('searchComponent').show();PF('selectComponent').hide()"/-->
 		<p:commandButton value="Add Travel Component" rendered="#{PersonalizedTravelPackageWeb.isOwner()}" style="float:left" icon="ui-icon-plusthick" onclick="PF('searchComponent').show();PF('selectComponent').hide()"/>
 		<p:commandButton id="link" icon="ui-icon-star" style="float:right;" rendered="#{PersonalizedTravelPackageWeb.isOwner() == false}" action="#{PersonalizedTravelPackageWeb.joinPackage}"  ajax="false"/> 
-		<p:commandButton value="Save" icon="ui-icon-check" style="float:right;" rendered="#{PersonalizedTravelPackageWeb.isOwner()}" action="#{PersonalizedTravelPackageWeb.saveChanges}"  ajax="false"/>
+		<p:commandButton value="Save" icon="ui-icon-check" style="float:right;" rendered="#{PersonalizedTravelPackageWeb.isOwner() and (PersonalizedTravelPackageWeb.checkStatus() == false)}" action="#{PersonalizedTravelPackageWeb.saveChanges}"  ajax="false"/>
 		
 		<p:tooltip for="link" value="Join the package" showEffect="fade" hideEffect="fade" />        
 	</h:form>
