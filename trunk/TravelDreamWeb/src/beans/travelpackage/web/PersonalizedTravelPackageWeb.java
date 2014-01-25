@@ -124,14 +124,14 @@ public class PersonalizedTravelPackageWeb {
 			List<TravelComponentDTO> toSend = new ArrayList<TravelComponentDTO>();
 			toSend.add(component.getTravelComponent());
 			data.setTravelComponentsList(toSend);
-			RequestContext.getCurrentInstance().openDialog("/index.xhtml"); // TODO: waiting for TravelComponent page	
+			RequestContext.getCurrentInstance().openDialog("/misc/dialog_travelcomponent.xhtml"); // TODO: waiting for TravelComponent page	
 		}
 		else 
 			if(component.getTravelElement()!=null){	//The component is confirmed
 				List<TravelComponentDTO> toSend = new ArrayList<TravelComponentDTO>();
 				toSend.add(component.getPersistence());
 				data.setTravelComponentsList(toSend);
-				RequestContext.getCurrentInstance().openDialog("/misc/travelcomponent_details.xhtml"); // TODO: waiting for TravelComponent page	
+				RequestContext.getCurrentInstance().openDialog("/misc/dialog_travelcomponent.xhtml"); // TODO: waiting for TravelComponent page	
 			}		
 	}
 	
