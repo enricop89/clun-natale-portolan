@@ -12,16 +12,16 @@
 </h:head>
 <h:body>
 	<p:layout fullPage="true" >
-		<p:layoutUnit id="top" position="north" >
+		<p:layoutUnit id="top" position="north">
 			  <p:toolbar>  
-	 			  <p:toolbarGroup align="left">
-				  	<h:outputLink value="/TravelDreamWeb/index.xhtml" ><p:graphicImage value="/resources/images/tdlogo.png" /></h:outputLink>
-				  </p:toolbarGroup>
-			    <p:toolbarGroup align="right"  rendered="#{facesContext.externalContext.isUserInRole('CUSTOMER')}">  
+	 			<p:toolbarGroup align="left">
+				  <h:outputLink value="/TravelDreamWeb/index.xhtml" ><p:graphicImage value="/resources/images/tdlogo.png" /></h:outputLink>
+				</p:toolbarGroup>
+			    <p:toolbarGroup align="right" rendered="#{facesContext.externalContext.isUserInRole('CUSTOMER')}">  
 			    	<h:form>
-				        <p:menuButton value="#{request.remoteUser}">  
-				            <p:menuitem value="Customer control panel" url="/customer/personal_page.xhtml" />  
-				            <p:menuitem action="#{AuthenticationWeb.deauthenticate}" value="Logout" ajax="false" />
+				        <p:menuButton value="#{request.remoteUser}  ">  
+				            <p:menuitem icon="ui-icon-home" value="Personal page" url="/customer/personal_page.xhtml" />  
+				            <p:menuitem icon="ui-icon-unlocked" action="#{AuthenticationWeb.deauthenticate}" value="Logout" ajax="false" />
 				        </p:menuButton> 
 			        </h:form>
 			    </p:toolbarGroup>
@@ -29,8 +29,8 @@
    			    <p:toolbarGroup align="right" rendered="#{facesContext.externalContext.isUserInRole('EMPLOYEE')}">  
    			    	<h:form>
 				        <p:menuButton value="#{request.remoteUser}">  
-				            <p:menuitem value="Employee control panel" url="/employee/control_panel.xhtml" />  
-				            <p:menuitem action="#{AuthenticationWeb.deauthenticate}" value="Logout" ajax="false"/>
+				            <p:menuitem icon="ui-icon-home" value="Control panel" url="/employee/control_panel.xhtml" />  
+				            <p:menuitem icon="ui-icon-unlocked" action="#{AuthenticationWeb.deauthenticate}" value="Logout" ajax="false"/>
 				        </p:menuButton>  
 			        </h:form>
 			    </p:toolbarGroup>
