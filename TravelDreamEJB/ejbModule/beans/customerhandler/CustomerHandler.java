@@ -35,7 +35,7 @@ public class CustomerHandler implements CustomerHandlerInterface{
 	public boolean addTravelComponentToPersonalizedTravelPackage(PersonalizedTravelPackageDTO personalizedTravelPackage, TravelComponentDTO travelComponent){
 		//control first if it is in the personalizedTravelPackage already
 		for(int i = 0; i < personalizedTravelPackage.getTravelComponents().size(); i++)
-			if(personalizedTravelPackage.getTravelComponents().get(i).getTravelComponent() == travelComponent)
+			if(personalizedTravelPackage.getTravelComponents().get(i).getTravelComponent().getId() == travelComponent.getId())
 				return false;
 		
 		List<Components_HelperDTO> components = personalizedTravelPackage.getTravelComponents();
