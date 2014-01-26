@@ -150,10 +150,10 @@ public class PersonalizedTravelPackageHandler {
 				return false; // city mismatch, error!
 			
 			for (int i=0;i<hotels.size();i++){
-				if(departureFlight.getFlightArrivalDateTime().compareTo(hotels.get(i).getHotelDate())<0)
+				if(departureFlight.getFlightArrivalDateTime().compareTo(hotels.get(i).getHotelDate())>0)
 					return false; 	// date hotel before date departureFlight
 				
-				if(returnFlight.getFlightDepartureDateTime().compareTo(hotels.get(i).getHotelDate())>0)
+				if(returnFlight.getFlightDepartureDateTime().compareTo(hotels.get(i).getHotelDate())<0)
 					return false; 	// date hotel after date returnFlight
 				
 				if(!hotels.get(i).getHotelCity().equals(returnFlight.getFlightDepartureCity()))
@@ -161,10 +161,10 @@ public class PersonalizedTravelPackageHandler {
 				
 			}
 			for (int i=0;i<excursions.size();i++){
-				if(departureFlight.getFlightArrivalDateTime().compareTo(excursions.get(i).getExcursionDateTime())<0)
+				if(departureFlight.getFlightArrivalDateTime().compareTo(excursions.get(i).getExcursionDateTime())>0)
 					return false; 	// date excursion before date departureFlight
 				
-				if(returnFlight.getFlightDepartureDateTime().compareTo(excursions.get(i).getExcursionDateTime())>0)
+				if(returnFlight.getFlightDepartureDateTime().compareTo(excursions.get(i).getExcursionDateTime())<0)
 					return false; 	// date excursion after date returnFlight
 				
 				if(!excursions.get(i).getExcursionCity().equals(returnFlight.getFlightDepartureCity()))
@@ -175,10 +175,10 @@ public class PersonalizedTravelPackageHandler {
 		else if(flights.size() == 1){
 			if((departureFlight = flights.get(0)).getFlightDepartureDateTime().compareTo(personalizedTravelPackage.getDepartureDate()) == 0){
 				for (int i=0;i<hotels.size();i++){
-					if(departureFlight.getFlightArrivalDateTime().compareTo(hotels.get(i).getHotelDate())<0)
+					if(departureFlight.getFlightArrivalDateTime().compareTo(hotels.get(i).getHotelDate())>0)
 						return false; 	// date hotel before date departureFlight
 					
-					if(personalizedTravelPackage.getReturnDate().compareTo(hotels.get(i).getHotelDate())>0)
+					if(personalizedTravelPackage.getReturnDate().compareTo(hotels.get(i).getHotelDate())<0)
 						return false; 	// date hotel after date returnFlight
 					
 					if(!hotels.get(i).getHotelCity().equals(departureFlight.getFlightArrivalCity()))
@@ -186,10 +186,10 @@ public class PersonalizedTravelPackageHandler {
 					
 				}
 				for (int i=0;i<excursions.size();i++){
-					if(departureFlight.getFlightArrivalDateTime().compareTo(excursions.get(i).getExcursionDateTime())<0)
+					if(departureFlight.getFlightArrivalDateTime().compareTo(excursions.get(i).getExcursionDateTime())>0)
 						return false; 	// date excursion before date departureFlight
 					
-					if(personalizedTravelPackage.getReturnDate().compareTo(excursions.get(i).getExcursionDateTime())>0)
+					if(personalizedTravelPackage.getReturnDate().compareTo(excursions.get(i).getExcursionDateTime())<0)
 						return false; 	// date excursion after date returnFlight
 					
 					if(!excursions.get(i).getExcursionCity().equals(departureFlight.getFlightArrivalCity()))
@@ -199,10 +199,10 @@ public class PersonalizedTravelPackageHandler {
 			}
 			if((returnFlight = flights.get(0)).getFlightArrivalDateTime().compareTo(personalizedTravelPackage.getReturnDate()) == 0){
 				for (int i=0;i<hotels.size();i++){
-					if(personalizedTravelPackage.getDepartureDate().compareTo(hotels.get(i).getHotelDate())<0)
+					if(personalizedTravelPackage.getDepartureDate().compareTo(hotels.get(i).getHotelDate())>0)
 						return false; 	// date hotel before date departureFlight
 					
-					if(returnFlight.getFlightDepartureDateTime().compareTo(hotels.get(i).getHotelDate())>0)
+					if(returnFlight.getFlightDepartureDateTime().compareTo(hotels.get(i).getHotelDate())<0)
 						return false; 	// date hotel after date returnFlight
 					
 					if(!hotels.get(i).getHotelCity().equals(returnFlight.getFlightDepartureCity()))
@@ -210,10 +210,10 @@ public class PersonalizedTravelPackageHandler {
 					
 				}
 				for (int i=0;i<excursions.size();i++){
-					if(personalizedTravelPackage.getDepartureDate().compareTo(excursions.get(i).getExcursionDateTime())<0)
+					if(personalizedTravelPackage.getDepartureDate().compareTo(excursions.get(i).getExcursionDateTime())>0)
 						return false; 	// date excursion before date departureFlight
 					
-					if(returnFlight.getFlightDepartureDateTime().compareTo(excursions.get(i).getExcursionDateTime())>0)
+					if(returnFlight.getFlightDepartureDateTime().compareTo(excursions.get(i).getExcursionDateTime())<0)
 						return false; 	// date excursion after date returnFlight
 					
 					if(!excursions.get(i).getExcursionCity().equals(returnFlight.getFlightDepartureCity()))
@@ -228,10 +228,10 @@ public class PersonalizedTravelPackageHandler {
 			String city = null;
 			int changes = 0;
 			for (int i=0;i<hotels.size();i++){
-				if(personalizedTravelPackage.getDepartureDate().compareTo(hotels.get(i).getHotelDate())<0)
+				if(personalizedTravelPackage.getDepartureDate().compareTo(hotels.get(i).getHotelDate())>0)
 					return false; 	// date hotel before date departureFlight
 				
-				if(personalizedTravelPackage.getReturnDate().compareTo(hotels.get(i).getHotelDate())>0)
+				if(personalizedTravelPackage.getReturnDate().compareTo(hotels.get(i).getHotelDate())<0)
 					return false; 	// date hotel after date returnFlight
 				
 				if(!hotels.get(i).getHotelCity().equals(city)){
@@ -240,10 +240,10 @@ public class PersonalizedTravelPackageHandler {
 				}
 			}
 			for (int i=0;i<excursions.size();i++){
-				if(personalizedTravelPackage.getDepartureDate().compareTo(excursions.get(i).getExcursionDateTime())<0)
+				if(personalizedTravelPackage.getDepartureDate().compareTo(excursions.get(i).getExcursionDateTime())>0)
 					return false; 	// date excursion before date departureFlight
 				
-				if(personalizedTravelPackage.getReturnDate().compareTo(excursions.get(i).getExcursionDateTime())>0)
+				if(personalizedTravelPackage.getReturnDate().compareTo(excursions.get(i).getExcursionDateTime())<0)
 					return false; 	// date excursion after date returnFlight
 				
 				if(!excursions.get(i).getExcursionCity().equals(city)){
