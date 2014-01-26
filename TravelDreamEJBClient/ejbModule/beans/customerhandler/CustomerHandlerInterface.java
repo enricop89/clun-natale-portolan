@@ -14,11 +14,11 @@ public interface CustomerHandlerInterface {
 
 	public boolean removeTravelComponentFromPersonalizedTravelPackage(PersonalizedTravelPackageDTO personalizedTravelPackage, Components_HelperDTO travelComponent);
 
-	public boolean confirmPersonalizedTravelPackage(PersonalizedTravelPackageDTO personalizedTravelPackage);
+	public String confirmPersonalizedTravelPackage(PersonalizedTravelPackageDTO personalizedTravelPackage);
 
 	public boolean joinPersonalizedTravelPackage(UserDTO user, PersonalizedTravelPackageDTO personalizedTravelPackage);
 
-	public boolean updatePersonalizedTravelPackage(PersonalizedTravelPackageDTO personalizedTravelPackage);
+	public String updatePersonalizedTravelPackage(PersonalizedTravelPackageDTO personalizedTravelPackage);
 
 	public boolean deletePersonalizedTravelPackage(PersonalizedTravelPackageDTO personalizedTravelPackage);
 
