@@ -1,11 +1,8 @@
 package beans.employeehandler.web;
 
-
 import java.sql.Date;
 
 import java.util.Calendar;
-
-
 
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
@@ -14,14 +11,11 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.context.Flash;
 
-
 import org.apache.commons.lang3.time.DateFormatUtils;
-
 
 import beans.employeehandler.EmployeeHandlerInterface;
 import beans.travelcomponent.*;
 import beans.travelpackage.*;
-import beans.utils.web.Data_Exchange;
 
 @ManagedBean(name="EmployeeHandlerWeb")
 @ViewScoped

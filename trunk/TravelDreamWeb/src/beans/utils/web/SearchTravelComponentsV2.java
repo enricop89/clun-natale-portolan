@@ -7,15 +7,11 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
-import javax.inject.Inject;
-
-import org.primefaces.context.RequestContext;
 
 import beans.travelcomponent.ComponentType;
 import beans.travelcomponent.TravelComponentDTO;
