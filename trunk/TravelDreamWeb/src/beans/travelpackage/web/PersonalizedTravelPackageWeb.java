@@ -164,6 +164,52 @@ public class PersonalizedTravelPackageWeb {
 	
 	//-----------------------		
 	
+	public String fieldOne(Components_HelperDTO element){
+		TravelComponentDTO component;
+		
+		if(element.getTravelElement() != null)
+			component = element.getPersistence();
+		else
+			component = element.getTravelComponent();
+		
+		switch(component.getType()){
+		case EXCURSION:
+			return "Excursion";
+		case FLIGHT:
+			return "Flight";
+		case HOTEL:
+			if(isHotelRoot(element) == true){
+				return "Hotel";
+				
+			}
+			else{
+				return "City: " + component.getHotelCity();
+				
+			}
+		}
+		return ""; // dummy return
+	}
+	
+	public String fieldTwo(Components_HelperDTO element){
+		TravelComponentDTO component;
+		
+		if(element.getTravelElement() != null)
+			component = element.getPersistence();
+		else
+			component = element.getTravelComponent();
+		if(component.getType() == ComponentType.HOTEL){
+			if(isHotelRoot(element) == true){
+				return component.getSupplyingCompany();	
+				
+			}
+			else{
+				return "Date: " + component.getHotelDate();
+				
+			}
+		}
+		return component.getSupplyingCompany();	
+	}
+	
 	public boolean isHotelRoot(Components_HelperDTO component){
 		ComponentType type;
 		
@@ -173,27 +219,15 @@ public class PersonalizedTravelPackageWeb {
 			type = component.getTravelComponent().getType();
 		
 		if(type == ComponentType.HOTEL){
-			for(int i = 0; i < hotelsRoot.size(); i++)		
-				if(component == hotelsRoot.get(i).getData() && hotelsRootAlreadyShown.get(i) < 16){ // this 16 is the number of times this function is called on each line of the TreeTable
+			for(int i = 0; i < hotelsRoot.size(); i++){	
+				if(component == hotelsRoot.get(i).getData() && hotelsRootAlreadyShown.get(i) < 7){ // this 7 is the number of times this function is called on each line of the TreeTable
 					hotelsRootAlreadyShown.set(i, hotelsRootAlreadyShown.get(i) + 1);
-					return true;					
+					return true;	
+					
 				}
+			}
 		}
 		return false;
-	}
-	
-	public boolean showHotelDetails(Components_HelperDTO component){
-		ComponentType type;
-		
-		if(component.getTravelElement() != null)
-			type = component.getPersistence().getType();
-		else
-			type = component.getTravelComponent().getType();
-		
-		if(isHotelRoot(component) == false && type == ComponentType.HOTEL)
-			return true;
-		else
-			return false;
 	}
 	
 	public boolean noPackage(){
@@ -284,8 +318,7 @@ public class PersonalizedTravelPackageWeb {
 			facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error", "An error occured. Maybe your are trying to add to your gift list a payed travel component, or you are trying to add a new travel component before saving.")); 
 		FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/customer/personalized_travel_package.xhtml");
 	}
-	
-	
+		
 	public void addComponent(TravelComponentDTO component) throws IOException
 	{
 		FacesMessage message = null;
@@ -340,6 +373,7 @@ public class PersonalizedTravelPackageWeb {
 	}
 	
 	public void saveChanges() throws IOException{	
+		FacesMessage message = null;
 		if(departureDate != null){
 			personalizedPackage.setDepartureDate(new Date(departureDate.getTime()));
 			if(returnDate != null){
@@ -348,27 +382,28 @@ public class PersonalizedTravelPackageWeb {
 				String result=customerHandler.updatePersonalizedTravelPackage(personalizedPackage);
 
 				if(result.isEmpty()){
-					List<PersonalizedTravelPackageDTO> toSend = new ArrayList<PersonalizedTravelPackageDTO>();
-					toSend.add(personalizedPackage);
-					data.setPersonalizedTravelPackagesList(toSend);
-					FacesContext facesContext = FacesContext.getCurrentInstance();
-					Flash flash = facesContext.getExternalContext().getFlash();
-					flash.setKeepMessages(true);
-					flash.setRedirect(true);
-					facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Successful", "Your package has been succesfully updated!")); 
-					FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/customer/personalized_travel_package.xhtml");
+					message = new FacesMessage(FacesMessage.SEVERITY_INFO,"Successful", "Your package has been succesfully updated!"); 
 				}
 				else{
-					FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error", "Something went wrong. Server replied: " + result));	
+					message = new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error", "Something went wrong. Server replied: " + result);	
 				}
 			}				
 			else{		
-				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error", "You must specify the return date"));
+				message = new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error", "You must specify the return date");
 			}
 		}			
 		else{
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error", "You must specify the departure date"));
+			message = new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error", "You must specify the departure date");
 		}
+		List<PersonalizedTravelPackageDTO> toSend = new ArrayList<PersonalizedTravelPackageDTO>();
+		toSend.add(personalizedPackage);
+		data.setPersonalizedTravelPackagesList(toSend);
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		Flash flash = facesContext.getExternalContext().getFlash();
+		flash.setKeepMessages(true);
+		flash.setRedirect(true);
+		facesContext.addMessage(null,message); 
+		FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/customer/personalized_travel_package.xhtml");
 	}
 	
 	public void joinPackage() throws IOException{
