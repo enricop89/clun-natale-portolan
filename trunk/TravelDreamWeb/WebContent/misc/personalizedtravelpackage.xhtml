@@ -4,7 +4,8 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui"
-	xmlns:ui="http://java.sun.com/jsf/facelets">
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:denny="http://java.sun.com/jsf/composite/denny">
 
 	<h:form id="form">	
 		<p:growl id="growl" showDetail="true" globalOnly="true" /> 
@@ -59,10 +60,10 @@
             </p:column>  
            
         	<p:column headerText="Status" style="text-align: center">
-				<p:graphicImage id="Confirm" value="/resources/images/confirmed.png" style="float:center" rendered="#{PersonalizedTravelPackageWeb.checkStatus(element) == true and PersonalizedTravelPackageWeb.isHotelRoot(element) == false}" />
-				<p:tooltip for="Confirm" value="The component is already payed" showEffect="fade" hideEffect="fade" /> 
-			 	<p:graphicImage id="Unconfirm" value="/resources/images/unconfirmed.png" style="float:center" rendered="#{PersonalizedTravelPackageWeb.checkStatus(element) == false and PersonalizedTravelPackageWeb.isHotelRoot(element) == false}" />
-				<p:tooltip for="Unconfirm" value="The component is not payed" showEffect="fade" hideEffect="fade" /> 
+				<p:graphicImage id="Confirmed" value="/resources/images/confirmed.png" style="float:center" rendered="#{PersonalizedTravelPackageWeb.checkStatus(element) == true and PersonalizedTravelPackageWeb.isHotelRoot(element) == false}" />
+				<p:tooltip for="Confirmed" value="The component is already payed" showEffect="fade" hideEffect="fade" /> 
+			 	<p:graphicImage id="Unconfirmed" value="/resources/images/unconfirmed.png" style="float:center" rendered="#{PersonalizedTravelPackageWeb.checkStatus(element) == false and PersonalizedTravelPackageWeb.isHotelRoot(element) == false}" />
+				<p:tooltip for="Unconfirmed" value="The component is not payed" showEffect="fade" hideEffect="fade" /> 
 			</p:column>
 				
 			<p:column headerText="" style="text-align: center"> 
@@ -77,24 +78,20 @@
 			</p:column> 				
 		</p:treeTable>
 		
-		<p:dialog id="searchComponent" widgetVar="searchComponent" width="700" height="500" resizable="false" showEffect="clip" hideEffect="clip" dynamic="true">  
-			<ui:include src="/misc/search/search_travelcomponent_to_add.xhtml" /> 	
+		<p:dialog id="searchComponent" widgetVar="searchComponent" modal="true" resizable="false" position="top" 
+		 showEffect="clip" hideEffect="clip">  
+			<denny:search_travelcomponent bean="#{PersonalizedTravelPackagerWeb}"
+	   		Method1Name="addComponent" Method1Icon="ui-icon-check" Method1Tooltip="Add the travel component"
+	   		Method2Name="showComponentSearch" Method2Icon="ui-icon-suitcase" Method2Tooltip="Show the travel component info"/>
 		</p:dialog>  
 		
-		<h:form>
-		<p:dialog header="Add Travel Component" id="selectComponent" widgetVar="selectComponent" width="700" height="350" resizable="false" showEffect="clip" hideEffect="clip" dynamic="true">  
-		<p:ajax event="close" listener="#{PersonalizedTravelPackageWeb.onTravelComponentChosen}"/>
-		<h:form>		
-			<ui:include src="/misc/search/add_travelcomponent.xhtml" />  
-		</h:form>
-		</p:dialog>		
-		</h:form>
+		<!-- p:commandButton value="Add Travel Component" rendered="#{PersonalizedTravelPackageWeb.isOwner() and (PersonalizedTravelPackageWeb.checkPackageStatus() == false)}" style="float:left" icon="ui-icon-plusthick" onclick="PF('searchComponent').show()"/-->
+		<p:commandButton value="Add Travel Component" rendered="#{PersonalizedTravelPackageWeb.isOwner()}" style="float:left" icon="ui-icon-plusthick" onclick="PF('searchComponent').show()"/>
+		<div align="center"> <p:commandButton value="Confirm" id="confirm" icon="ui-icon-star" style="float:center;" rendered="#{PersonalizedTravelPackageWeb.isOwner() == true }" action="#{PersonalizedTravelPackageWeb.confirmPackage()}" immediate="true"/> </div>
+		<div align="center"> <p:commandButton value="JOIN" id="join" icon="ui-icon-star" style="float:center;" rendered="#{PersonalizedTravelPackageWeb.isOwner() == false and PersonalizedTravelPackageWeb.noPackage() == false}" action="#{PersonalizedTravelPackageWeb.joinPackage}"/> </div>
+		<p:commandButton value="Save" icon="ui-icon-check" style="float:right;" rendered="#{PersonalizedTravelPackageWeb.isOwner() and (PersonalizedTravelPackageWeb.checkPackageStatus() == false)}" action="#{PersonalizedTravelPackageWeb.saveChanges}"/>
 		
-		<!-- p:commandButton value="Add Travel Component" rendered="#{PersonalizedTravelPackageWeb.isOwner() and (PersonalizedTravelPackageWeb.checkPackageStatus() == false)}" style="float:left" icon="ui-icon-plusthick" onclick="PF('searchComponent').show();PF('selectComponent').hide()"/-->
-		<p:commandButton value="Add Travel Component" rendered="#{PersonalizedTravelPackageWeb.isOwner()}" style="float:left" icon="ui-icon-plusthick" onclick="PF('searchComponent').show();PF('selectComponent').hide()"/>
-		<div align="center"> <p:commandButton value="JOIN" id="join" icon="ui-icon-star" style="float:center;" rendered="#{PersonalizedTravelPackageWeb.isOwner() == false and PersonalizedTravelPackageWeb.noPackage() == false}" action="#{PersonalizedTravelPackageWeb.joinPackage}"  ajax="false"/> </div>
-		<p:commandButton value="Save" icon="ui-icon-check" style="float:right;" rendered="#{PersonalizedTravelPackageWeb.isOwner() and (PersonalizedTravelPackageWeb.checkPackageStatus() == false)}" action="#{PersonalizedTravelPackageWeb.saveChanges}"  ajax="false"/>
-		
+		<p:tooltip for="confirm" value="Confirm this package!" showEffect="fade" hideEffect="fade" />     
 		<p:tooltip for="join" value="Join this package!" showEffect="fade" hideEffect="fade" />        
 	</h:form>
 </ui:composition>

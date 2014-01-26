@@ -11,13 +11,12 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.context.Flash;
 import javax.inject.Inject;
 
 import org.primefaces.context.RequestContext;
-import org.primefaces.event.CloseEvent;
 import org.primefaces.model.DefaultTreeNode;
 import org.primefaces.model.TreeNode;
 
@@ -30,7 +29,7 @@ import beans.utils.SearchDTOInterface;
 import beans.utils.web.Data_Exchange;
 
 @ManagedBean(name="PersonalizedTravelPackageWeb")
-@ViewScoped
+@RequestScoped
 public class PersonalizedTravelPackageWeb {
 
 	@Inject
@@ -45,7 +44,7 @@ public class PersonalizedTravelPackageWeb {
 	@EJB
 	private SearchDTOInterface finder;
 	@EJB
-	private CustomerHandlerInterface customerhandler;
+	private CustomerHandlerInterface customerHandler;
 	
 	private PersonalizedTravelPackageDTO personalizedPackage;
 	private java.util.Date departureDate;
@@ -67,8 +66,13 @@ public class PersonalizedTravelPackageWeb {
 			catch(NumberFormatException | NullPointerException e){
 				ok = false;
 			}
-		else
-			personalizedPackage = data.getPersonalizedTravelPackagesList().get(0);
+		else{
+			try{
+				personalizedPackage = data.getPersonalizedTravelPackagesList().get(0);
+			}
+			catch(IndexOutOfBoundsException e){/*does nothign*/}
+		}
+			
 		
 		if(ok == true){
 			departureDate = new java.util.Date (personalizedPackage.getDepartureDate().getTime());
@@ -226,7 +230,7 @@ public class PersonalizedTravelPackageWeb {
 	}
 		
 	public void deleteComponent(Components_HelperDTO component) throws IOException{
-		boolean result = customerhandler.removeTravelComponentFromPersonalizedTravelPackage(personalizedPackage, component);
+		boolean result = customerHandler.removeTravelComponentFromPersonalizedTravelPackage(personalizedPackage, component);
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		Flash flash = facesContext.getExternalContext().getFlash();
 		flash.setKeepMessages(true);
@@ -262,7 +266,7 @@ public class PersonalizedTravelPackageWeb {
 	}
 	
 	public void addToGiftList(Components_HelperDTO component) throws IOException{
-		boolean result = customerhandler.addTravelComponentToGiftList(finder.findUser(FacesContext.getCurrentInstance().getExternalContext().getRemoteUser()), component, personalizedPackage);
+		boolean result = customerHandler.addTravelComponentToGiftList(finder.findUser(FacesContext.getCurrentInstance().getExternalContext().getRemoteUser()), component, personalizedPackage);
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		Flash flash = facesContext.getExternalContext().getFlash();
 		flash.setKeepMessages(true);
@@ -277,30 +281,53 @@ public class PersonalizedTravelPackageWeb {
 		FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/customer/personalized_travel_package.xhtml");
 	}
 	
-	public void onTravelComponentChosen(CloseEvent event) throws IOException
+	
+	public void addComponent(TravelComponentDTO component) throws IOException
 	{
 		FacesMessage message = null;
-		try{ // must use try catch, getters in Data_Exchange flushes lists by design! calling it twice is a logical error
-			TravelComponentDTO travelComponent = data.getTravelComponentsList().get(0);
-			boolean result = customerhandler.addTravelComponentToPersonalizedTravelPackage(personalizedPackage, travelComponent);
-			if(result == true){
-				message = new FacesMessage(FacesMessage.SEVERITY_INFO,"Successful", "You have added the component to your package, click on the save button to submit your changes!"); 
-			}
-			else{
-				message = new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error", "The component is already in the travel package!");
-			}			
+		boolean result = customerHandler.addTravelComponentToPersonalizedTravelPackage(personalizedPackage, component);
+		if(result == true){
+			message = new FacesMessage(FacesMessage.SEVERITY_INFO,"Successful", "You have added the component to your package, click on the save button to submit your changes!"); 
 		}
-		catch (java.lang.IndexOutOfBoundsException e){/* does nothing */}
+		else{
+			message = new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error", "The component is already in the travel package!");
+		}	
+		
 		List<PersonalizedTravelPackageDTO> toSend = new ArrayList<PersonalizedTravelPackageDTO>();
 		toSend.add(personalizedPackage);
 		data.setPersonalizedTravelPackagesList(toSend);
+		
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		Flash flash = facesContext.getExternalContext().getFlash();
 		flash.setKeepMessages(true);
 		flash.setRedirect(true);
-		if(message != null)
-			facesContext.addMessage(null,message);
+		facesContext.addMessage(null,message);
 		
+		FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/customer/personalized_travel_package.xhtml");
+	}
+	
+	public void showComponentSearch(TravelComponentDTO component){
+		List<TravelComponentDTO> toSend = new ArrayList<TravelComponentDTO>();
+		toSend.add(component);
+		data.setTravelComponentsList(toSend);
+        Map<String,Object> options = new HashMap<String, Object>();  
+        options.put("resizable", false); 
+		RequestContext.getCurrentInstance().openDialog("/misc/dialog_travelcomponent.xhtml",options,null);
+	}
+	
+	public void confirmPackage() throws IOException{
+		boolean result = customerHandler.confirmPersonalizedTravelPackage(personalizedPackage);
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		Flash flash = facesContext.getExternalContext().getFlash();
+		flash.setKeepMessages(true);
+		flash.setRedirect(true);
+		List<PersonalizedTravelPackageDTO> toSend = new ArrayList<PersonalizedTravelPackageDTO>();
+		toSend.add(personalizedPackage);
+		data.setPersonalizedTravelPackagesList(toSend);
+		if(result==true)
+			facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Successful", "Travel package succesfully confirmed!")); 
+		else
+			facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error", "An error occured. You are probably trying to confirm a package which is already confirmed, or the package is unconsistent. Check if the dates and the cities are consistent and retry.")); 
 		FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/customer/personalized_travel_package.xhtml");
 	}
 	
@@ -310,7 +337,7 @@ public class PersonalizedTravelPackageWeb {
 			if(returnDate != null){
 				personalizedPackage.setReturnDate(new Date(returnDate.getTime()));
 				
-				boolean result=customerhandler.updatePersonalizedTravelPackage(personalizedPackage);
+				boolean result=customerHandler.updatePersonalizedTravelPackage(personalizedPackage);
 
 				if(result==true){
 					List<PersonalizedTravelPackageDTO> toSend = new ArrayList<PersonalizedTravelPackageDTO>();

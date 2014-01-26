@@ -1,26 +1,40 @@
 package beans.employeehandler.web;
 
+import java.io.IOException;
 import java.sql.Date;
-
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.context.Flash;
+import javax.inject.Inject;
 
 import org.apache.commons.lang3.time.DateFormatUtils;
+import org.primefaces.event.TabChangeEvent;
 
 import beans.employeehandler.EmployeeHandlerInterface;
 import beans.travelcomponent.*;
 import beans.travelpackage.*;
+import beans.utils.web.Data_Exchange;
 
 @ManagedBean(name="EmployeeHandlerWeb")
 @ViewScoped
-public class EmployeeHandlerWeb  {
-	
+public class EmployeeHandlerWeb  {	
+	@Inject
+	private Data_Exchange data;
+	public Data_Exchange getData(){
+		return data;
+	}
+	public void setData(Data_Exchange data){
+		this.data = data;
+	}
+		
 	@EJB
 	private EmployeeHandlerInterface employeeHandler;
 
@@ -44,15 +58,19 @@ public class EmployeeHandlerWeb  {
 	private java.util.Date hotelStartingDate;
 	private java.util.Date hotelEndingDate;
 	
-	private boolean redirected;
 	private int activePanel;
-		
-		
-	public EmployeeHandlerWeb()
+			
+	@PostConstruct
+	public void init()
 	{
 		componentDTO = new TravelComponentDTO();
-		packageDTO = new PredefinedTravelPackageDTO();
-		redirected = false;
+		List<PredefinedTravelPackageDTO> res = data.getPredefinedTravelPackagesList();
+		if(res.isEmpty())
+			packageDTO = new PredefinedTravelPackageDTO();
+		else{
+			packageDTO = res.get(0);
+			activePanel = 1;
+		}
 	}
 	
 	public TravelComponentDTO getComponentDTO()
@@ -298,27 +316,58 @@ public class EmployeeHandlerWeb  {
 		this.packageDTO = packageDTO;
 	}
 	
-	public void deleteComponent(TravelComponentDTO component)
-	{
-		employeeHandler.removeTravelComponentFromPredefinedTravelPackage(packageDTO, component);	
+	public void deleteComponent(TravelComponentDTO component) throws IOException
+	{	
+		FacesMessage message = null;
+		boolean result = employeeHandler.removeTravelComponentFromPredefinedTravelPackage(packageDTO, component);
+		if(result == true){
+			message = new FacesMessage(FacesMessage.SEVERITY_INFO,"Successful", "Travel component deleted"); 
+		}
+		else{
+			message = new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error", "Some error occured");
+		}
+		
 		activePanel = 1;
+		
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		Flash flash = facesContext.getExternalContext().getFlash();
+		flash.setKeepMessages(true);
+		flash.setRedirect(true);
+		List<PredefinedTravelPackageDTO> toSend = new ArrayList<PredefinedTravelPackageDTO>();
+		toSend.add(packageDTO);
+		data.setPredefinedTravelPackagesList(toSend);
+				
+		facesContext.addMessage(null,message);
+		FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/employee/control_panel.xhtml");
 	}
 	
-	public void addComponent(TravelComponentDTO component)
+	public void addComponent(TravelComponentDTO component) throws IOException
 	{
-		employeeHandler.addTravelComponentToPredefinedTravelPackage(packageDTO, component);
+		FacesMessage message = null;
+		boolean result = employeeHandler.addTravelComponentToPredefinedTravelPackage(packageDTO, component);
+		if(result == true){
+			message = new FacesMessage(FacesMessage.SEVERITY_INFO,"Successful", "You have added the component to the package"); 
+		}
+		else{
+			message = new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error", "The component is already in the travel package!");
+		}	
+		
 		activePanel = 1;
+		
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		Flash flash = facesContext.getExternalContext().getFlash();
+		flash.setKeepMessages(true);
+		flash.setRedirect(true);
+		List<PredefinedTravelPackageDTO> toSend = new ArrayList<PredefinedTravelPackageDTO>();
+		toSend.add(packageDTO);
+		data.setPredefinedTravelPackagesList(toSend);
+		
+		facesContext.addMessage(null,message);	
+		FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/employee/control_panel.xhtml");
 	}
 	
 	public int getActivePanel() {
-		if (redirected == true)
-		{
-			return 1;
-		}
-		else
-		{
 			return activePanel;
-		}
 	}
 	
 	public void setActivePanel(int activePanel) {
@@ -347,9 +396,9 @@ public class EmployeeHandlerWeb  {
 	{
 		packageDTO.setDepartureDate(new java.sql.Date(packageStartDate.getTime()));
 		packageDTO.setReturnDate(new java.sql.Date(packageEndDate.getTime()));
-		String result = employeeHandler.addNewPredefinedTravelPackage(packageDTO);
+		boolean result = employeeHandler.addNewPredefinedTravelPackage(packageDTO);
 		FacesContext facesContext = FacesContext.getCurrentInstance();
-		if (result.isEmpty())
+		if (result == true)
 		{
 			facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Successful", "Package correctly added."));
 			packageDTO = new PredefinedTravelPackageDTO();
@@ -358,7 +407,14 @@ public class EmployeeHandlerWeb  {
 		}
 		else
 		{
-			facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error", "The package did not pass the consistency check."));
+			facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error", "The package is empty or did not pass the consistency check. Check if the dates and the cities are consistent and retry."));
 		}
+	}
+	
+	public void onTabChange(TabChangeEvent event){
+		FacesContext.getCurrentInstance().getViewRoot().getViewMap().remove("SearchTravelComponents");
+	}
+	public void onClose(){
+		FacesContext.getCurrentInstance().getViewRoot().getViewMap().remove("SearchTravelComponents");
 	}
 }

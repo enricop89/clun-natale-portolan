@@ -15,6 +15,7 @@
     <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
     <load-on-startup>1</load-on-startup>
   </servlet>
+  
   <servlet-mapping>
    <servlet-name>Faces Servlet</servlet-name>
 	<url-pattern>*.xhtml</url-pattern>
@@ -24,6 +25,10 @@
     <description>State saving method: 'client' or 'server' (=default). See JSF Specification 2.5.2</description>
     <param-name>javax.faces.STATE_SAVING_METHOD</param-name>
     <param-value>client</param-value>
+  </context-param>
+  <context-param>
+        <param-name>javax.faces.FULL_STATE_SAVING_VIEW_IDS</param-name>
+        <param-value>/customer/personalized_travel_package.xhtml,/misc/personalizedtravelpackage.xhmlt,/join_package.xhtml</param-value>
   </context-param>
   <context-param>
     <param-name>javax.servlet.jsp.jstl.fmt.localizationContext</param-name>
