@@ -407,7 +407,7 @@ public class EmployeeHandlerWeb  {
 		}
 		else
 		{
-			facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error", "The package is empty or did not pass the consistency check. Check if the dates and the cities are consistent and retry."));
+			facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error", "Something went wrong. Server replied: " + result));
 		}
 	}
 	
