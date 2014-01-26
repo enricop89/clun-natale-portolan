@@ -50,7 +50,7 @@ public class PersonalizedTravelPackageWeb {
 
 	@PostConstruct
 	public void init(){	
-		String shareId =FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("share");
+		String shareId = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("share");
 		boolean ok = true;
 		if(shareId != null) // the request has parsed the share parameter, this is "join package" context!			
 			try{
