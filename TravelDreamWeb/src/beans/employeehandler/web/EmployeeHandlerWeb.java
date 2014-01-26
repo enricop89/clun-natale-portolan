@@ -329,21 +329,26 @@ public class EmployeeHandlerWeb  {
 	
 	public void onTravelComponentChosen(CloseEvent event) throws IOException
 	{
+		FacesMessage message = null;
 		try{ // must use try catch, getters in Data_Exchange flushes lists by design! calling it twice is a logical error
 			TravelComponentDTO travelComponent = data.getTravelComponentsList().get(0);
 			boolean result = employeeHandler.addTravelComponentToPredefinedTravelPackage(packageDTO, travelComponent);
-			if(result == true){
-				List<PredefinedTravelPackageDTO> toSend = new ArrayList<PredefinedTravelPackageDTO>();
-				toSend.add(packageDTO);
-				data.setPredefinedTravelPackagesList(toSend);
-				FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/employee/control_panel.xhtml");
-		
-			}
-			else{
-				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error", "The component is already in the travel package!"));
+			if(result == false){
+				message =  new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error", "The component is already in the travel package!");
 			}			
 		}
 		catch (java.lang.IndexOutOfBoundsException e){/* does nothing */}
+		List<PredefinedTravelPackageDTO> toSend = new ArrayList<PredefinedTravelPackageDTO>();
+		toSend.add(packageDTO);
+		data.setPredefinedTravelPackagesList(toSend);
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		Flash flash = facesContext.getExternalContext().getFlash();
+		flash.setKeepMessages(true);
+		flash.setRedirect(true);
+		if(message != null)
+			facesContext.addMessage(null,message);
+		
+		FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/employee/control_panel.xhtml");
 	}
 	
 	public int getActivePanel() {
