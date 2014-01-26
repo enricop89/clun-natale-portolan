@@ -16,12 +16,10 @@
                 <p:column headerText="" style="text-align: center">  
                 <p:row>
                 	<p:commandButton id="visualize" icon="ui-icon-script"  actionListener="#{PredefinedTravelPackageWeb.showComponent(element)}"/>
-                	<p:commandButton id="modify" icon="ui-icon-wrench" rendered="#{PredefinedTravelPackageWeb.checkIfEmployee()}" actionListener="#{PredefinedTravelPackageWeb.updateComponent(element)}"/>
                     <p:commandButton id="delete" style="float:center" icon="ui-icon-trash" actionListener="#{PredefinedTravelPackageWeb.deleteComponent(travelComponent)}" />
                     
                 </p:row> 
-                <p:tooltip for="visualize" value="Visualize the travel component" showEffect="fade" hideEffect="fade" />  
-                <p:tooltip for="modify" value="Modify the travel component" showEffect="fade" hideEffect="fade" /> 
+                <p:tooltip for="visualize" value="Visualize the travel component" showEffect="fade" hideEffect="fade" />   
                 <p:tooltip for="delete" value="Delete the component from the lsit" showEffect="fade" hideEffect="fade" /> 
                 </p:column>  
                  
