@@ -108,8 +108,9 @@ public void save() throws IOException{
 			predTP.setReturnDate(new Date(returnDate.getTime()));
 		
 		user = search.findUser(FacesContext.getCurrentInstance().getExternalContext().getRemoteUser());
-		if(FacesContext.getCurrentInstance().getExternalContext().isUserInRole("CUSTOMER"))
-			copyInPersonalizedTravelPackage(predTP); //if customer copy in personalized
+		if(FacesContext.getCurrentInstance().getExternalContext().isUserInRole("CUSTOMER")){
+			copyInPersonalizedTravelPackage(predTP);
+			return; }//if customer copy in personalized
 		if(FacesContext.getCurrentInstance().getExternalContext().isUserInRole("EMPLOYEE"))
 			employee.updatePredefinedTravelPackage(predTP); //if employee update
 		
