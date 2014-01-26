@@ -110,6 +110,7 @@ public class Search {
 	// a fictitious TravelComponent is used to specify the search criteria
 	// the unused field must be set to empty, even though it will consider only the field associated
 	// to the specific ComponentType
+		
 		String query= new String();
 		query = "c.type = :comptype";
 		if (travelComponent.getSupplyingCompany()!=null){
