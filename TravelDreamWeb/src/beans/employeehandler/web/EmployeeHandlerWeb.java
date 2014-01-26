@@ -347,9 +347,9 @@ public class EmployeeHandlerWeb  {
 	{
 		packageDTO.setDepartureDate(new java.sql.Date(packageStartDate.getTime()));
 		packageDTO.setReturnDate(new java.sql.Date(packageEndDate.getTime()));
-		boolean result = employeeHandler.addNewPredefinedTravelPackage(packageDTO);
+		String result = employeeHandler.addNewPredefinedTravelPackage(packageDTO);
 		FacesContext facesContext = FacesContext.getCurrentInstance();
-		if (result == true)
+		if (result.isEmpty())
 		{
 			facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Successful", "Package correctly added."));
 			packageDTO = new PredefinedTravelPackageDTO();

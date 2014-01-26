@@ -109,7 +109,7 @@ public class TravelComponentHandler{
 				if(predTPs.get(i).getTravelComponents().get(j).getId() == travelComponent.getId()){
 					predTPs.get(i).getTravelComponents().remove(j);
 					predTPs.get(i).getTravelComponents().add(j, travelComponent);
-					if(!predefined_handler.updatePredefinedTravelPackage(predTPs.get(i))){
+					if(!predefined_handler.updatePredefinedTravelPackage(predTPs.get(i)).isEmpty()){
 						predTPs.get(i).getTravelComponents().remove(travelComponent); // the TravelComponent update violates consistency, so is deleted from the TravelPackage
 						if(predTPs.get(i).getTravelComponents().isEmpty()){ // the deletion causes the package to be empty
 							predefined_handler.deletePredefinedTravelPackage(predTPs.get(i)); // the package is then deleted

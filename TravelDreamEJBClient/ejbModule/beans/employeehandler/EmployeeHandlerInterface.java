@@ -7,9 +7,9 @@ import beans.travelpackage.PredefinedTravelPackageDTO;
 @Local
 public interface EmployeeHandlerInterface {
 
-	public boolean addNewPredefinedTravelPackage(PredefinedTravelPackageDTO predefinedTravelPackage);		
+	public String addNewPredefinedTravelPackage(PredefinedTravelPackageDTO predefinedTravelPackage);		
 
-	public boolean updatePredefinedTravelPackage(PredefinedTravelPackageDTO predefinedTravelPackage);	
+	public String updatePredefinedTravelPackage(PredefinedTravelPackageDTO predefinedTravelPackage);	
 
 	public void deletePredefinedTravelPackage (PredefinedTravelPackageDTO prefedefinedTravelPackage);
 
