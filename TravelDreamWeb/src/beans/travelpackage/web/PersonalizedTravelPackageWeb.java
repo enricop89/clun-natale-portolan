@@ -18,8 +18,11 @@ import javax.inject.Inject;
 
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.CloseEvent;
+import org.primefaces.model.DefaultTreeNode;
+import org.primefaces.model.TreeNode;
 
 import beans.customerhandler.CustomerHandlerInterface;
+import beans.travelcomponent.ComponentType;
 import beans.travelcomponent.TravelComponentDTO;
 import beans.travelpackage.Components_HelperDTO;
 import beans.travelpackage.PersonalizedTravelPackageDTO;
@@ -47,7 +50,11 @@ public class PersonalizedTravelPackageWeb {
 	private PersonalizedTravelPackageDTO personalizedPackage;
 	private java.util.Date departureDate;
 	private java.util.Date returnDate;
-
+	
+	private TreeNode root;
+	private List<TreeNode> hotelsRoot;
+	private List<Integer> hotelsRootAlreadyShown;
+	
 	@PostConstruct
 	public void init(){	
 		String shareId = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("share");
@@ -66,12 +73,73 @@ public class PersonalizedTravelPackageWeb {
 		if(ok == true){
 			departureDate = new java.util.Date (personalizedPackage.getDepartureDate().getTime());
 			returnDate = new java.util.Date (personalizedPackage.getReturnDate().getTime());
+			
+			//Construct the tree
+			
+			root = new DefaultTreeNode("root", null);
+			for(int i = 0; i < personalizedPackage.getTravelComponents().size(); i++){
+				Components_HelperDTO component = personalizedPackage.getTravelComponents().get(i);
+				ComponentType type;
+				if(component.getTravelElement() != null)
+					type = component.getPersistence().getType();
+				else
+					type = component.getTravelComponent().getType();
+				
+				switch(type){
+				case FLIGHT:
+					new DefaultTreeNode(component,root);
+					break;
+				case EXCURSION:
+					new DefaultTreeNode(component,root);
+					break;
+				case HOTEL:
+					if(hotelsRoot == null){
+						hotelsRoot = new ArrayList<TreeNode>();
+						hotelsRootAlreadyShown = new ArrayList<Integer>(); 
+					}
+					boolean found = false;
+					for(int j = 0; j < hotelsRoot.size(); j++)
+					{
+						TravelComponentDTO hotel;
+						TravelComponentDTO newHotel;
+						if(((Components_HelperDTO) hotelsRoot.get(j).getData()).getTravelElement() != null)
+							hotel = ((Components_HelperDTO) hotelsRoot.get(j).getData()).getPersistence();
+						else 
+							hotel = ((Components_HelperDTO) hotelsRoot.get(j).getData()).getTravelComponent();
+						
+						if(component.getTravelElement()!=null)
+							newHotel = component.getPersistence();
+						else
+							newHotel = component.getTravelComponent();
+						
+						if(hotel.getSupplyingCompany().equals(newHotel.getSupplyingCompany()) && hotel.getHotelCity().equals(newHotel.getHotelCity())){
+							new DefaultTreeNode(component,hotelsRoot.get(j));
+							found = true;
+						}							
+					}
+					if(found == false){
+						TreeNode hotel = new DefaultTreeNode(component,root);
+						new DefaultTreeNode(component,hotel);
+						hotelsRoot.add(hotel);
+						hotelsRootAlreadyShown.add(0);
+					}
+
+					break;
+				}
+			}
+			
 		}
 	}
 	
 	//------------------------
 	// SETTERS AND GETTERS
 	
+	public TreeNode getRoot() {
+		return root;
+	}
+	public void setRoot(TreeNode root) {
+		this.root = root;
+	}
 	public PersonalizedTravelPackageDTO getPersonalizedPackage() {
 		return personalizedPackage;
 	}
@@ -91,7 +159,40 @@ public class PersonalizedTravelPackageWeb {
 		this.returnDate = returnDate;
 	}
 	
-	//-----------------------	
+	//-----------------------		
+	
+	public boolean isHotelRoot(Components_HelperDTO component){
+		ComponentType type;
+		
+		if(component.getTravelElement() != null)
+			type = component.getPersistence().getType();
+		else
+			type = component.getTravelComponent().getType();
+		
+		if(type == ComponentType.HOTEL){
+			for(int i = 0; i < hotelsRoot.size(); i++)		
+				if(component == hotelsRoot.get(i).getData() && hotelsRootAlreadyShown.get(i) < 16){ // this 16 is an "empirical" value, found after tests. This is due to the fact that polling on the rendered attribute is performed
+					hotelsRootAlreadyShown.set(i, hotelsRootAlreadyShown.get(i) + 1);
+					return true;
+					
+				}
+		}
+		return false;
+	}
+	
+	public boolean showHotelDetails(Components_HelperDTO component){
+		ComponentType type;
+		
+		if(component.getTravelElement() != null)
+			type = component.getPersistence().getType();
+		else
+			type = component.getTravelComponent().getType();
+		
+		if(isHotelRoot(component) == false && type == ComponentType.HOTEL)
+			return true;
+		else
+			return false;
+	}
 	
 	public boolean noPackage(){
 		if(personalizedPackage == null)
@@ -108,7 +209,7 @@ public class PersonalizedTravelPackageWeb {
 		return false;
 	}
 	
-	public boolean checkStatus(){
+	public boolean checkPackageStatus(){
 		for (int i=0;i<personalizedPackage.getTravelComponents().size();i++)
 			if(personalizedPackage.getTravelComponents().get(i).getTravelElement()==null)
 				return false;
@@ -126,24 +227,23 @@ public class PersonalizedTravelPackageWeb {
 		
 	public void deleteComponent(Components_HelperDTO component) throws IOException{
 		boolean result = customerhandler.removeTravelComponentFromPersonalizedTravelPackage(personalizedPackage, component);
-		if(result==true){
-			FacesContext facesContext = FacesContext.getCurrentInstance();
-			Flash flash = facesContext.getExternalContext().getFlash();
-			flash.setKeepMessages(true);
-			flash.setRedirect(true);
-			List<PersonalizedTravelPackageDTO> toSend = new ArrayList<PersonalizedTravelPackageDTO>();
-			toSend.add(personalizedPackage);
-			data.setPersonalizedTravelPackagesList(toSend);
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		Flash flash = facesContext.getExternalContext().getFlash();
+		flash.setKeepMessages(true);
+		flash.setRedirect(true);
+		List<PersonalizedTravelPackageDTO> toSend = new ArrayList<PersonalizedTravelPackageDTO>();
+		toSend.add(personalizedPackage);
+		data.setPersonalizedTravelPackagesList(toSend);
+		if(result==true)
 			facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Successful", "You have deleted the component from your package, click on the save button to submit your changes!")); 
-			FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/customer/personalized_travel_package.xhtml"); //delete a TravelComponent
-		}
 		else
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error", "You cannot delete a payed component")); 
+			facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error", "You cannot delete a payed component")); 
+		FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/customer/personalized_travel_package.xhtml");
 	}
 	
 	public void showComponent(Components_HelperDTO component){
 		//select package and go to personal_package_home
-		if(component.getTravelElement()==null){ //the component is not confirmed
+		if(component.getTravelElement()==null){ //the component is not payed
 			List<TravelComponentDTO> toSend = new ArrayList<TravelComponentDTO>();
 			toSend.add(component.getTravelComponent());
 			data.setTravelComponentsList(toSend);
@@ -151,24 +251,30 @@ public class PersonalizedTravelPackageWeb {
 	        options.put("resizable", false); 
 			RequestContext.getCurrentInstance().openDialog("/misc/dialog_travelcomponent.xhtml",options,null);	
 		}
-		else 
-			if(component.getTravelElement()!=null){	//The component is confirmed
-				List<TravelComponentDTO> toSend = new ArrayList<TravelComponentDTO>();
-				toSend.add(component.getPersistence());
-				data.setTravelComponentsList(toSend);
-		        Map<String,Object> options = new HashMap<String, Object>();  
-		        options.put("resizable", false); 
-				RequestContext.getCurrentInstance().openDialog("/misc/dialog_travelcomponent.xhtml",options,null);
-			}		
+		else{	//The component is payed
+			List<TravelComponentDTO> toSend = new ArrayList<TravelComponentDTO>();
+			toSend.add(component.getPersistence());
+			data.setTravelComponentsList(toSend);
+	        Map<String,Object> options = new HashMap<String, Object>();  
+	        options.put("resizable", false); 
+			RequestContext.getCurrentInstance().openDialog("/misc/dialog_travelcomponent.xhtml",options,null);
+		}		
 	}
 	
-	public void addToGiftList(Components_HelperDTO component){
+	public void addToGiftList(Components_HelperDTO component) throws IOException{
 		boolean result = customerhandler.addTravelComponentToGiftList(finder.findUser(FacesContext.getCurrentInstance().getExternalContext().getRemoteUser()), component, personalizedPackage);
-		if(result==true){
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Successful", "Component added succesfully to your gift list")); 
-		}
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		Flash flash = facesContext.getExternalContext().getFlash();
+		flash.setKeepMessages(true);
+		flash.setRedirect(true);
+		List<PersonalizedTravelPackageDTO> toSend = new ArrayList<PersonalizedTravelPackageDTO>();
+		toSend.add(personalizedPackage);
+		data.setPersonalizedTravelPackagesList(toSend);
+		if(result==true)
+			facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Successful", "Component added succesfully to your gift list")); 
 		else
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error", "An error occured. Maybe your are trying to add to your gift list a payed travel component")); 		
+			facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error", "An error occured. Maybe your are trying to add to your gift list a payed travel component")); 
+		FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/customer/personalized_travel_package.xhtml");
 	}
 	
 	public void onTravelComponentChosen(CloseEvent event) throws IOException
