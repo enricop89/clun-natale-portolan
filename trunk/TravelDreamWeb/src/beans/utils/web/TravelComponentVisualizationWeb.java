@@ -39,7 +39,8 @@ public class TravelComponentVisualizationWeb
 		List<TravelComponentDTO> res = data.getTravelComponentsList();
 		if (res.size() == 0)
 		{
-			this.component = finder.findAllTravelComponents().get(0); //TODO: show an error instead!
+			this.component = finder.findAllTravelComponents().get(0);
+			//TODO: show an error instead!
 		}
 		else
 		{

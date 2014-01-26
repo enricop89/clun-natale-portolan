@@ -4,6 +4,7 @@ import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
 import java.sql.Date;
 import java.util.ArrayList;
@@ -110,27 +111,32 @@ public class Search {
 	// the unused field must be set to empty, even though it will consider only the field associated
 	// to the specific ComponentType
 		String query= new String();
+		query = "c.type = :comptype";
+		if (travelComponent.getSupplyingCompany()!=null){
+			query=query + " AND c.supplyingCompany LIKE \"" + travelComponent.getSupplyingCompany() + "\"";
+		}
+		
 		switch(travelComponent.getType()){
 		case FLIGHT:
 			if(travelComponent.getFlightDepartureDateTime()!=null){
-				query=query + "c.flightDepartureDateTime LIKE \"" + travelComponent.getFlightDepartureDateTime() + "\"";
+				query=query + " AND c.flightDepartureDateTime LIKE \"" + travelComponent.getFlightDepartureDateTime() + "\"";
 			}
-			if(travelComponent.getFlightDepartureDateTime()!=null){
+			if(travelComponent.getFlightArrivalDateTime()!=null){
 				if(query.isEmpty())
 					query=query + "c.flightArrivalDateTime LIKE \"" + travelComponent.getFlightArrivalDateTime() + "\"";
 				else	query=query + " AND c.flightArrivalDateTime LIKE \"" + travelComponent.getFlightArrivalDateTime() + "\"";
 			}
-			if(travelComponent.getFlightDepartureDateTime()!=null){
+			if(travelComponent.getFlightDepartureCity()!=null){
 				if(query.isEmpty())
 					query=query + "c.flightDepartureCity LIKE \"" + travelComponent.getFlightDepartureCity() + "\"";
 				else	query=query + " AND c.flightDepartureCity LIKE \"" + travelComponent.getFlightDepartureCity() + "\"";
 			}
-			if(travelComponent.getFlightDepartureDateTime()!=null){
+			if(travelComponent.getFlightArrivalCity()!=null){
 				if(query.isEmpty())
 					query=query + "c.flightArrivalCity LIKE \"" + travelComponent.getFlightArrivalCity() + "\"";
 				else	query=query + " AND c.flightArrivalCity LIKE \"" + travelComponent.getFlightArrivalCity() + "\"";
 			}
-			if(travelComponent.getFlightDepartureDateTime()!=null){
+			if(travelComponent.getFlightCode()!=null){
 				if(query.isEmpty())
 					query=query + "c.flightCode LIKE \"" + travelComponent.getFlightCode() + "\"";
 				else	query=query + "AND flightCode LIKE \"" + travelComponent.getFlightCode() + "\"";
@@ -138,7 +144,7 @@ public class Search {
 			break;
 		case HOTEL:
 			if(travelComponent.getHotelCity()!=null)
-				query= query + "c.hotelCity LIKE \"" + travelComponent.getHotelCity() + "\"";
+				query= query + " AND c.hotelCity LIKE \"" + travelComponent.getHotelCity() + "\"";
 			if(travelComponent.getHotelDate()!=null){
 				if(query.isEmpty())
 					query=query + "c.hotelDate LIKE \"" + travelComponent.getHotelDate() + "\"";
@@ -147,7 +153,7 @@ public class Search {
 			break;
 		case EXCURSION:
 			if(travelComponent.getExcursionDescription()!=null)
-				query= query + "CONTAINS(c.excursionDescription,\"" + travelComponent.getExcursionDescription() + "\")" ;
+				query= query + " AND CONTAINS(c.excursionDescription,\"" + travelComponent.getExcursionDescription() + "\")" ;
 			if(travelComponent.getExcursionDateTime()!=null){
 				if(query.isEmpty())
 					query=query + "c.excursionDateTime LIKE \"" + travelComponent.getExcursionDateTime() + "\"";
@@ -163,7 +169,10 @@ public class Search {
 		if(query.isEmpty())
 			return null;
 		
-		return entityManager.createQuery("SELECT c FROM TravelComponent c WHERE " + query, TravelComponent.class).getResultList();
+		TypedQuery<TravelComponent> res_qry = entityManager.createQuery("SELECT c FROM TravelComponent c WHERE " + query, TravelComponent.class);
+		res_qry.setParameter("comptype", travelComponent.getType());
+		
+		return res_qry.getResultList();
 	}
 	
 	public List<TravelComponent> findAllTravelComponents(){
