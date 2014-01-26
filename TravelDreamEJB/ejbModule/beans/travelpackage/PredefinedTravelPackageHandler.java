@@ -61,7 +61,7 @@ public class PredefinedTravelPackageHandler {
 		persTP.setName(predefinedTravelPackage.getName());
 		persTP.setOwner(owner);
 		persTP.setDepartureDate(predefinedTravelPackage.getDepartureDate());
-		persTP.setReturnDate(predefinedTravelPackage.getReturnDate());		//TODO:CAMBIATO QUI
+		persTP.setReturnDate(predefinedTravelPackage.getReturnDate());
 		List<Components_Helper> constructor = new ArrayList<Components_Helper>();
 		for(int i=0;i<predefinedTravelPackage.getTravelComponents().size();i++){
 			Components_Helper component = new Components_Helper();
