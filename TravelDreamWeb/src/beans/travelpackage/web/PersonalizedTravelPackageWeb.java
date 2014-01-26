@@ -316,7 +316,7 @@ public class PersonalizedTravelPackageWeb {
 	}
 	
 	public void confirmPackage() throws IOException{
-		boolean result = customerHandler.confirmPersonalizedTravelPackage(personalizedPackage);
+		String result = customerHandler.confirmPersonalizedTravelPackage(personalizedPackage);
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		Flash flash = facesContext.getExternalContext().getFlash();
 		flash.setKeepMessages(true);
@@ -324,7 +324,7 @@ public class PersonalizedTravelPackageWeb {
 		List<PersonalizedTravelPackageDTO> toSend = new ArrayList<PersonalizedTravelPackageDTO>();
 		toSend.add(personalizedPackage);
 		data.setPersonalizedTravelPackagesList(toSend);
-		if(result==true)
+		if(result.isEmpty())
 			facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Successful", "Travel package succesfully confirmed!")); 
 		else
 			facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error", "An error occured. You are probably trying to confirm a package which is already confirmed, or the package is unconsistent. Check if the dates and the cities are consistent and retry.")); 
@@ -337,9 +337,9 @@ public class PersonalizedTravelPackageWeb {
 			if(returnDate != null){
 				personalizedPackage.setReturnDate(new Date(returnDate.getTime()));
 				
-				boolean result=customerHandler.updatePersonalizedTravelPackage(personalizedPackage);
+				String result=customerHandler.updatePersonalizedTravelPackage(personalizedPackage);
 
-				if(result==true){
+				if(result.isEmpty()){
 					List<PersonalizedTravelPackageDTO> toSend = new ArrayList<PersonalizedTravelPackageDTO>();
 					toSend.add(personalizedPackage);
 					data.setPersonalizedTravelPackagesList(toSend);
