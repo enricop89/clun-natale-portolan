@@ -130,10 +130,7 @@ public void save() throws IOException{
 
 	public void modify(PredefinedTravelPackageDTO helper) throws IOException{
 	
-		FacesContext facesContext = FacesContext.getCurrentInstance();
-		Flash flash = facesContext.getExternalContext().getFlash();
-		flash.setKeepMessages(true);
-		flash.setRedirect(true);
+		
 		List<PredefinedTravelPackageDTO> toSend = new ArrayList<PredefinedTravelPackageDTO>();
 		toSend.add(helper);
 		data.setPredefinedTravelPackagesList(toSend);
