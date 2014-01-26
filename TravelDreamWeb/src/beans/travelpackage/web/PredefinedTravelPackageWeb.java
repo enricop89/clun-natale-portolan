@@ -43,7 +43,7 @@ public class PredefinedTravelPackageWeb {
 	private java.util.Date departureDate;
 	private java.util.Date returnDate;
 	private PersonalizedTravelPackageDTO personalizedPackage;
-	private PredefinedTravelPackageDTO packageDTO;
+	
 	
 	@Inject
 	private Data_Exchange data;
@@ -90,7 +90,7 @@ public class PredefinedTravelPackageWeb {
 	
 	public void copyInPersonalizedTravelPackage(PredefinedTravelPackageDTO helper) throws IOException{
 		user = search.findUser(FacesContext.getCurrentInstance().getExternalContext().getRemoteUser());
-		customerhandler.addNewPersonalizedTravelPackage(user, predTP);
+		customerhandler.addNewPersonalizedTravelPackage(user, helper);
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		Flash flash = facesContext.getExternalContext().getFlash();
 		flash.setKeepMessages(true);
@@ -101,11 +101,7 @@ public class PredefinedTravelPackageWeb {
 	
 public void save() throws IOException{
 		
-		FacesContext facesContext = FacesContext.getCurrentInstance();
-		Flash flash = facesContext.getExternalContext().getFlash();
-		flash.setKeepMessages(true);
-		flash.setRedirect(true);
-		
+	
 		if(departureDate != null)
 			predTP.setDepartureDate(new Date(departureDate.getTime()));
 		if(returnDate != null)
@@ -116,6 +112,15 @@ public void save() throws IOException{
 			copyInPersonalizedTravelPackage(predTP); //if customer copy in personalized
 		if(FacesContext.getCurrentInstance().getExternalContext().isUserInRole("EMPLOYEE"))
 			employee.updatePredefinedTravelPackage(predTP); //if employee update
+		
+		List<PredefinedTravelPackageDTO> toSend = new ArrayList<PredefinedTravelPackageDTO>();
+		toSend.add(predTP);
+		data.setPredefinedTravelPackagesList(toSend);
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		Flash flash = facesContext.getExternalContext().getFlash();
+		flash.setKeepMessages(true);
+		flash.setRedirect(true);
+		
 		
 		facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Successful", "The package has been succesfully added to your package list!")); 
 		FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/customer/personal_travel_package.xhtml?faces-redirect=true");
@@ -139,16 +144,31 @@ public void save() throws IOException{
 	{
 		try{ // must use try catch, getters in Data_Exchange flushes lists by design! calling it twice is a logical error
 			TravelComponentDTO travelComponent = data.getTravelComponentsList().get(0);
-			employee.addTravelComponentToPredefinedTravelPackage(packageDTO, travelComponent);	//TODO:se salva chiamo copy, dipende se customer o employee
+			employee.addTravelComponentToPredefinedTravelPackage(predTP, travelComponent);	//TODO:se salva chiamo copy, dipende se customer o employee
 			List<PredefinedTravelPackageDTO> toSend = new ArrayList<PredefinedTravelPackageDTO>();
-			toSend.add(packageDTO);
+			toSend.add(predTP);
 			data.setPredefinedTravelPackagesList(toSend);
-			FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/customer/control_panel.xhtml");
+			FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/misc/modify_predefinedtravelpackage.xhtml");
 		}
 		catch (java.lang.IndexOutOfBoundsException e){/* does nothing */}
 	}
 	
-	
+	public void deleteComponent(TravelComponentDTO component) throws IOException{
+		
+		boolean result=employee.removeTravelComponentFromPredefinedTravelPackage(predTP, component);
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		Flash flash = facesContext.getExternalContext().getFlash();
+		flash.setKeepMessages(true);
+		flash.setRedirect(true);
+		List<TravelComponentDTO> toSend = new ArrayList<TravelComponentDTO>();
+		toSend.add(component);
+		data.setTravelComponentsList(toSend);
+		if(result==true)
+			facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Successful", "You have deleted the component from your package, click on the save button to submit your changes!")); 
+		else
+			facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error", "You cannot delete a payed component")); 
+		FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/customer/personalized_travel_package.xhtml");
+	}
 	
 	public boolean checkIfCustomer() throws IOException{
 		
