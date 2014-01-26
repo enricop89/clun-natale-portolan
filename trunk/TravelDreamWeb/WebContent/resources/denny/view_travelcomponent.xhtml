@@ -1,0 +1,67 @@
+<html 
+      xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:composite="http://java.sun.com/jsf/composite">
+      
+      
+   	  <composite:interface>
+	    <composite:attribute name="component" type="java.lang.Object"/>
+	  </composite:interface>
+ 
+	  <composite:implementation>
+	<p:panel header="Travel component details"> 
+		<h:outputText rendered="#{cc.attrs.component.type == 'FLIGHT'}" value="Flight details: " />
+		<h:outputText rendered="#{cc.attrs.component.type == 'HOTEL'}" value="Hotel details: " />
+		<h:outputText rendered="#{cc.attrs.component.type == 'EXCURSION'}" value="Excursion details: " />
+		
+		<p:panelGrid columns="2" >  
+		
+			<h:outputText value="Company name:" />
+			<h:outputText value="#{cc.attrs.component.supplyingCompany}" />  
+			
+			<h:outputText rendered="#{cc.attrs.component.type == 'FLIGHT'}" value="Flight code:" />
+			<h:outputText rendered="#{cc.attrs.component.type == 'FLIGHT'}" 
+			value="#{cc.attrs.component.flightCode}" />  
+			
+			<h:outputText rendered="#{cc.attrs.component.type == 'FLIGHT'}" value="Departure city:" />
+			<h:outputText rendered="#{cc.attrs.component.type == 'FLIGHT'}" 
+			value="#{cc.attrs.component.flightDepartureCity}" />  
+			
+			<h:outputText rendered="#{cc.attrs.component.type == 'FLIGHT'}" value="Arrival city:" />
+			<h:outputText rendered="#{cc.attrs.component.type == 'FLIGHT'}" 
+			value="#{cc.attrs.component.flightArrivalCity}" />  
+			
+			<h:outputText rendered="#{cc.attrs.component.type == 'FLIGHT'}" value="Departure time:" />
+			<h:outputText rendered="#{cc.attrs.component.type == 'FLIGHT'}" 
+			value="#{cc.attrs.component.flightDepartureDateTime}" />  
+			
+			<h:outputText rendered="#{cc.attrs.component.type == 'FLIGHT'}" value="Arrival time:" />
+			<h:outputText rendered="#{cc.attrs.component.type == 'FLIGHT'}" 
+			value="#{cc.attrs.component.flightArrivalDateTime}" />
+									
+			<h:outputText rendered="#{cc.attrs.component.type == 'HOTEL'}" value="City:" />
+			<h:outputText rendered="#{cc.attrs.component.type == 'HOTEL'}"  
+			value="#{cc.attrs.component.hotelCity}" />  
+			
+			<h:outputText rendered="#{cc.attrs.component.type == 'HOTEL'}" value="Date:" />
+			<h:outputText rendered="#{cc.attrs.component.type == 'HOTEL'}"  
+			value="#{cc.attrs.component.hotelDate}" />
+											
+			<h:outputText rendered="#{cc.attrs.component.type == 'EXCURSION'}" value="City:" />
+			<h:outputText rendered="#{cc.attrs.component.type == 'EXCURSION'}" 
+			value="#{cc.attrs.component.excursionCity}" />  
+			
+			<h:outputText rendered="#{cc.attrs.component.type == 'EXCURSION'}" value="Date:" />
+			<h:outputText rendered="#{cc.attrs.component.type == 'EXCURSION'}" 
+			value="#{cc.attrs.component.excursionDateTime}" />	
+						
+			<h:outputText rendered="#{cc.attrs.component.type == 'EXCURSION'}" value="Description:" />
+			<h:outputText rendered="#{cc.attrs.component.type == 'EXCURSION'}" 
+			value="#{cc.attrs.component.excursionDescription}" />	
+		</p:panelGrid>
+	</p:panel>
+	  </composite:implementation>
+</html>
