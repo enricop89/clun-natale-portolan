@@ -1,0 +1,58 @@
+<html 
+      xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:composite="http://java.sun.com/jsf/composite">
+      
+      
+   	  <composite:interface>
+	    <composite:attribute name="component" type="java.lang.Object"/>
+	  </composite:interface>
+ 
+	  <composite:implementation>
+	<p:panel header="Modify travel component details"> 
+		<h:outputText rendered="#{cc.attrs.component.type == 'FLIGHT'}" value="Flight details: " />
+		<h:outputText rendered="#{cc.attrs.component.type == 'HOTEL'}" value="Hotel details: " />
+		<h:outputText rendered="#{cc.attrs.component.type == 'EXCURSION'}" value="Excursion details: " />
+		
+		<p:panelGrid columns="2" >  
+			
+			<h:outputLabel for="company">Company name:</h:outputLabel>
+			<p:inputText id="company" value="#{cc.attrs.component.supplyingCompany}" required="true"/>
+					
+			<h:outputLabel rendered="#{cc.attrs.component.type == 'FLIGHT'}" for="flight_code">Code:</h:outputLabel>
+			<p:inputText rendered="#{cc.attrs.component.type == 'FLIGHT'}" id="flight_code" value="#{cc.attrs.component.flightCode}" required="true"/>
+			
+			<h:outputLabel rendered="#{cc.attrs.component.type == 'FLIGHT'}" for="flight_dep_city">Departure city:</h:outputLabel>
+			<p:inputText rendered="#{cc.attrs.component.type == 'FLIGHT'}" id="flight_dep_city" value="#{cc.attrs.component.flightDepartureCity}" required="true"/>
+			
+		 	<h:outputLabel rendered="#{cc.attrs.component.type == 'FLIGHT'}" for="flightDepartureDateTime">Departure Date and Time:</h:outputLabel>           	
+           	<p:calendar rendered="#{cc.attrs.component.type == 'FLIGHT'}" value="#{cc.attrs.component.flightDepartureDateTime}" id="flightDepartureDateTime" showButtonPanel="true" pattern="MM/dd/yyyy HH:mm" required="true"/> 
+           	 
+			<h:outputLabel rendered="#{cc.attrs.component.type == 'FLIGHT'}" for="flight_arrival_city">Flight arrival city:</h:outputLabel>
+			<p:inputText rendered="#{cc.attrs.component.type == 'FLIGHT'}"  id="flight_arrival_city" value="#{cc.attrs.component.flightArrivalCity}" required="true"/>
+
+		 	<h:outputLabel rendered="#{cc.attrs.component.type == 'FLIGHT'}" for="flightArrivalDateTime">Arrival Date and Time:</h:outputLabel>            	
+           	<p:calendar rendered="#{cc.attrs.component.type == 'FLIGHT'}" value="#{cc.attrs.component.flightArrivalDateTime}" id="flightArrivalDateTime" showButtonPanel="true" pattern="MM/dd/yyyy HH:mm" required="true"/>
+			
+			<h:outputLabel rendered="#{cc.attrs.component.type == 'HOTEL'}" for="h_city">City:</h:outputLabel>
+			<p:inputText rendered="#{cc.attrs.component.type == 'HOTEL'}" id="h_city" value="#{cc.attrs.component.hotelCity}" required="true"/>
+			
+	 		<h:outputLabel rendered="#{cc.attrs.component.type == 'HOTEL'}" for="h_date">Date:</h:outputLabel>            	
+           	<p:calendar rendered="#{cc.attrs.component.type == 'HOTEL'}" value="#{cc.attrs.component.hotelDate}" id="h_date" showButtonPanel="true" required="true"/>
+			
+			<h:outputLabel rendered="#{cc.attrs.component.type == 'EXCURSION'}" for="excursionCity">City:</h:outputLabel>
+           	<p:inputText rendered="#{cc.attrs.component.type == 'EXCURSION'}" id="excursionCity" value="#{cc.attrs.component.excursionCity}" required="true"/>		
+	  
+		 	<h:outputLabel rendered="#{cc.attrs.component.type == 'EXCURSION'}" for="excursionDateTime">Date and Time:</h:outputLabel>            	
+           	<p:calendar rendered="#{cc.attrs.component.type == 'EXCURSION'}" value="#{cc.attrs.component.excursionDateTime}" id="excursionDateTime" showButtonPanel="true" pattern="MM/dd/yyyy HH:mm" required="true"/>						
+           	            	
+			<h:outputLabel rendered="#{cc.attrs.component.type == 'EXCURSION'}" for="excursionDescription">Description:</h:outputLabel>
+           	<p:inputText rendered="#{cc.attrs.component.type == 'EXCURSION'}" id="excursionDescription" value="#{cc.attrs.component.excursionDescription}" required="true"/>
+
+		</p:panelGrid>
+	</p:panel>
+	  </composite:implementation>
+</html>

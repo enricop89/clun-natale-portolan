@@ -4,7 +4,9 @@ import java.io.IOException;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -16,6 +18,7 @@ import javax.faces.context.Flash;
 import javax.inject.Inject;
 
 import org.apache.commons.lang3.time.DateFormatUtils;
+import org.primefaces.context.RequestContext;
 import org.primefaces.event.TabChangeEvent;
 
 import beans.employeehandler.EmployeeHandlerInterface;
@@ -46,6 +49,9 @@ public class EmployeeHandlerWeb  {
 	
 	//Travel component creation data
 	private TravelComponentDTO componentDTO;
+	
+	//Travel component visualization data
+	private TravelComponentDTO componentToVisualize;
 	
 	private java.util.Date flightDepartureDate;
 	private String flightDepartureTime;
@@ -316,6 +322,12 @@ public class EmployeeHandlerWeb  {
 		this.packageDTO = packageDTO;
 	}
 	
+	public TravelComponentDTO getComponentToVisualize() {
+		return componentToVisualize;
+	}
+	public void setComponentToVisualize(TravelComponentDTO componentToVisualize) {
+		this.componentToVisualize = componentToVisualize;
+	}
 	public void deleteComponentFromPackage(TravelComponentDTO component) throws IOException
 	{	
 		FacesMessage message = null;
@@ -416,5 +428,15 @@ public class EmployeeHandlerWeb  {
 	}
 	public void onClose(){
 		FacesContext.getCurrentInstance().getViewRoot().getViewMap().remove("SearchTravelComponents");
+	}
+	
+	public void viewComponentDetails(TravelComponentDTO component) throws IOException
+	{
+		List<TravelComponentDTO> toSend = new ArrayList<TravelComponentDTO>();
+		toSend.add(component);
+		data.setTravelComponentsList(toSend);
+        Map<String,Object> options = new HashMap<String, Object>();  
+        options.put("resizable", false);
+		RequestContext.getCurrentInstance().openDialog("/misc/dialog_travelcomponent.xhtml",options,null);	
 	}
 }
