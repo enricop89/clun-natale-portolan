@@ -173,25 +173,29 @@ public class PersonalizedTravelPackageWeb {
 	
 	public void onTravelComponentChosen(CloseEvent event) throws IOException
 	{
+		FacesMessage message = null;
 		try{ // must use try catch, getters in Data_Exchange flushes lists by design! calling it twice is a logical error
 			TravelComponentDTO travelComponent = data.getTravelComponentsList().get(0);
 			boolean result = customerhandler.addTravelComponentToPersonalizedTravelPackage(personalizedPackage, travelComponent);
 			if(result == true){
-				List<PersonalizedTravelPackageDTO> toSend = new ArrayList<PersonalizedTravelPackageDTO>();
-				toSend.add(personalizedPackage);
-				data.setPersonalizedTravelPackagesList(toSend);
-				FacesContext facesContext = FacesContext.getCurrentInstance();
-				Flash flash = facesContext.getExternalContext().getFlash();
-				flash.setKeepMessages(true);
-				flash.setRedirect(true);
-				facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Successful", "You have added the component to your package, click on the save button to submit your changes!")); 
-				FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/customer/personalized_travel_package.xhtml");
+				message = new FacesMessage(FacesMessage.SEVERITY_INFO,"Successful", "You have added the component to your package, click on the save button to submit your changes!"); 
 			}
 			else{
-				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error", "The component is already in the travel package!"));
+				message = new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error", "The component is already in the travel package!");
 			}			
 		}
 		catch (java.lang.IndexOutOfBoundsException e){/* does nothing */}
+		List<PersonalizedTravelPackageDTO> toSend = new ArrayList<PersonalizedTravelPackageDTO>();
+		toSend.add(personalizedPackage);
+		data.setPersonalizedTravelPackagesList(toSend);
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		Flash flash = facesContext.getExternalContext().getFlash();
+		flash.setKeepMessages(true);
+		flash.setRedirect(true);
+		if(message != null)
+			facesContext.addMessage(null,message);
+		
+		FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/customer/personalized_travel_package.xhtml");
 	}
 	
 	public void saveChanges() throws IOException{	
