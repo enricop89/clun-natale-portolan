@@ -169,7 +169,7 @@
 	            	</f:facet>
 	            	</p:dataTable> 
             	</p:panel>
-            	<p:growl id="create_growl" showDetail="true" sticky="true" />  
+            	<p:growl id="create_growl" showDetail="true" globalOnly="true" />  
             	
             	<p:commandButton value="Create package" style="float:center"
             	 action="#{EmployeeHandlerWeb.createPackage}" icon="ui-icon-plusthick"
@@ -177,7 +177,7 @@
             	
            	</p:panel>
 		</h:form>
-		<p:dialog id="searchComponent" widgetVar="searchComponent" modal="true" resizable="true" header="Add a component to the package"
+		<p:dialog id="searchComponent" widgetVar="searchComponent" modal="true" resizable="true"
 		 showEffect="clip" hideEffect="clip" appendToBody="true">  
 			   		<denny:search_travelcomponent bean="#{EmployeeHandlerWeb}"
 			   		Method1Name="addComponent" Method1Icon="ui-icon-plusthick" Method1Tooltip="Add the travel component"
