@@ -62,7 +62,7 @@ public class EmployeeHandler implements EmployeeHandlerInterface{
 	}
 	
 	@Override
-	@RolesAllowed({"EMPLOYEE"})
+	@RolesAllowed({"EMPLOYEE","CUSTOMER"})	//TODO:modificato qui
 	public boolean addTravelComponentToPredefinedTravelPackage(PredefinedTravelPackageDTO predefinedTravelPackage, TravelComponentDTO travelComponent){
 		//control first if it is in the personalizedTravelPackage already
 		for(int i = 0; i < predefinedTravelPackage.getTravelComponents().size(); i++)
@@ -74,7 +74,7 @@ public class EmployeeHandler implements EmployeeHandlerInterface{
 	}
 	
 	@Override
-	@RolesAllowed({"EMPLOYEE"})
+	@RolesAllowed({"EMPLOYEE","CUSTOMER"})
 	public boolean removeTravelComponentFromPredefinedTravelPackage(PredefinedTravelPackageDTO predefinedTravelPackage, TravelComponentDTO travelComponent){
 		return predefinedTravelPackage.getTravelComponents().remove(travelComponent);
 	}	
