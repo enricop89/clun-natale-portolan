@@ -63,19 +63,18 @@ public class CustomerHandler implements CustomerHandlerInterface{
 	
 	@Override
 	@RolesAllowed({"CUSTOMER"})
-	public boolean confirmPersonalizedTravelPackage(PersonalizedTravelPackageDTO personalizedTravelPackage){
+	public String confirmPersonalizedTravelPackage(PersonalizedTravelPackageDTO personalizedTravelPackage){
 		PersonalizedTravelPackage toConfirm = search.findPersonalizedTravelPackage(personalizedTravelPackage);
 		// check if the original one and the DTO are different, if so call an update first
-		boolean result = false;
-		if(!toConfirm.getName().equals(personalizedTravelPackage.getName()) || toConfirm.getDepartureDate().compareTo(personalizedTravelPackage.getDepartureDate()) != 0 || toConfirm.getReturnDate().compareTo(personalizedTravelPackage.getReturnDate()) != 0
-				|| !toConfirm.getTravelComponents().equals(personalizedTravelPackage.getTravelComponents()))
+		String result = "";
+		if(!toConfirm.getName().equals(personalizedTravelPackage.getName()) || toConfirm.getDepartureDate().compareTo(personalizedTravelPackage.getDepartureDate()) != 0 || toConfirm.getReturnDate().compareTo(personalizedTravelPackage.getReturnDate()) != 0 || !toConfirm.getTravelComponents().equals(personalizedTravelPackage.getTravelComponents()))
 			result = updatePersonalizedTravelPackage(personalizedTravelPackage);
 		
-		if(result == true)
+		if(result.isEmpty())
 			return handler.confirmPersonalizedTravelPackage(search.findPersonalizedTravelPackage(personalizedTravelPackage));
 			
 		else
-			return false;
+			return result;
 	}
 	
 	@Override
@@ -86,7 +85,7 @@ public class CustomerHandler implements CustomerHandlerInterface{
 	
 	@Override
 	@RolesAllowed({"CUSTOMER"})
-	public boolean updatePersonalizedTravelPackage(PersonalizedTravelPackageDTO personalizedTravelPackage){
+	public String updatePersonalizedTravelPackage(PersonalizedTravelPackageDTO personalizedTravelPackage){
 		PersonalizedTravelPackage result = new PersonalizedTravelPackage(personalizedTravelPackage,search);
 		return handler.updatePersonalizedTravelPackage(result);
 	}

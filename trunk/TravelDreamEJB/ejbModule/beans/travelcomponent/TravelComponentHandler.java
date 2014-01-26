@@ -132,7 +132,7 @@ public class TravelComponentHandler{
 					else{
 						String message = new String();						
 						persTPs.get(i).getTravelComponents().get(j).setTravelComponent(travelComponent);
-						if(!personalized_handler.updatePersonalizedTravelPackage(persTPs.get(i))){
+						if(!personalized_handler.updatePersonalizedTravelPackage(persTPs.get(i)).isEmpty()){
 							persTPs.get(i).getTravelComponents().remove(j); // the TravelComponent update violates consistency, so is deleted from the TravelPackage
 							if(persTPs.get(i).getTravelComponents().isEmpty()){ // the deletion causes the package to be empty
 								message = "We are sorry to inform you that our staff has been forced to update a Travel Component, and this affect one of your Travel Package: "
