@@ -64,7 +64,18 @@ public class CustomerHandler implements CustomerHandlerInterface{
 	@Override
 	@RolesAllowed({"CUSTOMER"})
 	public boolean confirmPersonalizedTravelPackage(PersonalizedTravelPackageDTO personalizedTravelPackage){
-		return handler.confirmPersonalizedTravelPackage(search.findPersonalizedTravelPackage(personalizedTravelPackage));
+		PersonalizedTravelPackage toConfirm = search.findPersonalizedTravelPackage(personalizedTravelPackage);
+		// check if the original one and the DTO are different, if so call an update first
+		boolean result = false;
+		if(!toConfirm.getName().equals(personalizedTravelPackage.getName()) || toConfirm.getDepartureDate().compareTo(personalizedTravelPackage.getDepartureDate()) != 0 || toConfirm.getReturnDate().compareTo(personalizedTravelPackage.getReturnDate()) != 0
+				|| !toConfirm.getTravelComponents().equals(personalizedTravelPackage.getTravelComponents()))
+			result = updatePersonalizedTravelPackage(personalizedTravelPackage);
+		
+		if(result == true)
+			return handler.confirmPersonalizedTravelPackage(search.findPersonalizedTravelPackage(personalizedTravelPackage));
+			
+		else
+			return false;
 	}
 	
 	@Override
