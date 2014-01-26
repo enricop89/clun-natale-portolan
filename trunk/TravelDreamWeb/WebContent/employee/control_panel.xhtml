@@ -131,7 +131,7 @@
                  		 rowsPerPageTemplate="5,10,15" > 
 	                <p:column headerText="" style="text-align: center">  
 	                <p:row>
-	                    <p:commandButton style="float:center" icon="ui-icon-trash" actionListener="#{EmployeeHandlerWeb.deleteComponent(travelComponent)}" immediate="true"/>
+	                    <p:commandButton style="float:center" icon="ui-icon-trash" actionListener="#{EmployeeHandlerWeb.deleteComponentFromPackage(travelComponent)}" immediate="true"/>
 	                </p:row>  
 	                </p:column>  
 	                <p:column headerText="Type" style="text-align: center">  
@@ -167,7 +167,7 @@
 		<p:dialog id="searchComponent" widgetVar="searchComponent" modal="true" resizable="false" position="top"
 		 showEffect="clip" hideEffect="clip" appendTo="@(body)">  
 			   		<denny:search_travelcomponent bean="#{EmployeeHandlerWeb}"
-			   		Method1Name="addComponent" Method1Icon="ui-icon-plusthick" Method1Tooltip="Add the travel component"
+			   		Method1Name="addComponentToPackage" Method1Icon="ui-icon-plusthick" Method1Tooltip="Add the travel component"
 			   		Method2Name="" Method2Icon="" Method2Tooltip="" />
 			   		<p:ajax event="close" listener="#{EmployeeHandlerWeb.onClose}" update="searchComponent" />
 		</p:dialog>  

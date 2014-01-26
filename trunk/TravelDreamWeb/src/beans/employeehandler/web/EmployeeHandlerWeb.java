@@ -316,7 +316,7 @@ public class EmployeeHandlerWeb  {
 		this.packageDTO = packageDTO;
 	}
 	
-	public void deleteComponent(TravelComponentDTO component) throws IOException
+	public void deleteComponentFromPackage(TravelComponentDTO component) throws IOException
 	{	
 		FacesMessage message = null;
 		boolean result = employeeHandler.removeTravelComponentFromPredefinedTravelPackage(packageDTO, component);
@@ -341,7 +341,7 @@ public class EmployeeHandlerWeb  {
 		FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/employee/control_panel.xhtml");
 	}
 	
-	public void addComponent(TravelComponentDTO component) throws IOException
+	public void addComponentToPackage(TravelComponentDTO component) throws IOException
 	{
 		FacesMessage message = null;
 		boolean result = employeeHandler.addTravelComponentToPredefinedTravelPackage(packageDTO, component);
@@ -396,9 +396,9 @@ public class EmployeeHandlerWeb  {
 	{
 		packageDTO.setDepartureDate(new java.sql.Date(packageStartDate.getTime()));
 		packageDTO.setReturnDate(new java.sql.Date(packageEndDate.getTime()));
-		boolean result = employeeHandler.addNewPredefinedTravelPackage(packageDTO);
+		String result = employeeHandler.addNewPredefinedTravelPackage(packageDTO);
 		FacesContext facesContext = FacesContext.getCurrentInstance();
-		if (result == true)
+		if (result.isEmpty())
 		{
 			facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Successful", "Package correctly added."));
 			packageDTO = new PredefinedTravelPackageDTO();
