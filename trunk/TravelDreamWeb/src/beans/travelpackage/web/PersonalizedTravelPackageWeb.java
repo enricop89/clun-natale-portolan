@@ -70,7 +70,7 @@ public class PersonalizedTravelPackageWeb {
 			try{
 				personalizedPackage = data.getPersonalizedTravelPackagesList().get(0);
 			}
-			catch(IndexOutOfBoundsException e){/*does nothign*/}
+			catch(IndexOutOfBoundsException e){ok = false;/*does nothign*/}
 		}
 			
 		
@@ -130,8 +130,7 @@ public class PersonalizedTravelPackageWeb {
 
 					break;
 				}
-			}
-			
+			}			
 		}
 	}
 	
@@ -175,10 +174,9 @@ public class PersonalizedTravelPackageWeb {
 		
 		if(type == ComponentType.HOTEL){
 			for(int i = 0; i < hotelsRoot.size(); i++)		
-				if(component == hotelsRoot.get(i).getData() && hotelsRootAlreadyShown.get(i) < 16){ // this 16 is an "empirical" value, found after tests. This is due to the fact that polling on the rendered attribute is performed
+				if(component == hotelsRoot.get(i).getData() && hotelsRootAlreadyShown.get(i) < 16){ // this 16 is the number of times this function is called on each line of the TreeTable
 					hotelsRootAlreadyShown.set(i, hotelsRootAlreadyShown.get(i) + 1);
-					return true;
-					
+					return true;					
 				}
 		}
 		return false;
@@ -214,6 +212,9 @@ public class PersonalizedTravelPackageWeb {
 	}
 	
 	public boolean checkPackageStatus(){
+		if(personalizedPackage == null)
+			return false;
+		
 		for (int i=0;i<personalizedPackage.getTravelComponents().size();i++)
 			if(personalizedPackage.getTravelComponents().get(i).getTravelElement()==null)
 				return false;
@@ -221,7 +222,10 @@ public class PersonalizedTravelPackageWeb {
 		return true;
 	}
 			
-	public boolean isOwner(){		
+	public boolean isOwner(){
+		if(personalizedPackage == null)
+			return false;
+		
 		if(FacesContext.getCurrentInstance().getExternalContext().isUserInRole("CUSTOMER"))
 			if(personalizedPackage.getOwner().getEmail().equals(FacesContext.getCurrentInstance().getExternalContext().getRemoteUser()))
 				return true; //the remote user is also the owner of the travel package
@@ -277,7 +281,7 @@ public class PersonalizedTravelPackageWeb {
 		if(result==true)
 			facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Successful", "Component added succesfully to your gift list")); 
 		else
-			facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error", "An error occured. Maybe your are trying to add to your gift list a payed travel component")); 
+			facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error", "An error occured. Maybe your are trying to add to your gift list a payed travel component, or you are trying to add a new travel component before saving.")); 
 		FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/customer/personalized_travel_package.xhtml");
 	}
 	
@@ -313,6 +317,10 @@ public class PersonalizedTravelPackageWeb {
         Map<String,Object> options = new HashMap<String, Object>();  
         options.put("resizable", false); 
 		RequestContext.getCurrentInstance().openDialog("/misc/dialog_travelcomponent.xhtml",options,null);
+	}
+	
+	public void onClose(){
+		FacesContext.getCurrentInstance().getViewRoot().getViewMap().remove("SearchTravelComponents");
 	}
 	
 	public void confirmPackage() throws IOException{
