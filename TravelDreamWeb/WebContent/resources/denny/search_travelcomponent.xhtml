@@ -1,0 +1,217 @@
+<html 
+      xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:composite="http://java.sun.com/jsf/composite">
+      
+      
+   	  <composite:interface>
+	    <composite:attribute name="bean" type="java.lang.Object"/>
+	    <composite:attribute name="Method1Name" type="java.lang.String" />
+	    <composite:attribute name="Method1Icon" type="java.lang.String" />
+	    <composite:attribute name="Method1Tooltip" type="java.lang.String" />
+	    <composite:attribute name="Method2Name" type="java.lang.String" />
+	    <composite:attribute name="Method2Icon" type="java.lang.String" />
+	    <composite:attribute name="Method2Tooltip" type="java.lang.String" />
+	  </composite:interface>
+ 
+	  <composite:implementation>
+	    <p:panel header="Search Travel Components">  
+	    
+	    	<p:tabView >
+	    	 
+			    <p:tab id="flights" title="Flights">
+				    <h:form>  
+					    <p:panel header="Define search criteria" id="psc"> 
+					    	    
+						    <h:panelGrid columns="4">  
+						 	<h:outputLabel for="flightSupplyingCompany">Supplying Company:</h:outputLabel>
+			            	<p:inputText id="flightSupplyingCompany" value="#{SearchTravelComponentsV2.flightSupplyingCompany}"/>						  
+						 	<h:outputLabel for="flightCode">Flight Code:</h:outputLabel>
+			            	<p:inputText id="flightCode" value="#{SearchTravelComponentsV2.searchCriteria.flightCode}"/>						
+						 	<h:outputLabel for="flightDepartureCity">Departure City:</h:outputLabel>
+			            	<p:inputText id="flightDepartureCity" value="#{SearchTravelComponentsV2.searchCriteria.flightDepartureCity}"/>	
+						 	<h:outputLabel for="flightArrivalCity">Arrival City:</h:outputLabel>
+			            	<p:inputText id="flightArrivalCity" value="#{SearchTravelComponentsV2.searchCriteria.flightArrivalCity}"/>	
+			 			 	<h:outputLabel for="flightDepartureDateTime">Departure Date and Time:</h:outputLabel>           	
+			            	<p:calendar value="#{SearchTravelComponentsV2.flightDepartureDateTime}" id="flightDepartureDateTime" showButtonPanel="true" pattern="MM/dd/yyyy HH:mm"/>  
+						 	<h:outputLabel for="flightArrivalDateTime">Arrival Date and Time:</h:outputLabel>            	
+			            	<p:calendar value="#{SearchTravelComponentsV2.flightArrivalDateTime}" id="flightArrivalDateTime" showButtonPanel="true" pattern="MM/dd/yyyy HH:mm"/>
+	           		    	<p:commandButton value="Search" icon="ui-icon-search" action="#{SearchTravelComponentsV2.search('FLIGHT', false)}" update="flightResult,f_searchgrowl" ajax="true" styleClass="ui-priority-primary"/>  
+	       					<p:commandButton value="Browse All" icon="ui-icon-search" action="#{SearchTravelComponentsV2.search('FLIGHT', true)}" update="flightResult,f_searchgrowl" ajax="true"/>
+	       					<p:growl id="f_searchgrowl" showDetail="true" sticky="true" />  	 					
+							</h:panelGrid>	
+						       
+				 		</p:panel>
+				 		<h:panelGroup layout="block" id="flightResult">
+			            <p:dataTable var="travelComponent" value="#{SearchTravelComponentsV2.resultList}" 
+			             rendered="#{SearchTravelComponentsV2.showFlightResult}">
+	                     	<f:facet name="header">  
+					            Search result 
+					        </f:facet>  
+			                <p:column headerText="" style="text-align: center">  
+			                	<p:row>
+			                    <p:commandButton id="add" style="float:center" icon="#{cc.attrs.Method1Icon}" ajax="false" 
+			                    action="#{SearchTravelComponentsV2.callSelectedFunction(travelComponent, cc.attrs.bean, cc.attrs.Method1Name)}"
+			                    rendered="#{!cc.attrs.Method1Name.isEmpty()}"
+								/>
+			                    <p:commandButton id="visualize" style="float:center" icon="#{cc.attrs.Method2Icon}" ajax="false" 
+			                    action="#{SearchTravelComponentsV2.callSelectedFunction(travelComponent, cc.attrs.bean, cc.attrs.Method2Name)}"
+			                    rendered="#{!cc.attrs.Method2Name.isEmpty()}"
+			                    /> 
+								</p:row>
+								<p:tooltip for="add" value="#{cc.attrs.Method1Tooltip}" showEffect="fade" hideEffect="fade" /> 
+				            	<p:tooltip for="visualize" value="#{cc.attrs.Method2Tooltip}" showEffect="fade" hideEffect="fade" />  
+			                </p:column>  
+			                <p:column headerText="Company" style="text-align: center">  
+			                    <h:outputText value="#{travelComponent.supplyingCompany}" />  
+			                </p:column>  
+			                  
+			                <p:column headerText="Code" style="text-align: center">  
+			                    <h:outputText value="#{travelComponent.flightCode}" />  
+			                </p:column>
+			                  
+			                <p:column headerText="From" style="text-align: center">  
+			                    <h:outputText value="#{travelComponent.flightDepartureCity}" />  
+			                </p:column>
+			                <p:column headerText="" style="text-align: center">  
+			                    <h:outputText value="#{travelComponent.flightDepartureDateTime}" />  
+			                </p:column>
+			                  
+			                <p:column headerText="To" style="text-align: center">  
+			                    <h:outputText value="#{travelComponent.flightArrivalCity}" />  
+			                </p:column>
+			                <p:column headerText="" style="text-align: center">  
+			                    <h:outputText value="#{travelComponent.flightArrivalDateTime}" />  
+			                </p:column>
+			                
+			                <p:column headerText="Availability" style="text-align: center">  
+			                    <h:outputText value="#{travelComponent.availability}" />  
+			                </p:column> 
+			            </p:dataTable> 
+			            </h:panelGroup>
+					</h:form>
+			    </p:tab> 
+			    
+			    
+			   	<p:tab id="hotels" title="Hotels">
+			   		<h:form>  
+					    <p:panel header="Define search criteria"> 				    	    
+						    <h:panelGrid columns="4">  
+						 	<h:outputLabel for="hotelSupplyingCompany">Supplying Company:</h:outputLabel>
+			            	<p:inputText id="hotelSupplyingCompany" value="#{SearchTravelComponentsV2.hotelSupplyingCompany}"/>	
+						 	<h:outputLabel for="hotelCity">City:</h:outputLabel>
+			            	<p:inputText id="hotelCity" value="#{SearchTravelComponentsV2.searchCriteria.hotelCity}"/>	            	
+			 			 	<h:outputLabel for="hotelStartingDate">Starting Date:</h:outputLabel>           	
+			            	<p:calendar value="#{SearchTravelComponentsV2.hotelStartingDate}" id="hotelStartingDate" showButtonPanel="true"/>  	
+						 	<h:outputLabel for="hotelEndingDate">Ending Date:</h:outputLabel>            	
+			            	<p:calendar value="#{SearchTravelComponentsV2.hotelEndingDate}" id="hotelEndingDate" showButtonPanel="true"/> 	
+	           		    	<p:commandButton value="Search" icon="ui-icon-search"  update="hotelResult,h_searchgrowl" action="#{SearchTravelComponentsV2.search('HOTEL', false)}" ajax="true" styleClass="ui-priority-primary"/>  
+	       					<p:commandButton value="Browse All" icon="ui-icon-search" update="hotelResult,h_searchgrowl" action="#{SearchTravelComponentsV2.search('HOTEL', true)}" ajax="true"/>
+	       					<p:growl id="h_searchgrowl" showDetail="true" sticky="true" />  	            							  
+							</h:panelGrid>	 
+				 		</p:panel>
+				 		<h:panelGroup layout="block" id="hotelResult">
+				            <p:dataTable var="travelComponent" value="#{SearchTravelComponentsV2.resultList}" 
+				             rendered="#{SearchTravelComponentsV2.showHotelResult}">
+		                     	<f:facet name="header">  
+						            Search result 
+						        </f:facet>  
+				                <p:column headerText="" style="text-align: center">  
+				                	<p:row>
+						                <p:commandButton id="add" style="float:center" icon="#{cc.attrs.Method1Icon}" ajax="false" 
+					                    action="#{SearchTravelComponentsV2.callSelectedFunction(travelComponent, cc.attrs.bean, cc.attrs.Method1Name)}"
+					                    rendered="#{!cc.attrs.Method1Name.isEmpty()}"
+										/>
+					                    <p:commandButton id="visualize" style="float:center" icon="#{cc.attrs.Method2Icon}" ajax="false" 
+					                    action="#{SearchTravelComponentsV2.callSelectedFunction(travelComponent, cc.attrs.bean, cc.attrs.Method2Name)}"
+					                    rendered="#{!cc.attrs.Method2Name.isEmpty()}"
+					                    />  
+									</p:row>
+									<p:tooltip for="add" value="Add the travel component" showEffect="fade" hideEffect="fade" /> 
+					            	<p:tooltip for="visualize" value="Show the travel component info" showEffect="fade" hideEffect="fade" />  
+				                </p:column>  
+				                <p:column headerText="Company" style="text-align: center">  
+				                    <h:outputText value="#{travelComponent.supplyingCompany}" />  
+				                </p:column>  
+				                  
+				                <p:column headerText="City" style="text-align: center">  
+				                    <h:outputText value="#{travelComponent.hotelCity}" />  
+				                </p:column>
+				                  
+				                <p:column headerText="Date" style="text-align: center">  
+				                    <h:outputText value="#{travelComponent.hotelDate}" />  
+				                </p:column>
+				                
+				                <p:column headerText="Availability" style="text-align: center">  
+				                    <h:outputText value="#{travelComponent.availability}" />  
+				                </p:column> 
+				            </p:dataTable> 
+			            </h:panelGroup>
+			 		</h:form>
+			    </p:tab> 
+			    
+			     
+			    <p:tab id="excursions" title="Excursions">
+			    <h:form>
+				    <p:panel header="Define search criteria">   
+				    	    
+					    <h:panelGrid columns="4">  
+						<h:outputLabel for="excursionSupplyingCompany">Supplying Company:</h:outputLabel>
+		            	<p:inputText id="excursionSupplyingCompany" value="#{SearchTravelComponentsV2.excursionSupplyingCompany}"/>	
+						<h:outputLabel for="excursionCity">City:</h:outputLabel>
+		            	<p:inputText id="excursionCity" value="#{SearchTravelComponentsV2.searchCriteria.excursionCity}"/>		            	
+						<h:outputLabel for="excursionDescription">Description (even only a part):</h:outputLabel>
+		            	<p:inputText id="excursionDescription" value="#{SearchTravelComponentsV2.searchCriteria.excursionDescription}"/>	            	
+					 	<h:outputLabel for="excursionDateTime">Date and Time:</h:outputLabel>            	
+		            	<p:calendar value="#{SearchTravelComponentsV2.excursionDateTime}" id="excursionDateTime" showButtonPanel="true" pattern="MM/dd/yyyy HH:mm"/>
+           		    	<p:commandButton value="Search" icon="ui-icon-search" action="#{SearchTravelComponentsV2.search('EXCURSION', false)}" update="excursionResult,e_searchgrowl" ajax="true" styleClass="ui-priority-primary"/>  
+       					<p:commandButton value="Browse All" icon="ui-icon-search" action="#{SearchTravelComponentsV2.search('EXCURSION', true)}" update="excursionResult,e_searchgrowl" ajax="true"/>
+       					<p:growl id="e_searchgrowl" showDetail="true" sticky="true" />  	 						            						  
+						</h:panelGrid>	
+			 		</p:panel>
+			 		<h:panelGroup layout="block" id="excursionResult">
+			            <p:dataTable var="travelComponent" value="#{SearchTravelComponentsV2.resultList}" 
+			             rendered="#{SearchTravelComponentsV2.showExcursionResult}">
+	                     	<f:facet name="header">  
+					            Search result 
+					        </f:facet>  
+			                <p:column headerText="" style="text-align: center">  
+			                	<p:row>
+						                <p:commandButton id="add" style="float:center" icon="#{cc.attrs.Method1Icon}" ajax="false" 
+					                    action="#{SearchTravelComponentsV2.callSelectedFunction(travelComponent, cc.attrs.bean, cc.attrs.Method1Name)}"
+					                    rendered="#{!cc.attrs.Method1Name.isEmpty()}"
+										/>
+					                    <p:commandButton id="visualize" style="float:center" icon="#{cc.attrs.Method2Icon}" ajax="false" 
+					                    action="#{SearchTravelComponentsV2.callSelectedFunction(travelComponent, cc.attrs.bean, cc.attrs.Method2Name)}"
+					                    rendered="#{!cc.attrs.Method2Name.isEmpty()}"
+					                    />  
+								</p:row>
+								<p:tooltip for="add" value="Add the travel component" showEffect="fade" hideEffect="fade" /> 
+				            	<p:tooltip for="visualize" value="Show the travel component info" showEffect="fade" hideEffect="fade" />  
+			                </p:column>  
+			                <p:column headerText="Company" style="text-align: center">  
+			                    <h:outputText value="#{travelComponent.supplyingCompany}" />  
+			                </p:column>  
+			                  
+			                <p:column headerText="City" style="text-align: center">  
+			                    <h:outputText value="#{travelComponent.excursionCity}" />  
+			                </p:column>
+			                  
+			                <p:column headerText="Date and time" style="text-align: center">  
+			                    <h:outputText value="#{travelComponent.excursionDateTime}" />  
+			                </p:column>
+			                <p:column headerText="Description" style="text-align: center">  
+			                    <h:outputText value="#{travelComponent.excursionDescription}" />  
+			                </p:column>
+			            
+			            </p:dataTable> 
+			            </h:panelGroup>
+			 		</h:form>   
+			    </p:tab> 	 	     	  				     		    	
+	    	</p:tabView>        
+ 		</p:panel>
+	  </composite:implementation>
+</html>

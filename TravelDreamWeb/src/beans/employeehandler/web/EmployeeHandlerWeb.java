@@ -1,21 +1,22 @@
 package beans.employeehandler.web;
 
-import java.io.IOException;
-import java.sql.Date;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
 
-import javax.annotation.PostConstruct;
+import java.sql.Date;
+
+import java.util.Calendar;
+
+
+
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.context.Flash;
-import javax.inject.Inject;
 
-import org.primefaces.event.CloseEvent;
+
+import org.apache.commons.lang3.time.DateFormatUtils;
+
 
 import beans.employeehandler.EmployeeHandlerInterface;
 import beans.travelcomponent.*;
@@ -32,8 +33,8 @@ public class EmployeeHandlerWeb  {
 	//Travel package creation data
 	private PredefinedTravelPackageDTO packageDTO;
 	
-	private java.util.Date packageDepDate;
-	private java.util.Date packageArrDate;
+	private java.util.Date packageStartDate;
+	private java.util.Date packageEndDate;
 	
 	//Travel component creation data
 	private TravelComponentDTO componentDTO;
@@ -52,31 +53,12 @@ public class EmployeeHandlerWeb  {
 	private boolean redirected;
 	private int activePanel;
 		
-	@Inject
-	private Data_Exchange data;
-	public Data_Exchange getData(){
-		return data;
-	}
-	public void setData(Data_Exchange data){
-		this.data = data;
-	}
 		
 	public EmployeeHandlerWeb()
 	{
 		componentDTO = new TravelComponentDTO();
 		packageDTO = new PredefinedTravelPackageDTO();
 		redirected = false;
-	}
-	
-	@PostConstruct
-	public void init(){
-		try{ // must use try catch, getters in Data_Exchange flushes lists by design! calling it twice is a logical error
-			packageDTO = data.getPredefinedTravelPackagesList().get(0);
-			redirected = true;
-		}
-		catch (java.lang.IndexOutOfBoundsException e){
-			redirected = false;
-		}
 	}
 	
 	public TravelComponentDTO getComponentDTO()
@@ -298,20 +280,20 @@ public class EmployeeHandlerWeb  {
 		}
 	}
 	
-	public java.util.Date getPackageDepDate() {
-		return packageDepDate;
+	public java.util.Date getPackageStartDate() {
+		return packageStartDate;
 	}
 
-	public void setPackageDepDate(java.util.Date packageDepDate) {
-		this.packageDepDate = packageDepDate;
+	public void setPackageStartDate(java.util.Date packageStartDate) {
+		this.packageStartDate = packageStartDate;
 	}
 
-	public java.util.Date getPackageArrDate() {
-		return packageArrDate;
+	public java.util.Date getPackageEndDate() {
+		return packageEndDate;
 	}
 
-	public void setPackageArrDate(java.util.Date packageArrDate) {
-		this.packageArrDate = packageArrDate;
+	public void setPackageEndDate(java.util.Date packageEndDate) {
+		this.packageEndDate = packageEndDate;
 	}
 
 	public PredefinedTravelPackageDTO getPackageDTO() {
@@ -324,31 +306,14 @@ public class EmployeeHandlerWeb  {
 	
 	public void deleteComponent(TravelComponentDTO component)
 	{
-		employeeHandler.removeTravelComponentFromPredefinedTravelPackage(packageDTO, component);		
+		employeeHandler.removeTravelComponentFromPredefinedTravelPackage(packageDTO, component);	
+		activePanel = 1;
 	}
 	
-	public void onTravelComponentChosen(CloseEvent event) throws IOException
+	public void addComponent(TravelComponentDTO component)
 	{
-		FacesMessage message = null;
-		try{ // must use try catch, getters in Data_Exchange flushes lists by design! calling it twice is a logical error
-			TravelComponentDTO travelComponent = data.getTravelComponentsList().get(0);
-			boolean result = employeeHandler.addTravelComponentToPredefinedTravelPackage(packageDTO, travelComponent);
-			if(result == false){
-				message =  new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error", "The component is already in the travel package!");
-			}			
-		}
-		catch (java.lang.IndexOutOfBoundsException e){/* does nothing */}
-		List<PredefinedTravelPackageDTO> toSend = new ArrayList<PredefinedTravelPackageDTO>();
-		toSend.add(packageDTO);
-		data.setPredefinedTravelPackagesList(toSend);
-		FacesContext facesContext = FacesContext.getCurrentInstance();
-		Flash flash = facesContext.getExternalContext().getFlash();
-		flash.setKeepMessages(true);
-		flash.setRedirect(true);
-		if(message != null)
-			facesContext.addMessage(null,message);
-		
-		FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/employee/control_panel.xhtml");
+		employeeHandler.addTravelComponentToPredefinedTravelPackage(packageDTO, component);
+		activePanel = 1;
 	}
 	
 	public int getActivePanel() {
@@ -364,5 +329,42 @@ public class EmployeeHandlerWeb  {
 	
 	public void setActivePanel(int activePanel) {
 		this.activePanel = activePanel;
+	}
+	
+	public String getDescription(TravelComponentDTO component)
+	{
+		String result = new String();
+		switch (component.getType())
+		{
+			case FLIGHT:
+				result = component.getFlightCode() + " - FROM: " + component.getFlightDepartureCity() + " ("+ component.getFlightDepartureDateTime() + ") - TO: " + component.getFlightArrivalCity() + " (" + component.getFlightArrivalDateTime() + ")";
+				break;
+			case HOTEL:
+				result = "CITY: " + component.getHotelCity() + " - DATE: " + DateFormatUtils.format(component.getHotelDate(), "yyyy-MM-dd");
+				break;
+			case EXCURSION:
+				result = "CITY: " + component.getExcursionCity() + " - DATE: " + component.getExcursionDateTime();
+				break;
+		}
+		return result;
+	}
+	
+	public void createPackage()
+	{
+		packageDTO.setDepartureDate(new java.sql.Date(packageStartDate.getTime()));
+		packageDTO.setReturnDate(new java.sql.Date(packageEndDate.getTime()));
+		boolean result = employeeHandler.addNewPredefinedTravelPackage(packageDTO);
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		if (result == true)
+		{
+			facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Successful", "Package correctly added."));
+			packageDTO = new PredefinedTravelPackageDTO();
+			packageStartDate = null;
+			packageEndDate = null;
+		}
+		else
+		{
+			facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error", "The package did not pass the consistency check."));
+		}
 	}
 }

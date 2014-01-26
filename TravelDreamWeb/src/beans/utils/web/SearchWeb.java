@@ -448,7 +448,15 @@ public class SearchWeb {
 		List<TravelComponentDTO> toSend = new ArrayList<TravelComponentDTO>();
 		toSend.add(travelComponent);
 		data.setTravelComponentsList(toSend);
-		String redirectTo = FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/view_travelcomponent.xhtml";
-		FacesContext.getCurrentInstance().getExternalContext().redirect(redirectTo); // TODO: waiting for TravelComponent page
+		RequestContext.getCurrentInstance().execute("window.alert('mona');");
+
+		//RequestContext.getCurrentInstance().openDialog("/misc/travelcomponent_details.xhtml");
+		//String redirectTo = FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/misc/travelcomponent_details.xhtml";
+		//FacesContext.getCurrentInstance().getExternalContext().redirect(redirectTo); // TODO: waiting for TravelComponent page
+		//FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"No Results", "sappi che funziono"));
+	}
+	public void openTravelComponentDialog()
+	{
+		RequestContext.getCurrentInstance().openDialog("/misc/travelcomponent_details.xhtml");
 	}
 }
