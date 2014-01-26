@@ -327,7 +327,7 @@ public class PersonalizedTravelPackageWeb {
 		if(result.isEmpty())
 			facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Successful", "Travel package succesfully confirmed!")); 
 		else
-			facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error", "An error occured. You are probably trying to confirm a package which is already confirmed, or the package is unconsistent. Check if the dates and the cities are consistent and retry.")); 
+			facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error", "An error occured. The server replied: " + result)); 
 		FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/customer/personalized_travel_package.xhtml");
 	}
 	
@@ -351,7 +351,7 @@ public class PersonalizedTravelPackageWeb {
 					FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/customer/personalized_travel_package.xhtml");
 				}
 				else{
-					FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error", "Something went wrong. You are probably trying to save an unconsistent travel package. Check if the dates and the cities are consistent and retry"));	
+					FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error", "Something went wrong. Server replied: " + result));	
 				}
 			}				
 			else{		
