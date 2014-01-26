@@ -105,6 +105,7 @@ public class Components_HelperDTO {
 		travelComponent.setExcursionDescription(this.excursionDescription);
 		travelComponent.setExcursionDateTime(this.excursionDateTime);
 		travelComponent.setExcursionCity(this.excursionCity);
+		travelComponent.setAvailability(0);
 		return travelComponent;
 	}
 }
