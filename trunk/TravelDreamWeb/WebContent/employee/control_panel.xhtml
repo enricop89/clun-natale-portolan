@@ -144,8 +144,8 @@
 			<ui:include src="/misc/search/search_travelcomponent_to_add.xhtml" /> 	
 		</p:dialog>  
 		
-		<p:dialog header="Add Travel Component" id="selectComponent" widgetVar="selectComponent" width="700" height="500" resizable="true" showEffect="clip" hideEffect="clip" dynamic="true">  
-		<p:ajax event="close" listener="#{EmployeeHandlerWeb.onTravelComponentChosen}"/> 
+		<p:dialog header="Add Travel Component" id="selectComponent" widgetVar="selectComponent" width="700" height="350" resizable="false" showEffect="clip" hideEffect="clip" dynamic="true">  
+		<p:ajax event="close" listener="#{EmployeeHandlerWeb.onTravelComponentChosen}" onstart="selectComponent.content.empty()"/> 
 		<h:form>		
 			<ui:include src="/misc/search/add_travelcomponent.xhtml" />  
 		</h:form>

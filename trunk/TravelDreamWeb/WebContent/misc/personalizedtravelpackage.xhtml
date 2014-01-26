@@ -74,12 +74,14 @@
 			<ui:include src="/misc/search/search_travelcomponent_to_add.xhtml" /> 	
 		</p:dialog>  
 		
-		<p:dialog header="Add Travel Component" id="selectComponent" widgetVar="selectComponent" width="700" height="500" resizable="true" showEffect="clip" hideEffect="clip" dynamic="true">  
-		<p:ajax event="close" listener="#{PersonalizedTravelPackageWeb.onTravelComponentChosen}"/>
+		<h:form>
+		<p:dialog header="Add Travel Component" id="selectComponent" widgetVar="selectComponent" width="700" height="350" resizable="false" showEffect="clip" hideEffect="clip" dynamic="true">  
+		<p:ajax event="close" listener="#{PersonalizedTravelPackageWeb.onTravelComponentChosen}" onstart="selectComponent.content.empty()"/>
 		<h:form>		
 			<ui:include src="/misc/search/add_travelcomponent.xhtml" />  
 		</h:form>
 		</p:dialog>		
+		</h:form>
 		
 		<!-- p:commandButton value="Add Travel Component" rendered="#{PersonalizedTravelPackageWeb.isOwner() and (PersonalizedTravelPackageWeb.checkStatus() == false)}" style="float:left" icon="ui-icon-plusthick" onclick="PF('searchComponent').show();PF('selectComponent').hide()"/-->
 		<p:commandButton value="Add Travel Component" rendered="#{PersonalizedTravelPackageWeb.isOwner()}" style="float:left" icon="ui-icon-plusthick" onclick="PF('searchComponent').show();PF('selectComponent').hide()"/>
