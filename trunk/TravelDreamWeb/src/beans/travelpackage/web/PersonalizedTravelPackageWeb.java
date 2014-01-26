@@ -11,7 +11,7 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.context.Flash;
 import javax.inject.Inject;
@@ -29,7 +29,7 @@ import beans.utils.SearchDTOInterface;
 import beans.utils.web.Data_Exchange;
 
 @ManagedBean(name="PersonalizedTravelPackageWeb")
-@RequestScoped
+@ViewScoped
 public class PersonalizedTravelPackageWeb {
 
 	@Inject

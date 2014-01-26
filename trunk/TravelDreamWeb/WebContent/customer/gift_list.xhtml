@@ -17,7 +17,7 @@
 		</p:tabMenu> 
   	 
 		<h:form>  
-		<p:dataTable var="element" value="#{CustomerHandlerWeb.giftList.giftElements}" paginator="true" rows="10" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="5,10,15" >  
+		<p:dataTable var="element" emptyMessage="No Travel Components" value="#{CustomerHandlerWeb.giftList.giftElements}" paginator="true" rows="10" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="5,10,15" >  
 			<p:column headerText="Type">  
 				<h:outputText value="#{element.travelComponent.travelComponent.type}" />  
 			</p:column>  
