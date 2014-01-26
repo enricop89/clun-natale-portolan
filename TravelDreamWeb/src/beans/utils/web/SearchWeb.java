@@ -9,19 +9,15 @@ import javax.inject.Inject;
 
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
-import org.primefaces.event.TabChangeEvent;
 
 import beans.accountmanagement.UserDTO;
-import beans.travelcomponent.ComponentType;
-import beans.travelcomponent.TravelComponentDTO;
 import beans.travelpackage.PredefinedTravelPackageDTO;
 import beans.utils.SearchDTOInterface;
 
 import java.io.IOException;
 import java.sql.Date;
-import java.sql.Timestamp;
+
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List; 
 import java.util.Map;
@@ -41,62 +37,23 @@ public class SearchWeb {
 		this.data = data;
 	}
 	
-	private TravelComponentDTO searchCriteria;
-	private String flightSupplyingCompany;
-	private String hotelSupplyingCompany;
-	private String excursionSupplyingCompany;	
 	private String packageName;
 	private java.util.Date departureDate;
 	private java.util.Date returnDate;
-	private java.util.Date flightDepartureDateTime;
-	private java.util.Date flightArrivalDateTime;
-	private java.util.Date hotelStartingDate;
-	private java.util.Date hotelEndingDate;
-	private java.util.Date excursionDateTime;
 	private String firstName;
 	private String lastName;
 	
 	private List<PredefinedTravelPackageDTO> predefinedTravelPackagesList;
 	private List<UserDTO> usersList;
-	private List<TravelComponentDTO> travelComponentsList;
 	
 	public SearchWeb(){
 		// initializations
-		searchCriteria = new TravelComponentDTO();
-		searchCriteria.setType(ComponentType.FLIGHT); // default value (since is the first tab displayed)
-		flightSupplyingCompany = new String();
-		hotelSupplyingCompany = new String();
-		excursionSupplyingCompany = new String();
 		packageName = new String();
 		firstName = new String();
 		lastName = new String();
 	}
 	//---------------------------
 	// SETTERS AND GETTERS	
-	public TravelComponentDTO getSearchCriteria(){
-		return searchCriteria;
-	}
-	public void setSearchCriteria(TravelComponentDTO searchCriteria){
-		this.searchCriteria = searchCriteria;
-	}
-	public String getFlightSupplyingCompany() {
-		return flightSupplyingCompany;
-	}
-	public void setFlightSupplyingCompany(String flightSupplyingCompany) {
-		this.flightSupplyingCompany = flightSupplyingCompany;
-	}
-	public String getHotelSupplyingCompany() {
-		return hotelSupplyingCompany;
-	}
-	public void setHotelSupplyingCompany(String hotelSupplyingCompany) {
-		this.hotelSupplyingCompany = hotelSupplyingCompany;
-	}
-	public String getExcursionSupplyingCompany() {
-		return excursionSupplyingCompany;
-	}
-	public void setExcursionSupplyingCompany(String excursionSupplyingCompany) {
-		this.excursionSupplyingCompany = excursionSupplyingCompany;
-	}
 	public String getPackageName(){
 		return packageName;
 	}
@@ -129,36 +86,6 @@ public class SearchWeb {
 	public void setLastName(String lastName){
 		this.lastName = lastName;
 	}
-	public java.util.Date getFlightDepartureDateTime() {
-		return flightDepartureDateTime;
-	}
-	public void setFlightDepartureDateTime(java.util.Date flightDepartureDateTime) {
-		this.flightDepartureDateTime = flightDepartureDateTime;
-	}
-	public java.util.Date getFlightArrivalDateTime() {
-		return flightArrivalDateTime;
-	}
-	public void setFlightArrivalDateTime(java.util.Date flightArrivalDateTime) {
-		this.flightArrivalDateTime = flightArrivalDateTime;
-	}
-	public java.util.Date getHotelStartingDate() {
-		return hotelStartingDate;
-	}
-	public void setHotelStartingDate(java.util.Date hotelStartingDate) {
-		this.hotelStartingDate = hotelStartingDate;
-	}
-	public java.util.Date getHotelEndingDate() {
-		return hotelEndingDate;
-	}
-	public void setHotelEndingDate(java.util.Date hotelEndingDate) {
-		this.hotelEndingDate = hotelEndingDate;
-	}
-	public java.util.Date getExcursionDateTime() {
-		return excursionDateTime;
-	}
-	public void setExcursionDateTime(java.util.Date excursionDateTime) {
-		this.excursionDateTime = excursionDateTime;
-	}	
 	//---------------------------
 	// PREDEFINED TRAVEL PACKAGES	
 	public void searchPredefinedTravelPackages(){
@@ -237,226 +164,5 @@ public class SearchWeb {
 			data.setUsersList(toSend);
 			FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/misc/other_customer/personal_page.xhtml");
 		}
-	}
-	
-	//---------------------------
-	// TRAVEL COMPONENTS
-	public void tabChangeListener(TabChangeEvent event){
-		searchCriteria = new TravelComponentDTO(); // flushes previous criteria
-		switch(event.getTab().getId()){
-		case "flights":
-			searchCriteria.setType(ComponentType.FLIGHT);
-			break;
-		case "hotels":
-			searchCriteria.setType(ComponentType.HOTEL);
-			break;
-		case "excursions":
-			searchCriteria.setType(ComponentType.EXCURSION);
-			break;
-		}
-	}
-	
-	public void searchTravelComponents(){
-		switch(searchCriteria.getType()){
-		case FLIGHT:
-			if(flightSupplyingCompany.isEmpty())
-				searchCriteria.setSupplyingCompany(null);
-			if(flightDepartureDateTime != null)
-				searchCriteria.setFlightDepartureDateTime(new Timestamp(flightDepartureDateTime.getTime()));		
-			else
-				searchCriteria.setFlightDepartureDateTime(null);
-		
-			if(flightArrivalDateTime != null)
-				searchCriteria.setFlightArrivalDateTime(new Timestamp(flightArrivalDateTime.getTime()));	
-			else
-				searchCriteria.setFlightArrivalDateTime(null);
-			
-			if(searchCriteria.getFlightDepartureCity().isEmpty())
-				searchCriteria.setFlightDepartureCity(null);
-			
-			if(searchCriteria.getFlightArrivalCity().isEmpty())
-				searchCriteria.setFlightArrivalCity(null);
-			
-			if(searchCriteria.getFlightCode().isEmpty())
-				searchCriteria.setFlightCode(null);
-			
-			travelComponentsList = finder.findTravelComponent(searchCriteria);
-			
-			break;
-		case HOTEL:
-			if(hotelSupplyingCompany.isEmpty())
-				searchCriteria.setSupplyingCompany(null);
-			if(searchCriteria.getHotelCity().isEmpty())
-				searchCriteria.setHotelCity(null);
-			if(hotelStartingDate != null && hotelEndingDate != null){
-				Calendar start = Calendar.getInstance();
-				start.setTime(hotelStartingDate);
-				Calendar end = Calendar.getInstance();
-				end.setTime(hotelEndingDate);
-				travelComponentsList = new ArrayList<TravelComponentDTO>();
-				for (java.util.Date date = start.getTime(); !start.after(end); start.add(Calendar.DATE, 1), date = start.getTime()) {
-				    searchCriteria.setHotelDate(new Date(date.getTime()));
-				    travelComponentsList.addAll(finder.findTravelComponent(searchCriteria));
-				}
-			}
-			else{
-				if(hotelStartingDate != null)
-					searchCriteria.setHotelDate(new Date(hotelStartingDate.getTime()));
-				else if(hotelEndingDate != null)
-					searchCriteria.setHotelDate(new Date(hotelEndingDate.getTime()));
-				
-				travelComponentsList = finder.findTravelComponent(searchCriteria);
-			}
-			
-			break;
-		case EXCURSION:
-			if(excursionSupplyingCompany.isEmpty())
-				searchCriteria.setSupplyingCompany(null);
-			if(searchCriteria.getExcursionCity().isEmpty())
-				searchCriteria.setExcursionCity(null);
-			
-			if(searchCriteria.getExcursionDescription().isEmpty())
-				searchCriteria.setExcursionDescription(null);
-			
-			if(excursionDateTime != null)
-				searchCriteria.setExcursionDateTime(new Timestamp(excursionDateTime.getTime()));
-			else
-				searchCriteria.setExcursionDateTime(null);
-			
-			travelComponentsList = finder.findTravelComponent(searchCriteria);
-			
-			break;
-		}
-		
-		if(travelComponentsList == null || travelComponentsList.isEmpty())
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"No Results", "Your search has given no results")); 
-		else{
-			data.setTravelComponentsList(travelComponentsList);
-	        Map<String,Object> options = new HashMap<String, Object>();  
-	        options.put("resizable", false);
-			RequestContext.getCurrentInstance().openDialog("/misc/search/travelcomponent_search.xhtml",options,null);
-		}
-	}
-	public void browseAllTravelComponents(){
-		travelComponentsList = finder.findAllTravelComponents();
-		
-		if(travelComponentsList == null || travelComponentsList.isEmpty())
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"No Results", "Your search has given no results")); 
-		else{
-			data.setTravelComponentsList(travelComponentsList);
-	        Map<String,Object> options = new HashMap<String, Object>();  
-	        options.put("resizable", false);
-			RequestContext.getCurrentInstance().openDialog("/misc/search/travelcomponent_search.xhtml",options,null);
-		}
-	}
-	
-	public void searchTravelComponents(String searchDialogName, String resultDialogName){
-		switch(searchCriteria.getType()){
-		case FLIGHT:
-			if(flightSupplyingCompany.isEmpty())
-				searchCriteria.setSupplyingCompany(null);
-			if(flightDepartureDateTime != null)
-				searchCriteria.setFlightDepartureDateTime(new Timestamp(flightDepartureDateTime.getTime()));		
-			else
-				searchCriteria.setFlightDepartureDateTime(null);
-		
-			if(flightArrivalDateTime != null)
-				searchCriteria.setFlightArrivalDateTime(new Timestamp(flightArrivalDateTime.getTime()));	
-			else
-				searchCriteria.setFlightArrivalDateTime(null);
-			
-			if(searchCriteria.getFlightDepartureCity().isEmpty())
-				searchCriteria.setFlightDepartureCity(null);
-			
-			if(searchCriteria.getFlightArrivalCity().isEmpty())
-				searchCriteria.setFlightArrivalCity(null);
-			
-			if(searchCriteria.getFlightCode().isEmpty())
-				searchCriteria.setFlightCode(null);
-			
-			travelComponentsList = finder.findTravelComponent(searchCriteria);
-			
-			break;
-		case HOTEL:
-			if(hotelSupplyingCompany.isEmpty())
-				searchCriteria.setSupplyingCompany(null);
-			if(searchCriteria.getHotelCity().isEmpty())
-				searchCriteria.setHotelCity(null);
-			if(hotelStartingDate != null && hotelEndingDate != null){
-				Calendar start = Calendar.getInstance();
-				start.setTime(hotelStartingDate);
-				Calendar end = Calendar.getInstance();
-				end.setTime(hotelEndingDate);
-				travelComponentsList = new ArrayList<TravelComponentDTO>();
-				for (java.util.Date date = start.getTime(); !start.after(end); start.add(Calendar.DATE, 1), date = start.getTime()) {
-				    searchCriteria.setHotelDate(new Date(date.getTime()));
-				    travelComponentsList.addAll(finder.findTravelComponent(searchCriteria));
-				}
-			}
-			else{
-				if(hotelStartingDate != null)
-					searchCriteria.setHotelDate(new Date(hotelStartingDate.getTime()));
-				else if(hotelEndingDate != null)
-					searchCriteria.setHotelDate(new Date(hotelEndingDate.getTime()));
-				
-				travelComponentsList = finder.findTravelComponent(searchCriteria);
-			}
-			
-			break;
-		case EXCURSION:
-			if(excursionSupplyingCompany.isEmpty())
-				searchCriteria.setSupplyingCompany(null);
-			if(searchCriteria.getExcursionCity().isEmpty())
-				searchCriteria.setExcursionCity(null);
-			
-			if(searchCriteria.getExcursionDescription().isEmpty())
-				searchCriteria.setExcursionDescription(null);
-			
-			if(excursionDateTime != null)
-				searchCriteria.setExcursionDateTime(new Timestamp(excursionDateTime.getTime()));
-			else
-				searchCriteria.setExcursionDateTime(null);
-			
-			travelComponentsList = finder.findTravelComponent(searchCriteria);
-			
-			break;
-		}
-		
-		if(travelComponentsList == null || travelComponentsList.isEmpty())
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"No Results", "Your search has given no results")); 
-		else{
-			data.setTravelComponentsList(travelComponentsList);
-			RequestContext.getCurrentInstance().execute(searchDialogName + ".hide()");
-			RequestContext.getCurrentInstance().execute(resultDialogName + ".show()");
-		}
-	}
-	public void browseAllTravelComponents(String searchDialogName, String resultDialogName){
-		travelComponentsList = finder.findAllTravelComponents();
-		
-		if(travelComponentsList == null || travelComponentsList.isEmpty())
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"No Results", "Your search has given no results")); 
-		else{
-			data.setTravelComponentsList(travelComponentsList);
-			RequestContext.getCurrentInstance().execute(searchDialogName + ".hide()");
-			RequestContext.getCurrentInstance().execute(resultDialogName + ".show()");
-		}
-	}
-	
-	public void onTravelComponentChosen(SelectEvent event) throws IOException{
-		// open up the travelComponent page
-		TravelComponentDTO travelComponent = (TravelComponentDTO) event.getObject(); 
-		List<TravelComponentDTO> toSend = new ArrayList<TravelComponentDTO>();
-		toSend.add(travelComponent);
-		data.setTravelComponentsList(toSend);
-		RequestContext.getCurrentInstance().execute("window.alert('mona');");
-
-		//RequestContext.getCurrentInstance().openDialog("/misc/travelcomponent_details.xhtml");
-		//String redirectTo = FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/misc/travelcomponent_details.xhtml";
-		//FacesContext.getCurrentInstance().getExternalContext().redirect(redirectTo); // TODO: waiting for TravelComponent page
-		//FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"No Results", "sappi che funziono"));
-	}
-	public void openTravelComponentDialog()
-	{
-		RequestContext.getCurrentInstance().openDialog("/misc/travelcomponent_details.xhtml");
 	}
 }

@@ -6,54 +6,54 @@
 	
 <h:form>  	
 	<p:panel header="Travel component details"> 
-		<h:outputText rendered="#{TravelComponentVisualizationWeb.component.type == 'FLIGHT'}" value="Flight details: " />
-		<h:outputText rendered="#{TravelComponentVisualizationWeb.component.type == 'HOTEL'}" value="Hotel details: " />
-		<h:outputText rendered="#{TravelComponentVisualizationWeb.component.type == 'EXCURSION'}" value="Excursion details: " />
+		<h:outputText rendered="#{TravelComponentWeb.component.type == 'FLIGHT'}" value="Flight details: " />
+		<h:outputText rendered="#{TravelComponentWeb.component.type == 'HOTEL'}" value="Hotel details: " />
+		<h:outputText rendered="#{TravelComponentWeb.component.type == 'EXCURSION'}" value="Excursion details: " />
 		
 		<p:panelGrid columns="2" >  
 		
 			<h:outputText value="Company name:" />
-			<h:outputText value="#{TravelComponentVisualizationWeb.component.supplyingCompany}" />  
+			<h:outputText value="#{TravelComponentWeb.component.supplyingCompany}" />  
 			
-			<h:outputText rendered="#{TravelComponentVisualizationWeb.component.type == 'FLIGHT'}" value="Flight code:" />
-			<h:outputText rendered="#{TravelComponentVisualizationWeb.component.type == 'FLIGHT'}" 
-			value="#{TravelComponentVisualizationWeb.component.flightCode}" />  
+			<h:outputText rendered="#{TravelComponentWeb.component.type == 'FLIGHT'}" value="Flight code:" />
+			<h:outputText rendered="#{TravelComponentWeb.component.type == 'FLIGHT'}" 
+			value="#{TravelComponentWeb.component.flightCode}" />  
 			
-			<h:outputText rendered="#{TravelComponentVisualizationWeb.component.type == 'FLIGHT'}" value="Departure city:" />
-			<h:outputText rendered="#{TravelComponentVisualizationWeb.component.type == 'FLIGHT'}" 
-			value="#{TravelComponentVisualizationWeb.component.flightDepartureCity}" />  
+			<h:outputText rendered="#{TravelComponentWeb.component.type == 'FLIGHT'}" value="Departure city:" />
+			<h:outputText rendered="#{TravelComponentWeb.component.type == 'FLIGHT'}" 
+			value="#{TravelComponentWeb.component.flightDepartureCity}" />  
 			
-			<h:outputText rendered="#{TravelComponentVisualizationWeb.component.type == 'FLIGHT'}" value="Arrival city:" />
-			<h:outputText rendered="#{TravelComponentVisualizationWeb.component.type == 'FLIGHT'}" 
-			value="#{TravelComponentVisualizationWeb.component.flightArrivalCity}" />  
+			<h:outputText rendered="#{TravelComponentWeb.component.type == 'FLIGHT'}" value="Arrival city:" />
+			<h:outputText rendered="#{TravelComponentWeb.component.type == 'FLIGHT'}" 
+			value="#{TravelComponentWeb.component.flightArrivalCity}" />  
 			
-			<h:outputText rendered="#{TravelComponentVisualizationWeb.component.type == 'FLIGHT'}" value="Departure time:" />
-			<h:outputText rendered="#{TravelComponentVisualizationWeb.component.type == 'FLIGHT'}" 
-			value="#{TravelComponentVisualizationWeb.component.flightDepartureDateTime}" />  
+			<h:outputText rendered="#{TravelComponentWeb.component.type == 'FLIGHT'}" value="Departure time:" />
+			<h:outputText rendered="#{TravelComponentWeb.component.type == 'FLIGHT'}" 
+			value="#{TravelComponentWeb.component.flightDepartureDateTime}" />  
 			
-			<h:outputText rendered="#{TravelComponentVisualizationWeb.component.type == 'FLIGHT'}" value="Arrival time:" />
-			<h:outputText rendered="#{TravelComponentVisualizationWeb.component.type == 'FLIGHT'}" 
-			value="#{TravelComponentVisualizationWeb.component.flightArrivalDateTime}" />
+			<h:outputText rendered="#{TravelComponentWeb.component.type == 'FLIGHT'}" value="Arrival time:" />
+			<h:outputText rendered="#{TravelComponentWeb.component.type == 'FLIGHT'}" 
+			value="#{TravelComponentWeb.component.flightArrivalDateTime}" />
 									
-			<h:outputText rendered="#{TravelComponentVisualizationWeb.component.type == 'HOTEL'}" value="City:" />
-			<h:outputText rendered="#{TravelComponentVisualizationWeb.component.type == 'HOTEL'}"  
-			value="#{TravelComponentVisualizationWeb.component.hotelCity}" />  
+			<h:outputText rendered="#{TravelComponentWeb.component.type == 'HOTEL'}" value="City:" />
+			<h:outputText rendered="#{TravelComponentWeb.component.type == 'HOTEL'}"  
+			value="#{TravelComponentWeb.component.hotelCity}" />  
 			
-			<h:outputText rendered="#{TravelComponentVisualizationWeb.component.type == 'HOTEL'}" value="Date:" />
-			<h:outputText rendered="#{TravelComponentVisualizationWeb.component.type == 'HOTEL'}"  
-			value="#{TravelComponentVisualizationWeb.component.hotelDate}" />
+			<h:outputText rendered="#{TravelComponentWeb.component.type == 'HOTEL'}" value="Date:" />
+			<h:outputText rendered="#{TravelComponentWeb.component.type == 'HOTEL'}"  
+			value="#{TravelComponentWeb.component.hotelDate}" />
 											
-			<h:outputText rendered="#{TravelComponentVisualizationWeb.component.type == 'EXCURSION'}" value="City:" />
-			<h:outputText rendered="#{TravelComponentVisualizationWeb.component.type == 'EXCURSION'}" 
-			value="#{TravelComponentVisualizationWeb.component.excursionCity}" />  
+			<h:outputText rendered="#{TravelComponentWeb.component.type == 'EXCURSION'}" value="City:" />
+			<h:outputText rendered="#{TravelComponentWeb.component.type == 'EXCURSION'}" 
+			value="#{TravelComponentWeb.component.excursionCity}" />  
 			
-			<h:outputText rendered="#{TravelComponentVisualizationWeb.component.type == 'EXCURSION'}" value="Date:" />
-			<h:outputText rendered="#{TravelComponentVisualizationWeb.component.type == 'EXCURSION'}" 
-			value="#{TravelComponentVisualizationWeb.component.excursionDateTime}" />	
+			<h:outputText rendered="#{TravelComponentWeb.component.type == 'EXCURSION'}" value="Date:" />
+			<h:outputText rendered="#{TravelComponentWeb.component.type == 'EXCURSION'}" 
+			value="#{TravelComponentWeb.component.excursionDateTime}" />	
 						
-			<h:outputText rendered="#{TravelComponentVisualizationWeb.component.type == 'EXCURSION'}" value="Description:" />
-			<h:outputText rendered="#{TravelComponentVisualizationWeb.component.type == 'EXCURSION'}" 
-			value="#{TravelComponentVisualizationWeb.component.excursionDescription}" />	
+			<h:outputText rendered="#{TravelComponentWeb.component.type == 'EXCURSION'}" value="Description:" />
+			<h:outputText rendered="#{TravelComponentWeb.component.type == 'EXCURSION'}" 
+			value="#{TravelComponentWeb.component.excursionDescription}" />	
 		</p:panelGrid>
 	</p:panel>
 	

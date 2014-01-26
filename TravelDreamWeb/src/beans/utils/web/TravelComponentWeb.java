@@ -11,9 +11,9 @@ import javax.inject.Inject;
 import beans.travelcomponent.TravelComponentDTO;
 import beans.utils.SearchDTOInterface;
 
-@ManagedBean(name="TravelComponentVisualizationWeb")
+@ManagedBean(name="TravelComponentWeb")
 @RequestScoped
-public class TravelComponentVisualizationWeb 
+public class TravelComponentWeb 
 {
 	@EJB
 	private SearchDTOInterface finder;
@@ -29,7 +29,7 @@ public class TravelComponentVisualizationWeb
 	
 	private TravelComponentDTO component;
 	
-	public TravelComponentVisualizationWeb()
+	public TravelComponentWeb()
 	{
 		
 	}
@@ -37,15 +37,8 @@ public class TravelComponentVisualizationWeb
 	@PostConstruct
 	public void init(){
 		List<TravelComponentDTO> res = data.getTravelComponentsList();
-		if (res.size() == 0)
-		{
-			this.component = finder.findAllTravelComponents().get(0);
-			//TODO: show an error instead!
-		}
-		else
-		{
+		if(!res.isEmpty())
 			this.component = res.get(0);
-		}
 	}
 
 	public TravelComponentDTO getComponent() {

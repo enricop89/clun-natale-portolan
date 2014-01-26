@@ -26,39 +26,43 @@
 				    <h:form>  
 					    <p:panel header="Define search criteria" id="psc"> 
 					    	    
-						    <h:panelGrid columns="4">  
+						    <h:panelGrid columns="2">  
 						 	<h:outputLabel for="flightSupplyingCompany">Supplying Company:</h:outputLabel>
-			            	<p:inputText id="flightSupplyingCompany" value="#{SearchTravelComponentsV2.flightSupplyingCompany}"/>						  
+			            	<p:inputText id="flightSupplyingCompany" value="#{SearchTravelComponents.flightSupplyingCompany}"/>						  
 						 	<h:outputLabel for="flightCode">Flight Code:</h:outputLabel>
-			            	<p:inputText id="flightCode" value="#{SearchTravelComponentsV2.searchCriteria.flightCode}"/>						
+			            	<p:inputText id="flightCode" value="#{SearchTravelComponents.searchCriteria.flightCode}"/>						
 						 	<h:outputLabel for="flightDepartureCity">Departure City:</h:outputLabel>
-			            	<p:inputText id="flightDepartureCity" value="#{SearchTravelComponentsV2.searchCriteria.flightDepartureCity}"/>	
+			            	<p:inputText id="flightDepartureCity" value="#{SearchTravelComponents.searchCriteria.flightDepartureCity}"/>	
 						 	<h:outputLabel for="flightArrivalCity">Arrival City:</h:outputLabel>
-			            	<p:inputText id="flightArrivalCity" value="#{SearchTravelComponentsV2.searchCriteria.flightArrivalCity}"/>	
+			            	<p:inputText id="flightArrivalCity" value="#{SearchTravelComponents.searchCriteria.flightArrivalCity}"/>	
 			 			 	<h:outputLabel for="flightDepartureDateTime">Departure Date and Time:</h:outputLabel>           	
-			            	<p:calendar value="#{SearchTravelComponentsV2.flightDepartureDateTime}" id="flightDepartureDateTime" showButtonPanel="true" pattern="MM/dd/yyyy HH:mm"/>  
+			            	<p:calendar value="#{SearchTravelComponents.flightDepartureDateTime}" id="flightDepartureDateTime" showButtonPanel="true" pattern="MM/dd/yyyy HH:mm"/>  
 						 	<h:outputLabel for="flightArrivalDateTime">Arrival Date and Time:</h:outputLabel>            	
-			            	<p:calendar value="#{SearchTravelComponentsV2.flightArrivalDateTime}" id="flightArrivalDateTime" showButtonPanel="true" pattern="MM/dd/yyyy HH:mm"/>
-	           		    	<p:commandButton value="Search" icon="ui-icon-search" action="#{SearchTravelComponentsV2.search('FLIGHT', false)}" update="flightResult,f_searchgrowl" ajax="true" styleClass="ui-priority-primary"/>  
-	       					<p:commandButton value="Browse All" icon="ui-icon-search" action="#{SearchTravelComponentsV2.search('FLIGHT', true)}" update="flightResult,f_searchgrowl" ajax="true"/>
-	       					<p:growl id="f_searchgrowl" showDetail="true" sticky="true" />  	 					
+			            	<p:calendar value="#{SearchTravelComponents.flightArrivalDateTime}" id="flightArrivalDateTime" showButtonPanel="true" pattern="MM/dd/yyyy HH:mm"/>
+	           		    	<p:row>
+	           		    	<p:commandButton value="Search" icon="ui-icon-search" action="#{SearchTravelComponents.search('FLIGHT', false)}" update="flightResult,f_searchgrowl" ajax="true" styleClass="ui-priority-primary"/>  
+	       					<p:commandButton value="Browse All" icon="ui-icon-search" action="#{SearchTravelComponents.search('FLIGHT', true)}" update="flightResult,f_searchgrowl" ajax="true"/>
+	       					</p:row>
+	       					<p:growl id="f_searchgrowl" showDetail="true" globalOnly="true" />  	 					
 							</h:panelGrid>	
 						       
 				 		</p:panel>
 				 		<h:panelGroup layout="block" id="flightResult">
-			            <p:dataTable var="travelComponent" value="#{SearchTravelComponentsV2.resultList}" 
-			             rendered="#{SearchTravelComponentsV2.showFlightResult}">
+			            <p:dataTable var="travelComponent" value="#{SearchTravelComponents.resultList}" 
+			             rendered="#{SearchTravelComponents.showFlightResult}" paginator="true" rows="5"  
+                		 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                 		 rowsPerPageTemplate="5" > 
 	                     	<f:facet name="header">  
 					            Search result 
 					        </f:facet>  
 			                <p:column headerText="" style="text-align: center">  
 			                	<p:row>
 			                    <p:commandButton id="add" style="float:center" icon="#{cc.attrs.Method1Icon}" ajax="false" 
-			                    action="#{SearchTravelComponentsV2.callSelectedFunction(travelComponent, cc.attrs.bean, cc.attrs.Method1Name)}"
+			                    action="#{SearchTravelComponents.callSelectedFunction(travelComponent, cc.attrs.bean, cc.attrs.Method1Name)}"
 			                    rendered="#{!cc.attrs.Method1Name.isEmpty()}"
 								/>
 			                    <p:commandButton id="visualize" style="float:center" icon="#{cc.attrs.Method2Icon}" ajax="false" 
-			                    action="#{SearchTravelComponentsV2.callSelectedFunction(travelComponent, cc.attrs.bean, cc.attrs.Method2Name)}"
+			                    action="#{SearchTravelComponents.callSelectedFunction(travelComponent, cc.attrs.bean, cc.attrs.Method2Name)}"
 			                    rendered="#{!cc.attrs.Method2Name.isEmpty()}"
 			                    /> 
 								</p:row>
@@ -99,34 +103,38 @@
 			   	<p:tab id="hotels" title="Hotels">
 			   		<h:form>  
 					    <p:panel header="Define search criteria"> 				    	    
-						    <h:panelGrid columns="4">  
+						    <h:panelGrid columns="2">  
 						 	<h:outputLabel for="hotelSupplyingCompany">Supplying Company:</h:outputLabel>
-			            	<p:inputText id="hotelSupplyingCompany" value="#{SearchTravelComponentsV2.hotelSupplyingCompany}"/>	
+			            	<p:inputText id="hotelSupplyingCompany" value="#{SearchTravelComponents.hotelSupplyingCompany}"/>	
 						 	<h:outputLabel for="hotelCity">City:</h:outputLabel>
-			            	<p:inputText id="hotelCity" value="#{SearchTravelComponentsV2.searchCriteria.hotelCity}"/>	            	
+			            	<p:inputText id="hotelCity" value="#{SearchTravelComponents.searchCriteria.hotelCity}"/>	            	
 			 			 	<h:outputLabel for="hotelStartingDate">Starting Date:</h:outputLabel>           	
-			            	<p:calendar value="#{SearchTravelComponentsV2.hotelStartingDate}" id="hotelStartingDate" showButtonPanel="true"/>  	
+			            	<p:calendar value="#{SearchTravelComponents.hotelStartingDate}" id="hotelStartingDate" showButtonPanel="true"/>  	
 						 	<h:outputLabel for="hotelEndingDate">Ending Date:</h:outputLabel>            	
-			            	<p:calendar value="#{SearchTravelComponentsV2.hotelEndingDate}" id="hotelEndingDate" showButtonPanel="true"/> 	
-	           		    	<p:commandButton value="Search" icon="ui-icon-search"  update="hotelResult,h_searchgrowl" action="#{SearchTravelComponentsV2.search('HOTEL', false)}" ajax="true" styleClass="ui-priority-primary"/>  
-	       					<p:commandButton value="Browse All" icon="ui-icon-search" update="hotelResult,h_searchgrowl" action="#{SearchTravelComponentsV2.search('HOTEL', true)}" ajax="true"/>
-	       					<p:growl id="h_searchgrowl" showDetail="true" sticky="true" />  	            							  
+			            	<p:calendar value="#{SearchTravelComponents.hotelEndingDate}" id="hotelEndingDate" showButtonPanel="true"/> 	
+	           		    	<p:row>
+	           		    	<p:commandButton value="Search" icon="ui-icon-search"  update="hotelResult,h_searchgrowl" action="#{SearchTravelComponents.search('HOTEL', false)}" ajax="true" styleClass="ui-priority-primary"/>  
+	       					<p:commandButton value="Browse All" icon="ui-icon-search" update="hotelResult,h_searchgrowl" action="#{SearchTravelComponents.search('HOTEL', true)}" ajax="true"/>
+	       					</p:row>
+	       					<p:growl id="h_searchgrowl" showDetail="true" globalOnly="true" />  	            							  
 							</h:panelGrid>	 
 				 		</p:panel>
 				 		<h:panelGroup layout="block" id="hotelResult">
-				            <p:dataTable var="travelComponent" value="#{SearchTravelComponentsV2.resultList}" 
-				             rendered="#{SearchTravelComponentsV2.showHotelResult}">
+				            <p:dataTable var="travelComponent" value="#{SearchTravelComponents.resultList}" 
+				             rendered="#{SearchTravelComponents.showHotelResult}" paginator="true" rows="5"  
+                		 	 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                 		 	 rowsPerPageTemplate="5" > 
 		                     	<f:facet name="header">  
 						            Search result 
 						        </f:facet>  
 				                <p:column headerText="" style="text-align: center">  
 				                	<p:row>
 						                <p:commandButton id="add" style="float:center" icon="#{cc.attrs.Method1Icon}" ajax="false" 
-					                    action="#{SearchTravelComponentsV2.callSelectedFunction(travelComponent, cc.attrs.bean, cc.attrs.Method1Name)}"
+					                    action="#{SearchTravelComponents.callSelectedFunction(travelComponent, cc.attrs.bean, cc.attrs.Method1Name)}"
 					                    rendered="#{!cc.attrs.Method1Name.isEmpty()}"
 										/>
 					                    <p:commandButton id="visualize" style="float:center" icon="#{cc.attrs.Method2Icon}" ajax="false" 
-					                    action="#{SearchTravelComponentsV2.callSelectedFunction(travelComponent, cc.attrs.bean, cc.attrs.Method2Name)}"
+					                    action="#{SearchTravelComponents.callSelectedFunction(travelComponent, cc.attrs.bean, cc.attrs.Method2Name)}"
 					                    rendered="#{!cc.attrs.Method2Name.isEmpty()}"
 					                    />  
 									</p:row>
@@ -158,34 +166,38 @@
 			    <h:form>
 				    <p:panel header="Define search criteria">   
 				    	    
-					    <h:panelGrid columns="4">  
+					    <h:panelGrid columns="2">  
 						<h:outputLabel for="excursionSupplyingCompany">Supplying Company:</h:outputLabel>
-		            	<p:inputText id="excursionSupplyingCompany" value="#{SearchTravelComponentsV2.excursionSupplyingCompany}"/>	
+		            	<p:inputText id="excursionSupplyingCompany" value="#{SearchTravelComponents.excursionSupplyingCompany}"/>	
 						<h:outputLabel for="excursionCity">City:</h:outputLabel>
-		            	<p:inputText id="excursionCity" value="#{SearchTravelComponentsV2.searchCriteria.excursionCity}"/>		            	
+		            	<p:inputText id="excursionCity" value="#{SearchTravelComponents.searchCriteria.excursionCity}"/>		            	
 						<h:outputLabel for="excursionDescription">Description (even only a part):</h:outputLabel>
-		            	<p:inputText id="excursionDescription" value="#{SearchTravelComponentsV2.searchCriteria.excursionDescription}"/>	            	
+		            	<p:inputText id="excursionDescription" value="#{SearchTravelComponents.searchCriteria.excursionDescription}"/>	            	
 					 	<h:outputLabel for="excursionDateTime">Date and Time:</h:outputLabel>            	
-		            	<p:calendar value="#{SearchTravelComponentsV2.excursionDateTime}" id="excursionDateTime" showButtonPanel="true" pattern="MM/dd/yyyy HH:mm"/>
-           		    	<p:commandButton value="Search" icon="ui-icon-search" action="#{SearchTravelComponentsV2.search('EXCURSION', false)}" update="excursionResult,e_searchgrowl" ajax="true" styleClass="ui-priority-primary"/>  
-       					<p:commandButton value="Browse All" icon="ui-icon-search" action="#{SearchTravelComponentsV2.search('EXCURSION', true)}" update="excursionResult,e_searchgrowl" ajax="true"/>
-       					<p:growl id="e_searchgrowl" showDetail="true" sticky="true" />  	 						            						  
+		            	<p:calendar value="#{SearchTravelComponents.excursionDateTime}" id="excursionDateTime" showButtonPanel="true" pattern="MM/dd/yyyy HH:mm"/>
+           		    	<p:row>
+           		    	<p:commandButton value="Search" icon="ui-icon-search" action="#{SearchTravelComponents.search('EXCURSION', false)}" update="excursionResult,e_searchgrowl" ajax="true" styleClass="ui-priority-primary"/>  
+       					<p:commandButton value="Browse All" icon="ui-icon-search" action="#{SearchTravelComponents.search('EXCURSION', true)}" update="excursionResult,e_searchgrowl" ajax="true"/>
+       					</p:row>
+       					<p:growl id="e_searchgrowl" showDetail="true" globalOnly="true" />  	 						            						  
 						</h:panelGrid>	
 			 		</p:panel>
 			 		<h:panelGroup layout="block" id="excursionResult">
-			            <p:dataTable var="travelComponent" value="#{SearchTravelComponentsV2.resultList}" 
-			             rendered="#{SearchTravelComponentsV2.showExcursionResult}">
+			            <p:dataTable var="travelComponent" value="#{SearchTravelComponents.resultList}" 
+			             rendered="#{SearchTravelComponents.showExcursionResult}" paginator="true" rows="5"  
+                		 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                 		 rowsPerPageTemplate="5" > 
 	                     	<f:facet name="header">  
 					            Search result 
 					        </f:facet>  
 			                <p:column headerText="" style="text-align: center">  
 			                	<p:row>
 						                <p:commandButton id="add" style="float:center" icon="#{cc.attrs.Method1Icon}" ajax="false" 
-					                    action="#{SearchTravelComponentsV2.callSelectedFunction(travelComponent, cc.attrs.bean, cc.attrs.Method1Name)}"
+					                    action="#{SearchTravelComponents.callSelectedFunction(travelComponent, cc.attrs.bean, cc.attrs.Method1Name)}"
 					                    rendered="#{!cc.attrs.Method1Name.isEmpty()}"
 										/>
 					                    <p:commandButton id="visualize" style="float:center" icon="#{cc.attrs.Method2Icon}" ajax="false" 
-					                    action="#{SearchTravelComponentsV2.callSelectedFunction(travelComponent, cc.attrs.bean, cc.attrs.Method2Name)}"
+					                    action="#{SearchTravelComponents.callSelectedFunction(travelComponent, cc.attrs.bean, cc.attrs.Method2Name)}"
 					                    rendered="#{!cc.attrs.Method2Name.isEmpty()}"
 					                    />  
 								</p:row>
