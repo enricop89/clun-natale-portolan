@@ -62,7 +62,7 @@ public class EmployeeHandler implements EmployeeHandlerInterface{
 	}
 	
 	@Override
-	@RolesAllowed({"EMPLOYEE","CUSTOMER"})	//TODO:modificato qui
+	@RolesAllowed({"EMPLOYEE","CUSTOMER"})
 	public boolean addTravelComponentToPredefinedTravelPackage(PredefinedTravelPackageDTO predefinedTravelPackage, TravelComponentDTO travelComponent){
 		//control first if it is in the personalizedTravelPackage already
 		for(int i = 0; i < predefinedTravelPackage.getTravelComponents().size(); i++)
