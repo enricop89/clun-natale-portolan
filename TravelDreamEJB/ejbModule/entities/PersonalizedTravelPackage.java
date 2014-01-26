@@ -48,7 +48,20 @@ public class PersonalizedTravelPackage implements Serializable {
 		this.departureDate = personalizedTravelPackage.getDepartureDate();
 		this.travelComponents = new ArrayList<Components_Helper>();
 		for(int i = 0; i < personalizedTravelPackage.getTravelComponents().size(); i++)
-			travelComponents.add(search.findComponents_Helper(personalizedTravelPackage.getTravelComponents().get(i)));
+		{
+			Components_Helper component = search.findComponents_Helper(personalizedTravelPackage.getTravelComponents().get(i));
+			if(component != null)
+				travelComponents.add(component);
+			else // it must be a new one
+			{
+				component = new Components_Helper();
+				component.setPersonalizedTravelPackage(this);
+				component.setTravelComponent(search.findTravelComponent(personalizedTravelPackage.getTravelComponents().get(i).getTravelComponent()));
+				component.setTravelElement(null);
+				travelComponents.add(component);
+			}
+		}	
+
 	}
 	public long getId() {
 		return this.id;

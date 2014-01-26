@@ -67,8 +67,19 @@ public class CustomerHandler implements CustomerHandlerInterface{
 		PersonalizedTravelPackage toConfirm = search.findPersonalizedTravelPackage(personalizedTravelPackage);
 		// check if the original one and the DTO are different, if so call an update first
 		String result = "";
-		if(!toConfirm.getName().equals(personalizedTravelPackage.getName()) || toConfirm.getDepartureDate().compareTo(personalizedTravelPackage.getDepartureDate()) != 0 || toConfirm.getReturnDate().compareTo(personalizedTravelPackage.getReturnDate()) != 0 || !toConfirm.getTravelComponents().equals(personalizedTravelPackage.getTravelComponents()))
+		if(!toConfirm.getName().equals(personalizedTravelPackage.getName()) || toConfirm.getDepartureDate().compareTo(personalizedTravelPackage.getDepartureDate()) != 0 || toConfirm.getReturnDate().compareTo(personalizedTravelPackage.getReturnDate()) != 0)
 			result = updatePersonalizedTravelPackage(personalizedTravelPackage);
+		else if(toConfirm.getTravelComponents().size() != personalizedTravelPackage.getTravelComponents().size())
+			result = updatePersonalizedTravelPackage(personalizedTravelPackage);
+		else{
+			boolean different = false;
+			for(int i = 0; i < personalizedTravelPackage.getTravelComponents().size(); i++)
+				if(search.findComponents_Helper(personalizedTravelPackage.getTravelComponents().get(i)) == null)
+					different = true; // there exists at least one new component
+			
+			if(different == true)
+				result = updatePersonalizedTravelPackage(personalizedTravelPackage);				
+		}
 		
 		if(result.isEmpty())
 			return handler.confirmPersonalizedTravelPackage(search.findPersonalizedTravelPackage(personalizedTravelPackage));
