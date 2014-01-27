@@ -47,11 +47,6 @@ public class TravelComponentWeb
 	private java.util.Date excursionDate;
 	private java.util.Date hotelDate;
 	
-	public TravelComponentWeb()
-	{
-		
-	}
-	
 	@PostConstruct
 	public void init(){
 		List<TravelComponentDTO> res = data.getTravelComponentsList();
@@ -117,13 +112,12 @@ public class TravelComponentWeb
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		Flash flash = facesContext.getExternalContext().getFlash();
 		flash.setKeepMessages(true);
-		flash.setRedirect(true);
+		flash.setRedirect(true);	
+		RequestContext.getCurrentInstance().execute("window.top.location.reload();");//.closeDialog(result);
 		if(result == true)
 			facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Successful", "Travel component updated!")); 
 		
 		else
 			facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error", "")); 
-	
-		RequestContext.getCurrentInstance().execute("window.top.location.reload();");//.closeDialog(result);
 	}
 }
