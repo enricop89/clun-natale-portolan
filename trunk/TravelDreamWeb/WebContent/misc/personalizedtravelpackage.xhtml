@@ -24,16 +24,6 @@
 				<p:column style="width:100%; text-align: right">Return Date</p:column>
 			</p:row>
 		</f:facet>
-		<p:column headerText="" style="text-align: center"> 
-     		<p:row> 
-     			<p:commandButton id="visualize" icon="ui-icon-search" action="#{PersonalizedTravelPackageWeb.showComponent(element)}" rendered="#{PersonalizedTravelPackageWeb.isHotelRoot(element) == false}"/> 
-        		<p:commandButton id="addToGiftList" icon="ui-icon-cart" rendered="#{PersonalizedTravelPackageWeb.isOwner() == true and PersonalizedTravelPackageWeb.isHotelRoot(element) == false}"  action="#{PersonalizedTravelPackageWeb.addToGiftList(element)}" ajax="false"/>
-        		<p:commandButton id="delete" icon="ui-icon-trash" rendered="#{PersonalizedTravelPackageWeb.isOwner() == true and PersonalizedTravelPackageWeb.isHotelRoot(element) == false}"  action="#{PersonalizedTravelPackageWeb.deleteComponent(element)}" ajax="false"/>  
-           	</p:row>
-           	<p:tooltip for="delete" value="Delete the component" showEffect="fade" hideEffect="fade" /> 
-           	<p:tooltip for="visualize" value="View the details of the component" showEffect="fade" hideEffect="fade" />   
-           	<p:tooltip for="addToGiftList" value="Add this component to your gift list" showEffect="fade" hideEffect="fade" />   
-		</p:column> 
 		<p:row>
 			<p:column style="width:50%; text-align: left">
 				<p:inplace id="Departure_date" editor="true">
@@ -69,6 +59,18 @@
 			 	<p:graphicImage id="Unconfirmed" value="/resources/images/unconfirmed.png" style="float:center" rendered="#{PersonalizedTravelPackageWeb.checkStatus(element) == false and PersonalizedTravelPackageWeb.isHotelRoot(element) == false}" />
 				<p:tooltip for="Unconfirmed" value="The component is not payed" showEffect="fade" hideEffect="fade" /> 
 			</p:column>
+			
+			<p:column headerText="" style="text-align: center"> 
+	     		<p:row> 
+	     			<p:commandButton id="visualize" icon="ui-icon-search" action="#{PersonalizedTravelPackageWeb.showComponent(element)}" rendered="#{PersonalizedTravelPackageWeb.isHotelRoot(element) == false}"/> 
+	        		<p:commandButton id="addToGiftList" icon="ui-icon-cart" rendered="#{PersonalizedTravelPackageWeb.isOwner() == true and PersonalizedTravelPackageWeb.isHotelRoot(element) == false}"  action="#{PersonalizedTravelPackageWeb.addToGiftList(element)}" ajax="false"/>
+	        		<p:commandButton id="delete" icon="ui-icon-trash" rendered="#{PersonalizedTravelPackageWeb.isOwner() == true and PersonalizedTravelPackageWeb.isHotelRoot(element) == false}"  action="#{PersonalizedTravelPackageWeb.deleteComponent(element)}" ajax="false"/>  
+	           	</p:row>
+	           	<p:tooltip for="delete" value="Delete the component" showEffect="fade" hideEffect="fade" /> 
+	           	<p:tooltip for="visualize" value="View the details of the component" showEffect="fade" hideEffect="fade" />   
+	           	<p:tooltip for="addToGiftList" value="Add this component to your gift list" showEffect="fade" hideEffect="fade" />   
+			</p:column> 
+			
 			<f:facet name="footer">
 				<p:commandButton value="Add Travel Component" rendered="#{PersonalizedTravelPackageWeb.isOwner() and (PersonalizedTravelPackageWeb.checkPackageStatus() == false)}" style="float:center" icon="ui-icon-plusthick" onclick="PF('searchComponent').show()" />
 			</f:facet>				
