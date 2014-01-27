@@ -107,7 +107,7 @@
 				<p:panelGrid  style="width:100%"> 
 					<p:row>         	
 						<p:column style="text-align: right"> <h:outputLabel for="package_start">Departure Date:</h:outputLabel></p:column>         	
-						<p:column> <p:calendar value="#{EmployeeHandlerWeb.packageStartDate}" id="package_start" showButtonPanel="true"  pattern="MM/dd/yyyy HH:mm"/> </p:column>
+						<p:column> <p:calendar value="#{EmployeeHandlerWeb.packageStartDate}" id="package_start" showButtonPanel="true"  pattern="dd/MM/yyyy HH:mm"/> </p:column>
 						<p:column rowspan="3"  style="text-align: right"> <h:outputLabel for="package_desc" value="Description: "/>	</p:column>
 						<p:column rowspan="3"> 	
 							<p:inputTextarea label="des" rows="3" cols="50" counter="tp_counter" maxlength="255"       
@@ -118,7 +118,7 @@
 					</p:row> 
 					<p:row>	
 						<p:column style="text-align: right"> <h:outputLabel for="package_end">Return Date:</h:outputLabel></p:column>     	
-						<p:column> <p:calendar value="#{EmployeeHandlerWeb.packageEndDate}" id="package_end" showButtonPanel="true"  pattern="MM/dd/yyyy HH:mm"/></p:column>
+						<p:column> <p:calendar value="#{EmployeeHandlerWeb.packageEndDate}" id="package_end" showButtonPanel="true"  pattern="dd/MM/yyyy HH:mm"/></p:column>
 					</p:row> 	
 					<p:row>	
 						<p:column style="text-align: right"> <h:outputLabel for="package_name">Name:</h:outputLabel></p:column>     	
@@ -165,7 +165,7 @@
            	</p:panel>
 		</h:form>
 		<p:dialog id="searchComponent" widgetVar="searchComponent" modal="true" resizable="false" position="top"
-		 showEffect="clip" hideEffect="clip" appendTo="@(body)">  
+		 showEffect="clip" hideEffect="clip" appendTo="@(body)" header="Search travel component">  
 			   		<denny:search_travelcomponent bean="#{EmployeeHandlerWeb}"
 			   		Method1Name="addComponentToPackage" Method1Icon="ui-icon-plusthick" Method1Tooltip="Add the travel component"
 			   		Method2Name="" Method2Icon="" Method2Tooltip="" />
@@ -174,18 +174,17 @@
 		
 	         	
     </p:tab>  
-    <p:tab title="Search" id="search">  
-    	<p:tabView>
-    		<p:tab  title="Predefined Travel Packages">
-    			<ui:include src="/misc/search/search.xhtml" />
-    		</p:tab>
-    		<p:tab title="TravelComponents">
-  			   	<denny:search_travelcomponent bean="#{EmployeeHandlerWeb}"
- 				Method1Name="deleteComponent" Method1Icon="ui-icon-trash" Method1Tooltip="Delete the travel component"
- 				Method2Name="editComponentDetails" Method2Icon="ui-icon-pencil" Method2Tooltip="Edit the travel component info"/>
-    		</p:tab>
-    	</p:tabView>
-    </p:tab>  
+    <p:tab title="Search predefined travel package" id="searchPTP">  
+		<ui:include src="/misc/search/search.xhtml" />
+	</p:tab>
+    		
+	<p:tab title="Search predefined travel components" id="search">
+   	<denny:search_travelcomponent bean="#{EmployeeHandlerWeb}"
+		Method1Name="deleteComponent" Method1Icon="ui-icon-trash" Method1Tooltip="Delete the travel component"
+		Method2Name="editComponentDetails" Method2Icon="ui-icon-pencil" Method2Tooltip="Edit the travel component info"/>
+	</p:tab>
+    
+ 
 </p:accordionPanel>  
 
 
