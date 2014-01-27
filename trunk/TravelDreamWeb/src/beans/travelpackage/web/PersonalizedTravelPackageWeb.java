@@ -407,6 +407,6 @@ public class PersonalizedTravelPackageWeb {
 	}
 	
 	public void joinPackage() throws IOException{
-
+		// TODO: Ultima cosa per me, poi mi tiro via dai giochi che ho da preparare l'esame!
 	}	
 }
