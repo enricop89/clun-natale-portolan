@@ -90,12 +90,18 @@ public class PredefinedTravelPackageWeb {
 	
 	public void copyInPersonalizedTravelPackage(PredefinedTravelPackageDTO helper) throws IOException{
 		user = search.findUser(FacesContext.getCurrentInstance().getExternalContext().getRemoteUser());
-		customerHandler.addNewPersonalizedTravelPackage(user, helper);
-		FacesContext facesContext = FacesContext.getCurrentInstance();
+		String result=customerHandler.addNewPersonalizedTravelPackage(user, helper);
+		FacesMessage message = null;
+		if(result.isEmpty()){
+			message = new FacesMessage(FacesMessage.SEVERITY_INFO,"Successful", "Your package has been succesfully saved!"); 
+		}
+		else{
+			message = new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error", "Something went wrong. Server replied: " + result);	
+		}	FacesContext facesContext = FacesContext.getCurrentInstance();
 		Flash flash = facesContext.getExternalContext().getFlash();
 		flash.setKeepMessages(true);
 		flash.setRedirect(true);
-		facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Successful", "You have succesfully add the travel package in your list of package!"));
+		facesContext.addMessage(null,message); 
 		FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/customer/personal_travel_package.xhtml?faces-redirect=true");
 	}
 	
@@ -106,28 +112,31 @@ public void save() throws IOException{
 			predTP.setDepartureDate(new Date(departureDate.getTime()));
 		if(returnDate != null)
 			predTP.setReturnDate(new Date(returnDate.getTime()));
-		
-		
-		List<PredefinedTravelPackageDTO> toSend = new ArrayList<PredefinedTravelPackageDTO>();
-		toSend.add(predTP);
-		data.setPredefinedTravelPackagesList(toSend);
-		if(FacesContext.getCurrentInstance().getExternalContext().isUserInRole("CUSTOMER")){
-			copyInPersonalizedTravelPackage(data.getPredefinedTravelPackagesList().get(0));
-			return; }//if customer copy in personalized
-		if(FacesContext.getCurrentInstance().getExternalContext().isUserInRole("EMPLOYEE"))
-			employee.updatePredefinedTravelPackage(data.getPredefinedTravelPackagesList().get(0)); //if employee update
-		
-		
+
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		Flash flash = facesContext.getExternalContext().getFlash();
 		flash.setKeepMessages(true);
 		flash.setRedirect(true);
 		
 		
-		facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Successful", "The package has been succesfully added to your package list!")); 
-		FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/customer/personal_travel_package.xhtml?faces-redirect=true");
+		
+		if(FacesContext.getCurrentInstance().getExternalContext().isUserInRole("CUSTOMER")){
+				user = search.findUser(FacesContext.getCurrentInstance().getExternalContext().getRemoteUser());
+				customerHandler.addNewPersonalizedTravelPackage(user, predTP);
+				facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Successful", "You have succesfully add the travel package in your list of package!"));
+				FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/customer/personal_travel_package.xhtml");
+		   }//if customer copy in personalized
+		
+		if(FacesContext.getCurrentInstance().getExternalContext().isUserInRole("EMPLOYEE")){
+			employee.updatePredefinedTravelPackage(predTP);
+			List<PredefinedTravelPackageDTO> toSend = new ArrayList<PredefinedTravelPackageDTO>();
+			toSend.add(predTP);
+			data.setPredefinedTravelPackagesList(toSend);
+			//if employee update
+			FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/misc/predefinedtravelpackage.xhtml");
 		
 	}
+}
 
 	public void modify(PredefinedTravelPackageDTO helper) throws IOException{
 	
