@@ -52,7 +52,7 @@
 	            <p:dataTable var="travelComponent" value="#{PredefinedTravelPackageWeb.predTP.travelComponents}">
                 <p:column headerText="" style="text-align: center">  
                 <p:row>
-                	<p:commandButton id="visualize" icon="ui-icon-script"  actionListener="#{PredefinedTravelPackageWeb.showComponent(element)}"/>
+                	<p:commandButton id="visualize" icon="ui-icon-script"  actionListener="#{PredefinedTravelPackageWeb.showComponent(travelComponent)}"/>
                     <p:commandButton id="delete" style="float:center" icon="ui-icon-trash" actionListener="#{PredefinedTravelPackageWeb.deleteComponent(travelComponent)}" />
                     
                 </p:row> 
@@ -74,7 +74,7 @@
                 <f:facet name="footer">
 				
 				<p:commandButton value="Add Travel Component" style="float:center" icon="ui-icon-plusthick" onclick="PF('searchComponent').show()"/>
-			</f:facet>
+				</f:facet>
                 
             	</p:dataTable> 
           		
