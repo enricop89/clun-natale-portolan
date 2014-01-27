@@ -29,8 +29,12 @@ public class PersonalizedTravelPackageHandler {
 			return "the package cannot be empty";
 		else{
 			String result = consistencyCheck(personalizedTravelPackage);
-			if(result.isEmpty())
+			if(result.isEmpty()){
+				for(int i = 0; i < personalizedTravelPackage.getTravelComponents().size(); i++)
+					entityManager.persist(personalizedTravelPackage.getTravelComponents().get(i));
+				
 				entityManager.persist(personalizedTravelPackage);
+			}
 			return result;	
 		}
 	}
