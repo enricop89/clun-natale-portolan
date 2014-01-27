@@ -77,7 +77,7 @@
 		</p:treeTable>
 		
 		<p:commandButton value="Confirm" id="confirm" icon="ui-icon-star" style="float:left;" rendered="#{PersonalizedTravelPackageWeb.isOwner() == true and PersonalizedTravelPackageWeb.checkPackageStatus() == false}" action="#{PersonalizedTravelPackageWeb.confirmPackage()}" immediate="true"/>
-		<p:commandButton value="JOIN" id="join" icon="ui-icon-star" style="float:left;" rendered="#{PersonalizedTravelPackageWeb.isOwner() == false and PersonalizedTravelPackageWeb.noPackage() == false}" action="#{PersonalizedTravelPackageWeb.joinPackage}"/>
+		<p:commandButton value="JOIN" id="join" icon="ui-icon-star" style="float:left;" rendered="#{PersonalizedTravelPackageWeb.isOwner() == false and PersonalizedTravelPackageWeb.noPackage() == false and not facesContext.externalContext.isUserInRole('EMPLOYEE')}" action="#{PersonalizedTravelPackageWeb.joinPackage}"/>
 		<p:commandButton value="Save" id="save" icon="ui-icon-check" style="float:right;" rendered="#{PersonalizedTravelPackageWeb.isOwner() and (PersonalizedTravelPackageWeb.checkPackageStatus() == false)}" action="#{PersonalizedTravelPackageWeb.saveChanges}"/>
 		
 		<p:tooltip for="confirm" value="Confirm this package!" showEffect="fade" hideEffect="fade" />     
