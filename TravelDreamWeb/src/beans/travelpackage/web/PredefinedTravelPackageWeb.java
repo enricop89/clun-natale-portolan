@@ -147,7 +147,7 @@ public String fieldThree(TravelComponentDTO component){
 		
 		if(component.getType() == ComponentType.HOTEL){
 			if(isHotelRoot(component) == true){
-				return component.getSupplyingCompany();	
+				return "";	
 				
 			}
 			else{
