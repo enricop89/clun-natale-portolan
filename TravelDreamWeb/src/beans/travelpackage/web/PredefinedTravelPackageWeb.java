@@ -201,7 +201,7 @@ public void save() throws IOException{
 	}
 	
 	public void confirmPackage() throws IOException{
-		//TODO:DA FINIRE farlo lato EJB
+		//TODO:DA FINIRE farlo lato EJB (DOMANDA: IN CHE SENSO?)
 		PersonalizedTravelPackageDTO personalizedPackage= new PersonalizedTravelPackageDTO();
 		
 		String result = customerHandler.confirmPersonalizedTravelPackage(personalizedPackage);

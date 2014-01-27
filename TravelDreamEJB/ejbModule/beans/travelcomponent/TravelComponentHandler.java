@@ -162,7 +162,7 @@ public class TravelComponentHandler{
 		return true;
 	}
 	
-	@RolesAllowed({"EMPLOYEE"})
+	@RolesAllowed({"EMPLOYEE","CUSTOMER"})
 	public void deleteTravelComponent(TravelComponent travelComponent){
 		for(int i = 0; i < travelComponent.getTravelElements().size(); i++)
 			deleteTravelElement(travelComponent.getTravelElements().get(i));

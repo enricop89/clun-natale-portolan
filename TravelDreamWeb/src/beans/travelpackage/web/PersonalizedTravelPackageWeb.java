@@ -407,6 +407,27 @@ public class PersonalizedTravelPackageWeb {
 	}
 	
 	public void joinPackage() throws IOException{
-		// TODO: Ultima cosa per me, poi mi tiro via dai giochi che ho da preparare l'esame!
+		if(FacesContext.getCurrentInstance().getExternalContext().isUserInRole("CUSTOMER")){//the joiner is a customer
+			String result = customerHandler.joinPersonalizedTravelPackage(finder.findUser(FacesContext.getCurrentInstance().getExternalContext().getRemoteUser()), personalizedPackage);
+			FacesContext facesContext = FacesContext.getCurrentInstance();
+			Flash flash = facesContext.getExternalContext().getFlash();
+			flash.setKeepMessages(true);
+			flash.setRedirect(true);
+			if(result.isEmpty()){
+				facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Successful", "You have succesfully joined the travel package!"));
+				FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/customer/personal_travel_package.xhtml");
+			}
+			else{
+				List<PersonalizedTravelPackageDTO> toSend = new ArrayList<PersonalizedTravelPackageDTO>();
+				toSend.add(personalizedPackage);
+				data.setPersonalizedTravelPackagesList(toSend);
+				facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error", "Something went wrong. Server replies: " + result)); 
+				FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/join_package.xhtml");
+			}				
+		}
+		else{//the joiner is not a customer
+	        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_WARN, "Registration required", "You must register first. Once logged in, reopen this page with the link given by your friend to join!");  
+	        RequestContext.getCurrentInstance().showMessageInDialog(message);
+		}
 	}	
 }
