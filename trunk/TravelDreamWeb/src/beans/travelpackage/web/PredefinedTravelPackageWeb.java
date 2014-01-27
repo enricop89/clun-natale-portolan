@@ -36,7 +36,7 @@ public class PredefinedTravelPackageWeb {
 	@EJB
 	private EmployeeHandlerInterface employee;
 	@EJB
-	private CustomerHandlerInterface customerhandler;
+	private CustomerHandlerInterface customerHandler;
 	
 	private PredefinedTravelPackageDTO predTP;
 	private UserDTO user;
@@ -90,7 +90,7 @@ public class PredefinedTravelPackageWeb {
 	
 	public void copyInPersonalizedTravelPackage(PredefinedTravelPackageDTO helper) throws IOException{
 		user = search.findUser(FacesContext.getCurrentInstance().getExternalContext().getRemoteUser());
-		customerhandler.addNewPersonalizedTravelPackage(user, helper);
+		customerHandler.addNewPersonalizedTravelPackage(user, helper);
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		Flash flash = facesContext.getExternalContext().getFlash();
 		flash.setKeepMessages(true);
@@ -107,16 +107,17 @@ public void save() throws IOException{
 		if(returnDate != null)
 			predTP.setReturnDate(new Date(returnDate.getTime()));
 		
-		user = search.findUser(FacesContext.getCurrentInstance().getExternalContext().getRemoteUser());
-		if(FacesContext.getCurrentInstance().getExternalContext().isUserInRole("CUSTOMER")){
-			copyInPersonalizedTravelPackage(predTP);
-			return; }//if customer copy in personalized
-		if(FacesContext.getCurrentInstance().getExternalContext().isUserInRole("EMPLOYEE"))
-			employee.updatePredefinedTravelPackage(predTP); //if employee update
 		
 		List<PredefinedTravelPackageDTO> toSend = new ArrayList<PredefinedTravelPackageDTO>();
 		toSend.add(predTP);
 		data.setPredefinedTravelPackagesList(toSend);
+		if(FacesContext.getCurrentInstance().getExternalContext().isUserInRole("CUSTOMER")){
+			copyInPersonalizedTravelPackage(data.getPredefinedTravelPackagesList().get(0));
+			return; }//if customer copy in personalized
+		if(FacesContext.getCurrentInstance().getExternalContext().isUserInRole("EMPLOYEE"))
+			employee.updatePredefinedTravelPackage(data.getPredefinedTravelPackagesList().get(0)); //if employee update
+		
+		
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		Flash flash = facesContext.getExternalContext().getFlash();
 		flash.setKeepMessages(true);
@@ -166,6 +167,58 @@ public void save() throws IOException{
 		else
 			facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error", "You cannot delete a payed component")); 
 		FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/customer/personalized_travel_package.xhtml");
+	}
+	
+	//nuovi metodi
+	public void addComponent(TravelComponentDTO component) throws IOException
+	{
+		FacesMessage message = null;
+		employee.addTravelComponentToPredefinedTravelPackage(predTP, component);
+		
+			message = new FacesMessage(FacesMessage.SEVERITY_INFO,"Successful", "You have added the component to your package, click on the save button to submit your changes!"); 
+		
+		
+		List<PredefinedTravelPackageDTO> toSend = new ArrayList<PredefinedTravelPackageDTO>();
+		toSend.add(predTP);
+		data.setPredefinedTravelPackagesList(toSend);
+		
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		Flash flash = facesContext.getExternalContext().getFlash();
+		flash.setKeepMessages(true);
+		flash.setRedirect(true);
+		facesContext.addMessage(null,message);
+		
+		FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/misc/modify_predefinedtravelpackage.xhtml");
+	}
+	
+	public void showComponentSearch(TravelComponentDTO component){
+		List<TravelComponentDTO> toSend = new ArrayList<TravelComponentDTO>();
+		toSend.add(component);
+		data.setTravelComponentsList(toSend);
+        Map<String,Object> options = new HashMap<String, Object>();  
+        options.put("resizable", false); 
+		RequestContext.getCurrentInstance().openDialog("/misc/dialog_travelcomponent.xhtml",options,null);
+	}
+	
+	public void confirmPackage() throws IOException{
+		//farlo lato EJB
+		String result = customerHandler.confirmPersonalizedTravelPackage(personalizedPackage);
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		Flash flash = facesContext.getExternalContext().getFlash();
+		flash.setKeepMessages(true);
+		flash.setRedirect(true);
+		List<PersonalizedTravelPackageDTO> toSend = new ArrayList<PersonalizedTravelPackageDTO>();
+		toSend.add(personalizedPackage);
+		data.setPersonalizedTravelPackagesList(toSend);
+		if(result.isEmpty())
+			facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Successful", "Travel package succesfully confirmed!")); 
+		else
+			facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error", "An error occured. The server replied: " + result)); 
+		FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/customer/personalized_travel_package.xhtml");
+	}
+	
+	public void onClose(){
+		FacesContext.getCurrentInstance().getViewRoot().getViewMap().remove("SearchTravelComponents");
 	}
 	
 	public boolean checkIfCustomer() throws IOException{
