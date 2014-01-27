@@ -88,7 +88,7 @@ public class TravelComponentHandler{
 		List<TravelElement> travelElements = travelComponent.getTravelElements();
 		int delta = travelComponent.getTravelElements().size() - availability;
 		if(delta < 0)
-			for(int i = delta; i > 0; i--){
+			for(int i = delta; i < 0; i++){
 				TravelElement te = new TravelElement();
 				te.setConfirmationDateTime(null);
 				te.setOwner(null);
@@ -98,7 +98,7 @@ public class TravelComponentHandler{
 			}
 		else if(delta > 0)
 			for(int i = 0; i < delta; i++){
-				entityManager.remove(travelElements.get(i));
+				deleteTravelElement(travelElements.get(i));
 				travelElements.remove(i);
 			}
 		travelComponent.setTravelElements(travelElements);
