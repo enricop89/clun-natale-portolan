@@ -86,7 +86,7 @@ public class PersonalizedTravelPackageHandler {
 		newPersonalizedTravelPackage.setName(personalizedTravelPackage.getName());
 		newPersonalizedTravelPackage.setOwner(owner);
 		List<Components_Helper> components = new ArrayList<Components_Helper>();
-		for(int i = 0; i < personalizedTravelPackage.getTravelComponents().size(); i++)
+		for(int i = 0; i < personalizedTravelPackage.getTravelComponents().size(); i++){
 			if(personalizedTravelPackage.getTravelComponents().get(i).getTravelComponent() != null)
 			{
 				Components_Helper component = new Components_Helper();
@@ -97,6 +97,8 @@ public class PersonalizedTravelPackageHandler {
 			}
 			else
 				return false; //the travel component associated has been deleted by an employee, the user cannot copy the package!
+		
+		}
 		newPersonalizedTravelPackage.setTravelComponents(components);
 		for(int i = 0; i < components.size(); i++)
 			entityManager.persist(components.get(i));
