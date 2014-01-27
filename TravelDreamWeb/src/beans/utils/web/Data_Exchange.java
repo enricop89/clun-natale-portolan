@@ -20,12 +20,14 @@ public class Data_Exchange implements java.io.Serializable{
 	private List<PredefinedTravelPackageDTO> predefinedTravelPackagesList;
 	private List<UserDTO> usersList;
 	private List<TravelComponentDTO> travelComponentsList;
+	private Boolean result;
 	
 	public Data_Exchange(){
 		personalizedTravelPackagesList = new ArrayList<PersonalizedTravelPackageDTO>();
 		predefinedTravelPackagesList = new ArrayList<PredefinedTravelPackageDTO>();
 		usersList = new ArrayList<UserDTO>();
 		travelComponentsList = new ArrayList<TravelComponentDTO>();
+		result = null;
 	}
 	
 	public List<PersonalizedTravelPackageDTO> getPersonalizedTravelPackagesList() {
@@ -61,5 +63,15 @@ public class Data_Exchange implements java.io.Serializable{
 	}
 	public void setTravelComponentsList(List<TravelComponentDTO> travelComponentsList) {
 		this.travelComponentsList = travelComponentsList;
+	}
+
+	public Boolean getResult() {
+		Boolean toSend = result;
+		result = null;
+		return toSend;
+	}
+
+	public void setResult(Boolean result) {
+		this.result = result;
 	}
 }

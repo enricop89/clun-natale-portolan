@@ -84,6 +84,18 @@ public class EmployeeHandlerWeb  {
 			packageDTO = res.get(0);
 			activePanel = 1;
 		}
+		Boolean result = data.getResult();
+		if(result != null){
+	    	FacesContext facesContext = FacesContext.getCurrentInstance();
+			Flash flash = facesContext.getExternalContext().getFlash();
+			flash.setKeepMessages(true);
+			flash.setRedirect(true);	
+			if(result == true)
+				facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Successful", "Travel component updated!")); 
+			
+			else
+				facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error", "")); 
+		}
 	}
 	
 	public TravelComponentDTO getComponentDTO()

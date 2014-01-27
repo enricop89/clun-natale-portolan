@@ -1,18 +1,11 @@
 package beans.utils.web;
 
-
 import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.faces.application.FacesMessage;
-//import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-//import javax.faces.bean.RequestScoped;
 import javax.faces.bean.ViewScoped;
-import javax.faces.context.FacesContext;
-import javax.faces.context.Flash;
-//import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 
 import org.primefaces.context.RequestContext;
@@ -107,17 +100,8 @@ public class TravelComponentWeb
 		if (excursionDate != null)
 			component.setExcursionDateTime(new java.sql.Timestamp(excursionDate.getTime()));
 		
-		boolean result = employeeHandler.updateTravelComponent(component);
-
-		FacesContext facesContext = FacesContext.getCurrentInstance();
-		Flash flash = facesContext.getExternalContext().getFlash();
-		flash.setKeepMessages(true);
-		flash.setRedirect(true);	
+		boolean result = employeeHandler.updateTravelComponent(component);		
+		data.setResult(result);
 		RequestContext.getCurrentInstance().execute("window.top.location.reload();");//.closeDialog(result);
-		if(result == true)
-			facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Successful", "Travel component updated!")); 
-		
-		else
-			facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error", "")); 
 	}
 }
