@@ -48,8 +48,7 @@ public class PredefinedTravelPackageWeb {
 	
 	private TreeNode root;
 	private List<TreeNode> hotelsRoot;
-	private List<Integer> hotelsRootAlreadyShown;
-	
+
 	@Inject
 	private Data_Exchange data;
 	public Data_Exchange getData(){
@@ -68,8 +67,7 @@ public class PredefinedTravelPackageWeb {
 		root = new DefaultTreeNode("root", null);
 		for(int i = 0; i < predTP.getTravelComponents().size(); i++){
 			TravelComponentDTO component = predTP.getTravelComponents().get(i);
-			ComponentType type;
-			type = component.getType();
+			ComponentType type = component.getType();
 			switch(type){
 			case FLIGHT:
 				new DefaultTreeNode(component,root);
@@ -80,7 +78,6 @@ public class PredefinedTravelPackageWeb {
 			case HOTEL:
 				if(hotelsRoot == null){
 					hotelsRoot = new ArrayList<TreeNode>();
-					hotelsRootAlreadyShown = new ArrayList<Integer>(); 
 				}
 				boolean found = false;
 				for(int j = 0; j < hotelsRoot.size(); j++)
@@ -98,10 +95,11 @@ public class PredefinedTravelPackageWeb {
 					}							
 				}
 				if(found == false){
-					TreeNode hotel = new DefaultTreeNode(component,root);
+					TravelComponentDTO rootHotel = component;
+					rootHotel.setId(-1);
+					TreeNode hotel = new DefaultTreeNode(rootHotel,root);
 					new DefaultTreeNode(component,hotel);
 					hotelsRoot.add(hotel);
-					hotelsRootAlreadyShown.add(0);
 				}
 
 				break;
@@ -159,20 +157,13 @@ public String fieldThree(TravelComponentDTO component){
 	}
 	
 	public boolean isHotelRoot(TravelComponentDTO component){
-		ComponentType type;
-		type = component.getType();
-		if(type == ComponentType.HOTEL){
-			for(int i = 0; i < hotelsRoot.size(); i++){	
-				if(component == hotelsRoot.get(i).getData() && hotelsRootAlreadyShown.get(i) < 7){ // this 7 is the number of times this function is called on each line of the TreeTable
-					hotelsRootAlreadyShown.set(i, hotelsRootAlreadyShown.get(i) + 1);
-					return true;	
-					
-				}
-			}
-		}
-		return false;
+		if(component.getId() == -1)
+			return true;
+		
+		else 
+			return false;
+		
 	}
-	
 	
 	public void showComponent(TravelComponentDTO helper) throws IOException{
 		//select package and go to personal_package_home

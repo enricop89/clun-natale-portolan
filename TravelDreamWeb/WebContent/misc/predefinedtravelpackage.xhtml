@@ -61,7 +61,7 @@
 	          	<p:column headerText="" style="text-align: center">
 	          		
 		      			<p:row> 
-		      				<p:commandButton id="visualize" icon="ui-icon-script" rendered="PredefinedTravelPackageWeb.isHotelRoot(element) == false}" actionListener="#{PredefinedTravelPackageWeb.showComponent(element)}"/> 
+		      				<p:commandButton id="visualize" icon="ui-icon-script" rendered="#{PredefinedTravelPackageWeb.isHotelRoot(element) == false}" actionListener="#{PredefinedTravelPackageWeb.showComponent(element)}"/> 
 		      				
 		            	</p:row>
 		            
