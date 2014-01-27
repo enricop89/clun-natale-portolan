@@ -18,10 +18,13 @@ import javax.inject.Inject;
 
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.CloseEvent;
+import org.primefaces.model.DefaultTreeNode;
+import org.primefaces.model.TreeNode;
 
 import beans.accountmanagement.UserDTO;
 import beans.customerhandler.CustomerHandlerInterface;
 import beans.employeehandler.EmployeeHandlerInterface;
+import beans.travelcomponent.ComponentType;
 import beans.travelcomponent.TravelComponentDTO;
 import beans.travelpackage.PersonalizedTravelPackageDTO;
 import beans.travelpackage.PredefinedTravelPackageDTO;
@@ -42,8 +45,10 @@ public class PredefinedTravelPackageWeb {
 	private UserDTO user;
 	private java.util.Date departureDate;
 	private java.util.Date returnDate;
-	private PersonalizedTravelPackageDTO personalizedPackage;
 	
+	private TreeNode root;
+	private List<TreeNode> hotelsRoot;
+	private List<Integer> hotelsRootAlreadyShown;
 	
 	@Inject
 	private Data_Exchange data;
@@ -59,7 +64,115 @@ public class PredefinedTravelPackageWeb {
 		predTP=data.getPredefinedTravelPackagesList().get(0);
 		departureDate=new java.util.Date (predTP.getDepartureDate().getTime());
 		returnDate=new java.util.Date (predTP.getReturnDate().getTime());
+		//construct the root
+		root = new DefaultTreeNode("root", null);
+		for(int i = 0; i < predTP.getTravelComponents().size(); i++){
+			TravelComponentDTO component = predTP.getTravelComponents().get(i);
+			ComponentType type;
+			type = component.getType();
+			switch(type){
+			case FLIGHT:
+				new DefaultTreeNode(component,root);
+				break;
+			case EXCURSION:
+				new DefaultTreeNode(component,root);
+				break;
+			case HOTEL:
+				if(hotelsRoot == null){
+					hotelsRoot = new ArrayList<TreeNode>();
+					hotelsRootAlreadyShown = new ArrayList<Integer>(); 
+				}
+				boolean found = false;
+				for(int j = 0; j < hotelsRoot.size(); j++)
+				{
+					TravelComponentDTO hotel;
+					TravelComponentDTO newHotel;
+					
+						hotel = (TravelComponentDTO) hotelsRoot.get(j).getData();
+					newHotel = component;
+					
+					
+					if(hotel.getSupplyingCompany().equals(newHotel.getSupplyingCompany()) && hotel.getHotelCity().equals(newHotel.getHotelCity())){
+						new DefaultTreeNode(component,hotelsRoot.get(j));
+						found = true;
+					}							
+				}
+				if(found == false){
+					TreeNode hotel = new DefaultTreeNode(component,root);
+					new DefaultTreeNode(component,hotel);
+					hotelsRoot.add(hotel);
+					hotelsRootAlreadyShown.add(0);
+				}
+
+				break;
+			}
+		}			
 	}
+	
+	public String fieldOne(TravelComponentDTO component){
+		
+		switch(component.getType()){
+		case EXCURSION:
+			return "Excursion";
+		case FLIGHT:
+			return "Flight";
+		case HOTEL:
+			if(isHotelRoot(component) == true){
+				return "Hotel";
+				
+			}
+			else{
+				return "City: " + component.getHotelCity();
+				
+			}
+		}
+		return ""; // dummy return
+	}
+	
+	public String fieldTwo(TravelComponentDTO component){
+		
+		if(component.getType() == ComponentType.HOTEL){
+			if(isHotelRoot(component) == true){
+				return component.getSupplyingCompany();	
+				
+			}
+			else{
+				return "Date: " + component.getHotelDate();
+				
+			}
+		}
+		return component.getSupplyingCompany();	
+	}
+public String fieldThree(TravelComponentDTO component){
+		
+		if(component.getType() == ComponentType.HOTEL){
+			if(isHotelRoot(component) == true){
+				return component.getSupplyingCompany();	
+				
+			}
+			else{
+				return "Availability: " + component.getAvailability();
+				
+			}
+		}
+		return component.getSupplyingCompany();	
+	}
+	
+	public boolean isHotelRoot(TravelComponentDTO component){
+		ComponentType type;
+		type = component.getType();
+		if(type == ComponentType.HOTEL){
+			for(int i = 0; i < hotelsRoot.size(); i++){	
+				if(component == hotelsRoot.get(i).getData() && hotelsRootAlreadyShown.get(i) < 7){ // this 7 is the number of times this function is called on each line of the TreeTable
+					hotelsRootAlreadyShown.set(i, hotelsRootAlreadyShown.get(i) + 1);
+					return true;	
+					
+				}
+			}
+		}
+		return false;
+	}
+	
 	
 	public void showComponent(TravelComponentDTO helper) throws IOException{
 		//select package and go to personal_package_home
@@ -70,23 +183,7 @@ public class PredefinedTravelPackageWeb {
         options.put("resizable", false);
 		RequestContext.getCurrentInstance().openDialog("/misc/dialog_travelcomponent.xhtml",options,null);	
 	}
-	
-	public void updateComponent(TravelComponentDTO helper) throws IOException{
-		FacesContext facesContext = FacesContext.getCurrentInstance();
-		Flash flash = facesContext.getExternalContext().getFlash();
-		flash.setKeepMessages(true);
-		flash.setRedirect(true);
-		boolean result=employee.updateTravelComponent(helper);
-		if(result==true){
-			facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Successful", "You have succesfully modify your component from the travel package!"));
-			FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "paginapackage.xhtml");
-		}
-		else{
-			
-			facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error", "Something went wrong")); 
-		}
-		
-	}
+
 	
 	public void copyInPersonalizedTravelPackage(PredefinedTravelPackageDTO helper) throws IOException{
 		user = search.findUser(FacesContext.getCurrentInstance().getExternalContext().getRemoteUser());
@@ -97,7 +194,8 @@ public class PredefinedTravelPackageWeb {
 		}
 		else{
 			message = new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error", "Something went wrong. Server replied: " + result);	
-		}	FacesContext facesContext = FacesContext.getCurrentInstance();
+		}	
+		FacesContext facesContext = FacesContext.getCurrentInstance();
 		Flash flash = facesContext.getExternalContext().getFlash();
 		flash.setKeepMessages(true);
 		flash.setRedirect(true);
@@ -274,11 +372,12 @@ public void save() throws IOException{
 	public void setReturnDate(java.util.Date returnDate) {
 		this.returnDate = returnDate;
 	}
-	public PersonalizedTravelPackageDTO getPersonalizedPackage() {
-		return personalizedPackage;
+	
+	public TreeNode getRoot() {
+		return root;
 	}
-	public void setPersonalizedPackage(PersonalizedTravelPackageDTO personalizedPackage) {
-		this.personalizedPackage = personalizedPackage;
+	public void setRoot(TreeNode root) {
+		this.root = root;
 	}
 	
 	
