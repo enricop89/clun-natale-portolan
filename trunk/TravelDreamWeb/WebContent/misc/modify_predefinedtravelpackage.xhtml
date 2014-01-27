@@ -5,7 +5,7 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:denny="http://java.sun.com/jsf/composite/denny">
+	xmlns:td="http://java.sun.com/jsf/composite/traveldream">
 	
 	
 	<ui:define name="title">Travel Package</ui:define>
@@ -90,7 +90,7 @@
 		
 		<p:dialog id="searchComponent" widgetVar="searchComponent" modal="true" resizable="false" position="top" 
 	 	showEffect="clip" hideEffect="clip" appendTo="@(body)">  
-		<denny:search_travelcomponent bean="#{PredefinedTravelPackageWeb}"
+		<td:search_travelcomponent bean="#{PredefinedTravelPackageWeb}"
    		Method1Name="addComponent" Method1Icon="ui-icon-check" Method1Tooltip="Add the travel component"
    		Method2Name="showComponentSearch" Method2Icon="ui-icon-suitcase" Method2Tooltip="Show the travel component info"/>
    		<p:ajax event="close" listener="#{PredefinedTravelPackageWeb.onClose}" update="searchComponent" />

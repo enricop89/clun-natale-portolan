@@ -4,7 +4,7 @@
 	  xmlns:f="http://java.sun.com/jsf/core"
 	  xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
-		xmlns:denny="http://java.sun.com/jsf/composite/denny">
+	  xmlns:td="http://java.sun.com/jsf/composite/traveldream">
 
     <h:head>  
         <title>Travel Component</title>  
@@ -57,7 +57,7 @@
 		           	<p:inputText rendered="#{TravelComponentWeb.component.type == 'EXCURSION'}" id="excursionCity" value="#{TravelComponentWeb.component.excursionCity}" required="true"/>		
 			  
 				 	<h:outputLabel rendered="#{TravelComponentWeb.component.type == 'EXCURSION'}" for="excursionDateTime">Date and Time:</h:outputLabel>            	
-		           	<p:calendar rendered="#{TravelComponentWeb.component.type == 'EXCURSION'}" value="#{TravelComponentWeb.component.excursionDateTime}" id="excursionDateTime" showButtonPanel="true" pattern="MM/dd/yyyy HH:mm" required="true"/>						
+		           	<p:calendar rendered="#{TravelComponentWeb.component.type == 'EXCURSION'}" value="#{TravelComponentWeb.excursionDate}" id="excursionDateTime" showButtonPanel="true" pattern="MM/dd/yyyy HH:mm" required="true"/>						
 		           	            	
 					<h:outputLabel rendered="#{TravelComponentWeb.component.type == 'EXCURSION'}" for="excursionDescription">Description:</h:outputLabel>
 		           	<p:inputText rendered="#{TravelComponentWeb.component.type == 'EXCURSION'}" id="excursionDescription" value="#{TravelComponentWeb.component.excursionDescription}" required="true"/>

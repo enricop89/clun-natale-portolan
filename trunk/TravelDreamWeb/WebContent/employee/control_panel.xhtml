@@ -5,7 +5,7 @@
    	xmlns:p="http://primefaces.org/ui"
     xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:c="http://java.sun.com/jsp/jstl/core"
-	xmlns:denny="http://java.sun.com/jsf/composite/denny">
+	xmlns:td="http://java.sun.com/jsf/composite/traveldream">
 	
     <ui:define name="title">TravelDream - Employee control panel</ui:define>
 
@@ -206,7 +206,7 @@
 				</h:form>
 				<p:dialog id="searchComponent" widgetVar="searchComponent" modal="true" resizable="false" position="top"
 				 showEffect="clip" hideEffect="clip" appendTo="@(body)" header="Search travel component">  
-					   		<denny:search_travelcomponent bean="#{EmployeeHandlerWeb}"
+					   		<td:search_travelcomponent bean="#{EmployeeHandlerWeb}"
 					   		Method1Name="addComponentToPackage" Method1Icon="ui-icon-plusthick" Method1Tooltip="Add the travel component"
 					   		Method2Name="" Method2Icon="" Method2Tooltip="" />
 					   		<p:ajax event="close" listener="#{EmployeeHandlerWeb.onClose}" update="searchComponent" />
@@ -219,7 +219,7 @@
 			</p:tab>
 		    		
 			<p:tab title="Search travel components" id="search">
-		   	<denny:search_travelcomponent bean="#{EmployeeHandlerWeb}"
+		   	<td:search_travelcomponent bean="#{EmployeeHandlerWeb}"
 				Method1Name="deleteComponent" Method1Icon="ui-icon-trash" Method1Tooltip="Delete the travel component"
 				Method2Name="editComponentDetails" Method2Icon="ui-icon-pencil" Method2Tooltip="Edit the travel component info"/>
 			</p:tab>
