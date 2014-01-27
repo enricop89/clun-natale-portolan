@@ -13,6 +13,8 @@ import entities.*;
 
 import javax.persistence.EntityManager;
 
+import beans.utils.Search;
+
 /**
  * Session Bean implementation class PredefinedTravelPackageHandler
  */
@@ -24,6 +26,9 @@ public class PredefinedTravelPackageHandler {
 	
 	@EJB
 	PersonalizedTravelPackageHandler handler;
+	
+	@EJB
+	Search finder;
 	
 	@RolesAllowed({"EMPLOYEE"})
 	public String addNewPredefinedTravelPackage(PredefinedTravelPackage predefinedTravelPackage){			
@@ -56,12 +61,18 @@ public class PredefinedTravelPackageHandler {
 		entityManager.remove(prefedefinedTravelPackage);	
 	}
 	
-	public void copyPredefinedTravelPackage(PredefinedTravelPackage predefinedTravelPackage, User owner){		
+	public String copyPredefinedTravelPackage(PredefinedTravelPackage predefinedTravelPackage, User owner){		
 		PersonalizedTravelPackage personalizedTravelPackage = new PersonalizedTravelPackage();
 		personalizedTravelPackage.setName(predefinedTravelPackage.getName());
 		personalizedTravelPackage.setOwner(owner);
 		personalizedTravelPackage.setDepartureDate(predefinedTravelPackage.getDepartureDate());
 		personalizedTravelPackage.setReturnDate(predefinedTravelPackage.getReturnDate());
+		
+		List<PersonalizedTravelPackage> p = finder.findAllPersonalizedTravelPackages(owner);
+		for(int i = 0; i < p.size(); i++)
+			if(p.get(i).getName().equals(predefinedTravelPackage.getName()))
+				return "a personalized travel package with the same name already exists";
+				
 		List<Components_Helper> constructor = new ArrayList<Components_Helper>();
 		for(int i=0;i<predefinedTravelPackage.getTravelComponents().size();i++){
 			Components_Helper component = new Components_Helper();
@@ -71,7 +82,7 @@ public class PredefinedTravelPackageHandler {
 			constructor.add(component);	
 		}
 		personalizedTravelPackage.setTravelComponents(constructor);
-		handler.addNewPersonalizedTravelPackage(personalizedTravelPackage);
+		return handler.addNewPersonalizedTravelPackage(personalizedTravelPackage);
 	}
 
 	private String consistencyCheck(PredefinedTravelPackage predefinedTravelPackage){
