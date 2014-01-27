@@ -99,7 +99,7 @@ public class CustomerHandler implements CustomerHandlerInterface{
 				
 		}
 		else
-			return "this package contains components which are not anymore available.";
+			return "you already have joined this package or it contains components which are not available anymore.";
 	}
 	
 	@Override

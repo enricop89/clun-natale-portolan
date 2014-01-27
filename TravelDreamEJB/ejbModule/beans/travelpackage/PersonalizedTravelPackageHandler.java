@@ -11,6 +11,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import beans.travelcomponent.TravelComponentHandler;
+import beans.utils.Search;
 import entities.*;
 
 /**
@@ -23,6 +24,8 @@ public class PersonalizedTravelPackageHandler {
     private EntityManager entityManager;
 	@EJB
 	private TravelComponentHandler handler;
+	@EJB
+	private Search finder;
 	
 	public String addNewPersonalizedTravelPackage(PersonalizedTravelPackage personalizedTravelPackage){
 		if(personalizedTravelPackage.getTravelComponents().isEmpty())
@@ -111,6 +114,12 @@ public class PersonalizedTravelPackageHandler {
 		
 		}
 		newPersonalizedTravelPackage.setTravelComponents(components);
+		
+		List<PersonalizedTravelPackage> personalizedOwned = finder.findAllPersonalizedTravelPackages(owner);
+		for(int i = 0; i < personalizedOwned.size(); i++)
+			if(personalizedOwned.get(i).getName().equals(personalizedTravelPackage.getName()))
+				return null;
+		
 		for(int i = 0; i < components.size(); i++)
 			entityManager.persist(components.get(i));
 		entityManager.persist(newPersonalizedTravelPackage);

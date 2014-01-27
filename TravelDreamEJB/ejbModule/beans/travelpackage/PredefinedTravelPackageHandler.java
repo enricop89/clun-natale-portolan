@@ -68,9 +68,9 @@ public class PredefinedTravelPackageHandler {
 		personalizedTravelPackage.setDepartureDate(predefinedTravelPackage.getDepartureDate());
 		personalizedTravelPackage.setReturnDate(predefinedTravelPackage.getReturnDate());
 		
-		List<PersonalizedTravelPackage> p = finder.findAllPersonalizedTravelPackages(owner);
-		for(int i = 0; i < p.size(); i++)
-			if(p.get(i).getName().equals(predefinedTravelPackage.getName()))
+		List<PersonalizedTravelPackage> personalizedOwned = finder.findAllPersonalizedTravelPackages(owner);
+		for(int i = 0; i < personalizedOwned.size(); i++)
+			if(personalizedOwned.get(i).getName().equals(predefinedTravelPackage.getName()))
 				return "a personalized travel package with the same name already exists";
 				
 		List<Components_Helper> constructor = new ArrayList<Components_Helper>();
