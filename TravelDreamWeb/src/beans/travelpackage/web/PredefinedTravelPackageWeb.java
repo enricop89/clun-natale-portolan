@@ -201,7 +201,9 @@ public void save() throws IOException{
 	}
 	
 	public void confirmPackage() throws IOException{
-		//farlo lato EJB
+		//TODO:DA FINIRE farlo lato EJB
+		PersonalizedTravelPackageDTO personalizedPackage= new PersonalizedTravelPackageDTO();
+		
 		String result = customerHandler.confirmPersonalizedTravelPackage(personalizedPackage);
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		Flash flash = facesContext.getExternalContext().getFlash();
