@@ -25,7 +25,7 @@ public class PredefinedTravelPackageHandler {
 	@EJB
 	PersonalizedTravelPackageHandler handler;
 	
-	@RolesAllowed("EMPLOYEE")
+	@RolesAllowed({"EMPLOYEE"})
 	public String addNewPredefinedTravelPackage(PredefinedTravelPackage predefinedTravelPackage){			
 		if(predefinedTravelPackage.getTravelComponents().isEmpty())
 			return "the package cannot be empty";
@@ -38,7 +38,7 @@ public class PredefinedTravelPackageHandler {
 		}
 	}
 	
-	@RolesAllowed("EMPLOYEE")
+	@RolesAllowed({"EMPLOYEE","CUSTOMER"})
 	public String updatePredefinedTravelPackage(PredefinedTravelPackage predefinedTravelPackage){	
 		if(predefinedTravelPackage.getTravelComponents().isEmpty())
 			return "the package cannot be empty";
@@ -51,7 +51,7 @@ public class PredefinedTravelPackageHandler {
 		}
 	}
 	
-	@RolesAllowed("EMPLOYEE")
+	@RolesAllowed({"EMPLOYEE","CUSTOMER"})
 	public void deletePredefinedTravelPackage (PredefinedTravelPackage prefedefinedTravelPackage){
 		entityManager.remove(prefedefinedTravelPackage);	
 	}

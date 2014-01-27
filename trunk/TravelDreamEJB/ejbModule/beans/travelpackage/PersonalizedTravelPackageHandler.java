@@ -35,7 +35,7 @@ public class PersonalizedTravelPackageHandler {
 		}
 	}
 	
-	@RolesAllowed({"CUSTOMER"})
+	@RolesAllowed({"CUSTOMER","EMPLOYEE"})
 	public String updatePersonalizedTravelPackage(PersonalizedTravelPackage personalizedTravelPackage){
 		if(personalizedTravelPackage.getTravelComponents().isEmpty())
 			return "the package cannot be empty";
@@ -54,7 +54,7 @@ public class PersonalizedTravelPackageHandler {
 		}		
 	}
 	
-	@RolesAllowed({"CUSTOMER"})
+	@RolesAllowed({"CUSTOMER","EMPLOYEE"})
 	public boolean deletePersonalizedTravelPackage(PersonalizedTravelPackage personalizedTravelPackage){
 		boolean result = false;
 		for(int i = 0; i < personalizedTravelPackage.getTravelComponents().size(); i++)
@@ -73,18 +73,25 @@ public class PersonalizedTravelPackageHandler {
 		String result = "the package is already confirmed";
 		for(int i = 0; i < personalizedTravelPackage.getTravelComponents().size(); i++)
 			if(personalizedTravelPackage.getTravelComponents().get(i).getTravelElement() == null){
-				personalizedTravelPackage.getTravelComponents().get(i).setTravelElement(handler.payTravelComponent(personalizedTravelPackage.getTravelComponents().get(i).getTravelComponent(), personalizedTravelPackage.getOwner()));
+				TravelElement element = handler.payTravelComponent(personalizedTravelPackage.getTravelComponents().get(i).getTravelComponent(), personalizedTravelPackage.getOwner());
+				if(element == null)
+					return personalizedTravelPackage.getTravelComponents().get(i).getTravelComponent().getType() + " of the company " + personalizedTravelPackage.getTravelComponents().get(i).getTravelComponent().getSupplyingCompany() + " has no available places";
+				
+				personalizedTravelPackage.getTravelComponents().get(i).setTravelElement(element);
 				personalizedTravelPackage.getTravelComponents().get(i).setPersistence(personalizedTravelPackage.getTravelComponents().get(i).getTravelComponent());
 				result = ""; //the package is not confirmed yet, at least one component was not yet payed
 			}
+		
 		return result;
 	}
 	
 	@RolesAllowed({"CUSTOMER"})
-	public boolean copyPersonalizedTravelPackage(PersonalizedTravelPackage personalizedTravelPackage, User owner){
+	public PersonalizedTravelPackage copyPersonalizedTravelPackage(PersonalizedTravelPackage personalizedTravelPackage, User owner){
 		PersonalizedTravelPackage newPersonalizedTravelPackage = new PersonalizedTravelPackage();
 		newPersonalizedTravelPackage.setName(personalizedTravelPackage.getName());
 		newPersonalizedTravelPackage.setOwner(owner);
+		newPersonalizedTravelPackage.setDepartureDate(personalizedTravelPackage.getDepartureDate());
+		newPersonalizedTravelPackage.setReturnDate(personalizedTravelPackage.getReturnDate());
 		List<Components_Helper> components = new ArrayList<Components_Helper>();
 		for(int i = 0; i < personalizedTravelPackage.getTravelComponents().size(); i++){
 			if(personalizedTravelPackage.getTravelComponents().get(i).getTravelComponent() != null)
@@ -96,14 +103,14 @@ public class PersonalizedTravelPackageHandler {
 				components.add(component);
 			}
 			else
-				return false; //the travel component associated has been deleted by an employee, the user cannot copy the package!
+				return null; //the travel component associated has been deleted by an employee, the user cannot copy the package!
 		
 		}
 		newPersonalizedTravelPackage.setTravelComponents(components);
 		for(int i = 0; i < components.size(); i++)
 			entityManager.persist(components.get(i));
 		entityManager.persist(newPersonalizedTravelPackage);
-		return true;	
+		return newPersonalizedTravelPackage;	
 	}
 	
 	private String consistencyCheck(PersonalizedTravelPackage personalizedTravelPackage){

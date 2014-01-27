@@ -18,7 +18,7 @@ public class GiftListHandler {
 	@EJB
 	private TravelComponentHandler handler;
 	
-	@RolesAllowed("CUSTOMER")
+	@RolesAllowed({"CUSTOMER"})
 	public boolean addTravelComponentToGiftList(User owner, GiftList giftList, Components_Helper travelComponent, PersonalizedTravelPackage personalizedTravelPackage){
 		if(travelComponent.getTravelElement().getOwner() != null)
 			return false;//if it is already confirmed
@@ -42,7 +42,7 @@ public class GiftListHandler {
 		return false;
 	}
 	
-	@RolesAllowed("CUSTOMER")
+	@RolesAllowed({"CUSTOMER"})
 	public void removeTravelComponentFromGiftList(GiftElements_Helper giftListElement){
 		giftListElement.getGiftList().getGiftElements().remove(giftListElement);
 		entityManager.merge(giftListElement.getGiftList());

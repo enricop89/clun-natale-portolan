@@ -91,8 +91,14 @@ public class CustomerHandler implements CustomerHandlerInterface{
 	
 	@Override
 	@RolesAllowed({"CUSTOMER"})
-	public boolean joinPersonalizedTravelPackage(UserDTO user, PersonalizedTravelPackageDTO personalizedTravelPackage){
-		return handler.copyPersonalizedTravelPackage(search.findPersonalizedTravelPackage(personalizedTravelPackage), search.findUser(user));
+	public String joinPersonalizedTravelPackage(UserDTO user, PersonalizedTravelPackageDTO personalizedTravelPackage){
+		PersonalizedTravelPackage newPackage = handler.copyPersonalizedTravelPackage(search.findPersonalizedTravelPackage(personalizedTravelPackage), search.findUser(user));
+		if(newPackage != null){
+			return handler.confirmPersonalizedTravelPackage(newPackage);
+				
+		}
+		else
+			return "this package contains components which are not anymore available.";
 	}
 	
 	@Override

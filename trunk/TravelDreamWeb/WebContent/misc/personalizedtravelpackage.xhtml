@@ -14,9 +14,10 @@
 		<f:facet name="header">
 			<p:row>
 				<p:column colspan="2" style="width:100%; text-align: center; font-size:30px;">
-					<p:inplace id="name" editor="true">
+					<p:inplace id="name" editor="true" rendered="#{PersonalizedTravelPackageWeb.isOwner() == true}">
 						<p:inputText value="#{PersonalizedTravelPackageWeb.personalizedPackage.name}" label=" " required="true"/>
 					</p:inplace>  
+					<h:outputText value="#{PersonalizedTravelPackageWeb.personalizedPackage.name}" rendered="#{PersonalizedTravelPackageWeb.isOwner() == false}" />
 				</p:column>			
 			</p:row>
 			<p:row>
@@ -26,18 +27,24 @@
 		</f:facet>
 		<p:row>
 			<p:column style="width:50%; text-align: left">
-				<p:inplace id="Departure_date" editor="true">
+				<p:inplace id="Departure_date" editor="true" rendered="#{PersonalizedTravelPackageWeb.isOwner() == true}">
 					<p:calendar value="#{PersonalizedTravelPackageWeb.departureDate}" pattern="dd-MM-yyyy" showButtonPanel="true" label=" " required="true">
 						<f:convertDateTime pattern="dd-MM-yyyy" />
 					</p:calendar>
 				</p:inplace> 
+				<h:outputText value="#{PersonalizedTravelPackageWeb.departureDate}" rendered="#{PersonalizedTravelPackageWeb.isOwner() == false}" >
+					<f:convertDateTime type="date" pattern="dd-MM-yyyy"/>
+				</h:outputText>
 			</p:column>
 			<p:column style="width:100%; text-align: right">
-				<p:inplace id="Arrival_date" editor="true">
+				<p:inplace id="Arrival_date" editor="true" rendered="#{PersonalizedTravelPackageWeb.isOwner() == true}">
 					<p:calendar value="#{PersonalizedTravelPackageWeb.returnDate}" pattern="dd-MM-yyyy" showButtonPanel="true" label=" " required="true">
 						<f:convertDateTime pattern="dd-MM-yyyy" />
 					</p:calendar>
 				</p:inplace> 
+				<h:outputText value="#{PersonalizedTravelPackageWeb.returnDate}" rendered="#{PersonalizedTravelPackageWeb.isOwner() == false}" >
+					<f:convertDateTime type="date" pattern="dd-MM-yyyy"/>
+				</h:outputText>
 			</p:column>	
 		</p:row>			 
 		</p:panelGrid>

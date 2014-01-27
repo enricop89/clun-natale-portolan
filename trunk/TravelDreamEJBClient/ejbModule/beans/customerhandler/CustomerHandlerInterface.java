@@ -16,7 +16,7 @@ public interface CustomerHandlerInterface {
 
 	public String confirmPersonalizedTravelPackage(PersonalizedTravelPackageDTO personalizedTravelPackage);
 
-	public boolean joinPersonalizedTravelPackage(UserDTO user, PersonalizedTravelPackageDTO personalizedTravelPackage);
+	public String joinPersonalizedTravelPackage(UserDTO user, PersonalizedTravelPackageDTO personalizedTravelPackage);
 
 	public String updatePersonalizedTravelPackage(PersonalizedTravelPackageDTO personalizedTravelPackage);
 
