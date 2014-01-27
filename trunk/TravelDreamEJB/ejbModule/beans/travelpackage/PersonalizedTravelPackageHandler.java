@@ -41,7 +41,7 @@ public class PersonalizedTravelPackageHandler {
 			return "the package cannot be empty";
 		
 		else {
-			String result = "the package is confirmed";
+			String result = "the package is already confirmed";
 			for(int i = 0; i < personalizedTravelPackage.getTravelComponents().size(); i++)
 				if(personalizedTravelPackage.getTravelComponents().get(i).getTravelElement() == null)
 					result = "";
@@ -188,7 +188,7 @@ public class PersonalizedTravelPackageHandler {
 						return "one excursion has its date before the date of the departure flight";   	// date hotel before date departureFlight
 					
 					if(personalizedTravelPackage.getReturnDate().compareTo(hotels.get(i).getHotelDate())<0)
-						return "one excursion has its date after the date of the return flight"; 	 // date hotel after date returnFlight
+						return "one excursion has its date after the return date"; 	 // date hotel after date returnDate
 					
 					if(!hotels.get(i).getHotelCity().equals(departureFlight.getFlightArrivalCity()))
 						return "one excursion has an invald city"; // city control
@@ -199,7 +199,7 @@ public class PersonalizedTravelPackageHandler {
 						return "one excursion has its date before the date of the departure flight";	// date excursion before date departureFlight
 					
 					if(personalizedTravelPackage.getReturnDate().compareTo(excursions.get(i).getExcursionDateTime())<0)
-						return "one excursion has its date after the date of the return flight";	// date excursion after date returnFlight
+						return "one excursion has its date after the return date";	// date excursion after date returnDate
 					
 					if(!excursions.get(i).getExcursionCity().equals(departureFlight.getFlightArrivalCity()))
 						return "one excursion has an invald city";  // city control
@@ -209,7 +209,7 @@ public class PersonalizedTravelPackageHandler {
 			if((returnFlight = flights.get(0)).getFlightArrivalDateTime().compareTo(personalizedTravelPackage.getReturnDate()) == 0){
 				for (int i=0;i<hotels.size();i++){
 					if(personalizedTravelPackage.getDepartureDate().compareTo(hotels.get(i).getHotelDate())>0)
-						return "one hotel has its date before the date of the departure flight";  	// date hotel before date departureFlight
+						return "one hotel has its date before the departure date";  	// date hotel before date departureDate
 					
 					if(returnFlight.getFlightDepartureDateTime().compareTo(hotels.get(i).getHotelDate())<0)
 						return "one hotel has its date after the date of the return flight"; 	// date hotel after date returnFlight
@@ -220,7 +220,7 @@ public class PersonalizedTravelPackageHandler {
 				}
 				for (int i=0;i<excursions.size();i++){
 					if(personalizedTravelPackage.getDepartureDate().compareTo(excursions.get(i).getExcursionDateTime())>0)
-						return "date excursion before the date of the departure flight";  	// date excursion before date departureFlight
+						return "date excursion before the departure date";  	// date excursion before date departureDate
 					
 					if(returnFlight.getFlightDepartureDateTime().compareTo(excursions.get(i).getExcursionDateTime())<0)
 						return "date excursion after the date of the return flight"; 	// date excursion after date returnFlight
@@ -238,10 +238,10 @@ public class PersonalizedTravelPackageHandler {
 			int changes = 0;
 			for (int i=0;i<hotels.size();i++){
 				if(personalizedTravelPackage.getDepartureDate().compareTo(hotels.get(i).getHotelDate())>0)
-					return "one hotel has its date before the date of departure"; 	// date hotel before date departure
+					return "one hotel has its date before the departure date"; 	// date hotel before date departure
 				
 				if(personalizedTravelPackage.getReturnDate().compareTo(hotels.get(i).getHotelDate())<0)
-					return "one hotel has its date after the date of return ";	// date hotel after date return
+					return "one hotel has its date after the return date";	// date hotel after date return
 				
 				if(!hotels.get(i).getHotelCity().equals(city)){
 					city = hotels.get(i).getHotelCity();
@@ -250,10 +250,10 @@ public class PersonalizedTravelPackageHandler {
 			}
 			for (int i=0;i<excursions.size();i++){
 				if(personalizedTravelPackage.getDepartureDate().compareTo(excursions.get(i).getExcursionDateTime())>0)
-					return "one excursion has its date before the date of departure"; 	// date excursion before date departure
+					return "one excursion has its date before the departure date"; 	// date excursion before date departure
 				
 				if(personalizedTravelPackage.getReturnDate().compareTo(excursions.get(i).getExcursionDateTime())<0)
-					return "one excursion has its date after the date of  return "; 	// date excursion after date return; 	// date excursion after date returnFlight
+					return "one excursion has its date after the return date"; 	// date excursion after date return
 				
 				if(!excursions.get(i).getExcursionCity().equals(city)){
 					city = excursions.get(i).getExcursionCity();
