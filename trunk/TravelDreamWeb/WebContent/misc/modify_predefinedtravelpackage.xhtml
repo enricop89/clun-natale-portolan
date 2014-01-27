@@ -67,8 +67,8 @@
                 
                 <p:column headerText="" style="text-align: center">  
                 <p:row>
-                	<p:commandButton id="visualize" icon="ui-icon-script"  actionListener="#{PredefinedTravelPackageWeb.showComponent(travelComponent)}"/>
-                    <p:commandButton id="delete" style="float:center" icon="ui-icon-trash" actionListener="#{PredefinedTravelPackageWeb.deleteComponent(travelComponent)}" />
+                	<p:commandButton id="visualize" icon="ui-icon-script"  rendered="#{PredefinedTravelPackageWeb.isHotelRoot(element) == false}" actionListener="#{PredefinedTravelPackageWeb.showComponent(travelComponent)}"/>
+                    <p:commandButton id="delete" style="float:center" icon="ui-icon-trash" rendered="#{PredefinedTravelPackageWeb.isHotelRoot(element) == false}" actionListener="#{PredefinedTravelPackageWeb.deleteComponent(travelComponent)}" />
                     
                 </p:row> 
                 <p:tooltip for="visualize" value="Visualize the travel component" showEffect="fade" hideEffect="fade" />   
