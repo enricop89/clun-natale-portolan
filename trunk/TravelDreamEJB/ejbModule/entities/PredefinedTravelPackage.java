@@ -100,4 +100,14 @@ public class PredefinedTravelPackage implements Serializable {
 	public void setReturnDate(Date returnDate) {
 		this.returnDate = returnDate;
 	}
+	public void setAll(PredefinedTravelPackageDTO predefinedTravelPackage, Search search){		
+//		this.id = predefinedTravelPackage.getId();
+		this.name = predefinedTravelPackage.getName();
+		this.description = predefinedTravelPackage.getDescription();
+		this.returnDate = predefinedTravelPackage.getReturnDate();
+		this.departureDate = predefinedTravelPackage.getDepartureDate();
+		this.travelComponents = new ArrayList<TravelComponent>();
+		for(int i = 0; i < predefinedTravelPackage.getTravelComponents().size(); i++)	
+			travelComponents.add(search.findTravelComponent(predefinedTravelPackage.getTravelComponents().get(i)));
+	}
 }

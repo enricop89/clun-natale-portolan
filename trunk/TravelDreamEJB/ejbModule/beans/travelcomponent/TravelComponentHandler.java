@@ -124,38 +124,40 @@ public class TravelComponentHandler{
 		List<PersonalizedTravelPackage> persTPs = search.findAllPersonalizedTravelPackages();
 		for(int i = 0; i < persTPs.size(); i++){
 			for(int j = 0; j < persTPs.get(i).getTravelComponents().size(); j++){
-				if(persTPs.get(i).getTravelComponents().get(j).getTravelComponent().getId() == travelComponent.getId()){
-					if(persTPs.get(i).getTravelComponents().get(j).getTravelElement() != null){
-						persTPs.get(i).getTravelComponents().get(j).setTravelComponent(null);
-						personalized_handler.updatePersonalizedTravelPackage(persTPs.get(i));
-					}
-					else{
-						String message = new String();						
-						persTPs.get(i).getTravelComponents().get(j).setTravelComponent(travelComponent);
-						if(!personalized_handler.updatePersonalizedTravelPackage(persTPs.get(i)).isEmpty()){
-							persTPs.get(i).getTravelComponents().remove(j); // the TravelComponent update violates consistency, so is deleted from the TravelPackage
-							if(persTPs.get(i).getTravelComponents().isEmpty()){ // the deletion causes the package to be empty
-								message = "We are sorry to inform you that our staff has been forced to update a Travel Component, and this affect one of your Travel Package: "
-										+ persTPs.get(i).getName() + ".\n"
-										+ "Since the Travel Package had only this Travel Component, it has been removed, sorry for the inconvenience.";
-								personalized_handler.deletePersonalizedTravelPackage(persTPs.get(i)); // the package is then deleted
+				if(persTPs.get(i).getTravelComponents().get(j).getTravelComponent()!= null){
+					if(persTPs.get(i).getTravelComponents().get(j).getTravelComponent().getId() == travelComponent.getId()){
+						if(persTPs.get(i).getTravelComponents().get(j).getTravelElement() != null){
+							persTPs.get(i).getTravelComponents().get(j).setTravelComponent(null);
+							personalized_handler.updatePersonalizedTravelPackage(persTPs.get(i));
+						}
+						else{
+							String message = new String();						
+							persTPs.get(i).getTravelComponents().get(j).setTravelComponent(travelComponent);
+							if(!personalized_handler.updatePersonalizedTravelPackage(persTPs.get(i)).isEmpty()){
+								persTPs.get(i).getTravelComponents().remove(j); // the TravelComponent update violates consistency, so is deleted from the TravelPackage
+								if(persTPs.get(i).getTravelComponents().isEmpty()){ // the deletion causes the package to be empty
+									message = "We are sorry to inform you that our staff has been forced to update a Travel Component, and this affect one of your Travel Package: "
+											+ persTPs.get(i).getName() + ".\n"
+											+ "Since the Travel Package had only this Travel Component, it has been removed, sorry for the inconvenience.";
+									personalized_handler.deletePersonalizedTravelPackage(persTPs.get(i)); // the package is then deleted
+								}
+								else{
+									message = "We are sorry to inform you that our staff has been forced to update a Travel Component, and this affect one of your Travel Package: "
+											+ persTPs.get(i).getName() + ".\n"
+											+ "The Travel Component has been removed, please login and select another one to eventually substitute it!";
+									personalized_handler.updatePersonalizedTravelPackage(persTPs.get(i)); // the package is updated with the deletion
+								}
 							}
 							else{
 								message = "We are sorry to inform you that our staff has been forced to update a Travel Component, and this affect one of your Travel Package: "
 										+ persTPs.get(i).getName() + ".\n"
-										+ "The Travel Component has been removed, please login and select another one to eventually substitute it!";
-								personalized_handler.updatePersonalizedTravelPackage(persTPs.get(i)); // the package is updated with the deletion
+										+ "The Travel Component has been updated, please login and check if the modification still satisfy you, otherwise you are invited to substitute it!";
 							}
+							// an email is sent to the customer notifying the event
+							SendEmail.send(persTPs.get(i).getOwner().getEmail(), "TravelDream notification", message);
 						}
-						else{
-							message = "We are sorry to inform you that our staff has been forced to update a Travel Component, and this affect one of your Travel Package: "
-									+ persTPs.get(i).getName() + ".\n"
-									+ "The Travel Component has been updated, please login and check if the modification still satisfy you, otherwise you are invited to substitute it!";
-						}
-						// an email is sent to the customer notifying the event
-						SendEmail.send(persTPs.get(i).getOwner().getEmail(), "TravelDream notification", message);
 					}
-				}	
+				}
 			}
 		}				
 		entityManager.merge(travelComponent);		

@@ -104,7 +104,8 @@ public class CustomerHandler implements CustomerHandlerInterface{
 	@Override
 	@RolesAllowed({"CUSTOMER"})
 	public String updatePersonalizedTravelPackage(PersonalizedTravelPackageDTO personalizedTravelPackage){
-		PersonalizedTravelPackage result = new PersonalizedTravelPackage(personalizedTravelPackage,search);
+		PersonalizedTravelPackage result = search.findPersonalizedTravelPackage(personalizedTravelPackage);
+		result.setAll(personalizedTravelPackage, search);
 		return handler.updatePersonalizedTravelPackage(result);
 	}
 

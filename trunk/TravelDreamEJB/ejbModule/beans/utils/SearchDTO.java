@@ -82,7 +82,7 @@ public class SearchDTO implements SearchDTOInterface {
 	
 	@Override
 	public List<TravelComponentDTO> findTravelComponent(TravelComponentDTO searchCriteria){
-		List<TravelComponent> components = search.findTravelComponent(new TravelComponent(searchCriteria));
+		List<TravelComponent> components = search.findTravelComponent(new TravelComponent(searchCriteria,search));
 		if(components == null)
 			return null;
 		

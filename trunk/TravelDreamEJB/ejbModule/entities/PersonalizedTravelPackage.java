@@ -40,7 +40,7 @@ public class PersonalizedTravelPackage implements Serializable {
 	public PersonalizedTravelPackage() {
 		super();
 	}   
-	public PersonalizedTravelPackage(PersonalizedTravelPackageDTO personalizedTravelPackage, Search search) {		
+	public PersonalizedTravelPackage(PersonalizedTravelPackageDTO personalizedTravelPackage, Search search) {	
 		this.id = personalizedTravelPackage.getId();
 		this.name = personalizedTravelPackage.getName();
 		this.owner = search.findUser(personalizedTravelPackage.getOwner());
@@ -61,7 +61,6 @@ public class PersonalizedTravelPackage implements Serializable {
 				travelComponents.add(component);
 			}
 		}	
-
 	}
 	public long getId() {
 		return this.id;
@@ -104,5 +103,27 @@ public class PersonalizedTravelPackage implements Serializable {
 	}
 	public void setReturnDate(Date returnDate) {
 		this.returnDate = returnDate;
+	}
+	public void setAll(PersonalizedTravelPackageDTO personalizedTravelPackage, Search search) {	
+//		this.id = personalizedTravelPackage.getId();
+		this.name = personalizedTravelPackage.getName();
+		this.owner = search.findUser(personalizedTravelPackage.getOwner());
+		this.returnDate = personalizedTravelPackage.getReturnDate();
+		this.departureDate = personalizedTravelPackage.getDepartureDate();
+		this.travelComponents = new ArrayList<Components_Helper>();
+		for(int i = 0; i < personalizedTravelPackage.getTravelComponents().size(); i++)
+		{
+			Components_Helper component = search.findComponents_Helper(personalizedTravelPackage.getTravelComponents().get(i));
+			if(component != null)
+				travelComponents.add(component);
+			else // it must be a new one
+			{
+				component = new Components_Helper();
+				component.setPersonalizedTravelPackage(this);
+				component.setTravelComponent(search.findTravelComponent(personalizedTravelPackage.getTravelComponents().get(i).getTravelComponent()));
+				component.setTravelElement(null);
+				travelComponents.add(component);
+			}
+		}	
 	}
 }
