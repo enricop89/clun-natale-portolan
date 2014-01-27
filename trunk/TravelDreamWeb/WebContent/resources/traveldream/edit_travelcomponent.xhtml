@@ -12,6 +12,9 @@
 	  </composite:interface>
  
 	  <composite:implementation>
+	  
+	  <p:growl id="egrowl" showDetail="true" globalOnly="true" />  
+	  
 	<p:panel header="Modify travel component details"> 
 		<h:outputText rendered="#{cc.attrs.component.type == 'FLIGHT'}" value="Flight details: " />
 		<h:outputText rendered="#{cc.attrs.component.type == 'HOTEL'}" value="Hotel details: " />
