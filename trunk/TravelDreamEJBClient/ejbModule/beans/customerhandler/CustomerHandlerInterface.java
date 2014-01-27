@@ -12,7 +12,7 @@ public interface CustomerHandlerInterface {
 	
 	public boolean addTravelComponentToPersonalizedTravelPackage(PersonalizedTravelPackageDTO personalizedTravelPackage, TravelComponentDTO travelComponent);
 
-	public boolean removeTravelComponentFromPersonalizedTravelPackage(PersonalizedTravelPackageDTO personalizedTravelPackage, Components_HelperDTO travelComponent);
+	public String removeTravelComponentFromPersonalizedTravelPackage(PersonalizedTravelPackageDTO personalizedTravelPackage, Components_HelperDTO travelComponent);
 
 	public String confirmPersonalizedTravelPackage(PersonalizedTravelPackageDTO personalizedTravelPackage);
 

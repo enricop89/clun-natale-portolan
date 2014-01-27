@@ -52,18 +52,18 @@ public class CustomerHandler implements CustomerHandlerInterface{
 	
 	@Override
 	@RolesAllowed({"CUSTOMER"})
-	public boolean removeTravelComponentFromPersonalizedTravelPackage(PersonalizedTravelPackageDTO personalizedTravelPackage, Components_HelperDTO travelComponent){
+	public String removeTravelComponentFromPersonalizedTravelPackage(PersonalizedTravelPackageDTO personalizedTravelPackage, Components_HelperDTO travelComponent){
 		if(personalizedTravelPackage.getTravelComponents().size() == 1)
-			return false;
+			return "cannot delete the last component, would make the package empty";
 		
 		if(travelComponent.getTravelElement() != null)
-			return false;
+			return "cannot delete a payed component";
 		
 		List<Components_HelperDTO> components = personalizedTravelPackage.getTravelComponents();
 		boolean result = components.remove(travelComponent);
 		if(result == true)
 			personalizedTravelPackage.setTravelComponents(components);
-		return result;
+		return "";
 	}
 	
 	@Override

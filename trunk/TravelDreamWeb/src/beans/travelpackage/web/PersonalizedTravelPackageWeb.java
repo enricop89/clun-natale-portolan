@@ -271,7 +271,7 @@ public class PersonalizedTravelPackageWeb {
 	}
 		
 	public void deleteComponent(Components_HelperDTO component) throws IOException{
-		boolean result = customerHandler.removeTravelComponentFromPersonalizedTravelPackage(personalizedPackage, component);
+		String result = customerHandler.removeTravelComponentFromPersonalizedTravelPackage(personalizedPackage, component);
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		Flash flash = facesContext.getExternalContext().getFlash();
 		flash.setKeepMessages(true);
@@ -279,10 +279,10 @@ public class PersonalizedTravelPackageWeb {
 		List<PersonalizedTravelPackageDTO> toSend = new ArrayList<PersonalizedTravelPackageDTO>();
 		toSend.add(personalizedPackage);
 		data.setPersonalizedTravelPackagesList(toSend);
-		if(result==true)
+		if(result.isEmpty())
 			facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Successful", "You have deleted the component from your package, click on the save button to submit your changes!")); 
 		else
-			facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error", "You cannot delete a payed component")); 
+			facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error", "Something went wrong. Server replied: " + result)); 
 		FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/customer/personalized_travel_package.xhtml");
 	}
 	
