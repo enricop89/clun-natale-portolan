@@ -10,6 +10,7 @@ import java.util.List;
 import beans.travelcomponent.ComponentType;
 //import beans.travelcomponent.FlightType;
 import beans.travelcomponent.TravelComponentDTO;
+import beans.utils.Search;
 
 import javax.persistence.*;
 
@@ -57,7 +58,7 @@ public class TravelComponent implements Serializable {
 	public TravelComponent() {
 		super();
 	}   
-	public TravelComponent(TravelComponentDTO travelComponent){
+	public TravelComponent(TravelComponentDTO travelComponent, Search search){
 		this.id = travelComponent.getId();
 		this.type = travelComponent.getType();
 		this.supplyingCompany = travelComponent.getSupplyingCompany();
@@ -105,8 +106,14 @@ public class TravelComponent implements Serializable {
 			excursionCity = travelComponent.getExcursionCity();
 			break;
 		}
-		this.predefinedTravelPackages = new ArrayList<PredefinedTravelPackage>(); //is empty when created
-		this.travelElements = null; //will be created afterwards
+		if(search.findTravelComponent(travelComponent) == null){ // this is a new travel component
+			this.predefinedTravelPackages = new ArrayList<PredefinedTravelPackage>(); //is empty when created
+			this.travelElements = null; //will be created afterwards
+		}
+		else{
+			this.predefinedTravelPackages = search.findTravelComponent(travelComponent).getPredefinedTravelPackages();
+			this.travelElements = search.findTravelComponent(travelComponent).getTravelElements();
+		}
 	}
 	public long getId() {
 		return this.id;
@@ -224,5 +231,55 @@ public class TravelComponent implements Serializable {
 	
 	public void setTravelElements(List<TravelElement> travelElements) {
 		this.travelElements = travelElements;
+	}
+	
+	public void setAll(TravelComponentDTO travelComponent){
+//		this.id = travelComponent.getId();
+		this.type = travelComponent.getType();
+		this.supplyingCompany = travelComponent.getSupplyingCompany();
+		switch(travelComponent.getType()){
+		case FLIGHT:
+			flightDepartureDateTime = travelComponent.getFlightDepartureDateTime();
+			flightArrivalDateTime = travelComponent.getFlightArrivalDateTime();
+			flightDepartureCity = travelComponent.getFlightDepartureCity();
+			flightArrivalCity = travelComponent.getFlightArrivalCity();
+			flightCode = travelComponent.getFlightCode();
+			
+			hotelCity = null;
+			hotelDate = null;
+			
+			excursionDescription = null;
+			excursionDateTime = null;
+			excursionCity = null;
+			break;
+		case HOTEL:
+			flightDepartureDateTime = null;
+			flightArrivalDateTime = null;
+			flightDepartureCity = null;
+			flightArrivalCity = null;
+			flightCode = null;
+			
+			hotelCity = travelComponent.getHotelCity();
+			hotelDate = travelComponent.getHotelDate();
+			
+			excursionDescription = null;
+			excursionDateTime = null;
+			excursionCity = null;
+			break;
+		case EXCURSION:
+			flightDepartureDateTime = null;
+			flightArrivalDateTime = null;
+			flightDepartureCity = null;
+			flightArrivalCity = null;
+			flightCode = null;
+			
+			hotelCity = null;
+			hotelDate = null;
+			
+			excursionDescription = travelComponent.getExcursionDescription();
+			excursionDateTime = travelComponent.getExcursionDateTime();
+			excursionCity = travelComponent.getExcursionCity();
+			break;
+		}
 	}
 }
