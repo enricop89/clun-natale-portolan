@@ -6,7 +6,8 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+//import javax.faces.bean.RequestScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 
@@ -15,7 +16,7 @@ import beans.travelcomponent.TravelComponentDTO;
 import beans.utils.SearchDTOInterface;
 
 @ManagedBean(name="TravelComponentWeb")
-@RequestScoped
+@ViewScoped
 public class TravelComponentWeb 
 {
 	@EJB
@@ -35,6 +36,11 @@ public class TravelComponentWeb
 	
 	private TravelComponentDTO component;
 	
+	private java.util.Date flightDepartureDate;
+	private java.util.Date flightArrivalDate;	
+	private java.util.Date excursionDate;
+	private java.util.Date hotelDate;
+	
 	public TravelComponentWeb()
 	{
 		
@@ -44,7 +50,11 @@ public class TravelComponentWeb
 	public void init(){
 		List<TravelComponentDTO> res = data.getTravelComponentsList();
 		if(!res.isEmpty())
+		{
 			this.component = res.get(0);
+			if (component.getHotelDate() != null)
+				this.hotelDate = new java.util.Date(component.getHotelDate().getTime());
+		}
 	}
 
 	public TravelComponentDTO getComponent() {
@@ -55,9 +65,39 @@ public class TravelComponentWeb
 		this.component = component;
 	}
 	
+	public java.util.Date getFlightDepartureDate() {
+		return flightDepartureDate;
+	}
+	public void setFlightDepartureDate(java.util.Date flightDepartureDate) {
+		this.flightDepartureDate = flightDepartureDate;
+	}
+	public java.util.Date getFlightArrivalDate() {
+		return flightArrivalDate;
+	}
+	public void setFlightArrivalDate(java.util.Date flightArrivalDate) {
+		this.flightArrivalDate = flightArrivalDate;
+	}
+	public java.util.Date getExcursionDate() {
+		return excursionDate;
+	}
+	public void setExcursionDate(java.util.Date excursionDate) {
+		this.excursionDate = excursionDate;
+	}
+	public java.util.Date getHotelDate() {
+		return hotelDate;
+	}
+	public void setHotelDate(java.util.Date hotelDate) {
+		this.hotelDate = hotelDate;
+	}
 	public String saveChanges()
 	{
 		FacesContext facesContext = FacesContext.getCurrentInstance();
+		
+		if (hotelDate != null)
+			component.setHotelDate(new java.sql.Date(hotelDate.getTime()));		
+		//component.setExcursionDateTime(new java.sql.Timestamp());
+		//component.setHotelDate(new java.sql.Date(hotelDate.getTime()));
+		
 		boolean result = employeeHandler.updateTravelComponent(component);
 		if (result == true)
 		{

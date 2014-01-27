@@ -13,7 +13,24 @@
     <h:body>  
         <h:form> 
         	<p:growl id="egrowl" showDetail="true" globalOnly="true" />  
-			<denny:edit_travelcomponent component="#{TravelComponentWeb.component}"/>
+        	
+			
+			<p:panel header="Modify travel component details"> 
+				<h:outputText rendered="#{TravelComponentWeb.component.type == 'FLIGHT'}" value="Flight details: " />
+				<h:outputText rendered="#{TravelComponentWeb.component.type == 'HOTEL'}" value="Hotel details: " />
+				<h:outputText rendered="#{TravelComponentWeb.component.type == 'EXCURSION'}" value="Excursion details: " />
+				
+				<p:panelGrid columns="2" >  
+					
+					<h:outputLabel for="company">Company name:</h:outputLabel>
+					<p:inputText id="company" value="#{TravelComponentWeb.component.supplyingCompany}" required="true"/>
+							
+					<h:outputLabel rendered="#{TravelComponentWeb.component.type == 'FLIGHT'}" for="flight_code">Code:</h:outputLabel>
+					<p:inputText rendered="#{TravelComponentWeb.component.type == 'FLIGHT'}" id="flight_code" value="#{TravelComponentWeb.component.flightCode}" required="true"/>
+				
+				</p:panelGrid>
+			</p:panel>
+			
 			<p:commandButton id="btnSave" value="Save changes" action="#{TravelComponentWeb.saveChanges}" ajax="true" updates="egrowl" />
         </h:form>  
     </h:body>  

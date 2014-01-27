@@ -439,4 +439,14 @@ public class EmployeeHandlerWeb  {
         options.put("resizable", false);
 		RequestContext.getCurrentInstance().openDialog("/misc/dialog_travelcomponent.xhtml",options,null);	
 	}
+	
+	public void editComponentDetails(TravelComponentDTO component) throws IOException
+	{
+		List<TravelComponentDTO> toSend = new ArrayList<TravelComponentDTO>();
+		toSend.add(component);
+		data.setTravelComponentsList(toSend);
+        Map<String,Object> options = new HashMap<String, Object>();  
+        options.put("resizable", false);
+		RequestContext.getCurrentInstance().openDialog("/misc/dialog_edit_travelcomponent.xhtml",options,null);	
+	}
 }
