@@ -81,19 +81,24 @@
 			                    <h:outputText value="#{travelComponent.flightDepartureCity}" />  
 			                </p:column>
 			                <p:column headerText="" style="text-align: center">  
-			                    <h:outputText value="#{travelComponent.flightDepartureDateTime}" />  
+			                    <h:outputText value="#{travelComponent.flightDepartureDateTime}">
+			                    	<f:convertDateTime pattern="dd-MM-yyyy  HH:mm" />
+			                    </h:outputText>   
 			                </p:column>
 			                  
 			                <p:column headerText="To" style="text-align: center">  
 			                    <h:outputText value="#{travelComponent.flightArrivalCity}" />  
 			                </p:column>
 			                <p:column headerText="" style="text-align: center">  
-			                    <h:outputText value="#{travelComponent.flightArrivalDateTime}" />  
+			                    <h:outputText value="#{travelComponent.flightArrivalDateTime}">
+			                    	<f:convertDateTime pattern="dd-MM-yyyy  HH:mm" />
+			                    </h:outputText>    
 			                </p:column>
 			                
 			                <p:column headerText="Availability" style="text-align: center">  
 			                    <h:outputText value="#{travelComponent.availability}" />  
 			                </p:column> 
+			                
 			            </p:dataTable> 
 			            </h:panelGroup>
 					</h:form>
@@ -138,8 +143,8 @@
 					                    rendered="#{!cc.attrs.Method2Name.isEmpty()}"
 					                    />  
 									</p:row>
-									<p:tooltip for="add" value="Add the travel component" showEffect="fade" hideEffect="fade" /> 
-					            	<p:tooltip for="visualize" value="Show the travel component info" showEffect="fade" hideEffect="fade" />  
+									<p:tooltip for="add" value="#{cc.attrs.Method1Tooltip}" showEffect="fade" hideEffect="fade" /> 
+					            	<p:tooltip for="visualize" value="#{cc.attrs.Method2Tooltip}" showEffect="fade" hideEffect="fade" />  
 				                </p:column>  
 				                <p:column headerText="Company" style="text-align: center">  
 				                    <h:outputText value="#{travelComponent.supplyingCompany}" />  
@@ -150,12 +155,15 @@
 				                </p:column>
 				                  
 				                <p:column headerText="Date" style="text-align: center">  
-				                    <h:outputText value="#{travelComponent.hotelDate}" />  
+				                    <h:outputText value="#{travelComponent.hotelDate}"> 
+				                    	<f:convertDateTime pattern="dd-MM-yyyy" />
+			                    	</h:outputText> 
 				                </p:column>
 				                
 				                <p:column headerText="Availability" style="text-align: center">  
 				                    <h:outputText value="#{travelComponent.availability}" />  
-				                </p:column> 
+				                </p:column>
+				                 
 				            </p:dataTable> 
 			            </h:panelGroup>
 			 		</h:form>
@@ -201,8 +209,8 @@
 					                    rendered="#{!cc.attrs.Method2Name.isEmpty()}"
 					                    />  
 								</p:row>
-								<p:tooltip for="add" value="Add the travel component" showEffect="fade" hideEffect="fade" /> 
-				            	<p:tooltip for="visualize" value="Show the travel component info" showEffect="fade" hideEffect="fade" />  
+								<p:tooltip for="add" value="#{cc.attrs.Method1Tooltip}" showEffect="fade" hideEffect="fade" /> 
+				            	<p:tooltip for="visualize" value="#{cc.attrs.Method2Tooltip}" showEffect="fade" hideEffect="fade" />  
 			                </p:column>  
 			                <p:column headerText="Company" style="text-align: center">  
 			                    <h:outputText value="#{travelComponent.supplyingCompany}" />  
@@ -213,10 +221,16 @@
 			                </p:column>
 			                  
 			                <p:column headerText="Date and time" style="text-align: center">  
-			                    <h:outputText value="#{travelComponent.excursionDateTime}" />  
+			                    <h:outputText value="#{travelComponent.excursionDateTime}">
+			                    	<f:convertDateTime pattern="dd-MM-yyyy HH:mm" />
+			                    </h:outputText>  
 			                </p:column>
 			                <p:column headerText="Description" style="text-align: center">  
 			                    <h:outputText value="#{travelComponent.excursionDescription}" />  
+			                </p:column>
+			                
+			                <p:column headerText="Availability" style="text-align: center">  
+			                    <h:outputText value="#{travelComponent.availability}" />  
 			                </p:column>
 			            
 			            </p:dataTable> 
