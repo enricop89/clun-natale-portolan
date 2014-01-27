@@ -8,6 +8,7 @@ import javax.ejb.Stateless;
 
 import entities.Components_Helper;
 import entities.PersonalizedTravelPackage;
+import entities.PredefinedTravelPackage;
 import beans.accountmanagement.UserDTO;
 import beans.travelcomponent.TravelComponentDTO;
 import beans.travelpackage.Components_HelperDTO;
@@ -118,8 +119,9 @@ public class CustomerHandler implements CustomerHandlerInterface{
 	@Override
 	@RolesAllowed({"CUSTOMER"})
 	public void addNewPersonalizedTravelPackage(UserDTO user, PredefinedTravelPackageDTO predefinedTravelPackage){
-		//TODO correggere, deve gestire anche dati volatili
-		predefined_handler.copyPredefinedTravelPackage(search.findPredefinedTravelPackage(predefinedTravelPackage), search.findUser(user));
+		PredefinedTravelPackage newPackage = search.findPredefinedTravelPackage(predefinedTravelPackage);
+		newPackage.setAll(predefinedTravelPackage, search);
+		predefined_handler.copyPredefinedTravelPackage(newPackage, search.findUser(user));
 	}
 	
 	@Override
