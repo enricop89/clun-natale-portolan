@@ -144,7 +144,7 @@ public void save() throws IOException{
 		List<PredefinedTravelPackageDTO> toSend = new ArrayList<PredefinedTravelPackageDTO>();
 		toSend.add(helper);
 		data.setPredefinedTravelPackagesList(toSend);
-		FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/misc/modify_predefinedtravelpackage.xhtml?faces-redirect=true");
+		FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/misc/modify_predefinedtravelpackage.xhtml");
 	
 	}
 	
@@ -175,10 +175,10 @@ public void save() throws IOException{
 			facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Successful", "You have deleted the component from your package, click on the save button to submit your changes!")); 
 		else
 			facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error", "You cannot delete a payed component")); 
-		FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/customer/personalized_travel_package.xhtml");
+		FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/misc/predefinedtravelpackage.xhtml");
 	}
 	
-	//nuovi metodi
+	
 	public void addComponent(TravelComponentDTO component) throws IOException
 	{
 		FacesMessage message = null;
