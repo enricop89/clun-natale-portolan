@@ -95,7 +95,9 @@ public class PredefinedTravelPackageWeb {
 					}							
 				}
 				if(found == false){
-					TravelComponentDTO rootHotel = component;
+					TravelComponentDTO rootHotel = new TravelComponentDTO();
+					rootHotel.setType(type);
+					rootHotel.setSupplyingCompany(component.getSupplyingCompany());
 					rootHotel.setId(-1);
 					TreeNode hotel = new DefaultTreeNode(rootHotel,root);
 					new DefaultTreeNode(component,hotel);
