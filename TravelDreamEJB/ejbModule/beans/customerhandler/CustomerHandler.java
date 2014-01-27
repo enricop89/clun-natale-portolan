@@ -118,10 +118,10 @@ public class CustomerHandler implements CustomerHandlerInterface{
 	
 	@Override
 	@RolesAllowed({"CUSTOMER"})
-	public void addNewPersonalizedTravelPackage(UserDTO user, PredefinedTravelPackageDTO predefinedTravelPackage){
+	public String addNewPersonalizedTravelPackage(UserDTO user, PredefinedTravelPackageDTO predefinedTravelPackage){
 		PredefinedTravelPackage newPackage = search.findPredefinedTravelPackage(predefinedTravelPackage);
 		newPackage.setAll(predefinedTravelPackage, search);
-		predefined_handler.copyPredefinedTravelPackage(newPackage, search.findUser(user));
+		return predefined_handler.copyPredefinedTravelPackage(newPackage, search.findUser(user));
 	}
 	
 	@Override
