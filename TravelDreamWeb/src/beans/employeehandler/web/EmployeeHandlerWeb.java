@@ -64,6 +64,13 @@ public class EmployeeHandlerWeb  {
 	private java.util.Date hotelStartingDate;
 	private java.util.Date hotelEndingDate;
 	
+	private String flightCompany;
+	private int flightPlaces;	
+	private String hotelCompany;
+	private int hotelPlaces;	
+	private String excursionCompany;
+	private int excursionPlaces;
+	
 	private int activePanel;
 			
 	@PostConstruct
@@ -158,6 +165,42 @@ public class EmployeeHandlerWeb  {
 		this.hotelEndingDate = hotelEndingDate;
 	}
 	
+	public int getHotelPlaces() {
+		return hotelPlaces;
+	}
+	public void setHotelPlaces(int hotelPlaces) {
+		this.hotelPlaces = hotelPlaces;
+	}
+	public String getHotelCompany() {
+		return hotelCompany;
+	}
+	public void setHotelCompany(String hotelCompany) {
+		this.hotelCompany = hotelCompany;
+	}
+	public int getFlightPlaces() {
+		return flightPlaces;
+	}
+	public void setFlightPlaces(int flightPlaces) {
+		this.flightPlaces = flightPlaces;
+	}
+	public String getFlightCompany() {
+		return flightCompany;
+	}
+	public void setFlightCompany(String flightCompany) {
+		this.flightCompany = flightCompany;
+	}
+	public int getExcursionPlaces() {
+		return excursionPlaces;
+	}
+	public void setExcursionPlaces(int excursionPlaces) {
+		this.excursionPlaces = excursionPlaces;
+	}
+	public String getExcursionCompany() {
+		return excursionCompany;
+	}
+	public void setExcursionCompany(String excursionCompany) {
+		this.excursionCompany = excursionCompany;
+	}
 	public String createExcursion()
 	{
 		FacesContext facesContext = FacesContext.getCurrentInstance();
@@ -166,6 +209,8 @@ public class EmployeeHandlerWeb  {
 		flash.setRedirect(true);
 		
 		componentDTO.setType(ComponentType.EXCURSION);
+		componentDTO.setSupplyingCompany(excursionCompany);
+		componentDTO.setAvailability(excursionPlaces);
 		
 		componentDTO.setFlightArrivalDateTime(null);
 		componentDTO.setFlightArrivalCity(null);
@@ -202,6 +247,8 @@ public class EmployeeHandlerWeb  {
 		flash.setRedirect(true);
 		
 		componentDTO.setType(ComponentType.FLIGHT);
+		componentDTO.setSupplyingCompany(flightCompany);
+		componentDTO.setAvailability(flightPlaces);
 		
 		componentDTO.setHotelCity(null);
 		componentDTO.setHotelDate(null);
@@ -242,6 +289,8 @@ public class EmployeeHandlerWeb  {
 		flash.setRedirect(true);
 		
 		componentDTO.setType(ComponentType.HOTEL);
+		componentDTO.setSupplyingCompany(hotelCompany);
+		componentDTO.setAvailability(hotelPlaces);
 		
 		componentDTO.setFlightArrivalDateTime(null);
 		componentDTO.setFlightArrivalCity(null);
@@ -406,10 +455,15 @@ public class EmployeeHandlerWeb  {
 	
 	public void createPackage()
 	{
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		Flash flash = facesContext.getExternalContext().getFlash();
+		flash.setKeepMessages(true);
+		flash.setRedirect(true);
+		
 		packageDTO.setDepartureDate(new java.sql.Date(packageStartDate.getTime()));
 		packageDTO.setReturnDate(new java.sql.Date(packageEndDate.getTime()));
 		String result = employeeHandler.addNewPredefinedTravelPackage(packageDTO);
-		FacesContext facesContext = FacesContext.getCurrentInstance();
+
 		if (result.isEmpty())
 		{
 			facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Successful", "Package correctly added."));
