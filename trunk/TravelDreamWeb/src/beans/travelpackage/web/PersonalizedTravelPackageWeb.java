@@ -249,6 +249,9 @@ public class PersonalizedTravelPackageWeb {
 		if(personalizedPackage == null)
 			return false;
 		
+		if(personalizedPackage.getTravelComponents().isEmpty())
+			return true;
+		
 		for (int i=0;i<personalizedPackage.getTravelComponents().size();i++)
 			if(personalizedPackage.getTravelComponents().get(i).getTravelElement()==null)
 				return false;
