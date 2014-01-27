@@ -1,5 +1,6 @@
 package beans.utils.web;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -10,6 +11,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
+
+import org.primefaces.context.RequestContext;
 
 import beans.employeehandler.EmployeeHandlerInterface;
 import beans.travelcomponent.TravelComponentDTO;
@@ -54,6 +57,12 @@ public class TravelComponentWeb
 			this.component = res.get(0);
 			if (component.getHotelDate() != null)
 				this.hotelDate = new java.util.Date(component.getHotelDate().getTime());
+			if (component.getFlightDepartureDateTime() != null)
+				this.flightDepartureDate = new java.util.Date(component.getFlightDepartureDateTime().getTime());
+			if (component.getFlightArrivalDateTime() != null)
+				this.flightArrivalDate = new java.util.Date(component.getFlightArrivalDateTime().getTime());
+			if (component.getExcursionDateTime() != null)
+				this.excursionDate = new java.util.Date(component.getExcursionDateTime().getTime());
 		}
 	}
 
@@ -89,25 +98,19 @@ public class TravelComponentWeb
 	public void setHotelDate(java.util.Date hotelDate) {
 		this.hotelDate = hotelDate;
 	}
-	public String saveChanges()
-	{
-		FacesContext facesContext = FacesContext.getCurrentInstance();
-		
+	public void saveChanges()
+	{		
 		if (hotelDate != null)
-			component.setHotelDate(new java.sql.Date(hotelDate.getTime()));		
-		//component.setExcursionDateTime(new java.sql.Timestamp());
-		//component.setHotelDate(new java.sql.Date(hotelDate.getTime()));
+			component.setHotelDate(new java.sql.Date(hotelDate.getTime()));	
+		if (flightDepartureDate != null)
+			component.setFlightDepartureDateTime(new java.sql.Timestamp(flightDepartureDate.getTime()));
+		if (flightArrivalDate != null)
+			component.setFlightArrivalDateTime(new java.sql.Timestamp(flightArrivalDate.getTime()));
+		if (excursionDate != null)
+			component.setExcursionDateTime(new java.sql.Timestamp(excursionDate.getTime()));
 		
 		boolean result = employeeHandler.updateTravelComponent(component);
-		if (result == true)
-		{
-			facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Successful", "Travel component correctly added."));
-			return "/employee/control_panel.html?faces-redirect=true";
-		}
-		else
-		{
-			facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error", "Unable to add the travel component."));
-			return "/employee/control_panel.html?faces-redirect=true";
-		}
+
+		RequestContext.getCurrentInstance().execute("window.top.location.reload();");//.closeDialog(result);
 	}
 }

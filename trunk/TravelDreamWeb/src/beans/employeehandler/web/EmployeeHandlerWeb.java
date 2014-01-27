@@ -447,6 +447,18 @@ public class EmployeeHandlerWeb  {
 		data.setTravelComponentsList(toSend);
         Map<String,Object> options = new HashMap<String, Object>();  
         options.put("resizable", false);
-		RequestContext.getCurrentInstance().openDialog("/misc/dialog_edit_travelcomponent.xhtml",options,null);	
+
+		FacesContext.getCurrentInstance().getViewRoot().getViewMap().remove("SearchTravelComponents");
+		
+		RequestContext.getCurrentInstance().openDialog("/employee/dialog_edit_travelcomponent.xhtml",options,null);	
+	}
+	
+	public void deleteComponent(TravelComponentDTO component)
+	{
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		employeeHandler.deleteTravelComponent(component);
+		facesContext.getViewRoot().getViewMap().remove("SearchTravelComponents");
+		//facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Successful", "Component removed."));
+		RequestContext.getCurrentInstance().execute("window.top.location.reload();");
 	}
 }
