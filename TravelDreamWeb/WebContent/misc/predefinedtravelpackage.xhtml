@@ -12,7 +12,7 @@
 
 
 <h:form> 
-	
+		<p:growl id="growl1" showDetail="true" globalOnly="true" /> 
 		<p:panelGrid style="width:100%">
 		<f:facet name="header">
 			<p:row>
@@ -44,28 +44,32 @@
 		</p:row>			 
 		</p:panelGrid>
 	
-			<p:dataTable var="element" value="#{PredefinedTravelPackageWeb.predTP.travelComponents}" >  
+			<p:treeTable rendered="#{PredefinedTravelPackageWeb.root != null}" id="treetable" var="element" value="#{PredefinedTravelPackageWeb.root}" paginator="true" rows="10"  
+                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                 rowsPerPageTemplate="5,10,15">
+	           
 	            <p:column headerText="Type">  
-	                <h:outputText value="#{element.type}" />  
-	            </p:column> 
-	             <p:column headerText="Supplyng company">  
-	                <h:outputText value="#{element.supplyingCompany}" />  
-	            </p:column> 
+				<h:outputText value="#{PredefinedTravelPackageWeb.fieldOne(element)}"/>          	
+            </p:column>  
+			<p:column headerText="Supplyng company">  
+				<h:outputText value="#{PredefinedTravelPackageWeb.fieldTwo(element)}"/>                    
+            </p:column>  
 				<p:column headerText="Availability">  
-	                <h:outputText value="#{element.availability}" />  
+	                <h:outputText value="#{PredefinedTravelPackageWeb.fieldThree(element)}" />  
 	            </p:column>  
 	                
 	          	<p:column headerText="" style="text-align: center">
 	          		
 		      			<p:row> 
-		      				<p:commandButton id="visualize" icon="ui-icon-script" actionListener="#{PredefinedTravelPackageWeb.showComponent(element)}"/> 
+		      				<p:commandButton id="visualize" icon="ui-icon-script" rendered="PredefinedTravelPackageWeb.isHotelRoot(element) == false}" actionListener="#{PredefinedTravelPackageWeb.showComponent(element)}"/> 
 		      				
 		            	</p:row>
 		            
             	<p:tooltip for="visualize" value="View the details of the package" showEffect="fade" hideEffect="fade" />   
 	         	
 	         	</p:column>                  
-			</p:dataTable> 
+			</p:treeTable>
+			 
 			<p:commandButton id="copy" value="Save" icon="ui-icon-copy" update="growl1" rendered="#{PredefinedTravelPackageWeb.checkIfCustomer()}"  action="#{PredefinedTravelPackageWeb.copyInPersonalizedTravelPackage(PredefinedTravelPackageWeb.predTP)}"	ajax="false"/>
 			<p:commandButton id="check" value="Modify" icon="ui-icon-wrench" update="growl1" style="float:right;" action="#{PredefinedTravelPackageWeb.modify(PredefinedTravelPackageWeb.predTP)}"	ajax="false"/>
 			<p:commandButton value="Confirm" id="confirm" icon="ui-icon-star" style="float:left;"  action="#{PredefinedTravelPackageWeb.confirmPackage()}" immediate="true"/>
