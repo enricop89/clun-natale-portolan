@@ -57,21 +57,21 @@ public class PredefinedTravelPackageHandler {
 	}
 	
 	public void copyPredefinedTravelPackage(PredefinedTravelPackage predefinedTravelPackage, User owner){		
-		PersonalizedTravelPackage persTP = new PersonalizedTravelPackage();
-		persTP.setName(predefinedTravelPackage.getName());
-		persTP.setOwner(owner);
-		persTP.setDepartureDate(predefinedTravelPackage.getDepartureDate());
-		persTP.setReturnDate(predefinedTravelPackage.getReturnDate());
+		PersonalizedTravelPackage personalizedTravelPackage = new PersonalizedTravelPackage();
+		personalizedTravelPackage.setName(predefinedTravelPackage.getName());
+		personalizedTravelPackage.setOwner(owner);
+		personalizedTravelPackage.setDepartureDate(predefinedTravelPackage.getDepartureDate());
+		personalizedTravelPackage.setReturnDate(predefinedTravelPackage.getReturnDate());
 		List<Components_Helper> constructor = new ArrayList<Components_Helper>();
 		for(int i=0;i<predefinedTravelPackage.getTravelComponents().size();i++){
 			Components_Helper component = new Components_Helper();
 			component.setTravelElement(null);
-			component.setPersonalizedTravelPackage(persTP);   
+			component.setPersonalizedTravelPackage(personalizedTravelPackage);   
 			component.setTravelComponent(predefinedTravelPackage.getTravelComponents().get(i));
 			constructor.add(component);	
 		}
-		persTP.setTravelComponents(constructor);
-		handler.addNewPersonalizedTravelPackage(persTP);
+		personalizedTravelPackage.setTravelComponents(constructor);
+		handler.addNewPersonalizedTravelPackage(personalizedTravelPackage);
 	}
 
 	private String consistencyCheck(PredefinedTravelPackage predefinedTravelPackage){
