@@ -5,10 +5,13 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 //import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 //import javax.faces.bean.RequestScoped;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
+import javax.faces.context.Flash;
 //import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 
@@ -111,6 +114,16 @@ public class TravelComponentWeb
 		
 		boolean result = employeeHandler.updateTravelComponent(component);
 
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		Flash flash = facesContext.getExternalContext().getFlash();
+		flash.setKeepMessages(true);
+		flash.setRedirect(true);
+		if(result == true)
+			facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Successful", "Travel component updated!")); 
+		
+		else
+			facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error", "")); 
+	
 		RequestContext.getCurrentInstance().execute("window.top.location.reload();");//.closeDialog(result);
 	}
 }
