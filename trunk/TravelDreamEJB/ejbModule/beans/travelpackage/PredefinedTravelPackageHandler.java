@@ -69,6 +69,7 @@ public class PredefinedTravelPackageHandler {
 			component.setPersonalizedTravelPackage(persTP);   
 			component.setTravelComponent(predefinedTravelPackage.getTravelComponents().get(i));
 			constructor.add(component);	
+			entityManager.persist(component);
 		}
 		persTP.setTravelComponents(constructor);
 		handler.addNewPersonalizedTravelPackage(persTP);
