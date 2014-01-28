@@ -82,7 +82,7 @@
 			                </p:column>
 			                <p:column headerText="" style="text-align: center">  
 			                    <h:outputText value="#{travelComponent.flightDepartureDateTime}">
-			                    	<f:convertDateTime pattern="dd-MM-yyyy  HH:mm" />
+			                    	<f:convertDateTime pattern="dd-MM-yyyy  HH:mm" timeZone="GMT+1"/>
 			                    </h:outputText>   
 			                </p:column>
 			                  
@@ -91,7 +91,7 @@
 			                </p:column>
 			                <p:column headerText="" style="text-align: center">  
 			                    <h:outputText value="#{travelComponent.flightArrivalDateTime}">
-			                    	<f:convertDateTime pattern="dd-MM-yyyy  HH:mm" />
+			                    	<f:convertDateTime pattern="dd-MM-yyyy  HH:mm" timeZone="GMT+1"/>
 			                    </h:outputText>    
 			                </p:column>
 			                
@@ -156,7 +156,7 @@
 				                  
 				                <p:column headerText="Date" style="text-align: center">  
 				                    <h:outputText value="#{travelComponent.hotelDate}"> 
-				                    	<f:convertDateTime pattern="dd-MM-yyyy" />
+				                    	<f:convertDateTime pattern="dd-MM-yyyy" timeZone="GMT+1"/>
 			                    	</h:outputText> 
 				                </p:column>
 				                
@@ -222,7 +222,7 @@
 			                  
 			                <p:column headerText="Date and time" style="text-align: center">  
 			                    <h:outputText value="#{travelComponent.excursionDateTime}">
-			                    	<f:convertDateTime pattern="dd-MM-yyyy HH:mm" />
+			                    	<f:convertDateTime pattern="dd-MM-yyyy HH:mm" timeZone="GMT+1" />
 			                    </h:outputText>  
 			                </p:column>
 			                <p:column headerText="Description" style="text-align: center">  
