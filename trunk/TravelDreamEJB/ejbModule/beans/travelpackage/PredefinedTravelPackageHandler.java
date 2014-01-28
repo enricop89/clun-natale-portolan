@@ -117,14 +117,14 @@ public class PredefinedTravelPackageHandler {
 				departureFlight = flights.get(0);
 				returnFlight = flights.get(1);
 			}
-			else // equal, not possible!
-				return "equal, not possible!"; 			
+			else
+				return "flights date equal, not possible!"; 				
 			
-			if(departureFlight.getFlightDepartureDateTime().compareTo(predefinedTravelPackage.getDepartureDate()) != 0)
-				return "flights dates mismatch"; // dates mismatch
-			
-			if(returnFlight.getFlightArrivalDateTime().compareTo(predefinedTravelPackage.getReturnDate()) != 0)
-				return "flights dates mismatch"; // dates mismatch	
+			if((predefinedTravelPackage.getDepartureDate().compareTo(departureFlight.getFlightDepartureDateTime())) > 0)
+				return "departure date after the date of the departure flight"; // dates mismatch
+		
+			if(predefinedTravelPackage.getReturnDate().compareTo(returnFlight.getFlightArrivalDateTime()) < 0)
+				return "rerturn date before the date of the return fligh"; // dates mismatch
 			
 			if(!departureFlight.getFlightArrivalCity().equals(returnFlight.getFlightDepartureCity()))
 				return "flights cities mismatch"; // city mismatch, error!
