@@ -246,19 +246,20 @@ public class SearchDTO implements SearchDTOInterface {
     	giftListDTO.setOwner(convertToDTO(giftList.getOwner()));
     	List<GiftElements_HelperDTO> giftElements = new ArrayList<GiftElements_HelperDTO>();
     	for(int i = 0; i < giftList.getGiftElements().size(); i++){
-    		giftElements.add(convertToDTO(giftList.getGiftElements().get(i)));
-    		giftElements.get(i).setGiftList(giftListDTO);
+    		giftElements.add(convertToDTO(giftList.getGiftElements().get(i),giftListDTO));
     	}
     	giftListDTO.setGiftElements(giftElements);
     	return giftListDTO;
     }
-    private GiftElements_HelperDTO convertToDTO(GiftElements_Helper elements){
-    	if(elements == null)
+    
+    private GiftElements_HelperDTO convertToDTO(GiftElements_Helper element, GiftListDTO giftList){
+    	if(element == null)
     		return null;
-    	GiftElements_HelperDTO elementsDTO = new GiftElements_HelperDTO();
-    	elementsDTO.setId(elements.getId());
-    	elementsDTO.setPersonalizedTravelPackage(convertToDTO(elements.getPersonalizedTravelPackage()));
-    	elementsDTO.setTravelComponent(convertToDTO(elements.getTravelComponent()));
-    	return elementsDTO;
+    	GiftElements_HelperDTO elementDTO = new GiftElements_HelperDTO();
+    	elementDTO.setId(element.getId());
+    	elementDTO.setGiftList(giftList);
+    	elementDTO.setPersonalizedTravelPackage(convertToDTO(element.getPersonalizedTravelPackage()));
+    	elementDTO.setTravelComponent(convertToDTO(element.getTravelComponent()));
+    	return elementDTO;
     }
 }

@@ -13,7 +13,8 @@
         <h:form>  
             <p:dataTable var="user" value="#{SearchCustomers.usersList}" paginator="true" rows="10" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="5,10,15" >  
                 <p:column headerText="" style="text-align: center">  
-                    <p:commandButton style="float:center" icon="ui-icon-contact" action="#{SearchCustomers.selectFromDialog(user)}"/>  
+                    <p:commandButton id="visualize" style="float:center" icon="ui-icon-contact" action="#{SearchCustomers.selectFromDialog(user)}"/>  
+                	<p:tooltip for="visualize" value="Visualize the page of the user" showEffect="fade" hideEffect="fade" /> 
                 </p:column>  
                 
                 <p:column headerText="Firstname" style="text-align: center">  
