@@ -338,6 +338,7 @@ public class PredefinedTravelPackageWeb {
 					result = customerHandler.confirmPersonalizedTravelPackage(owned.get(i));
 			if(result.isEmpty()){
 				facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Success", "Travel Package succesfully confirmed!")); 
+				FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/customer/personal_travel_package.xhtml");
 			}
 			else{
 				facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error", "An error occured. The server replied: " + result));
