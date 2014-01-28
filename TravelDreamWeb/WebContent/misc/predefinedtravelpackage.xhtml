@@ -16,10 +16,8 @@
 		<p:panelGrid style="width:100%">
 		<f:facet name="header">
 			<p:row>
-				<p:column colspan="2" style="width:100%; text-align: center; font-size:30px;">
-					
-						<h:outputText value="#{PredefinedTravelPackageWeb.predTP.name}" label=" " />
-					
+				<p:column colspan="2" style="width:100%; text-align: center; font-size:30px;">					
+						<h:outputText value="#{PredefinedTravelPackageWeb.predTP.name}"/>				
 				</p:column>			
 			</p:row>
 			<p:row>
@@ -28,18 +26,15 @@
 			</p:row>
 		</f:facet>
 		<p:row>
-			<p:column style="width:50%; text-align: left">
-				
-					<h:outputText value="#{PredefinedTravelPackageWeb.departureDate}" pattern="dd-MM-yyyy" >
-						<f:convertDateTime pattern="dd-MM-yyyy" />
+			<p:column style="width:50%; text-align: left">			
+				<h:outputText value="#{PredefinedTravelPackageWeb.departureDate}" pattern="dd-MM-yyyy" >
+					<f:convertDateTime pattern="dd-MM-yyyy" />
 				</h:outputText>
 			</p:column>
 			<p:column style="width:100%; text-align: right">
-				
-					<h:outputText value="#{PredefinedTravelPackageWeb.returnDate}" pattern="dd-MM-yyyy" >
-						<f:convertDateTime pattern="dd-MM-yyyy" />
-					</h:outputText>
-				
+				<h:outputText value="#{PredefinedTravelPackageWeb.returnDate}" pattern="dd-MM-yyyy" >
+					<f:convertDateTime pattern="dd-MM-yyyy" />
+				</h:outputText>	
 			</p:column>	
 		</p:row>			 
 		</p:panelGrid>
@@ -50,30 +45,26 @@
 	           
 	            <p:column headerText="Type">  
 				<h:outputText value="#{PredefinedTravelPackageWeb.fieldOne(element)}"/>          	
-            </p:column>  
-			<p:column headerText="Supplyng company">  
+            	</p:column>  
+				<p:column headerText="Supplyng company">  
 				<h:outputText value="#{PredefinedTravelPackageWeb.fieldTwo(element)}"/>                    
-            </p:column>  
+            	</p:column>  
 				<p:column headerText="Availability">  
 	                <h:outputText value="#{PredefinedTravelPackageWeb.fieldThree(element)}" />  
 	            </p:column>  
 	                
-	          	<p:column headerText="" style="text-align: center">
-	          		
-		      			<p:row> 
-		      				<p:commandButton id="visualize" icon="ui-icon-script" rendered="#{PredefinedTravelPackageWeb.isHotelRoot(element) == false}" actionListener="#{PredefinedTravelPackageWeb.showComponent(element)}"/> 
-		      				
-		            	</p:row>
-		            
-            	<p:tooltip for="visualize" value="View the details of the package" showEffect="fade" hideEffect="fade" />   
-	         	
+	          	<p:column headerText="" style="text-align: center">	          		
+      			<p:row> 
+      				<p:commandButton id="visualize" icon="ui-icon-script" rendered="#{PredefinedTravelPackageWeb.isHotelRoot(element) == false}" actionListener="#{PredefinedTravelPackageWeb.showComponent(element)}"/> 		      				
+            	</p:row>		            
+            	<p:tooltip for="visualize" value="View the details of the package" showEffect="fade" hideEffect="fade" />   	         	
 	         	</p:column>                  
 			</p:treeTable>
 			 
 			<p:commandButton id="copy" value="Save" icon="ui-icon-copy" update="growl1" rendered="#{PredefinedTravelPackageWeb.checkIfCustomer()}"  action="#{PredefinedTravelPackageWeb.copyInPersonalizedTravelPackage(PredefinedTravelPackageWeb.predTP)}"	ajax="false"/>
-			<p:commandButton id="check" value="Modify" icon="ui-icon-wrench" update="growl1" style="float:right;" action="#{PredefinedTravelPackageWeb.modify(PredefinedTravelPackageWeb.predTP)}"	ajax="false"/>
-			<p:commandButton value="Confirm" id="confirm" icon="ui-icon-star" style="float:left;"  action="#{PredefinedTravelPackageWeb.confirmPackage()}" immediate="true"/>
-			<p:tooltip for="check" value="Modify the package" showEffect="fade" hideEffect="fade" /> 
+			<p:commandButton id="modify" value="Modify" icon="ui-icon-wrench" update="growl1" style="float:right;" rendered="#{PredefinedTravelPackageWeb.noPackage() == false}" action="#{PredefinedTravelPackageWeb.modify(PredefinedTravelPackageWeb.predTP)}"	ajax="false"/>
+			<p:commandButton value="Confirm" id="confirm" icon="ui-icon-star" rendered="#{facesContext.externalContext.isUserInRole('EMPLOYEE') == false and PredefinedTravelPackageWeb.noPackage() == false}" style="float:left;"  action="#{PredefinedTravelPackageWeb.confirmPackage()}" immediate="true"/>
+			<p:tooltip for="modify" value="Modify the package" showEffect="fade" hideEffect="fade" /> 
 			<p:tooltip for="copy" value="Add the package to your personal list" showEffect="fade" hideEffect="fade" /> 
 			<p:tooltip for="confirm" value="Confirm this package!" showEffect="fade" hideEffect="fade" />  
 	</h:form>

@@ -50,7 +50,7 @@ public class PredefinedTravelPackageHandler {
 		
 		else{
 			String result = consistencyCheck(predefinedTravelPackage);
-			if(result.length()>0)
+			if(result.isEmpty())
 				entityManager.merge(predefinedTravelPackage);	
 			return result;
 		}
