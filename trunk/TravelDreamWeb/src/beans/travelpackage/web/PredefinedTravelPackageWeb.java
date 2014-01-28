@@ -231,7 +231,7 @@ public class PredefinedTravelPackageWeb {
 					}						
 				}
 				
-				if(FacesContext.getCurrentInstance().getExternalContext().isUserInRole("EMPLOYEE")){//if employee update
+				else if(FacesContext.getCurrentInstance().getExternalContext().isUserInRole("EMPLOYEE")){//if employee update
 					String result = employeeHandler.updatePredefinedTravelPackage(predTP);
 					if(result.isEmpty()){
 						List<PredefinedTravelPackageDTO> toSend = new ArrayList<PredefinedTravelPackageDTO>();
