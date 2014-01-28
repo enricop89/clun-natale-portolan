@@ -20,7 +20,7 @@ public class GiftListHandler {
 	
 	@RolesAllowed({"CUSTOMER"})
 	public boolean addTravelComponentToGiftList(User owner, GiftList giftList, Components_Helper travelComponent, PersonalizedTravelPackage personalizedTravelPackage){
-		if(travelComponent.getTravelElement().getOwner() != null)
+		if(travelComponent.getTravelElement() != null)
 			return false;//if it is already confirmed
 		
 		if(giftList.getOwner() != owner)
@@ -32,10 +32,12 @@ public class GiftListHandler {
 		
 		for(int i=0;i<personalizedTravelPackage.getTravelComponents().size();i++) //control if travelComponent is not in personalizedTravelPackage, then add
 			if(travelComponent == personalizedTravelPackage.getTravelComponents().get(i)){	
-				GiftElements_Helper aux=new GiftElements_Helper();
-				aux.setTravelComponent(travelComponent);
-				aux.setPersonalizedTravelPackage(personalizedTravelPackage);
-				giftList.getGiftElements().add(aux);
+				GiftElements_Helper giftElement = new GiftElements_Helper();
+				giftElement.setTravelComponent(travelComponent);
+				giftElement.setPersonalizedTravelPackage(personalizedTravelPackage);
+				giftElement.setGiftList(giftList);
+				giftList.getGiftElements().add(giftElement);
+				entityManager.persist(giftElement);
 				entityManager.merge(giftList);
 				return true;
 			}
@@ -50,6 +52,8 @@ public class GiftListHandler {
 	} 
 	
 	public boolean payTravelComponent(User owner, User payer, GiftElements_Helper giftListElement){
+		GiftList giftList = giftListElement.getGiftList();
+		
 		if(payer==owner) //in this case this cannot be done!
 			return false; 
 		
@@ -64,8 +68,9 @@ public class GiftListHandler {
 			if(giftListElement.getPersonalizedTravelPackage().getTravelComponents().get(i) == giftListElement.getTravelComponent()){
 				giftListElement.getPersonalizedTravelPackage().getTravelComponents().get(i).setPersistence(giftListElement.getTravelComponent().getTravelComponent());
 				giftListElement.getPersonalizedTravelPackage().getTravelComponents().get(i).setTravelElement(element);
+				giftList.getGiftElements().remove(giftListElement);
 				entityManager.remove(giftListElement); // the element is removed from the gift list!
-				giftListElement.getGiftList().getGiftElements().remove(giftListElement);
+				entityManager.merge(giftList);
 				return true;
 			}
 		return false; // some errors incurred

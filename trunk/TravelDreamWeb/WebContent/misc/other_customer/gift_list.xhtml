@@ -15,11 +15,13 @@
 		<p:menuitem value="GiftList" action="#{OtherCustomerWeb.open('gift_list.xhtml')}" icon="ui-icon-cart"/> 
 		</p:tabMenu>   	    	
 		<p:dataTable var="element" emptyMessage="No Travel Components" value="#{OtherCustomerWeb.giftList.giftElements}"  paginator="true" rows="10" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="5,10,15" >  
-			<p:column headerText="Type">  
+			<p:column headerText="Type" style="text-align: center">  
 				<h:outputText value="#{element.travelComponent.travelComponent.type}" />  
 			</p:column>  
-			
-			<p:column headerText=""> 
+			<p:column headerText="Travel Package" style="text-align: center">  
+				<h:outputText value="#{element.personalizedTravelPackage.name}" />  
+			</p:column>  			
+			<p:column headerText="" style="text-align: center"> 
 				<p:row>
 					<p:commandButton id="show" icon="ui-icon-script" actionListener="#{OtherCustomerWeb.showComponent(element)}"/> 
 					<p:commandButton id="pay" icon="ui-icon-cart" action="#{OtherCustomerWeb.payComponent(element)}" ajax="false"/>								

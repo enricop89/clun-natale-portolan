@@ -132,7 +132,7 @@ public class CustomerHandler implements CustomerHandlerInterface{
 	@RolesAllowed({"CUSTOMER"})
 	public boolean addTravelComponentToGiftList(UserDTO user, Components_HelperDTO travelComponent, PersonalizedTravelPackageDTO personalizedTravelPackage){
 		Components_Helper newComponent = search.findComponents_Helper(travelComponent);
-		if(newComponent == null)
+		if(newComponent != null)
 			return gift_handler.addTravelComponentToGiftList(search.findUser(user), search.findGiftList(search.findUser(user)), search.findComponents_Helper(travelComponent), search.findPersonalizedTravelPackage(personalizedTravelPackage));
 		else
 			return false;

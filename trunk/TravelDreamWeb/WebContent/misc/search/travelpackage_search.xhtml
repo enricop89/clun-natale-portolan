@@ -13,7 +13,8 @@
         <h:form>  
             <p:dataTable var="predefinedTravelPackage" value="#{SearchPredefinedTravelPackages.predefinedTravelPackagesList}" paginator="true" rows="10" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="5,10,15" >  
                 <p:column headerText="" style="text-align: center">  
-                    <p:commandButton style="float:center" icon="ui-icon-suitcase" action="#{SearchPredefinedTravelPackages.selectFromDialog(predefinedTravelPackage)}" />  
+                    <p:commandButton id="visualize" style="float:center" icon="ui-icon-suitcase" action="#{SearchPredefinedTravelPackages.selectFromDialog(predefinedTravelPackage)}" />  
+                	<p:tooltip for="visualize" value="Visualize the detail of the package" showEffect="fade" hideEffect="fade" /> 
                 </p:column>  
  
                 <p:column headerText="Name" style="text-align: center">  
