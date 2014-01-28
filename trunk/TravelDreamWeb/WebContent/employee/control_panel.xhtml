@@ -146,7 +146,7 @@
 							<p:row>         	
 								<p:column style="text-align: right"> <h:outputLabel for="package_start">Departure Date:</h:outputLabel></p:column>         	
 								<p:column> <p:calendar value="#{EmployeeHandlerWeb.packageStartDate}" id="package_start" showButtonPanel="true"  
-								pattern="dd/MM/yyyy HH:mm" required="true" requiredMessage="Please specify the departure date." /> </p:column>
+								pattern="dd/MM/yyyy" required="true" requiredMessage="Please specify the departure date." /> </p:column>
 								<p:column rowspan="3"  style="text-align: right"> <h:outputLabel for="package_desc" value="Description: "/>	</p:column>
 								<p:column rowspan="3"> 	
 									<p:inputTextarea label="des" rows="3" cols="50" counter="tp_counter" maxlength="255"       
@@ -158,7 +158,7 @@
 							</p:row> 
 							<p:row>	
 								<p:column style="text-align: right"> <h:outputLabel for="package_end">Return Date:</h:outputLabel></p:column>     	
-								<p:column> <p:calendar value="#{EmployeeHandlerWeb.packageEndDate}" id="package_end" showButtonPanel="true" pattern="dd/MM/yyyy HH:mm" required="true" requiredMessage="Please specify the return date."/></p:column>
+								<p:column> <p:calendar value="#{EmployeeHandlerWeb.packageEndDate}" id="package_end" showButtonPanel="true" pattern="dd/MM/yyyy" required="true" requiredMessage="Please specify the return date."/></p:column>
 							</p:row> 	
 							<p:row>	
 								<p:column style="text-align: right"> <h:outputLabel for="package_name">Name:</h:outputLabel></p:column>     	
