@@ -2,6 +2,7 @@ package beans.travelpackage.web;
 
 import java.io.IOException;
 import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -203,8 +204,8 @@ public class PersonalizedTravelPackageWeb {
 				
 			}
 			else{
-				return "Date: " + component.getHotelDate();
-				
+				SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+				return "Date: " + sdf.format(component.getHotelDate());				
 			}
 		}
 		return component.getSupplyingCompany();	
@@ -365,14 +366,18 @@ public class PersonalizedTravelPackageWeb {
 		Flash flash = facesContext.getExternalContext().getFlash();
 		flash.setKeepMessages(true);
 		flash.setRedirect(true);
-		List<PersonalizedTravelPackageDTO> toSend = new ArrayList<PersonalizedTravelPackageDTO>();
-		toSend.add(personalizedPackage);
-		data.setPersonalizedTravelPackagesList(toSend);
-		if(result.isEmpty())
+
+		if(result.isEmpty()){
 			facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Successful", "Travel package succesfully confirmed!")); 
-		else
-			facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error", "An error occured. The server replied: " + result)); 
-		FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/customer/personalized_travel_package.xhtml");
+			FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/customer/personal_travel_package.xhtml");
+		}
+		else{
+			List<PersonalizedTravelPackageDTO> toSend = new ArrayList<PersonalizedTravelPackageDTO>();
+			toSend.add(personalizedPackage);
+			data.setPersonalizedTravelPackagesList(toSend);
+			facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error", "An error occured. The server replied: " + result));
+			FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/customer/personalized_travel_package.xhtml");
+		}
 	}
 	
 	public void saveChanges() throws IOException{	

@@ -14,7 +14,7 @@
     
  	<h:form>
  	<p:growl id="growl1" showDetail="true" globalOnly="true" /> 
- 			<p:panelGrid style="width:100%">
+ 		<p:panelGrid style="width:100%">
 		<f:facet name="header">
 			<p:row>
 				<p:column colspan="2" style="width:100%; text-align: center; font-size:30px;">
@@ -45,62 +45,45 @@
 			</p:column>	
 		</p:row>			 
 		</p:panelGrid>
- 	
- 	
- 	
- 	
-	           <p:treeTable rendered="#{PredefinedTravelPackageWeb.root != null}" id="treetable" var="element" value="#{PredefinedTravelPackageWeb.root}" paginator="true" rows="10"  
-                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
-                 rowsPerPageTemplate="5,10,15">
-	           
-	            <p:column headerText="Type">  
-				<h:outputText value="#{PredefinedTravelPackageWeb.fieldOne(element)}"/>          	
-            </p:column>  
-			<p:column headerText="Supplyng company">  
-				<h:outputText value="#{PredefinedTravelPackageWeb.fieldTwo(element)}"/>                    
-            </p:column>  
-				<p:column headerText="Availability">  
-	                <h:outputText value="#{PredefinedTravelPackageWeb.fieldThree(element)}" />  
-	            </p:column>  
+	    <p:treeTable rendered="#{PredefinedTravelPackageWeb.root != null}" id="treetable" var="element" value="#{PredefinedTravelPackageWeb.root}" paginator="true" rows="10"  
+	                paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+	                rowsPerPageTemplate="5,10,15">	           
+		            <p:column headerText="Type">  
+					<h:outputText value="#{PredefinedTravelPackageWeb.fieldOne(element)}"/>          	
+	            	</p:column>  
+					<p:column headerText="Supplyng company">  
+					<h:outputText value="#{PredefinedTravelPackageWeb.fieldTwo(element)}"/>                    
+	           		</p:column>  
+					<p:column headerText="Availability">  
+		                <h:outputText value="#{PredefinedTravelPackageWeb.fieldThree(element)}" />  
+		            </p:column>  
+		                	                      
+	                <p:column headerText="" style="text-align: center">  
+	                <p:row>
+	                	<p:commandButton id="visualize" icon="ui-icon-script"  rendered="#{PredefinedTravelPackageWeb.isHotelRoot(element) == false}" actionListener="#{PredefinedTravelPackageWeb.showComponent(element)}"/>
+	                    <p:commandButton id="delete" style="float:center" icon="ui-icon-trash" rendered="#{PredefinedTravelPackageWeb.isHotelRoot(element) == false}" actionListener="#{PredefinedTravelPackageWeb.deleteComponent(element)}" />                
+	                </p:row> 
+	                <p:tooltip for="visualize" value="Visualize the travel component" showEffect="fade" hideEffect="fade" />   
+	                <p:tooltip for="delete" value="Delete the component from the lsit" showEffect="fade" hideEffect="fade" /> 
+	                </p:column>  
 	                
-	          
-                
-                <p:column headerText="" style="text-align: center">  
-                <p:row>
-                	<p:commandButton id="visualize" icon="ui-icon-script"  rendered="#{PredefinedTravelPackageWeb.isHotelRoot(element) == false}" actionListener="#{PredefinedTravelPackageWeb.showComponent(travelComponent)}"/>
-                    <p:commandButton id="delete" style="float:center" icon="ui-icon-trash" rendered="#{PredefinedTravelPackageWeb.isHotelRoot(element) == false}" actionListener="#{PredefinedTravelPackageWeb.deleteComponent(travelComponent)}" />
-                    
-                </p:row> 
-                <p:tooltip for="visualize" value="Visualize the travel component" showEffect="fade" hideEffect="fade" />   
-                <p:tooltip for="delete" value="Delete the component from the lsit" showEffect="fade" hideEffect="fade" /> 
-                </p:column>  
-                
-                <f:facet name="footer">
-				
-				<p:commandButton value="Add Travel Component" style="float:center" icon="ui-icon-plusthick" onclick="PF('searchComponent').show()"/>
-				</f:facet>
-                
-                
-            
-            	</p:treeTable> 
-          		
-
-            	</h:form>
-		 
+	                <f:facet name="footer">				
+						<p:commandButton value="Add Travel Component" style="float:center" icon="ui-icon-plusthick" onclick="PF('searchComponent').show()"/>
+					</f:facet>                                  
+		</p:treeTable>           		
+    </h:form>		 			
+ 	<h:form>
+ 	<p:commandButton id="save" value="Save" icon="ui-icon-check" update="growl1" style="float:right;" action="#{PredefinedTravelPackageWeb.save()}"	ajax="false"/>
+	<p:tooltip for="save" value="Save the package" showEffect="fade" hideEffect="fade" /> 
+	</h:form>
 		
-		
-		 <h:form>
-		 <p:commandButton id="save" value="Save" icon="ui-icon-check" update="growl1" style="float:right;" action="#{PredefinedTravelPackageWeb.save()}"	ajax="false"/>
-			<p:tooltip for="save" value="Save the package" showEffect="fade" hideEffect="fade" /> 
-		</h:form>
-		
-		<p:dialog id="searchComponent" widgetVar="searchComponent" modal="true" resizable="false" position="top" 
-	 	showEffect="clip" hideEffect="clip" appendTo="@(body)">  
-		<td:search_travelcomponent bean="#{PredefinedTravelPackageWeb}"
-   		Method1Name="addComponent" Method1Icon="ui-icon-check" Method1Tooltip="Add the travel component"
-   		Method2Name="showComponentSearch" Method2Icon="ui-icon-suitcase" Method2Tooltip="Show the travel component info"/>
-   		<p:ajax event="close" listener="#{PredefinedTravelPackageWeb.onClose}" update="searchComponent" />
+	<p:dialog id="searchComponent" widgetVar="searchComponent" modal="true" resizable="false" position="top" 
+ 	showEffect="clip" hideEffect="clip" appendTo="@(body)">  
+	<td:search_travelcomponent bean="#{PredefinedTravelPackageWeb}"
+  		Method1Name="addComponent" Method1Icon="ui-icon-check" Method1Tooltip="Add the travel component"
+  		Method2Name="showComponentSearch" Method2Icon="ui-icon-suitcase" Method2Tooltip="Show the travel component info"/>
+  		<p:ajax event="close" listener="#{PredefinedTravelPackageWeb.onClose}" update="searchComponent" />
 	</p:dialog> 
-	
+
 	</ui:define>
 </ui:composition>

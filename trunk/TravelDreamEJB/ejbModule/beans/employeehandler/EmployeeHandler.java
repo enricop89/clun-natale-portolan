@@ -78,6 +78,11 @@ public class EmployeeHandler implements EmployeeHandlerInterface{
 	@Override
 	@RolesAllowed({"EMPLOYEE","CUSTOMER"})
 	public boolean removeTravelComponentFromPredefinedTravelPackage(PredefinedTravelPackageDTO predefinedTravelPackage, TravelComponentDTO travelComponent){
-		return predefinedTravelPackage.getTravelComponents().remove(travelComponent);
+		if(predefinedTravelPackage.getTravelComponents().size() == 1)
+			return false;
+		
+		else			
+			predefinedTravelPackage.getTravelComponents().remove(travelComponent);
+		return true;
 	}	
 }

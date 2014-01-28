@@ -456,10 +456,10 @@ public class EmployeeHandlerWeb  {
 				result = component.getFlightCode() + " - FROM: " + component.getFlightDepartureCity() + " ("+ component.getFlightDepartureDateTime() + ") - TO: " + component.getFlightArrivalCity() + " (" + component.getFlightArrivalDateTime() + ")";
 				break;
 			case HOTEL:
-				result = "CITY: " + component.getHotelCity() + " - DATE: " + DateFormatUtils.format(component.getHotelDate(), "yyyy-MM-dd");
+				result = "CITY: " + component.getHotelCity() + " - DATE: " + DateFormatUtils.format(component.getHotelDate(), "dd-MM-yyyy");
 				break;
 			case EXCURSION:
-				result = "CITY: " + component.getExcursionCity() + " - DATE: " + component.getExcursionDateTime();
+				result = "CITY: " + component.getExcursionCity() + " - DATE: " + DateFormatUtils.format(component.getExcursionDateTime(), "dd-MM-yyyy HH:mm");
 				break;
 		}
 		return result;

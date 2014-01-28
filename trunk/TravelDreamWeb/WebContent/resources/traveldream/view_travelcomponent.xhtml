@@ -36,11 +36,15 @@
 			
 			<h:outputText rendered="#{cc.attrs.component.type == 'FLIGHT'}" value="Departure time:" />
 			<h:outputText rendered="#{cc.attrs.component.type == 'FLIGHT'}" 
-			value="#{cc.attrs.component.flightDepartureDateTime}" />  
+			value="#{cc.attrs.component.flightDepartureDateTime}">
+				<f:convertDateTime type="date" pattern="dd-MM-yyyy HH:mm"/>
+			</h:outputText>	  
 			
 			<h:outputText rendered="#{cc.attrs.component.type == 'FLIGHT'}" value="Arrival time:" />
 			<h:outputText rendered="#{cc.attrs.component.type == 'FLIGHT'}" 
-			value="#{cc.attrs.component.flightArrivalDateTime}" />
+			value="#{cc.attrs.component.flightArrivalDateTime}">
+				<f:convertDateTime type="date" pattern="dd-MM-yyyy HH:mm"/>
+			</h:outputText>	
 									
 			<h:outputText rendered="#{cc.attrs.component.type == 'HOTEL'}" value="City:" />
 			<h:outputText rendered="#{cc.attrs.component.type == 'HOTEL'}"  
@@ -48,7 +52,9 @@
 			
 			<h:outputText rendered="#{cc.attrs.component.type == 'HOTEL'}" value="Date:" />
 			<h:outputText rendered="#{cc.attrs.component.type == 'HOTEL'}"  
-			value="#{cc.attrs.component.hotelDate}" />
+			value="#{cc.attrs.component.hotelDate}">
+				<f:convertDateTime type="date" pattern="dd-MM-yyyy"/>
+			</h:outputText>
 											
 			<h:outputText rendered="#{cc.attrs.component.type == 'EXCURSION'}" value="City:" />
 			<h:outputText rendered="#{cc.attrs.component.type == 'EXCURSION'}" 
@@ -56,7 +62,9 @@
 			
 			<h:outputText rendered="#{cc.attrs.component.type == 'EXCURSION'}" value="Date:" />
 			<h:outputText rendered="#{cc.attrs.component.type == 'EXCURSION'}" 
-			value="#{cc.attrs.component.excursionDateTime}" />	
+			value="#{cc.attrs.component.excursionDateTime}">
+				<f:convertDateTime type="date" pattern="dd-MM-yyyy HH:mm"/>
+			</h:outputText>	
 						
 			<h:outputText rendered="#{cc.attrs.component.type == 'EXCURSION'}" value="Description:" />
 			<h:outputText rendered="#{cc.attrs.component.type == 'EXCURSION'}" 
