@@ -4,11 +4,8 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import javax.faces.context.FacesContext;
-import javax.faces.context.Flash;
 import javax.inject.Inject;
 
 import org.primefaces.context.RequestContext;
@@ -94,11 +91,6 @@ public class TravelComponentWeb
 	}
 	public void saveChanges()
 	{		
-		FacesContext facesContext = FacesContext.getCurrentInstance();
-		Flash flash = facesContext.getExternalContext().getFlash();
-		flash.setKeepMessages(true);
-		flash.setRedirect(true);
-		
 		if (hotelDate != null)
 			component.setHotelDate(new java.sql.Date(hotelDate.getTime()));	
 		if (flightDepartureDate != null)
@@ -108,19 +100,8 @@ public class TravelComponentWeb
 		if (excursionDate != null)
 			component.setExcursionDateTime(new java.sql.Timestamp(excursionDate.getTime()));
 		
-		boolean result = employeeHandler.updateTravelComponent(component);
-		
-		if (result == true)
-		{
-			facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Operation successful", " "));
-			data.setResult(result);
-			RequestContext.getCurrentInstance().execute("alert('Changes saved.');window.top.location.reload();");
-		}
-		else
-		{
-			facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error", "The operation failed."));
-		}
-
-		
+		boolean result = employeeHandler.updateTravelComponent(component);		
+		data.setResult(result);
+		RequestContext.getCurrentInstance().execute("window.top.location.reload();");
 	}
 }

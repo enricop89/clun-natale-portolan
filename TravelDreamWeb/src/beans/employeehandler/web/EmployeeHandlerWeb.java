@@ -94,7 +94,7 @@ public class EmployeeHandlerWeb  {
 				facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Successful", "Travel component updated!")); 
 			
 			else
-				facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error", "")); 
+				facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error", "An error occurred. Maybe you are trying to set an availability less than zero")); 
 		}
 	}
 	
@@ -524,7 +524,7 @@ public class EmployeeHandlerWeb  {
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		employeeHandler.deleteTravelComponent(component);
 		facesContext.getViewRoot().getViewMap().remove("SearchTravelComponents");
-		//facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Successful", "Component removed."));
-		RequestContext.getCurrentInstance().execute("alert('Component deleted');window.top.location.reload();");
+		facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Successful", "Component removed."));
+		RequestContext.getCurrentInstance().execute("window.top.location.reload();");
 	}
 }

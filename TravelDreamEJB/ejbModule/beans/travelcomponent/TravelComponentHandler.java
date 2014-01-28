@@ -107,8 +107,7 @@ public class TravelComponentHandler{
 		for(int i = 0; i < predTPs.size(); i++){
 			for(int j = 0; j < predTPs.get(i).getTravelComponents().size(); j++){
 				if(predTPs.get(i).getTravelComponents().get(j).getId() == travelComponent.getId()){
-					predTPs.get(i).getTravelComponents().remove(j);
-					predTPs.get(i).getTravelComponents().add(j, travelComponent);
+					predTPs.get(i).getTravelComponents().set(j, travelComponent);
 					if(!predefined_handler.updatePredefinedTravelPackage(predTPs.get(i)).isEmpty()){
 						predTPs.get(i).getTravelComponents().remove(travelComponent); // the TravelComponent update violates consistency, so is deleted from the TravelPackage
 						if(predTPs.get(i).getTravelComponents().isEmpty()){ // the deletion causes the package to be empty
