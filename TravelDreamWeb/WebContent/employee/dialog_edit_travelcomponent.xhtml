@@ -12,8 +12,8 @@
       
     <h:body>  
         <h:form> 
-        	<p:growl id="egrowl" showDetail="true" globalOnly="true" />  
-        				
+        	<p:growl id="egrowl" showDetail="true" />  
+        	
 			<p:panel header="Modify travel component details"> 
 				<h:outputText rendered="#{TravelComponentWeb.component.type == 'FLIGHT'}" value="Flight details: " />
 				<h:outputText rendered="#{TravelComponentWeb.component.type == 'HOTEL'}" value="Hotel details: " />
@@ -22,49 +22,49 @@
 				<p:panelGrid columns="2" >  
 					
 					<h:outputLabel for="company">Company name:</h:outputLabel>
-					<p:inputText id="company" value="#{TravelComponentWeb.component.supplyingCompany}" required="true"/>
+					<p:inputText id="company" value="#{TravelComponentWeb.component.supplyingCompany}" required="true" requiredMessage="Please specify the company name."/>
 					
 					<h:outputLabel for="avail">Availability:</h:outputLabel>
-					<p:inputText id="avail" value="#{TravelComponentWeb.component.availability}" required="true"/>
+					<p:inputText id="avail" value="#{TravelComponentWeb.component.availability}" required="true" requiredMessage="Please specify the availability."/>
 							
 					<h:outputLabel rendered="#{TravelComponentWeb.component.type == 'FLIGHT'}" for="flight_code">Code:</h:outputLabel>
-					<p:inputText rendered="#{TravelComponentWeb.component.type == 'FLIGHT'}" id="flight_code" value="#{TravelComponentWeb.component.flightCode}" required="true"/>
+					<p:inputText rendered="#{TravelComponentWeb.component.type == 'FLIGHT'}" id="flight_code" value="#{TravelComponentWeb.component.flightCode}" required="true" requiredMessage="Please specify the flight code."/>
 					
 					<h:outputLabel rendered="#{TravelComponentWeb.component.type == 'FLIGHT'}" for="flight_dep_city">Departure city:</h:outputLabel>
-					<p:inputText rendered="#{TravelComponentWeb.component.type == 'FLIGHT'}" id="flight_dep_city" value="#{TravelComponentWeb.component.flightDepartureCity}" required="true"/>
+					<p:inputText rendered="#{TravelComponentWeb.component.type == 'FLIGHT'}" id="flight_dep_city" value="#{TravelComponentWeb.component.flightDepartureCity}" required="true" requiredMessage="Please specify the departure city."/>
 					
 				 	<h:outputLabel rendered="#{TravelComponentWeb.component.type == 'FLIGHT'}" for="flightDepartureDateTime">Departure Date and Time:</h:outputLabel>           	
-		           	<p:calendar rendered="#{TravelComponentWeb.component.type == 'FLIGHT'}" value="#{TravelComponentWeb.flightDepartureDate}" id="flightDepartureDateTime" showButtonPanel="true" pattern="MM/dd/yyyy HH:mm" required="true"/> 
+		           	<p:calendar rendered="#{TravelComponentWeb.component.type == 'FLIGHT'}" value="#{TravelComponentWeb.flightDepartureDate}" id="flightDepartureDateTime" showButtonPanel="true" pattern="MM/dd/yyyy HH:mm" required="true" requiredMessage="Please specify the departure date and time."/> 
 		           	 
 					<h:outputLabel rendered="#{TravelComponentWeb.component.type == 'FLIGHT'}" for="flight_arrival_city">Flight arrival city:</h:outputLabel>
-					<p:inputText rendered="#{TravelComponentWeb.component.type == 'FLIGHT'}"  id="flight_arrival_city" value="#{TravelComponentWeb.component.flightArrivalCity}" required="true"/>
+					<p:inputText rendered="#{TravelComponentWeb.component.type == 'FLIGHT'}"  id="flight_arrival_city" value="#{TravelComponentWeb.component.flightArrivalCity}" required="true" requiredMessage="Please specify the arrival city."/>
 		
 				 	<h:outputLabel rendered="#{TravelComponentWeb.component.type == 'FLIGHT'}" for="flightArrivalDateTime">Arrival Date and Time:</h:outputLabel>            	
-		           	<p:calendar rendered="#{TravelComponentWeb.component.type == 'FLIGHT'}" value="#{TravelComponentWeb.flightArrivalDate}" id="flightArrivalDateTime" showButtonPanel="true" pattern="MM/dd/yyyy HH:mm" required="true"/>
+		           	<p:calendar rendered="#{TravelComponentWeb.component.type == 'FLIGHT'}" value="#{TravelComponentWeb.flightArrivalDate}" id="flightArrivalDateTime" showButtonPanel="true" pattern="MM/dd/yyyy HH:mm" required="true" requiredMessage="Please specify the arrival date and time."/>
 					
 					
 					
 					<h:outputLabel rendered="#{TravelComponentWeb.component.type == 'HOTEL'}" for="h_city">City:</h:outputLabel>
-					<p:inputText rendered="#{TravelComponentWeb.component.type == 'HOTEL'}" id="h_city" value="#{TravelComponentWeb.component.hotelCity}" required="true"/>
+					<p:inputText rendered="#{TravelComponentWeb.component.type == 'HOTEL'}" id="h_city" value="#{TravelComponentWeb.component.hotelCity}" required="true" requiredMessage="Please specify the city."/>
 					
 			 		<h:outputLabel rendered="#{TravelComponentWeb.component.type == 'HOTEL'}" for="h_date">Date:</h:outputLabel>            	
-		           	<p:calendar rendered="#{TravelComponentWeb.component.type == 'HOTEL'}" value="#{TravelComponentWeb.hotelDate}" id="h_date" showButtonPanel="true" required="true"/>
+		           	<p:calendar rendered="#{TravelComponentWeb.component.type == 'HOTEL'}" value="#{TravelComponentWeb.hotelDate}" id="h_date" showButtonPanel="true" required="true" requiredMessage="Please specify the date."/>
 					
 					
 					
 					<h:outputLabel rendered="#{TravelComponentWeb.component.type == 'EXCURSION'}" for="excursionCity">City:</h:outputLabel>
-		           	<p:inputText rendered="#{TravelComponentWeb.component.type == 'EXCURSION'}" id="excursionCity" value="#{TravelComponentWeb.component.excursionCity}" required="true"/>		
+		           	<p:inputText rendered="#{TravelComponentWeb.component.type == 'EXCURSION'}" id="excursionCity" value="#{TravelComponentWeb.component.excursionCity}" required="true" requiredMessage="Please specify the city."/>		
 			  
 				 	<h:outputLabel rendered="#{TravelComponentWeb.component.type == 'EXCURSION'}" for="excursionDateTime">Date and Time:</h:outputLabel>            	
-		           	<p:calendar rendered="#{TravelComponentWeb.component.type == 'EXCURSION'}" value="#{TravelComponentWeb.excursionDate}" id="excursionDateTime" showButtonPanel="true" pattern="MM/dd/yyyy HH:mm" required="true"/>						
+		           	<p:calendar rendered="#{TravelComponentWeb.component.type == 'EXCURSION'}" value="#{TravelComponentWeb.excursionDate}" id="excursionDateTime" showButtonPanel="true" pattern="MM/dd/yyyy HH:mm" required="true"  requiredMessage="Please specify the excursion date."/>						
 		           	            	
 					<h:outputLabel rendered="#{TravelComponentWeb.component.type == 'EXCURSION'}" for="excursionDescription">Description:</h:outputLabel>
-		           	<p:inputText rendered="#{TravelComponentWeb.component.type == 'EXCURSION'}" id="excursionDescription" value="#{TravelComponentWeb.component.excursionDescription}" required="true"/>
+		           	<p:inputText rendered="#{TravelComponentWeb.component.type == 'EXCURSION'}" id="excursionDescription" value="#{TravelComponentWeb.component.excursionDescription}" required="true" requiredMessage="Please specify the description of the excursion."/>
 		
 				</p:panelGrid>
 			</p:panel>
 			
-			<p:commandButton id="btnSave" value="Save changes" action="#{TravelComponentWeb.saveChanges}" ajax="true" updates="egrowl" />
+			<p:commandButton id="btnSave" value="Save changes" action="#{TravelComponentWeb.saveChanges}" ajax="true" update="egrowl" />
         </h:form>  
     </h:body>  
 </html>        

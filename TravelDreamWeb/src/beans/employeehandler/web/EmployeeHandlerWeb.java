@@ -525,6 +525,6 @@ public class EmployeeHandlerWeb  {
 		employeeHandler.deleteTravelComponent(component);
 		facesContext.getViewRoot().getViewMap().remove("SearchTravelComponents");
 		//facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Successful", "Component removed."));
-		RequestContext.getCurrentInstance().execute("window.top.location.reload();");
+		RequestContext.getCurrentInstance().execute("alert('Component deleted');window.top.location.reload();");
 	}
 }
