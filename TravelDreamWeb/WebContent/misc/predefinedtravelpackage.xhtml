@@ -61,7 +61,7 @@
 	         	</p:column>                  
 			</p:treeTable>
 			 
-			<p:commandButton id="copy" value="Save" icon="ui-icon-copy" update="growl1" rendered="#{PredefinedTravelPackageWeb.checkIfCustomer()}"  action="#{PredefinedTravelPackageWeb.copyInPersonalizedTravelPackage(PredefinedTravelPackageWeb.predTP)}"	ajax="false"/>
+			<p:commandButton id="copy" value="Save" icon="ui-icon-copy" update="growl1" rendered="#{PredefinedTravelPackageWeb.checkIfCustomer()}"  style="float:right;" action="#{PredefinedTravelPackageWeb.copyInPersonalizedTravelPackage(PredefinedTravelPackageWeb.predTP)}"	ajax="false"/>
 			<p:commandButton id="modify" value="Modify" icon="ui-icon-wrench" update="growl1" style="float:right;" rendered="#{PredefinedTravelPackageWeb.noPackage() == false}" action="#{PredefinedTravelPackageWeb.modify(PredefinedTravelPackageWeb.predTP)}"	ajax="false"/>
 			<p:commandButton value="Confirm" id="confirm" icon="ui-icon-star" rendered="#{facesContext.externalContext.isUserInRole('EMPLOYEE') == false and PredefinedTravelPackageWeb.noPackage() == false}" style="float:left;"  action="#{PredefinedTravelPackageWeb.confirmPackage()}" immediate="true"/>
 			<p:tooltip for="modify" value="Modify the package" showEffect="fade" hideEffect="fade" /> 
