@@ -29,21 +29,21 @@
 			<p:column style="width:50%; text-align: left">
 				<p:inplace id="Departure_date" editor="true" rendered="#{PersonalizedTravelPackageWeb.isOwner() == true}">
 					<p:calendar value="#{PersonalizedTravelPackageWeb.departureDate}" pattern="dd-MM-yyyy" showButtonPanel="true" label=" " required="true">
-						<f:convertDateTime pattern="dd-MM-yyyy" timeZone="GMT+1"/>
+						<f:convertDateTime pattern="dd-MM-yyyy HH:mm" timeZone="GMT+1"/>
 					</p:calendar>
 				</p:inplace> 
 				<h:outputText value="#{PersonalizedTravelPackageWeb.departureDate}" rendered="#{PersonalizedTravelPackageWeb.isOwner() == false}" >
-					<f:convertDateTime type="date" pattern="dd-MM-yyyy" timeZone="GMT+1"/>
+					<f:convertDateTime type="date" pattern="dd-MM-yyyy HH:mm" timeZone="GMT+1"/>
 				</h:outputText>
 			</p:column>
 			<p:column style="width:100%; text-align: right">
 				<p:inplace id="Arrival_date" editor="true" rendered="#{PersonalizedTravelPackageWeb.isOwner() == true}">
 					<p:calendar value="#{PersonalizedTravelPackageWeb.returnDate}" pattern="dd-MM-yyyy" showButtonPanel="true" label=" " required="true">
-						<f:convertDateTime pattern="dd-MM-yyyy" timeZone="GMT+1"/>
+						<f:convertDateTime pattern="dd-MM-yyyy HH:mm" timeZone="GMT+1"/>
 					</p:calendar>
 				</p:inplace> 
 				<h:outputText value="#{PersonalizedTravelPackageWeb.returnDate}" rendered="#{PersonalizedTravelPackageWeb.isOwner() == false}" >
-					<f:convertDateTime type="date" pattern="dd-MM-yyyy" timeZone="GMT+1"/>
+					<f:convertDateTime type="date" pattern="dd-MM-yyyy HH:mm" timeZone="GMT+1"/>
 				</h:outputText>
 			</p:column>	
 		</p:row>			 
