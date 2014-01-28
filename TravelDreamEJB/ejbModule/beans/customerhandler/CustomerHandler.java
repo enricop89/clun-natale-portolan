@@ -108,7 +108,8 @@ public class CustomerHandler implements CustomerHandlerInterface{
 	@Override
 	@RolesAllowed({"CUSTOMER"})
 	public String updatePersonalizedTravelPackage(PersonalizedTravelPackageDTO personalizedTravelPackage){
-		PersonalizedTravelPackage result = search.findPersonalizedTravelPackage(personalizedTravelPackage);
+		PersonalizedTravelPackage result = new PersonalizedTravelPackage();
+		result.setId(search.findPersonalizedTravelPackage(personalizedTravelPackage).getId());
 		result.setAll(personalizedTravelPackage, search);
 		return handler.updatePersonalizedTravelPackage(result);
 	}
@@ -122,7 +123,7 @@ public class CustomerHandler implements CustomerHandlerInterface{
 	@Override
 	@RolesAllowed({"CUSTOMER"})
 	public String addNewPersonalizedTravelPackage(UserDTO user, PredefinedTravelPackageDTO predefinedTravelPackage){
-		PredefinedTravelPackage newPackage = search.findPredefinedTravelPackage(predefinedTravelPackage);
+		PredefinedTravelPackage newPackage = new PredefinedTravelPackage();		
 		newPackage.setAll(predefinedTravelPackage, search);
 		return predefined_handler.copyPredefinedTravelPackage(newPackage, search.findUser(user));
 	}

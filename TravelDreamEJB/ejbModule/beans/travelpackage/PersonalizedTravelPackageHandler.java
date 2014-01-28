@@ -161,12 +161,12 @@ public class PersonalizedTravelPackageHandler {
 				returnFlight = flights.get(1);
 			}
 			else // equal, not possible!
-				return "equal, not possible!"; 				
-			if(departureFlight.getFlightDepartureDateTime().compareTo(personalizedTravelPackage.getDepartureDate()) != 0)
-				return "flights dates mismatch"; // dates mismatch
+				return "flights date equal, not possible!"; 				
+			if((personalizedTravelPackage.getDepartureDate().compareTo(departureFlight.getFlightDepartureDateTime())) > 0)
+				return "departure date after the date of the departure flight"; // dates mismatch
 			
-			if(returnFlight.getFlightArrivalDateTime().compareTo(personalizedTravelPackage.getReturnDate()) != 0)
-				return "flights dates mismatch"; // dates mismatch
+			if(personalizedTravelPackage.getReturnDate().compareTo(returnFlight.getFlightArrivalDateTime()) < 0)
+				return "rerturn date before the date of the return fligh"; // dates mismatch
 			
 			if(!departureFlight.getFlightArrivalCity().equals(returnFlight.getFlightDepartureCity()))
 				return "flights cities mismatch"; // city mismatch, error!
