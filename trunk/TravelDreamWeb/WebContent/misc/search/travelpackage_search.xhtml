@@ -22,11 +22,15 @@
                 </p:column>  
  
                 <p:column headerText="Name" style="text-align: center">  
-                    <h:outputText value="#{predefinedTravelPackage.name}" />  
+                    <h:outputText value="#{predefinedTravelPackage.name}">
+   						<f:convertDateTime type="date" pattern="dd-MM-yyyy" timeZone="GMT+1"/>
+					</h:outputText>  
                 </p:column>  
   
                 <p:column headerText="Departure Date" style="text-align: center">  
-                    <h:outputText value="#{predefinedTravelPackage.departureDate}" />  
+                    <h:outputText value="#{predefinedTravelPackage.departureDate}">
+   						<f:convertDateTime type="date" pattern="dd-MM-yyyy" timeZone="GMT+1"/>
+					</h:outputText>    
                 </p:column> 
                  
                 <p:column headerText="Return Date" style="text-align: center">  
