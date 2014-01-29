@@ -32,14 +32,14 @@
 			<p:column style="width:50%; text-align: left">
 				<p:inplace id="Departure_date" editor="true">
 					<p:calendar value="#{PredefinedTravelPackageWeb.departureDate}" pattern="dd-MM-yyyy HH:mm" showButtonPanel="true" label=" " required="true">
-						<f:convertDateTime pattern="dd-MM-yyyy HH:mm" timeZone="GMT+1"/>
+						<f:convertDateTime pattern="dd-MM-yyyy" timeZone="GMT+1"/>
 					</p:calendar>
 				</p:inplace> 
 			</p:column>
 			<p:column style="width:100%; text-align: right">
 				<p:inplace id="Arrival_date" editor="true">
 					<p:calendar value="#{PredefinedTravelPackageWeb.returnDate}" pattern="dd-MM-yyyy HH:mm" showButtonPanel="true" label=" " required="true">
-						<f:convertDateTime pattern="dd-MM-yyyy HH:mm" timeZone="GMT+1"/>
+						<f:convertDateTime pattern="dd-MM-yyyy" timeZone="GMT+1"/>
 					</p:calendar>
 				</p:inplace> 
 			</p:column>	

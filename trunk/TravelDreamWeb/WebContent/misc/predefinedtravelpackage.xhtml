@@ -28,12 +28,12 @@
 		<p:row>
 			<p:column style="width:50%; text-align: left">			
 				<h:outputText value="#{PredefinedTravelPackageWeb.departureDate}" pattern="dd-MM-yyyy" >
-					<f:convertDateTime pattern="dd-MM-yyyy HH:mm" timeZone="GMT+1"/>
+					<f:convertDateTime pattern="dd-MM-yyyy" timeZone="GMT+1"/>
 				</h:outputText>
 			</p:column>
 			<p:column style="width:100%; text-align: right">
 				<h:outputText value="#{PredefinedTravelPackageWeb.returnDate}" pattern="dd-MM-yyyy" >
-					<f:convertDateTime pattern="dd-MM-yyyy HH:mm" timeZone="GMT+1"/>
+					<f:convertDateTime pattern="dd-MM-yyyy" timeZone="GMT+1"/>
 				</h:outputText>	
 			</p:column>	
 		</p:row>			 

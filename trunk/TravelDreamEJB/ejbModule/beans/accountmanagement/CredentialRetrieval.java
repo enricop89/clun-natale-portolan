@@ -8,20 +8,25 @@ import beans.utils.*;
 
 import org.apache.commons.lang3.RandomStringUtils;
 
+import entities.User;
+
 /**
  * Session Bean implementation class credentialRetrieval
  */
 @Stateless
 public class CredentialRetrieval implements CredentialRetrievalInterface{	
 	@EJB
-	private SearchDTOInterface search;
+	private SearchDTOInterface searchDTO;
+	@EJB
+	private Search search;
 	@EJB
 	private ModifyInfoInterface modifyInfo;
 	
 	@Override
 	public boolean retrieveCredentials(String email){
-		UserDTO user = search.findUser(email);
-		if(user != null)
+		UserDTO user = searchDTO.findUser(email);
+		User realUser = search.findUser(email);
+		if(user != null && realUser.getGroups().get(0).getGroupName().equals("CUSTOMER"))
 		{
 			// generate new random password
 			String temp_password = RandomStringUtils.randomAlphanumeric(8);

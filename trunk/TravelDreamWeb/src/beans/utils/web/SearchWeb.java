@@ -5,18 +5,19 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.context.Flash;
 import javax.inject.Inject;
 
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
 
 import beans.accountmanagement.UserDTO;
+import beans.employeehandler.EmployeeHandlerInterface;
 import beans.travelpackage.PredefinedTravelPackageDTO;
 import beans.utils.SearchDTOInterface;
 
 import java.io.IOException;
 import java.sql.Date;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List; 
@@ -27,6 +28,8 @@ import java.util.Map;
 public class SearchWeb {
 	@EJB
 	private SearchDTOInterface finder;
+	@EJB
+	private EmployeeHandlerInterface employeeHandler;
 
 	@Inject
 	private Data_Exchange data;
@@ -96,7 +99,7 @@ public class SearchWeb {
 		if(departureDate != null)
 			departureDateCriteria =  new Date(departureDate.getTime());
 		if(returnDate != null)
-			returnDateCriteria = new Date(returnDate.getTime());
+			returnDateCriteria = new Date(returnDate.getTime() + 86340000);
 		
 		predefinedTravelPackagesList = finder.findPredefinedTravelPackage(packageName, departureDateCriteria, returnDateCriteria);
 		
@@ -125,11 +128,23 @@ public class SearchWeb {
 	
 	public void onPredefinedTravelPackageChosen(SelectEvent event) throws IOException{
 		// open up the predefinedTravelPackage page
-		PredefinedTravelPackageDTO predefinedTravelPackage = (PredefinedTravelPackageDTO) event.getObject(); 
-		List<PredefinedTravelPackageDTO> toSend = new ArrayList<PredefinedTravelPackageDTO>();
-		toSend.add(predefinedTravelPackage);
-		data.setPredefinedTravelPackagesList(toSend);
-		FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/misc/predefinedtravelpackage.xhtml"); 	
+		@SuppressWarnings("unchecked")
+		Map<Boolean, PredefinedTravelPackageDTO> sent = (Map<Boolean, PredefinedTravelPackageDTO>) event.getObject(); 
+		if(sent.containsKey(false)){ // visualization
+			List<PredefinedTravelPackageDTO> toSend = new ArrayList<PredefinedTravelPackageDTO>();
+			toSend.add(sent.get(false));
+			data.setPredefinedTravelPackagesList(toSend);
+			FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/misc/predefinedtravelpackage.xhtml");
+		}
+		else if(sent.containsKey(true)){ // deletion
+			employeeHandler.deletePredefinedTravelPackage(sent.get(true));
+	    	FacesContext facesContext = FacesContext.getCurrentInstance();
+			Flash flash = facesContext.getExternalContext().getFlash();
+			flash.setKeepMessages(true);
+			flash.setRedirect(true);	
+			facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Successful", "Predefined travel package deleted!")); 
+			FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/employee/control_panel.xhtml");
+		}
 	}
 		
 	//---------------------------
