@@ -8,6 +8,7 @@ import javax.persistence.PersistenceContext;
 import javax.annotation.security.RolesAllowed;
 
 import beans.travelcomponent.TravelComponentHandler;
+import beans.utils.SendEmail;
 import entities.*;
 
 @Stateless
@@ -71,6 +72,10 @@ public class GiftListHandler {
 				giftList.getGiftElements().remove(giftListElement);
 				entityManager.remove(giftListElement); // the element is removed from the gift list!
 				entityManager.merge(giftList);
+				SendEmail.send(owner.getEmail(), "One of your friend payed your component", 
+						"Hi " + owner.getFirstName() + " " + owner.getLastName() + "!\nThe staff wants to inform you that "
+					+	payer.getFirstName() + " " + payer.getLastName() + " has payed a component of your Gift List!.\n"
+					+ 	"The package: " + giftListElement.getPersonalizedTravelPackage().getName() + " has been updated!");				
 				return true;
 			}
 		return false; // some errors incurred
