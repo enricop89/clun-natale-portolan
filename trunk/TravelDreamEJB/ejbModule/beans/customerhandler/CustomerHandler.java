@@ -7,6 +7,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
 import entities.Components_Helper;
+import entities.GiftList;
 import entities.PersonalizedTravelPackage;
 import entities.PredefinedTravelPackage;
 import beans.accountmanagement.UserDTO;
@@ -86,8 +87,20 @@ public class CustomerHandler implements CustomerHandlerInterface{
 				result = updatePersonalizedTravelPackage(personalizedTravelPackage);				
 		}
 		
-		if(result.isEmpty())
-			return handler.confirmPersonalizedTravelPackage(search.findPersonalizedTravelPackage(personalizedTravelPackage));
+		if(result.isEmpty()){
+			result = handler.confirmPersonalizedTravelPackage(search.findPersonalizedTravelPackage(personalizedTravelPackage));
+			if(result.isEmpty()){ // Removes all the eventual corresponding entry in the gift list	
+				GiftList giftList = search.findGiftList(search.findPersonalizedTravelPackage(personalizedTravelPackage).getOwner());
+				for(int j = 0; j < giftList.getGiftElements().size(); j++){
+					if(giftList.getGiftElements().get(j).getPersonalizedTravelPackage().getId() == personalizedTravelPackage.getId()){
+						gift_handler.removeTravelComponentFromGiftList(giftList.getGiftElements().get(j));
+					}
+				}
+				return "";
+			}
+			else
+				return result;
+		}
 			
 		else
 			return result;
