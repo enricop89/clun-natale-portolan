@@ -92,7 +92,7 @@ public class TravelComponentWeb
 	public void saveChanges()
 	{		
 		if (hotelDate != null)
-			component.setHotelDate(new java.sql.Date(hotelDate.getTime()));	
+			component.setHotelDate(new java.sql.Date(hotelDate.getTime() + 86340000));	
 		if (flightDepartureDate != null)
 			component.setFlightDepartureDateTime(new java.sql.Timestamp(flightDepartureDate.getTime()));
 		if (flightArrivalDate != null)

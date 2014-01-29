@@ -1,6 +1,8 @@
 package beans.utils.web;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -34,8 +36,14 @@ public class SearchPredefinedTravelPackages {
 		return predefinedTravelPackagesList;
 	}
 	
-	public void selectFromDialog(PredefinedTravelPackageDTO predefinedTravelPackage){
-		RequestContext.getCurrentInstance().closeDialog(predefinedTravelPackage); 
+	public void visualize(PredefinedTravelPackageDTO predefinedTravelPackage){
+		Map<Boolean, PredefinedTravelPackageDTO> toSend = new HashMap<>();
+		toSend.put(false, predefinedTravelPackage);
+		RequestContext.getCurrentInstance().closeDialog(toSend); 
 	}
-
+	public void delete(PredefinedTravelPackageDTO predefinedTravelPackage){
+		Map<Boolean, PredefinedTravelPackageDTO> toSend = new HashMap<>();
+		toSend.put(true, predefinedTravelPackage);
+		RequestContext.getCurrentInstance().closeDialog(toSend); 
+	}
 }

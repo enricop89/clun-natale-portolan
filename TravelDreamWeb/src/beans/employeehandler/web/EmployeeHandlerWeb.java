@@ -322,7 +322,7 @@ public class EmployeeHandlerWeb  {
 			Calendar end = Calendar.getInstance();
 			end.setTime(hotelEndingDate);
 			for (java.util.Date date = start.getTime(); !start.after(end); start.add(Calendar.DATE, 1), date = start.getTime()) {
-				componentDTO.setHotelDate(new Date(date.getTime()));
+				componentDTO.setHotelDate(new Date(date.getTime() + 86340000));
 				result = employeeHandler.addNewTravelComponent(componentDTO);
 				if(result == false)
 				{
@@ -333,10 +333,10 @@ public class EmployeeHandlerWeb  {
 		}
 		else{
 			if(hotelStartingDate != null){
-				componentDTO.setHotelDate(new java.sql.Date(hotelStartingDate.getTime()));
+				componentDTO.setHotelDate(new java.sql.Date(hotelStartingDate.getTime() + 86340000));
 			}
 			else if(hotelEndingDate != null){
-				componentDTO.setHotelDate(new java.sql.Date(hotelStartingDate.getTime()));
+				componentDTO.setHotelDate(new java.sql.Date(hotelStartingDate.getTime() + 86340000));
 			}
 
 			else{
@@ -453,7 +453,7 @@ public class EmployeeHandlerWeb  {
 		switch (component.getType())
 		{
 			case FLIGHT:
-				result = component.getFlightCode() + " - FROM: " + component.getFlightDepartureCity() + " ("+ component.getFlightDepartureDateTime() + ") - TO: " + component.getFlightArrivalCity() + " (" + component.getFlightArrivalDateTime() + ")";
+				result = component.getFlightCode() + " - FROM: " + component.getFlightDepartureCity() + " ("+ DateFormatUtils.format(component.getFlightDepartureDateTime(), "dd-MM-yyyy HH:mm") + ") - TO: " + component.getFlightArrivalCity() + " (" + DateFormatUtils.format(component.getFlightArrivalDateTime(), "dd-MM-yyyy HH:mm") + ")";
 				break;
 			case HOTEL:
 				result = "CITY: " + component.getHotelCity() + " - DATE: " + DateFormatUtils.format(component.getHotelDate(), "dd-MM-yyyy");
@@ -473,7 +473,7 @@ public class EmployeeHandlerWeb  {
 		flash.setRedirect(true);
 		
 		packageDTO.setDepartureDate(new java.sql.Date(packageStartDate.getTime()));
-		packageDTO.setReturnDate(new java.sql.Date(packageEndDate.getTime()));
+		packageDTO.setReturnDate(new java.sql.Date(packageEndDate.getTime() + 86340000));
 		String result = employeeHandler.addNewPredefinedTravelPackage(packageDTO);
 
 		if (result.isEmpty())

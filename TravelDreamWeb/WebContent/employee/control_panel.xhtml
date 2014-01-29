@@ -35,7 +35,7 @@
 								requiredMessage="Please specify the number of places." converterMessage="The number of places is not valid." validatorMessage="The number of places is not valid."/>	
 							     
 								<h:outputText value="Flight departure date: "/>
-								<p:calendar label=" " value="#{EmployeeHandlerWeb.flightDepartureDate}" id="flight_dep_date" required="true"
+								<p:calendar label=" " value="#{EmployeeHandlerWeb.flightDepartureDate}" id="flight_dep_date" required="true" pattern="dd-MM-yyyy HH:mm" timeZone="GMT+1"
 								requiredMessage="Please specify a departure date." converterMessage="The departure date in not valid. [conversion]" validatorMessage="The departure date in not valid. [validation]"/>  
 								
 								<h:outputLabel for="flight_dep_time" value="Flight departure time: "/>
@@ -43,7 +43,7 @@
 					            requiredMessage="Please specify a departure time." />  			     
 				
 								<h:outputText value="Flight arrival date: "/>
-								<p:calendar label=" " value="#{EmployeeHandlerWeb.flightArrivalDate}" id="flight_arrival_date" required="true"
+								<p:calendar label=" " value="#{EmployeeHandlerWeb.flightArrivalDate}" id="flight_arrival_date" required="true" pattern="dd-MM-yyyy HH:mm" timeZone="GMT+1"
 								requiredMessage="Please specify the arrival date." converterMessage="The arrival date in not valid. [conversion]" validatorMessage="The arrival date in not valid. [validation]"/>  
 								
 								<h:outputLabel for="flight_arrival_time" value="Flight arrival time: "/>	
@@ -87,7 +87,7 @@
 								<h:outputText value=""/>
 								
 								<h:outputText value="Hotel starting date: "/>
-								<p:calendar label=" " value="#{EmployeeHandlerWeb.hotelStartingDate}" id="hotel_starting_date" required="true"
+								<p:calendar label=" " value="#{EmployeeHandlerWeb.hotelStartingDate}" id="hotel_starting_date" required="true" pattern="dd-MM-yyyy" timeZone="GMT+1"
 								requiredMessage="Please specify the starting date." converterMessage="The starting date in not valid. [conversion]" validatorMessage="The starting date in not valid. [validation]"/>
 								
 								<h:outputText value="Hotel ending date: "/>
@@ -114,7 +114,7 @@
 								requiredMessage="Please specify the number of places." converterMessage="The number of places is not valid." validatorMessage="The number of places is not valid."/>
 							
 								<h:outputText value="Excursion date: "/>
-								<p:calendar label=" " value="#{EmployeeHandlerWeb.excursionDate}" id="excursion_date" required="true"
+								<p:calendar label=" " value="#{EmployeeHandlerWeb.excursionDate}" id="excursion_date" required="true" pattern="dd-MM-yyyy HH:mm" timeZone="GMT+1"
 								requiredMessage="Please specify the excursion date." converterMessage="The date in not valid. [conversion]" validatorMessage="The date in not valid. [validation]"/>  
 								
 								<h:outputLabel for="excursion_city">Excursion city:</h:outputLabel>
@@ -145,8 +145,7 @@
 						<p:panelGrid  style="width:100%"> 
 							<p:row>         	
 								<p:column style="text-align: right"> <h:outputLabel for="package_start">Departure Date:</h:outputLabel></p:column>         	
-								<p:column> <p:calendar value="#{EmployeeHandlerWeb.packageStartDate}" id="package_start" showButtonPanel="true"  
-								pattern="dd/MM/yyyy HH:mm" required="true" requiredMessage="Please specify the departure date." /> </p:column>
+								<p:column> <p:calendar value="#{EmployeeHandlerWeb.packageStartDate}" id="package_start" showButtonPanel="true" pattern="dd-MM-yyyy" timeZone="GMT+1" required="true" requiredMessage="Please specify the departure date." /> </p:column>
 								<p:column rowspan="3"  style="text-align: right"> <h:outputLabel for="package_desc" value="Description: "/>	</p:column>
 								<p:column rowspan="3"> 	
 									<p:inputTextarea label="des" rows="3" cols="50" counter="tp_counter" maxlength="255"       
@@ -158,7 +157,7 @@
 							</p:row> 
 							<p:row>	
 								<p:column style="text-align: right"> <h:outputLabel for="package_end">Return Date:</h:outputLabel></p:column>     	
-								<p:column> <p:calendar value="#{EmployeeHandlerWeb.packageEndDate}" id="package_end" showButtonPanel="true" pattern="dd/MM/yyyy HH:mm" required="true" requiredMessage="Please specify the return date."/></p:column>
+								<p:column> <p:calendar value="#{EmployeeHandlerWeb.packageEndDate}" id="package_end" showButtonPanel="true" pattern="dd-MM-yyyy" timeZone="GMT+1" required="true" requiredMessage="Please specify the return date."/></p:column>
 							</p:row> 	
 							<p:row>	
 								<p:column style="text-align: right"> <h:outputLabel for="package_name">Name:</h:outputLabel></p:column>     	

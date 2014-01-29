@@ -36,9 +36,9 @@
 						 	<h:outputLabel for="flightArrivalCity">Arrival City:</h:outputLabel>
 			            	<p:inputText id="flightArrivalCity" value="#{SearchTravelComponents.searchCriteria.flightArrivalCity}"/>	
 			 			 	<h:outputLabel for="flightDepartureDateTime">Departure Date and Time:</h:outputLabel>           	
-			            	<p:calendar value="#{SearchTravelComponents.flightDepartureDateTime}" id="flightDepartureDateTime" showButtonPanel="true" pattern="MM/dd/yyyy HH:mm"/>  
+			            	<p:calendar value="#{SearchTravelComponents.flightDepartureDateTime}" id="flightDepartureDateTime" showButtonPanel="true" pattern="dd-MM-yyyy HH:mm" timeZone="GMT+1"/>  
 						 	<h:outputLabel for="flightArrivalDateTime">Arrival Date and Time:</h:outputLabel>            	
-			            	<p:calendar value="#{SearchTravelComponents.flightArrivalDateTime}" id="flightArrivalDateTime" showButtonPanel="true" pattern="MM/dd/yyyy HH:mm"/>
+			            	<p:calendar value="#{SearchTravelComponents.flightArrivalDateTime}" id="flightArrivalDateTime" showButtonPanel="true" pattern="dd-MM-yyyy HH:mm" timeZone="GMT+1"/>
 	           		    	<p:row>
 	           		    	<p:commandButton value="Search" icon="ui-icon-search" action="#{SearchTravelComponents.search('FLIGHT', false)}" update="flightResult,f_searchgrowl" ajax="true" styleClass="ui-priority-primary"/>  
 	       					<p:commandButton value="Browse All" icon="ui-icon-search" action="#{SearchTravelComponents.search('FLIGHT', true)}" update="flightResult,f_searchgrowl" ajax="true"/>
@@ -114,7 +114,7 @@
 						 	<h:outputLabel for="hotelCity">City:</h:outputLabel>
 			            	<p:inputText id="hotelCity" value="#{SearchTravelComponents.searchCriteria.hotelCity}"/>	            	
 			 			 	<h:outputLabel for="hotelStartingDate">Starting Date:</h:outputLabel>           	
-			            	<p:calendar value="#{SearchTravelComponents.hotelStartingDate}" id="hotelStartingDate" showButtonPanel="true"/>  	
+			            	<p:calendar value="#{SearchTravelComponents.hotelStartingDate}" id="hotelStartingDate" showButtonPanel="true" pattern="dd-MM-yyyy" timeZone="GMT+1"/>  	
 						 	<h:outputLabel for="hotelEndingDate">Ending Date:</h:outputLabel>            	
 			            	<p:calendar value="#{SearchTravelComponents.hotelEndingDate}" id="hotelEndingDate" showButtonPanel="true"/> 	
 	           		    	<p:row>
@@ -182,7 +182,7 @@
 						<h:outputLabel for="excursionDescription">Description (even only a part):</h:outputLabel>
 		            	<p:inputText id="excursionDescription" value="#{SearchTravelComponents.searchCriteria.excursionDescription}"/>	            	
 					 	<h:outputLabel for="excursionDateTime">Date and Time:</h:outputLabel>            	
-		            	<p:calendar value="#{SearchTravelComponents.excursionDateTime}" id="excursionDateTime" showButtonPanel="true" pattern="MM/dd/yyyy HH:mm"/>
+		            	<p:calendar value="#{SearchTravelComponents.excursionDateTime}" id="excursionDateTime" showButtonPanel="true" pattern="dd-MM-yyyy HH:mm" timeZone="GMT+1"/>
            		    	<p:row>
            		    	<p:commandButton value="Search" icon="ui-icon-search" action="#{SearchTravelComponents.search('EXCURSION', false)}" update="excursionResult,e_searchgrowl" ajax="true" styleClass="ui-priority-primary"/>  
        					<p:commandButton value="Browse All" icon="ui-icon-search" action="#{SearchTravelComponents.search('EXCURSION', true)}" update="excursionResult,e_searchgrowl" ajax="true"/>

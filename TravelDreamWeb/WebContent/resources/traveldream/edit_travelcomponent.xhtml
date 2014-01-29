@@ -32,25 +32,25 @@
 			<p:inputText rendered="#{cc.attrs.component.type == 'FLIGHT'}" id="flight_dep_city" value="#{cc.attrs.component.flightDepartureCity}" required="true"/>
 			
 		 	<h:outputLabel rendered="#{cc.attrs.component.type == 'FLIGHT'}" for="flightDepartureDateTime">Departure Date and Time:</h:outputLabel>           	
-           	<p:calendar rendered="#{cc.attrs.component.type == 'FLIGHT'}" value="#{cc.attrs.component.flightDepartureDateTime}" id="flightDepartureDateTime" showButtonPanel="true" pattern="MM/dd/yyyy HH:mm" required="true"/> 
+           	<p:calendar rendered="#{cc.attrs.component.type == 'FLIGHT'}" value="#{cc.attrs.component.flightDepartureDateTime}" id="flightDepartureDateTime" showButtonPanel="true" pattern="dd-MM-yyyy HH:mm" timeZone="GMT+1" required="true"/> 
            	 
 			<h:outputLabel rendered="#{cc.attrs.component.type == 'FLIGHT'}" for="flight_arrival_city">Flight arrival city:</h:outputLabel>
 			<p:inputText rendered="#{cc.attrs.component.type == 'FLIGHT'}"  id="flight_arrival_city" value="#{cc.attrs.component.flightArrivalCity}" required="true"/>
 
 		 	<h:outputLabel rendered="#{cc.attrs.component.type == 'FLIGHT'}" for="flightArrivalDateTime">Arrival Date and Time:</h:outputLabel>            	
-           	<p:calendar rendered="#{cc.attrs.component.type == 'FLIGHT'}" value="#{cc.attrs.component.flightArrivalDateTime}" id="flightArrivalDateTime" showButtonPanel="true" pattern="MM/dd/yyyy HH:mm" required="true"/>
+           	<p:calendar rendered="#{cc.attrs.component.type == 'FLIGHT'}" value="#{cc.attrs.component.flightArrivalDateTime}" id="flightArrivalDateTime" showButtonPanel="true" pattern="dd-MM-yyyy HH:mm" timeZone="GMT+1" required="true"/>
 			
 			<h:outputLabel rendered="#{cc.attrs.component.type == 'HOTEL'}" for="h_city">City:</h:outputLabel>
 			<p:inputText rendered="#{cc.attrs.component.type == 'HOTEL'}" id="h_city" value="#{cc.attrs.component.hotelCity}" required="true"/>
 			
 	 		<h:outputLabel rendered="#{cc.attrs.component.type == 'HOTEL'}" for="h_date">Date:</h:outputLabel>            	
-           	<p:calendar rendered="#{cc.attrs.component.type == 'HOTEL'}" value="#{cc.attrs.component.hotelDate}" id="h_date" showButtonPanel="true" required="true"/>
+           	<p:calendar rendered="#{cc.attrs.component.type == 'HOTEL'}" value="#{cc.attrs.component.hotelDate}" id="h_date" pattern="dd-MM-yyyy" timeZone="GMT+1" showButtonPanel="true" required="true"/>
 			
 			<h:outputLabel rendered="#{cc.attrs.component.type == 'EXCURSION'}" for="excursionCity">City:</h:outputLabel>
            	<p:inputText rendered="#{cc.attrs.component.type == 'EXCURSION'}" id="excursionCity" value="#{cc.attrs.component.excursionCity}" required="true"/>		
 	  
 		 	<h:outputLabel rendered="#{cc.attrs.component.type == 'EXCURSION'}" for="excursionDateTime">Date and Time:</h:outputLabel>            	
-           	<p:calendar rendered="#{cc.attrs.component.type == 'EXCURSION'}" value="#{cc.attrs.component.excursionDateTime}" id="excursionDateTime" showButtonPanel="true" pattern="MM/dd/yyyy HH:mm" required="true"/>						
+           	<p:calendar rendered="#{cc.attrs.component.type == 'EXCURSION'}" value="#{cc.attrs.component.excursionDateTime}" id="excursionDateTime" showButtonPanel="true" pattern="dd-MM-yyyy HH:mm" timeZone="GMT+1" required="true"/>						
            	            	
 			<h:outputLabel rendered="#{cc.attrs.component.type == 'EXCURSION'}" for="excursionDescription">Description:</h:outputLabel>
            	<p:inputText rendered="#{cc.attrs.component.type == 'EXCURSION'}" id="excursionDescription" value="#{cc.attrs.component.excursionDescription}" required="true"/>

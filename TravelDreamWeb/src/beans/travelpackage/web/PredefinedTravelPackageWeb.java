@@ -166,7 +166,8 @@ public class PredefinedTravelPackageWeb {
 				
 			}
 		}
-		return component.getSupplyingCompany();	
+		Integer availability = new Integer(component.getAvailability());
+		return availability.toString();	
 	}
 	
 	public boolean isHotelRoot(TravelComponentDTO component){
@@ -203,7 +204,7 @@ public class PredefinedTravelPackageWeb {
 		flash.setKeepMessages(true);
 		flash.setRedirect(true);
 		facesContext.addMessage(null,message); 
-		FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/customer/personal_travel_package.xhtml");
+		FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/employee/control_panel.html");
 	}
 	
 	public void save() throws IOException{
@@ -214,7 +215,7 @@ public class PredefinedTravelPackageWeb {
 		if(departureDate != null){
 			predTP.setDepartureDate(new Date(departureDate.getTime()));
 			if(returnDate != null){
-				predTP.setReturnDate(new Date(returnDate.getTime()));		
+				predTP.setReturnDate(new Date(returnDate.getTime() + 86340000));		
 				if(FacesContext.getCurrentInstance().getExternalContext().isUserInRole("CUSTOMER")){//if customer copy in personalized
 					user = search.findUser(FacesContext.getCurrentInstance().getExternalContext().getRemoteUser());
 					String result = customerHandler.addNewPersonalizedTravelPackage(user, predTP);

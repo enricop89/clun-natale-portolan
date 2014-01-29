@@ -14,10 +14,10 @@
             	<p:inputText id="name" value="#{SearchWeb.packageName}" /> 	
             	
  			 	<h:outputLabel for="departureDate">Departure Date:</h:outputLabel>           	
-            	<p:calendar value="#{SearchWeb.departureDate}" id="departureDate" showButtonPanel="true"/>  
+            	<p:calendar value="#{SearchWeb.departureDate}" id="departureDate" showButtonPanel="true" pattern="dd-MM-yyyy" timeZone="GMT+1"/>  
 
 			 	<h:outputLabel for="returnDate">Return Date:</h:outputLabel>            	
-            	<p:calendar value="#{SearchWeb.returnDate}" id="returnDate" showButtonPanel="true"/> 
+            	<p:calendar value="#{SearchWeb.returnDate}" id="returnDate" showButtonPanel="true" pattern="dd-MM-yyyy" timeZone="GMT+1"/> 
             							
 			</h:panelGrid> 
 			<p:commandButton value="Search" icon="ui-icon-search" action="#{SearchWeb.searchPredefinedTravelPackages}" update="packagesGrowl" ajax="true" styleClass="ui-priority-primary">  			       		

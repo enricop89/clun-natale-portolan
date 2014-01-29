@@ -214,15 +214,15 @@ public class SearchTravelComponents {
 					end.setTime(hotelEndingDate);
 					resultList = new ArrayList<TravelComponentDTO>();
 					for (java.util.Date date = start.getTime(); !start.after(end); start.add(Calendar.DATE, 1), date = start.getTime()) {
-					    searchCriteria.setHotelDate(new Date(date.getTime()));
+					    searchCriteria.setHotelDate(new Date(date.getTime() + 86340000));
 					    resultList.addAll(finder.findTravelComponent(searchCriteria));
 					}
 				}
 				else{
 					if(hotelStartingDate != null)
-						searchCriteria.setHotelDate(new Date(hotelStartingDate.getTime()));
+						searchCriteria.setHotelDate(new Date(hotelStartingDate.getTime() + 86340000));
 					else if(hotelEndingDate != null)
-						searchCriteria.setHotelDate(new Date(hotelEndingDate.getTime()));
+						searchCriteria.setHotelDate(new Date(hotelEndingDate.getTime() + 86340000));
 					
 					resultList = finder.findTravelComponent(searchCriteria);
 				}
