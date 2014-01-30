@@ -92,6 +92,7 @@ public class PredefinedTravelPackageHandler {
 		List<TravelComponent> excursions = new ArrayList<TravelComponent>();
 		TravelComponent departureFlight = new TravelComponent();
 		TravelComponent returnFlight = new TravelComponent();
+		TravelComponent flight = new TravelComponent();
 		for (int i=0;i<predefinedTravelPackage.getTravelComponents().size();i++){ //collect components in the three Component_Type
 			TravelComponent component = predefinedTravelPackage.getTravelComponents().get(i);
 			switch(component.getType()){
@@ -152,56 +153,70 @@ public class PredefinedTravelPackageHandler {
 					return "one excursion has an invald city";  // city control
 			}
 		}
-		else if(flights.size() == 1){
-			if(predefinedTravelPackage.getDepartureDate().equals(new Date((departureFlight = flights.get(0)).getFlightDepartureDateTime().getTime()))){
-				for (int i=0;i<hotels.size();i++){
-					if(hotels.get(i).getHotelDate().after(new Date(departureFlight.getFlightArrivalDateTime().getTime())))
-						return "one hotel has its date before the date of the departure flight"; 	// date hotel before date departureFlight
-					
-					if(predefinedTravelPackage.getReturnDate().before(hotels.get(i).getHotelDate()))
-						return "one hotel has its date after the return date"; 	// date hotel after date returnDate
-					
-					if(!hotels.get(i).getHotelCity().equals(departureFlight.getFlightArrivalCity()))
-						return "city control";  // city control
+		else if(flights.size() == 1)
+		{
+			flight = flights.get(0);
+			for (int i=0;i<excursions.size();i++){
+				// the date of every excursion must be after the departure date of the package
+				if (excursions.get(i).getExcursionDateTime().before(predefinedTravelPackage.getDepartureDate()))
+					return "the date of an excursion is before the departure date of the package";
+				if (excursions.get(i).getExcursionDateTime().after(predefinedTravelPackage.getReturnDate()))
+					return "the date of an excursion is after the return date of the package";
+				
+				if (excursions.get(i).getExcursionDateTime().before(flight.getFlightDepartureDateTime()))
+				{
+					//if the excursion is before the flight departure
+					if (!excursions.get(i).getExcursionCity().equalsIgnoreCase(flight.getFlightDepartureCity()))
+					{
+						//the city of an excursion before the flight is different from the departure city of the flight
+						return "the city of an excursion before the flight is different from the departure city of the flight";
+					}	
 				}
-				for (int i=0;i<excursions.size();i++){
-					if(departureFlight.getFlightArrivalDateTime().after(excursions.get(i).getExcursionDateTime()))
-						return "one excursion has its date before the date of the departure flight"; 	// date excursion before date departureFlight
-					
-					if(predefinedTravelPackage.getReturnDate().before(new Date(excursions.get(i).getExcursionDateTime().getTime())))
-						return "one excursion has its date after the return date"; 	// date excursion after date returnDate
-					
-					if(!excursions.get(i).getExcursionCity().equals(departureFlight.getFlightArrivalCity()))
-						return "one excursion has an invald city";  // city control
-				}				
+				else if (excursions.get(i).getExcursionDateTime().after(flight.getFlightArrivalDateTime()))
+				{
+					//if the excursion is after the flight arrival
+					if (!excursions.get(i).getExcursionCity().equalsIgnoreCase(flight.getFlightArrivalCity()))
+					{
+						//the city of an excursion after the flight is different from the arrival city of the flight
+						return "the city of an excursion after the flight is different from the arrival city of the flight";
+					}
+				}
+				else
+				{
+					return "there is an overlap between an excurion and the flight";
+				}
 			}
-			if(predefinedTravelPackage.getReturnDate().equals(new Date((returnFlight = flights.get(0)).getFlightArrivalDateTime().getTime()))){
-				for (int i=0;i<hotels.size();i++){
-					if(predefinedTravelPackage.getDepartureDate().before(hotels.get(i).getHotelDate()))
-						return "one hotel has its date before the date of the departure date"; 	// date hotel before date departureDate
-					
-					if(hotels.get(i).getHotelDate().after(new Date(returnFlight.getFlightDepartureDateTime().getTime())))
-						return "one hotel has its date after the date of the return flight"; 	// date hotel after date returnFlight
-					
-					if(!hotels.get(i).getHotelCity().equals(returnFlight.getFlightDepartureCity()))
-						return "one excursion has an invald city";  // city control
-					
-				}
-				for (int i=0;i<excursions.size();i++){
-					if(predefinedTravelPackage.getDepartureDate().after(new Date(excursions.get(i).getExcursionDateTime().getTime())))
-						return "date excursion before the date of the departure date"; 	// date excursion before date departureDate
-					
-					if(returnFlight.getFlightDepartureDateTime().before(new Date(excursions.get(i).getExcursionDateTime().getTime())))
-						return "date excursion after the date of the return flight"; 	// date excursion after date returnFlight
-					
-					if(!excursions.get(i).getExcursionCity().equals(returnFlight.getFlightDepartureCity()))
-						return "one excursion has an invald city";  // city control
-					
-				}				
-			}		
-			else
-				return "dates mismatch"; // dates mismatch
 			
+			for (int i=0;i<hotels.size();i++){
+				// the date of every hotel must be after the departure date of the package
+				if (hotels.get(i).getHotelDate().before(predefinedTravelPackage.getDepartureDate()))
+					return "an hotel date is before the departure date of the package";
+				if (hotels.get(i).getHotelDate().after(predefinedTravelPackage.getReturnDate()))
+					return "an hotel date is after the return date of the package";
+				
+				if (hotels.get(i).getHotelDate().before(new Date(flight.getFlightDepartureDateTime().getTime() - 86400000)))
+				{
+					//if the hotel is before the flight departure
+					if (!hotels.get(i).getHotelCity().equalsIgnoreCase(flight.getFlightDepartureCity()))
+					{
+						//the city of an hotel before the flight is different from the departure city of the flight
+						return "the city of an hotel before the flight is different from the departure city of the flight";
+					}	
+				}
+				else if (hotels.get(i).getHotelDate().after(new Date(flight.getFlightArrivalDateTime().getTime() + 86400000)))
+				{
+					//if the hotel is after the flight arrival
+					if (!hotels.get(i).getHotelCity().equalsIgnoreCase(flight.getFlightArrivalCity()))
+					{
+						//the city of an hotel after the flight is different from the arrival city of the flight
+						return "the city of an hotel after the flight is different from the arrival city of the flight";
+					}
+				}
+				else
+				{
+					//no check
+				}
+			}		
 		}
 		else{ // no flights
 			String city = null;
