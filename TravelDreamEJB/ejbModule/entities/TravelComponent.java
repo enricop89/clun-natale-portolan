@@ -67,7 +67,7 @@ public class TravelComponent implements Serializable {
 			flightDepartureDateTime = travelComponent.getFlightDepartureDateTime();
 			flightArrivalDateTime = travelComponent.getFlightArrivalDateTime();
 			flightDepartureCity = travelComponent.getFlightDepartureCity();
-			flightArrivalCity = travelComponent.getFlightArrivalCity();
+			flightArrivalCity = travelComponent.getFlightArrivalCity().toUpperCase().trim();
 			flightCode = travelComponent.getFlightCode();
 			
 			hotelCity = null;
@@ -84,7 +84,7 @@ public class TravelComponent implements Serializable {
 			flightArrivalCity = null;
 			flightCode = null;
 			
-			hotelCity = travelComponent.getHotelCity();
+			hotelCity = travelComponent.getHotelCity().toUpperCase().trim();
 			hotelDate = travelComponent.getHotelDate();
 			
 			excursionDescription = null;
@@ -103,7 +103,7 @@ public class TravelComponent implements Serializable {
 			
 			excursionDescription = travelComponent.getExcursionDescription();
 			excursionDateTime = travelComponent.getExcursionDateTime();
-			excursionCity = travelComponent.getExcursionCity();
+			excursionCity = travelComponent.getExcursionCity().toUpperCase().trim();
 			break;
 		}
 		if(search.findTravelComponent(travelComponent) == null){ // this is a new travel component
@@ -158,7 +158,7 @@ public class TravelComponent implements Serializable {
 	}
 
 	public void setFlightDepartureCity(String flightDepartureCity) {
-		this.flightDepartureCity = flightDepartureCity;
+		this.flightDepartureCity = flightDepartureCity.toUpperCase().trim();
 	}   
 	
 	public String getFlightArrivalCity() {
@@ -166,7 +166,7 @@ public class TravelComponent implements Serializable {
 	}
 
 	public void setFlightArrivalCity(String flightArrivalCity) {
-		this.flightArrivalCity = flightArrivalCity;
+		this.flightArrivalCity = flightArrivalCity.toUpperCase().trim();
 	}   
 	
 	public String getFlightCode() {
@@ -214,7 +214,7 @@ public class TravelComponent implements Serializable {
 	}
 
 	public void setExcursionCity(String excursionCity) {
-		this.excursionCity = excursionCity;
+		this.excursionCity = excursionCity.toUpperCase().trim();
 	}
  
 	public List<PredefinedTravelPackage> getPredefinedTravelPackages() {
@@ -241,8 +241,8 @@ public class TravelComponent implements Serializable {
 		case FLIGHT:
 			flightDepartureDateTime = travelComponent.getFlightDepartureDateTime();
 			flightArrivalDateTime = travelComponent.getFlightArrivalDateTime();
-			flightDepartureCity = travelComponent.getFlightDepartureCity();
-			flightArrivalCity = travelComponent.getFlightArrivalCity();
+			flightDepartureCity = travelComponent.getFlightDepartureCity().toUpperCase().trim();
+			flightArrivalCity = travelComponent.getFlightArrivalCity().toUpperCase().trim();
 			flightCode = travelComponent.getFlightCode();
 			
 			hotelCity = null;
@@ -259,7 +259,7 @@ public class TravelComponent implements Serializable {
 			flightArrivalCity = null;
 			flightCode = null;
 			
-			hotelCity = travelComponent.getHotelCity();
+			hotelCity = travelComponent.getHotelCity().toUpperCase().trim();
 			hotelDate = travelComponent.getHotelDate();
 			
 			excursionDescription = null;
@@ -278,7 +278,7 @@ public class TravelComponent implements Serializable {
 			
 			excursionDescription = travelComponent.getExcursionDescription();
 			excursionDateTime = travelComponent.getExcursionDateTime();
-			excursionCity = travelComponent.getExcursionCity();
+			excursionCity = travelComponent.getExcursionCity().toUpperCase().trim();
 			break;
 		}
 	}
