@@ -183,7 +183,7 @@ public class TravelComponentHandler{
 		List<PersonalizedTravelPackage> persTPs = search.findAllPersonalizedTravelPackages();
 		for(int i = 0; i < persTPs.size(); i++){
 			for(int j = 0; j < persTPs.get(i).getTravelComponents().size(); j++){
-				if(persTPs.get(i).getTravelComponents().get(j).getTravelComponent().getId() == travelComponent.getId()){
+				if(persTPs.get(i).getTravelComponents().get(j).getTravelComponent()!=null && persTPs.get(i).getTravelComponents().get(j).getTravelComponent().getId() == travelComponent.getId()){
 					if(persTPs.get(i).getTravelComponents().get(j).getTravelElement() != null){
 						persTPs.get(i).getTravelComponents().get(j).setTravelComponent(null);
 						personalized_handler.updatePersonalizedTravelPackage(persTPs.get(i));
