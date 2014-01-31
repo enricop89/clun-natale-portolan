@@ -98,12 +98,24 @@ public class PredefinedTravelPackageHandler {
 			switch(component.getType()){
 			case FLIGHT:
 				flights.add(component);
+				if (component.getFlightDepartureDateTime().before(predefinedTravelPackage.getDepartureDate()))
+					return "There is a flight before the departure date of the package.";
+				if (component.getFlightArrivalDateTime().after(predefinedTravelPackage.getReturnDate()))
+					return "There is a flight arriving after the return date of the package.";
 				break;
 			case HOTEL:
 				hotels.add(component);
+				if (component.getHotelDate().before(predefinedTravelPackage.getDepartureDate()))
+					return "There is a hotel before the departure date of the package.";
+				if (component.getHotelDate().after(predefinedTravelPackage.getReturnDate()))
+					return "There is a hotel after the return date of the package.";
 				break;
 			case EXCURSION:
 				excursions.add(component);
+				if (component.getExcursionDateTime().before(predefinedTravelPackage.getDepartureDate()))
+					return "There is a excursion before the departure date of the package.";
+				if (component.getExcursionDateTime().after(predefinedTravelPackage.getReturnDate()))
+					return "There is a excursion after the return date of the package.";
 				break;
 			}
 		}
@@ -130,8 +142,8 @@ public class PredefinedTravelPackageHandler {
 			
 			if(!departureFlight.getFlightArrivalCity().equals(returnFlight.getFlightDepartureCity()))
 				return "flights cities mismatch"; // city mismatch, error!
-					
-			for (int i=0;i<hotels.size();i++){
+			int i = 0;		
+			for (i=0;i<hotels.size();i++){
 				if(hotels.get(i).getHotelDate().before(new Date(departureFlight.getFlightArrivalDateTime().getTime())))
 					return "one hotel has its date before the date of the departure flight"; 	// date hotel before date departureFlight
 							
@@ -142,7 +154,8 @@ public class PredefinedTravelPackageHandler {
 					return "one hotel has an invalid city";  // city control
 				
 			}
-			for (int i=0;i<excursions.size();i++){
+			
+			for (i=0;i<excursions.size();i++){
 				if(departureFlight.getFlightArrivalDateTime().after(excursions.get(i).getExcursionDateTime()))
 					return "one excursion has its date before the date of the departure flight"; 	// date excursion before date departureFlight
 				
