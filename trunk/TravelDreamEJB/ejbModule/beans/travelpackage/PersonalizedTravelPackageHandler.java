@@ -136,17 +136,30 @@ public class PersonalizedTravelPackageHandler {
 		TravelComponent flight = new TravelComponent();
 		for (int i=0; i < personalizedTravelPackage.getTravelComponents().size();i++){
 			TravelComponent component = personalizedTravelPackage.getTravelComponents().get(i).getTravelComponent();
+			
 			if(personalizedTravelPackage.getTravelComponents().get(i).getTravelElement() != null) // this component is bought, need to use getPersistence()
 				component = personalizedTravelPackage.getTravelComponents().get(i).getPersistence();
 			switch(component.getType()){
 			case FLIGHT:
 				flights.add(component);
+				if (component.getFlightDepartureDateTime().before(personalizedTravelPackage.getDepartureDate()))
+					return "There is a flight before the departure date of the package.";
+				if (component.getFlightArrivalDateTime().after(personalizedTravelPackage.getReturnDate()))
+					return "There is a flight arriving after the return date of the package.";
 				break;
 			case HOTEL:
 				hotels.add(component);
+				if (component.getHotelDate().before(personalizedTravelPackage.getDepartureDate()))
+					return "There is a hotel before the departure date of the package.";
+				if (component.getHotelDate().after(personalizedTravelPackage.getReturnDate()))
+					return "There is a hotel after the return date of the package.";
 				break;
 			case EXCURSION:
 				excursions.add(component);
+				if (component.getExcursionDateTime().before(personalizedTravelPackage.getDepartureDate()))
+					return "There is a excursion before the departure date of the package.";
+				if (component.getExcursionDateTime().after(personalizedTravelPackage.getReturnDate()))
+					return "There is a excursion after the return date of the package.";
 				break;
 			}
 		}
@@ -185,6 +198,7 @@ public class PersonalizedTravelPackageHandler {
 					return "one hotel has an invalid city";  // city control
 				
 			}
+			
 			for (int i=0;i<excursions.size();i++){
 				if(departureFlight.getFlightArrivalDateTime().after(excursions.get(i).getExcursionDateTime()))
 					return "one excursion has its date before the date of the departure flight"; 	// date excursion before date departureFlight
