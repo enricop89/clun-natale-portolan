@@ -61,7 +61,7 @@ public class GiftListHandler {
 		if(giftListElement.getTravelComponent().getTravelElement() != null) //control if it is already payed
 				return false; 
 		
-		TravelElement element = handler.payTravelComponent(giftListElement.getTravelComponent().getTravelComponent(), owner);
+		TravelElement element = handler.payTravelComponent(giftListElement.getTravelComponent().getTravelComponent(), owner, giftListElement.getPersonalizedTravelPackage());
 		if(element == null) //errors or no travelElements available
 			return false;
 		

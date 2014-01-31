@@ -64,7 +64,7 @@ public class EmployeeHandler implements EmployeeHandlerInterface{
 	@Override
 	@RolesAllowed({"EMPLOYEE"})
 	public void deleteTravelComponent(TravelComponentDTO travelComponent){
-		component_handler.deleteTravelComponent(search.findTravelComponent(travelComponent));
+		component_handler.deleteTravelComponent(search.findTravelComponent(travelComponent),null);
 	}
 	
 	@Override
