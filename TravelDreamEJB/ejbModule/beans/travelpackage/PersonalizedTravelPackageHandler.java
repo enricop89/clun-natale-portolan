@@ -64,6 +64,15 @@ public class PersonalizedTravelPackageHandler {
 	}
 	
 	@RolesAllowed({"CUSTOMER","EMPLOYEE"})
+	public void updatePersonalizedTravelPackage(PersonalizedTravelPackage personalizedTravelPackage, TravelComponent travelComponent){
+		for(int i = 0; i < personalizedTravelPackage.getTravelComponents().size(); i++){
+			if(personalizedTravelPackage.getTravelComponents().get(i).getTravelComponent().getId() == travelComponent.getId())
+				personalizedTravelPackage.getTravelComponents().get(i).setTravelComponent(null);
+		}		
+		entityManager.merge(personalizedTravelPackage);
+	}
+	
+	@RolesAllowed({"CUSTOMER","EMPLOYEE"})
 	public boolean deletePersonalizedTravelPackage(PersonalizedTravelPackage personalizedTravelPackage){
 		boolean result = false;
 		for(int i = 0; i < personalizedTravelPackage.getTravelComponents().size(); i++)
@@ -82,7 +91,7 @@ public class PersonalizedTravelPackageHandler {
 		String result = "the package is already confirmed";
 		for(int i = 0; i < personalizedTravelPackage.getTravelComponents().size(); i++)
 			if(personalizedTravelPackage.getTravelComponents().get(i).getTravelElement() == null){
-				TravelElement element = handler.payTravelComponent(personalizedTravelPackage.getTravelComponents().get(i).getTravelComponent(), personalizedTravelPackage.getOwner());
+				TravelElement element = handler.payTravelComponent(personalizedTravelPackage.getTravelComponents().get(i).getTravelComponent(), personalizedTravelPackage.getOwner(), personalizedTravelPackage);
 				if(element == null)
 					return personalizedTravelPackage.getTravelComponents().get(i).getTravelComponent().getType() + " of the company " + personalizedTravelPackage.getTravelComponents().get(i).getTravelComponent().getSupplyingCompany() + " has no available places";
 				
