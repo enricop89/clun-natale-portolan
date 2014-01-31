@@ -11,8 +11,5 @@
 		<class>entities.TravelComponent</class>
 		<class>entities.TravelElement</class>
 		<class>entities.User</class>
-		<properties>
-			<property name="eclipselink.logging.level" value="FINE"/>
-		</properties>	
 	</persistence-unit>
 </persistence>
