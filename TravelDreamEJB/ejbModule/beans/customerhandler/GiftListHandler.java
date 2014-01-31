@@ -45,7 +45,7 @@ public class GiftListHandler {
 		return false;
 	}
 	
-	@RolesAllowed({"CUSTOMER"})
+	@RolesAllowed({"CUSTOMER","EMPLOYEE"})
 	public void removeTravelComponentFromGiftList(GiftElements_Helper giftListElement){
 		giftListElement.getGiftList().getGiftElements().remove(giftListElement);
 		entityManager.merge(giftListElement.getGiftList());
