@@ -91,12 +91,15 @@ public class PersonalizedTravelPackageHandler {
 		String result = "the package is already confirmed";
 		for(int i = 0; i < personalizedTravelPackage.getTravelComponents().size(); i++)
 			if(personalizedTravelPackage.getTravelComponents().get(i).getTravelElement() == null){
+				TravelComponent component = new TravelComponent();
+				component.setAll(personalizedTravelPackage.getTravelComponents().get(i).getTravelComponent());
+				
 				TravelElement element = handler.payTravelComponent(personalizedTravelPackage.getTravelComponents().get(i).getTravelComponent(), personalizedTravelPackage.getOwner(), personalizedTravelPackage);
 				if(element == null)
-					return personalizedTravelPackage.getTravelComponents().get(i).getTravelComponent().getType() + " of the company " + personalizedTravelPackage.getTravelComponents().get(i).getTravelComponent().getSupplyingCompany() + " has no available places";
+					return component.getType() + " of the company " + component.getSupplyingCompany() + " has no available places";
 				
 				personalizedTravelPackage.getTravelComponents().get(i).setTravelElement(element);
-				personalizedTravelPackage.getTravelComponents().get(i).setPersistence(personalizedTravelPackage.getTravelComponents().get(i).getTravelComponent());
+				personalizedTravelPackage.getTravelComponents().get(i).setPersistence(component);
 				result = ""; //the package is not confirmed yet, at least one component was not yet payed
 			}
 		
