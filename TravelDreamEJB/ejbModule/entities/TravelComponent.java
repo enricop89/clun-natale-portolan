@@ -311,4 +311,65 @@ public class TravelComponent implements Serializable {
 			break;
 		}
 	}
+	public void setAll(TravelComponent travelComponent){
+//		this.id = travelComponent.getId();
+		this.type = travelComponent.getType();
+		this.supplyingCompany = travelComponent.getSupplyingCompany();
+		switch(travelComponent.getType()){
+		case FLIGHT:
+			flightDepartureDateTime = travelComponent.getFlightDepartureDateTime();
+			flightArrivalDateTime = travelComponent.getFlightArrivalDateTime();
+			if (travelComponent.getFlightDepartureCity() != null)
+				flightDepartureCity = travelComponent.getFlightDepartureCity().toUpperCase().trim();
+			else
+				flightDepartureCity = null;
+			if (travelComponent.getFlightArrivalCity() != null)
+				flightArrivalCity = travelComponent.getFlightArrivalCity().toUpperCase().trim();
+			else
+				flightArrivalCity = null;
+			flightCode = travelComponent.getFlightCode();
+			
+			hotelCity = null;
+			hotelDate = null;
+			
+			excursionDescription = null;
+			excursionDateTime = null;
+			excursionCity = null;
+			break;
+		case HOTEL:
+			flightDepartureDateTime = null;
+			flightArrivalDateTime = null;
+			flightDepartureCity = null;
+			flightArrivalCity = null;
+			flightCode = null;
+			
+			if (travelComponent.getHotelCity()!=null)
+				hotelCity = travelComponent.getHotelCity().toUpperCase().trim();
+			else
+				hotelCity = null;
+			hotelDate = travelComponent.getHotelDate();
+			
+			excursionDescription = null;
+			excursionDateTime = null;
+			excursionCity = null;
+			break;
+		case EXCURSION:
+			flightDepartureDateTime = null;
+			flightArrivalDateTime = null;
+			flightDepartureCity = null;
+			flightArrivalCity = null;
+			flightCode = null;
+			
+			hotelCity = null;
+			hotelDate = null;
+			
+			excursionDescription = travelComponent.getExcursionDescription();
+			excursionDateTime = travelComponent.getExcursionDateTime();
+			if (travelComponent.getExcursionCity()!=null)
+				excursionCity = travelComponent.getExcursionCity().toUpperCase().trim();
+			else
+				excursionCity = null;
+			break;
+		}
+	}
 }
