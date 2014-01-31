@@ -128,7 +128,7 @@ public class PersonalizedTravelPackageHandler {
 		
 		List<PersonalizedTravelPackage> personalizedOwned = finder.findAllPersonalizedTravelPackages(owner);
 		for(int i = 0; i < personalizedOwned.size(); i++)
-			if(personalizedOwned.get(i).getName().equals(personalizedTravelPackage.getName()))
+			if(personalizedOwned.get(i).getName().equalsIgnoreCase(personalizedTravelPackage.getName()))
 				return null;
 		
 		for(int i = 0; i < components.size(); i++)
@@ -159,7 +159,6 @@ public class PersonalizedTravelPackageHandler {
 		cal.set(Calendar.MINUTE, 0);
 		cal.set(Calendar.SECOND, 0);
 		cal.set(Calendar.MILLISECOND, 0);
-		cal.add(Calendar.DATE, 1);
 		Date packageReturn = new Date(cal.getTimeInMillis());
 		
 		for (int i=0; i < personalizedTravelPackage.getTravelComponents().size();i++){
@@ -214,43 +213,94 @@ public class PersonalizedTravelPackageHandler {
 				returnFlight = flights.get(1);
 			}
 			else
-				return "flights date equal, not possible!"; 				
+				return "flights dates are equal. it's not possible!"; 
+			
+			cal.setTime(departureFlight.getFlightDepartureDateTime());
+			cal.set(Calendar.HOUR_OF_DAY, 0);
+			cal.set(Calendar.MINUTE, 0);
+			cal.set(Calendar.SECOND, 0);
+			cal.set(Calendar.MILLISECOND, 0);
+			Date depFlightDepDate = new Date(cal.getTimeInMillis()); //departure DATE of the departure flight
+			
+			cal.setTime(returnFlight.getFlightArrivalDateTime());
+			cal.set(Calendar.HOUR_OF_DAY, 0);
+			cal.set(Calendar.MINUTE, 0);
+			cal.set(Calendar.SECOND, 0);
+			cal.set(Calendar.MILLISECOND, 0);
+			Date retFlightArrDate = new Date(cal.getTimeInMillis()); //arrival DATE of the return flight
+			
+			cal.setTime(departureFlight.getFlightArrivalDateTime());
+			cal.set(Calendar.HOUR_OF_DAY, 0);
+			cal.set(Calendar.MINUTE, 0);
+			cal.set(Calendar.SECOND, 0);
+			cal.set(Calendar.MILLISECOND, 0);
+			Date arrivalDate = new Date(cal.getTimeInMillis());
+			
+			cal.setTime(returnFlight.getFlightDepartureDateTime());
+			cal.set(Calendar.HOUR_OF_DAY, 0);
+			cal.set(Calendar.MINUTE, 0);
+			cal.set(Calendar.SECOND, 0);
+			cal.set(Calendar.MILLISECOND, 0);
+			Date departureDate = new Date(cal.getTimeInMillis());
 			
 			
-			if(!departureFlight.getFlightArrivalCity().equals(returnFlight.getFlightDepartureCity()))
+			
+			if(!departureFlight.getFlightArrivalCity().equalsIgnoreCase(returnFlight.getFlightDepartureCity()))
 				return "flights cities mismatch"; // city mismatch, error!
 					
 			for (int i=0;i<hotels.size();i++){
-				if(hotels.get(i).getHotelDate().before(new Date(departureFlight.getFlightArrivalDateTime().getTime())))
-					return "one hotel has its date before the date of the departure flight"; 	// date hotel before date departureFlight
-							
-				if(hotels.get(i).getHotelDate().after(new Date(returnFlight.getFlightDepartureDateTime().getTime())))
-					return "one hotel has its date after the date of the return flight"; 	// date hotel after date returnFlight
+				TravelComponent currentHotel = hotels.get(i);
+				cal.setTime(currentHotel.getHotelDate());
+				cal.set(Calendar.HOUR_OF_DAY, 0);
+				cal.set(Calendar.MINUTE, 0);
+				cal.set(Calendar.SECOND, 0);
+				cal.set(Calendar.MILLISECOND, 0);
+				Date hotelCheckin = new Date(cal.getTimeInMillis());
+				cal.setTime(currentHotel.getHotelDate());
+				cal.set(Calendar.HOUR_OF_DAY, 0);
+				cal.set(Calendar.MINUTE, 0);
+				cal.set(Calendar.SECOND, 0);
+				cal.set(Calendar.MILLISECOND, 0);
+				cal.add(Calendar.DATE, 1);
+				Date hotelCheckout = new Date(cal.getTimeInMillis());
 				
-				if(!hotels.get(i).getHotelCity().equals(returnFlight.getFlightDepartureCity()))
-					return "one hotel has an invalid city";  // city control
+				if (hotelCheckin.before(arrivalDate))
+					return "there is an hotel check-in before the first flight arrival";
 				
+				if (departureDate.before(hotelCheckout))
+					return "the departure date of the return flight is before the checkout date of an hotel component";		
+				
+				if(!currentHotel.getHotelCity().equalsIgnoreCase(returnFlight.getFlightDepartureCity()))
+					return "one hotel has an invalid city";  // city control	
 			}
 			
 			for (int i=0;i<excursions.size();i++){
 				if(departureFlight.getFlightArrivalDateTime().after(excursions.get(i).getExcursionDateTime()))
-					return "one excursion has its date before the date of the departure flight"; 	// date excursion before date departureFlight
+					return "one excursion is before the departure flight arrival"; 	// date excursion before date departureFlight
 				
 				if(returnFlight.getFlightDepartureDateTime().before(excursions.get(i).getExcursionDateTime()))
-					return "one excursion has its date after the date of the return flight"; 	// date excursion after date returnFlight
+					return "one excursion is after the return flight departure"; 	// date excursion after date returnFlight
 				
-				if(!excursions.get(i).getExcursionCity().equals(returnFlight.getFlightDepartureCity()))
+				if(!excursions.get(i).getExcursionCity().equalsIgnoreCase(returnFlight.getFlightDepartureCity()))
 					return "one excursion has an invald city";  // city control
 			}
 		}
 		else if(flights.size() == 1){
 			flight = flights.get(0);
+			cal.setTime(flight.getFlightDepartureDateTime());
+			cal.set(Calendar.HOUR_OF_DAY, 0);
+			cal.set(Calendar.MINUTE, 0);
+			cal.set(Calendar.SECOND, 0);
+			cal.set(Calendar.MILLISECOND, 0);
+			Date flightDepartureDate = new Date(cal.getTimeInMillis());
+			cal.setTime(flight.getFlightArrivalDateTime());
+			cal.set(Calendar.HOUR_OF_DAY, 0);
+			cal.set(Calendar.MINUTE, 0);
+			cal.set(Calendar.SECOND, 0);
+			cal.set(Calendar.MILLISECOND, 0);
+			Date flightArrivalDate = new Date(cal.getTimeInMillis());
+			
 			for (int i=0;i<excursions.size();i++){
-				// the date of every excursion must be after the departure date of the package
-				if (excursions.get(i).getExcursionDateTime().before(personalizedTravelPackage.getDepartureDate()))
-					return "the date of an excursion is before the departure date of the package";
-				if (excursions.get(i).getExcursionDateTime().after(personalizedTravelPackage.getReturnDate()))
-					return "the date of an excursion is after the return date of the package";
 				
 				if (excursions.get(i).getExcursionDateTime().before(flight.getFlightDepartureDateTime()))
 				{
@@ -277,25 +327,40 @@ public class PersonalizedTravelPackageHandler {
 			}
 			
 			for (int i=0;i<hotels.size();i++){
-				// the date of every hotel must be after the departure date of the package
-				if (hotels.get(i).getHotelDate().before(personalizedTravelPackage.getDepartureDate()))
-					return "an hotel date is before the departure date of the package";
-				if (hotels.get(i).getHotelDate().after(personalizedTravelPackage.getReturnDate()))
-					return "an hotel date is after the return date of the package";
+				TravelComponent currentHotel = hotels.get(i);
+				cal.setTime(currentHotel.getHotelDate());
+				cal.set(Calendar.HOUR_OF_DAY, 0);
+				cal.set(Calendar.MINUTE, 0);
+				cal.set(Calendar.SECOND, 0);
+				cal.set(Calendar.MILLISECOND, 0);
+				Date hotelCheckin = new Date(cal.getTimeInMillis());
+				cal.setTime(currentHotel.getHotelDate());
+				cal.set(Calendar.HOUR_OF_DAY, 0);
+				cal.set(Calendar.MINUTE, 0);
+				cal.set(Calendar.SECOND, 0);
+				cal.set(Calendar.MILLISECOND, 0);
+				cal.add(Calendar.DATE, 1);
+				Date hotelCheckout = new Date(cal.getTimeInMillis());
 				
-				if (hotels.get(i).getHotelDate().before(new Date(flight.getFlightDepartureDateTime().getTime() - 86400000)))
+				// the date of every hotel must be after the departure date of the package
+				if (hotelCheckin.before(packageDeparture))
+					return "an hotel date is before the departure date of the package";
+				if (hotelCheckout.after(packageReturn))
+					return "an hotel checkout date is after the return date of the package";
+				
+				if (hotelCheckin.before(flightDepartureDate))
 				{
 					//if the hotel is before the flight departure
-					if (!hotels.get(i).getHotelCity().equalsIgnoreCase(flight.getFlightDepartureCity()))
+					if (!currentHotel.getHotelCity().equalsIgnoreCase(flight.getFlightDepartureCity()))
 					{
 						//the city of an hotel before the flight is different from the departure city of the flight
 						return "the city of an hotel before the flight is different from the departure city of the flight";
 					}	
 				}
-				else if (hotels.get(i).getHotelDate().after(new Date(flight.getFlightArrivalDateTime().getTime() + 86400000)))
+				else if (hotelCheckin.after(flightArrivalDate))
 				{
 					//if the hotel is after the flight arrival
-					if (!hotels.get(i).getHotelCity().equalsIgnoreCase(flight.getFlightArrivalCity()))
+					if (!currentHotel.getHotelCity().equalsIgnoreCase(flight.getFlightArrivalCity()))
 					{
 						//the city of an hotel after the flight is different from the arrival city of the flight
 						return "the city of an hotel after the flight is different from the arrival city of the flight";
@@ -311,25 +376,14 @@ public class PersonalizedTravelPackageHandler {
 		else{ // no flights
 			String city = null;
 			int changes = 0;
-			for (int i=0;i<hotels.size();i++){
-				if(personalizedTravelPackage.getDepartureDate().after(hotels.get(i).getHotelDate()))
-					return "one hotel has its date before the departure date"; 	// date hotel before date departure
-				
-				if(personalizedTravelPackage.getReturnDate().before(hotels.get(i).getHotelDate()))
-					return "one hotel has its date after the return date";	// date hotel after date return
-				
-				if(!hotels.get(i).getHotelCity().equals(city)){
+			for (int i=0;i<hotels.size();i++){		
+				if(!hotels.get(i).getHotelCity().equalsIgnoreCase(city)){
 					city = hotels.get(i).getHotelCity();
 					changes++;
 				}
 			}
-			for (int i=0;i<excursions.size();i++){
-				if(personalizedTravelPackage.getDepartureDate().after(new Date(excursions.get(i).getExcursionDateTime().getTime())))
-					return "one excursion has its date before the departure date"; 	// date excursion before date departure
-				if(personalizedTravelPackage.getReturnDate().before(new Date(excursions.get(i).getExcursionDateTime().getTime())))
-					return "one excursion has its date after the return date ";  // date excursion before date return
-				
-				if(!excursions.get(i).getExcursionCity().equals(city)){
+			for (int i=0;i<excursions.size();i++){		
+				if(!excursions.get(i).getExcursionCity().equalsIgnoreCase(city)){
 					city = excursions.get(i).getExcursionCity();
 					changes++;
 				}
