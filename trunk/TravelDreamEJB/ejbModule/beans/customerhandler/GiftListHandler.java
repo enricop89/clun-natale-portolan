@@ -54,7 +54,8 @@ public class GiftListHandler {
 	
 	public boolean payTravelComponent(User owner, User payer, GiftElements_Helper giftListElement){
 		GiftList giftList = giftListElement.getGiftList();
-		TravelComponent travelComponent = giftListElement.getTravelComponent().getTravelComponent();
+		TravelComponent persistence = new TravelComponent();
+		persistence.setAll(giftListElement.getTravelComponent().getTravelComponent());
 		
 		if(payer==owner) //in this case this cannot be done!
 			return false; 
@@ -68,7 +69,7 @@ public class GiftListHandler {
 		
 		for(int i = 0; i < giftListElement.getPersonalizedTravelPackage().getTravelComponents().size(); i++)
 			if(giftListElement.getPersonalizedTravelPackage().getTravelComponents().get(i) == giftListElement.getTravelComponent()){
-				giftListElement.getPersonalizedTravelPackage().getTravelComponents().get(i).setPersistence(travelComponent);
+				giftListElement.getPersonalizedTravelPackage().getTravelComponents().get(i).setPersistence(persistence);
 				giftListElement.getPersonalizedTravelPackage().getTravelComponents().get(i).setTravelElement(element);
 				giftList.getGiftElements().remove(giftListElement);
 				entityManager.remove(giftListElement); // the element is removed from the gift list!
