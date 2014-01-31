@@ -163,6 +163,9 @@ public class PersonalizedTravelPackageHandler {
 		cal.set(Calendar.MILLISECOND, 0);
 		Date packageReturn = new Date(cal.getTimeInMillis());
 		
+		if (packageDeparture.after(packageReturn))
+			return "The package departure date must be before the package return date.";
+		
 		for (int i=0; i < personalizedTravelPackage.getTravelComponents().size();i++){
 			TravelComponent component = personalizedTravelPackage.getTravelComponents().get(i).getTravelComponent();
 			
