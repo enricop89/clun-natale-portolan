@@ -41,7 +41,7 @@ public class TravelComponentHandler{
 	}
 	
 	@RolesAllowed({"CUSTOMER"})
-	public TravelElement payTravelComponent(TravelComponent travelComponent, User owner){
+	public TravelElement payTravelComponent(TravelComponent travelComponent, User owner, PersonalizedTravelPackage personalizedTravelPackage){
 		if(travelComponent.getTravelElements().isEmpty())
 			return null;
 		
@@ -53,7 +53,7 @@ public class TravelComponentHandler{
 		entityManager.merge(travelElement);
 		//checks if the travelComponent becomes empty, if so, it removes it from all references and deletes it from the system
 		if(travelComponent.getTravelElements().isEmpty())
-			deleteTravelComponent(travelComponent);
+			deleteTravelComponent(travelComponent,personalizedTravelPackage);
 		else
 			entityManager.merge(travelComponent);
 		return travelElement;
@@ -164,7 +164,7 @@ public class TravelComponentHandler{
 	}
 	
 	@RolesAllowed({"EMPLOYEE","CUSTOMER"})
-	public void deleteTravelComponent(TravelComponent travelComponent){
+	public void deleteTravelComponent(TravelComponent travelComponent,PersonalizedTravelPackage personalizedTravelPackage){
 		for(int i = 0; i < travelComponent.getTravelElements().size(); i++)
 			deleteTravelElement(travelComponent.getTravelElements().get(i));
 		// check if the deletion affects some predefined travel package
@@ -188,6 +188,9 @@ public class TravelComponentHandler{
 						persTPs.get(i).getTravelComponents().get(j).setTravelComponent(null);
 						personalized_handler.updatePersonalizedTravelPackage(persTPs.get(i));
 					}	
+					else if(personalizedTravelPackage != null && personalizedTravelPackage.getId() == persTPs.get(i).getId()){
+						personalized_handler.updatePersonalizedTravelPackage(persTPs.get(i), travelComponent);
+					}
 					else{
 						String message = new String();
 						persTPs.get(i).getTravelComponents().remove(j);
@@ -212,3 +215,4 @@ public class TravelComponentHandler{
 		entityManager.remove(travelComponent);
 	}
 }
+	
