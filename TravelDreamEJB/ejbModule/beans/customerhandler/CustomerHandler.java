@@ -79,7 +79,7 @@ public class CustomerHandler implements CustomerHandlerInterface{
 		PersonalizedTravelPackage toConfirm = search.findPersonalizedTravelPackage(personalizedTravelPackage);
 		// check if the original one and the DTO are different, if so call an update first
 		String result = "";
-		if(!toConfirm.getName().equals(personalizedTravelPackage.getName()) || toConfirm.getDepartureDate().compareTo(personalizedTravelPackage.getDepartureDate()) != 0 || toConfirm.getReturnDate().compareTo(personalizedTravelPackage.getReturnDate()) != 0)
+		if(!toConfirm.getName().equals(personalizedTravelPackage.getName()) || !toConfirm.getDepartureDate().equals(personalizedTravelPackage.getDepartureDate()) || !toConfirm.getReturnDate().equals(personalizedTravelPackage.getReturnDate()))
 			result = updatePersonalizedTravelPackage(personalizedTravelPackage);
 		else if(toConfirm.getTravelComponents().size() != personalizedTravelPackage.getTravelComponents().size())
 			result = updatePersonalizedTravelPackage(personalizedTravelPackage);
