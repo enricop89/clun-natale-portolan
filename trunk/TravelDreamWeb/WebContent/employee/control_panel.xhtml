@@ -35,7 +35,7 @@
 								requiredMessage="Please specify the number of places." converterMessage="The number of places is not valid." validatorMessage="The number of places is not valid."/>	
 							     
 								<h:outputText value="Flight departure date: "/>
-								<p:calendar label=" " value="#{EmployeeHandlerWeb.flightDepartureDate}" id="flight_dep_date" required="true" pattern="dd-MM-yyyy HH:mm" timeZone="GMT+1"
+								<p:calendar label=" " value="#{EmployeeHandlerWeb.flightDepartureDate}" id="flight_dep_date" required="true" pattern="dd-MM-yyyy" timeZone="GMT+1"
 								requiredMessage="Please specify a departure date." converterMessage="The departure date in not valid. [conversion]" validatorMessage="The departure date in not valid. [validation]"/>  
 								
 								<h:outputLabel for="flight_dep_time" value="Flight departure time: "/>
@@ -43,7 +43,7 @@
 					            requiredMessage="Please specify a departure time." />  			     
 				
 								<h:outputText value="Flight arrival date: "/>
-								<p:calendar label=" " value="#{EmployeeHandlerWeb.flightArrivalDate}" id="flight_arrival_date" required="true" pattern="dd-MM-yyyy HH:mm" timeZone="GMT+1"
+								<p:calendar label=" " value="#{EmployeeHandlerWeb.flightArrivalDate}" id="flight_arrival_date" required="true" pattern="dd-MM-yyyy" timeZone="GMT+1"
 								requiredMessage="Please specify the arrival date." converterMessage="The arrival date in not valid. [conversion]" validatorMessage="The arrival date in not valid. [validation]"/>  
 								
 								<h:outputLabel for="flight_arrival_time" value="Flight arrival time: "/>	
@@ -114,7 +114,7 @@
 								requiredMessage="Please specify the number of places." converterMessage="The number of places is not valid." validatorMessage="The number of places is not valid."/>
 							
 								<h:outputText value="Excursion date: "/>
-								<p:calendar label=" " value="#{EmployeeHandlerWeb.excursionDate}" id="excursion_date" required="true" pattern="dd-MM-yyyy HH:mm" timeZone="GMT+1"
+								<p:calendar label=" " value="#{EmployeeHandlerWeb.excursionDate}" id="excursion_date" required="true" pattern="dd-MM-yyyy" timeZone="GMT+1"
 								requiredMessage="Please specify the excursion date." converterMessage="The date in not valid. [conversion]" validatorMessage="The date in not valid. [validation]"/>  
 								
 								<h:outputLabel for="excursion_city">Excursion city:</h:outputLabel>
