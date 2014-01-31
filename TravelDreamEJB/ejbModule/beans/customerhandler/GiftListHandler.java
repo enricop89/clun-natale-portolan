@@ -71,6 +71,8 @@ public class GiftListHandler {
 			if(giftListElement.getPersonalizedTravelPackage().getTravelComponents().get(i) == giftListElement.getTravelComponent()){
 				giftListElement.getPersonalizedTravelPackage().getTravelComponents().get(i).setPersistence(persistence);
 				giftListElement.getPersonalizedTravelPackage().getTravelComponents().get(i).setTravelElement(element);
+				giftListElement.setPersonalizedTravelPackage(null);
+				giftListElement.setTravelComponent(null);
 				giftList.getGiftElements().remove(giftListElement);
 				entityManager.remove(giftListElement); // the element is removed from the gift list!
 				entityManager.merge(giftList);
