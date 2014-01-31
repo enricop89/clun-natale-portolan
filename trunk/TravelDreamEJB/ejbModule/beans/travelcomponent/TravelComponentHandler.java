@@ -197,7 +197,7 @@ public class TravelComponentHandler{
 						//check gift list
 						GiftList giftList = search.findGiftList(persTPs.get(i).getOwner());
 						for(int k = 0; k < giftList.getGiftElements().size(); k++)
-							if(giftList.getGiftElements().get(k).getPersonalizedTravelPackage().getId() == persTPs.get(i).getId() && giftList.getGiftElements().get(k).getTravelComponent().getId() == travelComponent.getId())
+							if(giftList.getGiftElements().get(k).getPersonalizedTravelPackage().getId() == persTPs.get(i).getId() && giftList.getGiftElements().get(k).getTravelComponent().getId() == persTPs.get(i).getTravelComponents().get(j).getId())
 								giftList_handler.removeTravelComponentFromGiftList(giftList.getGiftElements().get(k));
 							
 						entityManager.remove(persTPs.get(i).getTravelComponents().get(j));
