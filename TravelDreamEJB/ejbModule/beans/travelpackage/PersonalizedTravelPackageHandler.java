@@ -123,11 +123,11 @@ public class PersonalizedTravelPackageHandler {
 		if(result == true){ // if it is a confirmed package it does not procede!	
 			GiftList giftList = finder.findGiftList(personalizedTravelPackage.getOwner());
 			for(int i = 0; i < personalizedTravelPackage.getTravelComponents().size(); i++){
-				entityManager.remove(personalizedTravelPackage.getTravelComponents().get(i));
-				
 				for(int k = 0; k < giftList.getGiftElements().size(); k++)
 					if(giftList.getGiftElements().get(k).getPersonalizedTravelPackage().getId() == personalizedTravelPackage.getId() && giftList.getGiftElements().get(k).getTravelComponent().getId() == personalizedTravelPackage.getTravelComponents().get(i).getId())
 						giftList_handler.removeTravelComponentFromGiftList(giftList.getGiftElements().get(k));
+				
+				entityManager.remove(personalizedTravelPackage.getTravelComponents().get(i));
 			}
 			entityManager.remove(personalizedTravelPackage);
 
