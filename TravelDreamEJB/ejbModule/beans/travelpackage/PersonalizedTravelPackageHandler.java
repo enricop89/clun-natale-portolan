@@ -47,27 +47,6 @@ public class PersonalizedTravelPackageHandler {
 		}
 	}
 	
-
-	@RolesAllowed({"CUSTOMER","EMPLOYEE"})
-	public String updatePersonalizedTravelPackage(PersonalizedTravelPackage personalizedTravelPackage){
-		if(personalizedTravelPackage.getTravelComponents().isEmpty())
-			return "the package cannot be empty";
-		
-		else {
-			String result = "the package is already confirmed";
-			for(int i = 0; i < personalizedTravelPackage.getTravelComponents().size(); i++)
-				if(personalizedTravelPackage.getTravelComponents().get(i).getTravelElement() == null)
-					result = "";
-			if(result.isEmpty()){	// if it is a confirmed package it does not procede!	
-				result = consistencyCheck(personalizedTravelPackage);
-				if(result.isEmpty()){									
-					entityManager.merge(personalizedTravelPackage);
-				}
-			}
-			return result;
-		}		
-	}
-	
 	@RolesAllowed({"CUSTOMER","EMPLOYEE"})
 	public String updatePersonalizedTravelPackage(PersonalizedTravelPackage personalizedTravelPackage, PersonalizedTravelPackage old){
 		if(personalizedTravelPackage.getTravelComponents().isEmpty())

@@ -133,8 +133,17 @@ public class TravelComponentHandler{
 						}
 						else{
 							String message = new String();		
+							PersonalizedTravelPackage old = new PersonalizedTravelPackage();
+							old.setId(persTPs.get(i).getId());
+							old.setName(persTPs.get(i).getName());
+							old.setDepartureDate(persTPs.get(i).getDepartureDate());
+							old.setReturnDate(persTPs.get(i).getReturnDate());
+							old.setOwner(persTPs.get(i).getOwner());
+							old.setTravelComponents(persTPs.get(i).getTravelComponents());
 							persTPs.get(i).getTravelComponents().get(j).setTravelComponent(travelComponent);
-							if(!personalized_handler.updatePersonalizedTravelPackage(persTPs.get(i)).isEmpty()){
+							if(!personalized_handler.updatePersonalizedTravelPackage(persTPs.get(i),old).isEmpty()){
+								old.setTravelComponents(persTPs.get(i).getTravelComponents());
+								entityManager.remove(persTPs.get(i).getTravelComponents().get(j));
 								persTPs.get(i).getTravelComponents().remove(j); // the TravelComponent update violates consistency, so is deleted from the TravelPackage
 								if(persTPs.get(i).getTravelComponents().isEmpty()){ // the deletion causes the package to be empty
 									message = "We are sorry to inform you that our staff has been forced to update a Travel Component, and this affect one of your Travel Package: "
@@ -146,7 +155,7 @@ public class TravelComponentHandler{
 									message = "We are sorry to inform you that our staff has been forced to update a Travel Component, and this affect one of your Travel Package: "
 											+ persTPs.get(i).getName() + ".\n"
 											+ "The Travel Component has been removed, please login and select another one to eventually substitute it!";
-									personalized_handler.updatePersonalizedTravelPackage(persTPs.get(i)); // the package is updated with the deletion
+									personalized_handler.updatePersonalizedTravelPackage(persTPs.get(i),old); // the package is updated with the deletion
 								}
 							}
 							else{
@@ -194,6 +203,13 @@ public class TravelComponentHandler{
 					}
 					else{
 						String message = new String();
+						PersonalizedTravelPackage old = new PersonalizedTravelPackage();
+						old.setId(persTPs.get(i).getId());
+						old.setName(persTPs.get(i).getName());
+						old.setDepartureDate(persTPs.get(i).getDepartureDate());
+						old.setReturnDate(persTPs.get(i).getReturnDate());
+						old.setOwner(persTPs.get(i).getOwner());
+						old.setTravelComponents(persTPs.get(i).getTravelComponents());						
 						//check gift list
 						GiftList giftList = search.findGiftList(persTPs.get(i).getOwner());
 						for(int k = 0; k < giftList.getGiftElements().size(); k++)
@@ -209,7 +225,7 @@ public class TravelComponentHandler{
 									+ "Since the Travel Package had only this Travel Component, it has been removed, sorry for the inconvenience.";
 						}
 						else{
-							personalized_handler.updatePersonalizedTravelPackage(persTPs.get(i)); // the package is updated accordingly
+							personalized_handler.updatePersonalizedTravelPackage(persTPs.get(i),old); // the package is updated accordingly
 							message = "We are sorry to inform you that our staff has been forced to delete a Travel Component, and this affect one of your Travel Package: "
 									+ persTPs.get(i).getName() + ".\n"
 									+ "The Travel Component has been removed, please login and select another one to eventually substitute it!";
