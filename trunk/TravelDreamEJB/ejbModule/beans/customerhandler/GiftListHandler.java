@@ -71,16 +71,13 @@ public class GiftListHandler {
 			if(giftListElement.getPersonalizedTravelPackage().getTravelComponents().get(i) == giftListElement.getTravelComponent()){
 				giftListElement.getPersonalizedTravelPackage().getTravelComponents().get(i).setPersistence(persistence);
 				giftListElement.getPersonalizedTravelPackage().getTravelComponents().get(i).setTravelElement(element);
-				String name = giftListElement.getPersonalizedTravelPackage().getName();
-				giftListElement.setPersonalizedTravelPackage(null);
-				giftListElement.setTravelComponent(null);
 				giftList.getGiftElements().remove(giftListElement);
 				entityManager.remove(giftListElement); // the element is removed from the gift list!
 				entityManager.merge(giftList);
 				SendEmail.send(owner.getEmail(), "One of your friend payed your component", 
 						"Hi " + owner.getFirstName() + " " + owner.getLastName() + "!\nThe staff wants to inform you that "
 					+	payer.getFirstName() + " " + payer.getLastName() + " has payed a component of your Gift List!.\n"
-					+ 	"The package: " + name + " has been updated!");				
+					+ 	"The package: " + giftListElement.getPersonalizedTravelPackage().getName() + " has been updated!");				
 				return true;
 			}
 		return false; // some errors incurred
