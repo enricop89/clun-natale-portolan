@@ -253,10 +253,10 @@ public class PersonalizedTravelPackageHandler {
 			cal.set(Calendar.MILLISECOND, 0);
 			Date departureDate = new Date(cal.getTimeInMillis());
 			
-			if (depFlightDepDate!=packageDeparture)
+			if (!depFlightDepDate.equals(packageDeparture))
 				return "The departure date of the package must be the departure date of the departure flight.";
 				
-			if (retFlightArrDate!=packageReturn)
+			if (!retFlightArrDate.equals(packageReturn))
 				return "The return date of the package must be the arrival date of the return flight.";
 			
 			if(!departureFlight.getFlightArrivalCity().equalsIgnoreCase(returnFlight.getFlightDepartureCity()))
