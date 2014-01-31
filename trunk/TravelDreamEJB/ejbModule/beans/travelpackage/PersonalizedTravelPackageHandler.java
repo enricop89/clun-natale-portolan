@@ -163,7 +163,7 @@ public class PersonalizedTravelPackageHandler {
 		cal.set(Calendar.MILLISECOND, 0);
 		Date packageReturn = new Date(cal.getTimeInMillis());
 		
-		if (packageDeparture.after(packageReturn))
+		if (packageDeparture.after(packageReturn) | packageDeparture.equals(packageReturn))
 			return "The package departure date must be before the package return date.";
 		
 		for (int i=0; i < personalizedTravelPackage.getTravelComponents().size();i++){
@@ -177,7 +177,14 @@ public class PersonalizedTravelPackageHandler {
 				flights.add(component);
 				if (component.getFlightDepartureDateTime().before(packageDeparture))
 					return "There is a flight before the departure date of the package.";
-				if (component.getFlightArrivalDateTime().after(packageReturn))
+				
+					cal.setTime(component.getFlightArrivalDateTime());
+					cal.set(Calendar.HOUR_OF_DAY, 0);
+					cal.set(Calendar.MINUTE, 0);
+					cal.set(Calendar.SECOND, 0);
+					cal.set(Calendar.MILLISECOND, 0);
+					Date fArrDate = new Date(cal.getTimeInMillis());
+				if (fArrDate.after(packageReturn))
 					return "There is a flight arriving after the return date of the package.";
 				break;
 			case HOTEL:
