@@ -5,6 +5,8 @@ import java.util.List;
 import javax.annotation.security.RolesAllowed;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 import entities.Components_Helper;
 import entities.GiftList;
@@ -32,6 +34,8 @@ public class CustomerHandler implements CustomerHandlerInterface{
 	private GiftListHandler gift_handler;
 	@EJB
 	private Search search;
+	@PersistenceContext
+    private EntityManager entityManager;
 
 	@Override
 	@RolesAllowed({"CUSTOMER"})
@@ -62,8 +66,10 @@ public class CustomerHandler implements CustomerHandlerInterface{
 		
 		List<Components_HelperDTO> components = personalizedTravelPackage.getTravelComponents();
 		boolean result = components.remove(travelComponent);
-		if(result == true)
+		if(result == true){
 			personalizedTravelPackage.setTravelComponents(components);
+			entityManager.remove(search.findComponents_Helper(travelComponent));
+		}			
 		return "";
 	}
 	
