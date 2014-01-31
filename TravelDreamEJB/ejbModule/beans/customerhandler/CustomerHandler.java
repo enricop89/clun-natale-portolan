@@ -66,10 +66,8 @@ public class CustomerHandler implements CustomerHandlerInterface{
 		
 		List<Components_HelperDTO> components = personalizedTravelPackage.getTravelComponents();
 		boolean result = components.remove(travelComponent);
-		if(result == true){
-			personalizedTravelPackage.setTravelComponents(components);
-			entityManager.remove(search.findComponents_Helper(travelComponent));
-		}			
+		if(result == true)
+			personalizedTravelPackage.setTravelComponents(components);		
 		return "";
 	}
 	
