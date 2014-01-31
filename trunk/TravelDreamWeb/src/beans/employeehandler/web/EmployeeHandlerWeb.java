@@ -322,7 +322,7 @@ public class EmployeeHandlerWeb  {
 			Calendar end = Calendar.getInstance();
 			end.setTime(hotelEndingDate);
 			for (java.util.Date date = start.getTime(); !start.after(end); start.add(Calendar.DATE, 1), date = start.getTime()) {
-				componentDTO.setHotelDate(new Date(date.getTime() + 86340000));
+				componentDTO.setHotelDate(new Date(date.getTime()));
 				result = employeeHandler.addNewTravelComponent(componentDTO);
 				if(result == false)
 				{
@@ -333,10 +333,10 @@ public class EmployeeHandlerWeb  {
 		}
 		else{
 			if(hotelStartingDate != null){
-				componentDTO.setHotelDate(new java.sql.Date(hotelStartingDate.getTime() + 86340000));
+				componentDTO.setHotelDate(new java.sql.Date(hotelStartingDate.getTime()));
 			}
 			else if(hotelEndingDate != null){
-				componentDTO.setHotelDate(new java.sql.Date(hotelStartingDate.getTime() + 86340000));
+				componentDTO.setHotelDate(new java.sql.Date(hotelStartingDate.getTime()));
 			}
 
 			else{
@@ -473,7 +473,7 @@ public class EmployeeHandlerWeb  {
 		flash.setRedirect(true);
 		
 		packageDTO.setDepartureDate(new java.sql.Date(packageStartDate.getTime()));
-		packageDTO.setReturnDate(new java.sql.Date(packageEndDate.getTime() + 86340000));
+		packageDTO.setReturnDate(new java.sql.Date(packageEndDate.getTime()));
 		String result = employeeHandler.addNewPredefinedTravelPackage(packageDTO);
 
 		if (result.isEmpty())

@@ -99,7 +99,7 @@ public class SearchWeb {
 		if(departureDate != null)
 			departureDateCriteria =  new Date(departureDate.getTime());
 		if(returnDate != null)
-			returnDateCriteria = new Date(returnDate.getTime() + 86340000);
+			returnDateCriteria = new Date(returnDate.getTime());
 		
 		predefinedTravelPackagesList = finder.findPredefinedTravelPackage(packageName, departureDateCriteria, returnDateCriteria);
 		

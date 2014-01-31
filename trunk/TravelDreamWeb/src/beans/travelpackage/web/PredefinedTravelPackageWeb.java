@@ -215,7 +215,7 @@ public class PredefinedTravelPackageWeb {
 		if(departureDate != null){
 			predTP.setDepartureDate(new Date(departureDate.getTime()));
 			if(returnDate != null){
-				predTP.setReturnDate(new Date(returnDate.getTime() + 86340000));		
+				predTP.setReturnDate(new Date(returnDate.getTime()));		
 				if(FacesContext.getCurrentInstance().getExternalContext().isUserInRole("CUSTOMER")){//if customer copy in personalized
 					user = search.findUser(FacesContext.getCurrentInstance().getExternalContext().getRemoteUser());
 					String result = customerHandler.addNewPersonalizedTravelPackage(user, predTP);
