@@ -7,6 +7,7 @@
 
     <h:head>  
         <title>Predefined Travel Packages</title>  
+        <h:outputStylesheet name="css/style.css"  />
     </h:head>  
       
     <h:body>  
@@ -14,7 +15,7 @@
             <p:dataTable var="predefinedTravelPackage" value="#{SearchPredefinedTravelPackages.predefinedTravelPackagesList}" paginator="true" rows="10" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="5,10,15" >  
                 <p:column headerText="" style="text-align: center">  
                 	<p:row>
-                    <p:commandButton id="visualize" style="float:center" icon="ui-icon-suitcase" action="#{SearchPredefinedTravelPackages.visualize(predefinedTravelPackage)}" />  
+                     <p:commandButton id="visualize" style="float:center" icon="ui-icon-suitcase" action="#{SearchPredefinedTravelPackages.visualize(predefinedTravelPackage)}" />  
                 	 <p:commandButton id="delete" style="float:center" icon="ui-icon-trash" action="#{SearchPredefinedTravelPackages.delete(predefinedTravelPackage)}" rendered="#{facesContext.externalContext.isUserInRole('EMPLOYEE')}"/>  
                 	</p:row>	
                 	<p:tooltip for="visualize" value="Visualize the detail of the package" showEffect="fade" hideEffect="fade" /> 
