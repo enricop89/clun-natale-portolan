@@ -519,7 +519,7 @@ public class EmployeeHandlerWeb  {
 		RequestContext.getCurrentInstance().openDialog("/employee/dialog_edit_travelcomponent.xhtml",options,null);	
 	}
 	
-	public void deleteComponent(TravelComponentDTO component)
+	public void deleteComponent(TravelComponentDTO component) throws IOException
 	{
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		employeeHandler.deleteTravelComponent(component);
@@ -528,6 +528,6 @@ public class EmployeeHandlerWeb  {
 		flash.setKeepMessages(true);
 		flash.setRedirect(true);
 		facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Successful", "Component succesfully deleted."));
-		RequestContext.getCurrentInstance().execute("window.top.location.reload();");
+		FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/employee/control_panel.xhtml");		
 	}
 }
