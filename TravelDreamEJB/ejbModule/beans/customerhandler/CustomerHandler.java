@@ -128,7 +128,8 @@ public class CustomerHandler implements CustomerHandlerInterface{
 		PersonalizedTravelPackage result = new PersonalizedTravelPackage();
 		result.setId(search.findPersonalizedTravelPackage(personalizedTravelPackage).getId());
 		result.setAll(personalizedTravelPackage, search);
-		return handler.updatePersonalizedTravelPackage(result);
+		PersonalizedTravelPackage old = search.findPersonalizedTravelPackage(personalizedTravelPackage);
+		return handler.updatePersonalizedTravelPackage(result, old);
 	}
 
 	@Override

@@ -7,6 +7,7 @@ import javax.ejb.LocalBean;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import beans.customerhandler.GiftListHandler;
 import beans.travelpackage.PersonalizedTravelPackageHandler;
 import beans.travelpackage.PredefinedTravelPackageHandler;
 import beans.utils.Search;
@@ -32,6 +33,8 @@ public class TravelComponentHandler{
 	private PredefinedTravelPackageHandler predefined_handler;
 	@EJB
 	private PersonalizedTravelPackageHandler personalized_handler;
+	@EJB
+	private GiftListHandler giftList_handler;
 	
 	private void addNewTravelElement(TravelElement travelElement){
 		entityManager.persist(travelElement);
@@ -126,11 +129,10 @@ public class TravelComponentHandler{
 				if(persTPs.get(i).getTravelComponents().get(j).getTravelComponent()!= null){
 					if(persTPs.get(i).getTravelComponents().get(j).getTravelComponent().getId() == travelComponent.getId()){
 						if(persTPs.get(i).getTravelComponents().get(j).getTravelElement() != null){
-							persTPs.get(i).getTravelComponents().get(j).setTravelComponent(null);
-							personalized_handler.updatePersonalizedTravelPackage(persTPs.get(i));
+							personalized_handler.updatePersonalizedTravelPackage(persTPs.get(i),travelComponent);
 						}
 						else{
-							String message = new String();						
+							String message = new String();		
 							persTPs.get(i).getTravelComponents().get(j).setTravelComponent(travelComponent);
 							if(!personalized_handler.updatePersonalizedTravelPackage(persTPs.get(i)).isEmpty()){
 								persTPs.get(i).getTravelComponents().remove(j); // the TravelComponent update violates consistency, so is deleted from the TravelPackage
@@ -185,14 +187,19 @@ public class TravelComponentHandler{
 			for(int j = 0; j < persTPs.get(i).getTravelComponents().size(); j++){
 				if(persTPs.get(i).getTravelComponents().get(j).getTravelComponent()!=null && persTPs.get(i).getTravelComponents().get(j).getTravelComponent().getId() == travelComponent.getId()){
 					if(persTPs.get(i).getTravelComponents().get(j).getTravelElement() != null){
-						persTPs.get(i).getTravelComponents().get(j).setTravelComponent(null);
-						personalized_handler.updatePersonalizedTravelPackage(persTPs.get(i));
+						personalized_handler.updatePersonalizedTravelPackage(persTPs.get(i),travelComponent);
 					}	
 					else if(personalizedTravelPackage != null && personalizedTravelPackage.getId() == persTPs.get(i).getId()){
 						personalized_handler.updatePersonalizedTravelPackage(persTPs.get(i), travelComponent);
 					}
 					else{
 						String message = new String();
+						//check gift list
+						GiftList giftList = search.findGiftList(persTPs.get(i).getOwner());
+						for(int k = 0; k < giftList.getGiftElements().size(); k++)
+							if(giftList.getGiftElements().get(k).getPersonalizedTravelPackage().getId() == persTPs.get(i).getId() && giftList.getGiftElements().get(k).getTravelComponent().getId() == travelComponent.getId())
+								giftList_handler.removeTravelComponentFromGiftList(giftList.getGiftElements().get(k));
+							
 						entityManager.remove(persTPs.get(i).getTravelComponents().get(j));
 						persTPs.get(i).getTravelComponents().remove(j);					
 						if(persTPs.get(i).getTravelComponents().isEmpty()){ // the deletion causes the package to be empty
