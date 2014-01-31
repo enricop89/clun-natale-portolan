@@ -12,6 +12,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import beans.customerhandler.GiftListHandler;
 import beans.travelcomponent.TravelComponentHandler;
 import beans.utils.Search;
 import entities.*;
@@ -28,6 +29,8 @@ public class PersonalizedTravelPackageHandler {
 	private TravelComponentHandler handler;
 	@EJB
 	private Search finder;
+	@EJB
+	private GiftListHandler giftList_handler;
 	
 	public String addNewPersonalizedTravelPackage(PersonalizedTravelPackage personalizedTravelPackage){
 		if(personalizedTravelPackage.getTravelComponents().isEmpty())
@@ -44,6 +47,7 @@ public class PersonalizedTravelPackageHandler {
 		}
 	}
 	
+
 	@RolesAllowed({"CUSTOMER","EMPLOYEE"})
 	public String updatePersonalizedTravelPackage(PersonalizedTravelPackage personalizedTravelPackage){
 		if(personalizedTravelPackage.getTravelComponents().isEmpty())
@@ -56,8 +60,46 @@ public class PersonalizedTravelPackageHandler {
 					result = "";
 			if(result.isEmpty()){	// if it is a confirmed package it does not procede!	
 				result = consistencyCheck(personalizedTravelPackage);
-				if(result.isEmpty())
+				if(result.isEmpty()){									
 					entityManager.merge(personalizedTravelPackage);
+				}
+			}
+			return result;
+		}		
+	}
+	
+	@RolesAllowed({"CUSTOMER","EMPLOYEE"})
+	public String updatePersonalizedTravelPackage(PersonalizedTravelPackage personalizedTravelPackage, PersonalizedTravelPackage old){
+		if(personalizedTravelPackage.getTravelComponents().isEmpty())
+			return "the package cannot be empty";
+		
+		else {
+			String result = "the package is already confirmed";
+			for(int i = 0; i < personalizedTravelPackage.getTravelComponents().size(); i++)
+				if(personalizedTravelPackage.getTravelComponents().get(i).getTravelElement() == null)
+					result = "";
+			if(result.isEmpty()){	// if it is a confirmed package it does not procede!	
+				result = consistencyCheck(personalizedTravelPackage);
+				if(result.isEmpty()){
+					for(int i = 0; i < old.getTravelComponents().size(); i++){
+						boolean found = false;
+						for(int j = 0; j < personalizedTravelPackage.getTravelComponents().size(); j++){
+							if(personalizedTravelPackage.getTravelComponents().get(j).getId() == old.getTravelComponents().get(i).getId())
+								found = true;
+						}
+						if(found == false){ // then it must be deleted since it does not exist anymore
+							//check gift list
+							GiftList giftList = finder.findGiftList(personalizedTravelPackage.getOwner());
+							for(int k = 0; k < giftList.getGiftElements().size(); k++)
+								if(giftList.getGiftElements().get(k).getPersonalizedTravelPackage().getId() == personalizedTravelPackage.getId() && giftList.getGiftElements().get(k).getTravelComponent().getId() == old.getTravelComponents().get(i).getId())
+									giftList_handler.removeTravelComponentFromGiftList(giftList.getGiftElements().get(k));
+							
+							entityManager.remove(old.getTravelComponents().get(i));
+						}
+					}
+									
+					entityManager.merge(personalizedTravelPackage);
+				}
 			}
 			return result;
 		}		
@@ -79,9 +121,16 @@ public class PersonalizedTravelPackageHandler {
 			if(personalizedTravelPackage.getTravelComponents().get(i).getTravelElement() == null)
 				result = true;
 		if(result == true){ // if it is a confirmed package it does not procede!	
-			for(int i = 0; i < personalizedTravelPackage.getTravelComponents().size(); i++)
+			GiftList giftList = finder.findGiftList(personalizedTravelPackage.getOwner());
+			for(int i = 0; i < personalizedTravelPackage.getTravelComponents().size(); i++){
 				entityManager.remove(personalizedTravelPackage.getTravelComponents().get(i));
+				
+				for(int k = 0; k < giftList.getGiftElements().size(); k++)
+					if(giftList.getGiftElements().get(k).getPersonalizedTravelPackage().getId() == personalizedTravelPackage.getId() && giftList.getGiftElements().get(k).getTravelComponent().getId() == personalizedTravelPackage.getTravelComponents().get(i).getId())
+						giftList_handler.removeTravelComponentFromGiftList(giftList.getGiftElements().get(k));
+			}
 			entityManager.remove(personalizedTravelPackage);
+
 		}
 		return result;
 	}
