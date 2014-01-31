@@ -527,7 +527,7 @@ public class EmployeeHandlerWeb  {
 		Flash flash = facesContext.getExternalContext().getFlash();
 		flash.setKeepMessages(true);
 		flash.setRedirect(true);
-		facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Successful", "Component removed."));
+		facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Successful", "Component succesfully deleted."));
 		RequestContext.getCurrentInstance().execute("window.top.location.reload();");
 	}
 }
