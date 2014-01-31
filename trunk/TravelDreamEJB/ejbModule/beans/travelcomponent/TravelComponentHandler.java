@@ -193,7 +193,8 @@ public class TravelComponentHandler{
 					}
 					else{
 						String message = new String();
-						persTPs.get(i).getTravelComponents().remove(j);
+						entityManager.remove(persTPs.get(i).getTravelComponents().get(j));
+						persTPs.get(i).getTravelComponents().remove(j);					
 						if(persTPs.get(i).getTravelComponents().isEmpty()){ // the deletion causes the package to be empty
 							personalized_handler.deletePersonalizedTravelPackage(persTPs.get(i)); // the package is then deleted
 							message = "We are sorry to inform you that our staff has been forced to delete a Travel Component, and this affect one of your Travel Package: "
