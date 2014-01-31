@@ -66,8 +66,10 @@ public class PersonalizedTravelPackageHandler {
 	@RolesAllowed({"CUSTOMER","EMPLOYEE"})
 	public void updatePersonalizedTravelPackage(PersonalizedTravelPackage personalizedTravelPackage, TravelComponent travelComponent){
 		for(int i = 0; i < personalizedTravelPackage.getTravelComponents().size(); i++){
-			if(personalizedTravelPackage.getTravelComponents().get(i).getTravelComponent().getId() == travelComponent.getId())
+			if(personalizedTravelPackage.getTravelComponents().get(i).getTravelComponent().getId() == travelComponent.getId()){
 				personalizedTravelPackage.getTravelComponents().get(i).setTravelComponent(null);
+				entityManager.merge(personalizedTravelPackage.getTravelComponents().get(i));
+			}
 		}		
 		entityManager.merge(personalizedTravelPackage);
 	}
