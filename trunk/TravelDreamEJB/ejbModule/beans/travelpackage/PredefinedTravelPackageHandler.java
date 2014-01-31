@@ -122,7 +122,14 @@ public class PredefinedTravelPackageHandler {
 				flights.add(component);
 				if (component.getFlightDepartureDateTime().before(packageDeparture))
 					return "There is a flight before the departure date of the package.";
-				if (component.getFlightArrivalDateTime().after(packageReturn))
+				
+				cal.setTime(component.getFlightArrivalDateTime());
+				cal.set(Calendar.HOUR_OF_DAY, 0);
+				cal.set(Calendar.MINUTE, 0);
+				cal.set(Calendar.SECOND, 0);
+				cal.set(Calendar.MILLISECOND, 0);
+				Date fArrDate = new Date(cal.getTimeInMillis());
+				if (fArrDate.after(packageReturn))
 					return "There is a flight arriving after the return date of the package.";
 				break;
 			case HOTEL:
