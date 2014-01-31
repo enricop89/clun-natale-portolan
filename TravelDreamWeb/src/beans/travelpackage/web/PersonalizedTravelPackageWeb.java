@@ -385,7 +385,7 @@ public class PersonalizedTravelPackageWeb {
 		if(departureDate != null){
 			personalizedPackage.setDepartureDate(new Date(departureDate.getTime()));
 			if(returnDate != null){
-				personalizedPackage.setReturnDate(new Date(returnDate.getTime() + 86340000));
+				personalizedPackage.setReturnDate(new Date(returnDate.getTime()));
 				
 				String result=customerHandler.updatePersonalizedTravelPackage(personalizedPackage);
 
