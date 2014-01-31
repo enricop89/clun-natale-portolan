@@ -204,7 +204,7 @@ public class PredefinedTravelPackageWeb {
 		flash.setKeepMessages(true);
 		flash.setRedirect(true);
 		facesContext.addMessage(null,message); 
-		FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/customer/personal_travel_package.html");
+		FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/customer/personal_travel_package.xhtml");
 	}
 	
 	public void save() throws IOException{
