@@ -57,6 +57,8 @@ public class PersonalizedTravelPackageHandler {
 			if(result.isEmpty()){	// if it is a confirmed package it does not procede!	
 				result = consistencyCheck(personalizedTravelPackage);
 				if(result.isEmpty())
+					for(int i = 0; i < personalizedTravelPackage.getTravelComponents().size(); i++)
+						entityManager.merge(personalizedTravelPackage.getTravelComponents().get(i));
 					entityManager.merge(personalizedTravelPackage);
 			}
 			return result;
