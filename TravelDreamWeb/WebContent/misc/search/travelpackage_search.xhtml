@@ -22,9 +22,7 @@
                 </p:column>  
  
                 <p:column headerText="Name" style="text-align: center">  
-                    <h:outputText value="#{predefinedTravelPackage.name}">
-   						<f:convertDateTime type="date" pattern="dd-MM-yyyy" timeZone="GMT+1"/>
-					</h:outputText>  
+                    <h:outputText value="#{predefinedTravelPackage.name}"/>
                 </p:column>  
   
                 <p:column headerText="Departure Date" style="text-align: center">  
@@ -34,7 +32,9 @@
                 </p:column> 
                  
                 <p:column headerText="Return Date" style="text-align: center">  
-                    <h:outputText value="#{predefinedTravelPackage.returnDate}" />  
+                    <h:outputText value="#{predefinedTravelPackage.returnDate}">  
+   					 	<f:convertDateTime type="date" pattern="dd-MM-yyyy" timeZone="GMT+1"/>
+					</h:outputText>  
                 </p:column>  
             </p:dataTable>  
         </h:form>  
