@@ -2,6 +2,7 @@ package beans.travelpackage;
 
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.annotation.security.RolesAllowed;
@@ -134,35 +135,63 @@ public class PersonalizedTravelPackageHandler {
 		TravelComponent departureFlight = new TravelComponent();
 		TravelComponent returnFlight = new TravelComponent();
 		TravelComponent flight = new TravelComponent();
+		
+		Calendar cal = Calendar.getInstance();
+		
+		cal.setTime(personalizedTravelPackage.getDepartureDate());
+		cal.set(Calendar.HOUR_OF_DAY, 0);
+		cal.set(Calendar.MINUTE, 0);
+		cal.set(Calendar.SECOND, 0);
+		cal.set(Calendar.MILLISECOND, 0);
+		Date packageDeparture = new Date(cal.getTimeInMillis());
+		
+		cal.setTime(personalizedTravelPackage.getReturnDate());
+		cal.set(Calendar.HOUR_OF_DAY, 0);
+		cal.set(Calendar.MINUTE, 0);
+		cal.set(Calendar.SECOND, 0);
+		cal.set(Calendar.MILLISECOND, 0);
+		cal.add(Calendar.DATE, 1);
+		Date packageReturn = new Date(cal.getTimeInMillis());
+		
 		for (int i=0; i < personalizedTravelPackage.getTravelComponents().size();i++){
 			TravelComponent component = personalizedTravelPackage.getTravelComponents().get(i).getTravelComponent();
 			
 			if(personalizedTravelPackage.getTravelComponents().get(i).getTravelElement() != null) // this component is bought, need to use getPersistence()
 				component = personalizedTravelPackage.getTravelComponents().get(i).getPersistence();
+			
 			switch(component.getType()){
 			case FLIGHT:
 				flights.add(component);
-				if (component.getFlightDepartureDateTime().before(personalizedTravelPackage.getDepartureDate()))
+				if (component.getFlightDepartureDateTime().before(packageDeparture))
 					return "There is a flight before the departure date of the package.";
-				if (component.getFlightArrivalDateTime().after(personalizedTravelPackage.getReturnDate()))
+				if (component.getFlightArrivalDateTime().after(packageReturn))
 					return "There is a flight arriving after the return date of the package.";
 				break;
 			case HOTEL:
 				hotels.add(component);
-				if (component.getHotelDate().before(personalizedTravelPackage.getDepartureDate()))
-					return "There is a hotel before the departure date of the package.";
-				if (component.getHotelDate().after(personalizedTravelPackage.getReturnDate()))
-					return "There is a hotel after the return date of the package.";
+				if (component.getHotelDate().before(packageDeparture))
+					return "There is an hotel which checkin date is before the departure date of the package.";
+				cal.setTime(component.getHotelDate());
+				cal.set(Calendar.HOUR_OF_DAY, 0);
+				cal.set(Calendar.MINUTE, 0);
+				cal.set(Calendar.SECOND, 0);
+				cal.set(Calendar.MILLISECOND, 0);
+				cal.add(Calendar.DATE, 1);
+				Date hotelCheckout = new Date(cal.getTimeInMillis());
+				if (hotelCheckout.after(packageReturn))
+					return "There is an hotel which checkout date is after the return date of the package.";
 				break;
 			case EXCURSION:
 				excursions.add(component);
-				if (component.getExcursionDateTime().before(personalizedTravelPackage.getDepartureDate()))
+				if (component.getExcursionDateTime().before(packageDeparture))
 					return "There is a excursion before the departure date of the package.";
-				if (component.getExcursionDateTime().after(personalizedTravelPackage.getReturnDate()))
+				if (component.getExcursionDateTime().after(packageReturn))
 					return "There is a excursion after the return date of the package.";
 				break;
 			}
 		}
+		
+		
 		if(flights.size() > 2) // more than a departure or return flight
 			return "more than a departure or return flight";
 		else if(flights.size() == 2){
@@ -178,11 +207,6 @@ public class PersonalizedTravelPackageHandler {
 			else
 				return "flights date equal, not possible!"; 				
 			
-			if(personalizedTravelPackage.getDepartureDate().after(new Date(departureFlight.getFlightDepartureDateTime().getTime())))
-				return "departure date after the date of the departure flight"; // dates mismatch
-		
-			if(personalizedTravelPackage.getReturnDate().before(new Date(returnFlight.getFlightArrivalDateTime().getTime())))
-				return "rerturn date before the date of the return fligh"; // dates mismatch
 			
 			if(!departureFlight.getFlightArrivalCity().equals(returnFlight.getFlightDepartureCity()))
 				return "flights cities mismatch"; // city mismatch, error!
