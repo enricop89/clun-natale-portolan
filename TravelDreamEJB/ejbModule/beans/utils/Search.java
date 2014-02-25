@@ -85,7 +85,7 @@ public class Search {
 		}
 		if(returnDate != null){
 			 for(int i = 0; i < list.size(); i++)
-				 if(list.get(i).getDepartureDate().compareTo(returnDate) != 0)
+				 if(list.get(i).getReturnDate().compareTo(returnDate) != 0)
 					 toRemove.add(i);	
 		}
 		if(name == null && departureDate == null && returnDate == null)
